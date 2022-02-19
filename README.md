@@ -6,44 +6,64 @@
 git clone https://github.com/TaiyoShiawase/Hanas-FE.git
 ```
 ### 2. Install the packages being used in this project
+
+expo-linear gradient
+react-navigation/native
+react-navigation/stack
+
+NOTE: When using npm use
 ```
-ENTER COMMAND HERE
+npm i
+```
+
+NOTE: When using yarn use
+```
+yarn 
 ```
 
 Initial Packages Installed: 
- - List initial packages installed here
 
-### 3. Create .env file and add the following:
+expo-linear gradient
+react-navigation/native
+react-navigation/stack
 
-```
-ENTER ENV VARIABLES HERE
-```
-
-### 4. Command to run server
+### 3. Command to run server
 
 ```
-ENTER COMMAND TO RUN APPLICATION HERE
+expo start
 ```
-### 5. To test application
+### 5. To test application using expo created server instance
 
 ```
-ENTER HERE HOW TO ACCESS APPLICATION
+
 ```
 Sample:
-> INSERT IMAGES IF ANY
+
+Result if there are no errors: (Expo application in your phone must emulate this screen upon success
+![image](https://user-images.githubusercontent.com/72636902/154790856-b2fb7b50-82a0-43b6-9221-57a6aff30205.png)
+
+VERY IMPORTANT NOTE: The PC or laptop running the virtual server and the emulated device(phone) must be connected on the same internet for all of this to work. 
+If you haven't connectedd booth device on the same network this is the error prompt:
+![image](https://user-images.githubusercontent.com/72636902/154790969-7547151e-51ee-4a9b-9c68-f3639be45ba7.png)
+
+
+
 
 
 # Setup EXPO in your mobile phones:
 
 ### 1. Install Expo in App Store
 
-_Link: PROVIDE LINKS HERE OR ANY REFERENCE_
+1. Go to Google Play Store and search for Expo Go
+![image](https://user-images.githubusercontent.com/72636902/154790766-e67ad30e-eb74-4fbd-ac21-4b2d300fbeaa.png)
 
-### 2. INSTRUCTION 2 
-```
-INSERT ANY COMMANDS OR ANY REFERENCES HERE
-```
-### 3. INSTRUCTION 3
+2. Open App
+![image](https://user-images.githubusercontent.com/72636902/154790801-3df7afad-6d26-4899-aefe-da0dff87993e.png)
 
-> INSERT ANY IMAGES OR ANY REFERENCES HERE
+3. Scan the QR code generated on your Metro Builder either from CLI or Web
 
+CLI:
+![image](https://user-images.githubusercontent.com/72636902/154790823-f22ef0b4-35b7-45a0-9d0e-634838d84276.png)
+
+WEB:
+![image](https://user-images.githubusercontent.com/72636902/154790835-5871edab-83b1-450a-bc90-e4a5cb4be546.png)
