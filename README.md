@@ -40,7 +40,7 @@ Result if there are no errors: (Expo application in your phone must emulate this
 ![image](https://user-images.githubusercontent.com/72636902/154790856-b2fb7b50-82a0-43b6-9221-57a6aff30205.png)
 
 VERY IMPORTANT NOTE: The PC or laptop running the virtual server and the emulated device(phone) must be connected on the same internet for all of this to work. 
-If you haven't connectedd booth device on the same network this is the error prompt:
+If you haven't connectedd both device on the same network this is the error prompt:
 
 ![image](https://user-images.githubusercontent.com/72636902/154790969-7547151e-51ee-4a9b-9c68-f3639be45ba7.png)
 
