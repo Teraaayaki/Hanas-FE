@@ -18,7 +18,7 @@ npm i
 
 NOTE: When using yarn use
 ```
-yarn 
+yarn add
 ```
 
 Initial Packages Installed: 
@@ -27,15 +27,32 @@ expo-linear gradient
 react-navigation/native
 react-navigation/stack
 
-### 3. Command to run server
+# Setup EXPO in your mobile phones:
+
+### 1. Install Expo in App Store
+
+1. Go to Google Play Store and search for Expo Go
+
+![image](https://user-images.githubusercontent.com/72636902/154790766-e67ad30e-eb74-4fbd-ac21-4b2d300fbeaa.png)
+
+2. Open App
+
+![image](https://user-images.githubusercontent.com/72636902/154790801-3df7afad-6d26-4899-aefe-da0dff87993e.png)
+
+3. Scan the QR code generated on your Metro Builder either from CLI or Web
+
+CLI:
+
+![image](https://user-images.githubusercontent.com/72636902/154790823-f22ef0b4-35b7-45a0-9d0e-634838d84276.png)
+
+WEB:
+
+![image](https://user-images.githubusercontent.com/72636902/154790835-5871edab-83b1-450a-bc90-e4a5cb4be546.png)
+
+### 4. Command to run server
 
 ```
 expo start
-```
-### 5. To test application using expo created server instance
-
-```
-
 ```
 Sample:
 
@@ -50,20 +67,4 @@ If you haven't connectedd booth device on the same network this is the error pro
 
 
 
-# Setup EXPO in your mobile phones:
 
-### 1. Install Expo in App Store
-
-1. Go to Google Play Store and search for Expo Go
-![image](https://user-images.githubusercontent.com/72636902/154790766-e67ad30e-eb74-4fbd-ac21-4b2d300fbeaa.png)
-
-2. Open App
-![image](https://user-images.githubusercontent.com/72636902/154790801-3df7afad-6d26-4899-aefe-da0dff87993e.png)
-
-3. Scan the QR code generated on your Metro Builder either from CLI or Web
-
-CLI:
-![image](https://user-images.githubusercontent.com/72636902/154790823-f22ef0b4-35b7-45a0-9d0e-634838d84276.png)
-
-WEB:
-![image](https://user-images.githubusercontent.com/72636902/154790835-5871edab-83b1-450a-bc90-e4a5cb4be546.png)
