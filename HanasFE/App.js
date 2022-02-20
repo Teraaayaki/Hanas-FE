@@ -4,88 +4,22 @@ import { StyleSheet, Text, Button, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.buttonText}>
-            Go to Profile
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-    </View>
-  );
-}
-
-function ProfileScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
-          <Text style={styles.buttonText}>
-            Go to Notifications
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.goBack} >
-        <TouchableOpacity  onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>
-            Go back
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-    </View>
-  );
-}
-
-function NotificationsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Text style={styles.buttonText}>
-          Go to Settings
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.goBack}>
-        <TouchableOpacity  onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>
-            Go back
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-    </View>
-  );
-}
-
-function SettingsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.goBack}>
-        <TouchableOpacity  onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>
-            Go back
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-    </View>
-  );
-}
+/* START FOR THE IMPORT FOR ALL THE SCREENS*/
+import Dashboard from '@components/dashboard';
+import Profile from '@components/profile';
+import LogIn from '@components/login';
+import Settings from '@components/settings';
+/* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 const Stack = createStackNavigator();
 
 function HanasStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen}/>
-      <Stack.Screen name="Notifications" component={NotificationsScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Dashboard" component={Dashboard}/>
+      <Stack.Screen name="LogIn" component={LogIn} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 }
