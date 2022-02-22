@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 /* START FOR THE IMPORT FOR ALL THE SCREENS*/
+import Landing from '@components/landing';
 import Dashboard from '@components/dashboard';
 import Profile from '@components/profile';
 import LogIn from '@components/login';
@@ -15,7 +16,11 @@ const Stack = createStackNavigator();
 
 function HanasStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator 
+      screenOptions={{
+        headerShown: false
+      }}>
+      <Stack.Screen name="Landing" component={Landing}/>
       <Stack.Screen name="Dashboard" component={Dashboard}/>
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="Profile" component={Profile} />

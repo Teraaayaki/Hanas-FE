@@ -12,6 +12,7 @@
           // Note: You can make a lot of aliases in here
           "alias": {
             "@components": "./assets/components",
+            "@images": "./assets/resources/images"
           }
         }
       ]
