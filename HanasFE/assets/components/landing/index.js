@@ -13,20 +13,20 @@ export default function Landing(props) {
     <View style={styles.container}>
        <Image style={styles.imageContainer} source={require('../../resources/images/hanasLogoSquared.png')}/>
       <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Dashboard')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
             <Text style={styles.hanasLightText}>
                 REGISTER
             </Text>
         </TouchableOpacity>
       </LinearGradient>
       <LinearGradient colors={['#e69fb4', '#ff5e84']} style={styles.linearGradient }>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Dashboard')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
             <Text style={styles.hanasLightText}>
                 LOGIN
             </Text>
         </TouchableOpacity>
       </LinearGradient>
-      <Text style={[styles.hanasDarkText,{ marginTop: 15, fontWeight: 'bold'}]}>
+      <Text style={[styles.hanasDarkText,{ marginTop: 15, fontWeight: 'bold'}]} onPress={() => props.navigation.navigate('Dashboard')}>
           Skip for now
       </Text>
     </View>
