@@ -7,7 +7,7 @@ import styles from '../landing/style';
 import logo from '@images/hanasLogoSquared.png';
 import { Font } from 'expo'
 
-export default function Landing(props) {
+export default function Landing(props)  {
   
   return (
     <View style={styles.container}>
@@ -20,7 +20,7 @@ export default function Landing(props) {
         </TouchableOpacity>
       </LinearGradient>
       <LinearGradient colors={['#e69fb4', '#ff5e84']} style={styles.linearGradient }>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('LogIn')}>
             <Text style={styles.hanasLightText}>
                 LOGIN
             </Text>

@@ -1,27 +1,70 @@
-import * as React from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, Text, Button, View, TouchableOpacity } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import * as React from "react";
+import { LinearGradient } from "expo-linear-gradient";
+import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
-import styles from '../dashboard/style';
+import styles from "../login/style";
+import { SafeAreaView } from "react-navigation";
+import style from "../login/style";
 
-class LogIn extends React.Component{    
-    render(){
+export default function LogIn(props) {
+  return (
+    <SafeAreaView style={styles.body}>
+      <View style={styles.content}>
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={require("@images/hanasLogoSquared.png")}
+          />
+        </View>
+        <View style={styles.formContainer}>
+          <View style={styles.labelContainer}>
+            <Text style={styles.label}>Mobile Number / Email</Text>
+          </View>
+          <TextInput
+            style={style.input}
+            autoComplete={"email"}
+            keyboardType={"email-address"}
+            textContentType={"emailAddress"}
+            placeholder={"0947xxxxxxx / johndoe@gmail.com"}
+            placeholderTextColor={"#AAA"}
+          />
 
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
-                    <Text style={styles.buttonText}>
-                    Go to Settings
-                    </Text>
-                </TouchableOpacity>
-                </LinearGradient>
-            </View>
-        );
+          <View style={styles.labelContainer}>
+            <Text style={styles.label}>Password</Text>
+          </View>
+          <TextInput
+            style={style.input}
+            secureTextEntry={true}
+            autoComplete={"password"}
+            placeholder={"••••••••"}
+          />
 
-    }
+          <View style={styles.width100}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Dashboard")}
+            >
+              <LinearGradient
+                colors={["#e69fb4", "#ff5e84"]}
+                style={styles.hanasPinkButton}
+              >
+                <Text style={[styles.white, styles.f13]}>LOGIN</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.rowContainer, styles.pt3]}>
+            <Text style={[styles.secondary, styles.f13, styles.pr2]}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Register")}
+            >
+              <Text style={[styles.pink, styles.f13]}>Register here</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 }
-
-export default LogIn;
-
