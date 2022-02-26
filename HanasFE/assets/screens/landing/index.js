@@ -4,14 +4,12 @@ import {Image, Text, View, ImageBackground, TouchableOpacity } from "react-nativ
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 import styles from '../landing/style';
-import logo from '@images/hanasLogoSquared.png';
-import { Font } from 'expo'
 
 export default function Landing(props) {
   
   return (
     <View style={styles.container}>
-       <Image style={styles.imageContainer} source={require('../../resources/images/hanasLogoSquared.png')}/>
+       <Image style={styles.imageContainer} source={require('@images/hanasLogoSquared.png')}/>
       <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
         <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
             <Text style={styles.hanasLightText}>
@@ -20,7 +18,7 @@ export default function Landing(props) {
         </TouchableOpacity>
       </LinearGradient>
       <LinearGradient colors={['#e69fb4', '#ff5e84']} style={styles.linearGradient }>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('LogIn')}>
             <Text style={styles.hanasLightText}>
                 LOGIN
             </Text>

@@ -5,11 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 /* START FOR THE IMPORT FOR ALL THE SCREENS*/
-import Landing from '@components/landing';
-import Dashboard from '@components/dashboard';
-import Profile from '@components/profile';
-import LogIn from '@components/login';
-import Settings from '@components/settings';
+import Landing from '@screens/landing';
+import Dashboard from '@screens/dashboard';
+import Profile from '@screens/profile';
+import LogIn from '@screens/login';
+import Settings from '@screens/settings';
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 const Stack = createStackNavigator();
