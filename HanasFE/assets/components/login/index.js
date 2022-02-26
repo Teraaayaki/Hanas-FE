@@ -1,14 +1,6 @@
 import * as React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  TextInput,
-  Text,
-  Image,
-  Button,
-  View,
-  TouchableOpacity,
-  Pressable,
-} from "react-native";
+import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import styles from "../login/style";
@@ -18,7 +10,7 @@ import style from "../login/style";
 export default function LogIn(props) {
   return (
     <SafeAreaView style={styles.body}>
-      <View style={styles.container}>
+      <View style={styles.content}>
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
@@ -41,13 +33,36 @@ export default function LogIn(props) {
           <View style={styles.labelContainer}>
             <Text style={styles.label}>Password</Text>
           </View>
-          <TextInput style={style.input} />
-          <Pressable
-            style={styles.hanasPinkButton}
-            onPress={() => props.navigation.navigate("LogIn")}
-          >
-            <Text style={style.white}>LOGIN</Text>
-          </Pressable>
+          <TextInput
+            style={style.input}
+            secureTextEntry={true}
+            autoComplete={"password"}
+            placeholder={"••••••••"}
+          />
+
+          <View style={styles.width100}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Dashboard")}
+            >
+              <LinearGradient
+                colors={["#e69fb4", "#ff5e84"]}
+                style={styles.hanasPinkButton}
+              >
+                <Text style={[styles.white, styles.f13]}>LOGIN</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.rowContainer, styles.pt3]}>
+            <Text style={[styles.secondary, styles.f13, styles.pr2]}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Register")}
+            >
+              <Text style={[styles.pink, styles.f13]}>Register here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </SafeAreaView>
