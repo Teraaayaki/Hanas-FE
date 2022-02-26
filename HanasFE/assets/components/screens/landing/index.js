@@ -3,7 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {Image, Text, View, ImageBackground, TouchableOpacity } from "react-native";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
-import styles from '../landing/style';
+import styles from './style';
 
 export default function Landing(props) {
   
