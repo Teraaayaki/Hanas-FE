@@ -3,9 +3,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
-import styles from "../login/style";
+import styles from "./style";
 import { SafeAreaView } from "react-navigation";
-import style from "../login/style";
 
 export default function LogIn(props) {
   return (
@@ -22,7 +21,7 @@ export default function LogIn(props) {
             <Text style={styles.label}>Mobile Number / Email</Text>
           </View>
           <TextInput
-            style={style.input}
+            style={styles.input}
             autoComplete={"email"}
             keyboardType={"email-address"}
             textContentType={"emailAddress"}
@@ -34,7 +33,7 @@ export default function LogIn(props) {
             <Text style={styles.label}>Password</Text>
           </View>
           <TextInput
-            style={style.input}
+            style={styles.input}
             secureTextEntry={true}
             autoComplete={"password"}
             placeholder={"••••••••"}

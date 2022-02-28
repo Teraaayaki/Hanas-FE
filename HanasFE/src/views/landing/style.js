@@ -5,7 +5,8 @@ export default StyleSheet.create({
     container: {
         flex: 1, 
         alignItems: 'center', 
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: "#E5E5E5"
     },
     hanasLightText: {
         color: '#f6f3e4',

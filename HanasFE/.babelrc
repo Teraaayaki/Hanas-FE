@@ -11,7 +11,7 @@
           // That located inside src folder.
           // Note: You can make a lot of aliases in here
           "alias": {
-            "@components": "./assets/components",
+            "@screens": "./src/views",
             "@images": "./assets/resources/images"
           }
         }
