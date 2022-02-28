@@ -11,8 +11,8 @@ const Landing = ({ navigation }) => {
         style={styles.imageContainer}
         source={require("@images/hanasLogoSquared.png")}
       />
-      <Button title="REGISTER" />
-      <Button title="LOGIN" />
+      <Button onPress={() => navigation.navigate("Profile")} title="REGISTER" />
+      <Button onPress={() => navigation.navigate("Login")} title="LOGIN" />
       <Text
         style={[styles.hanasDarkText, { marginTop: 15, fontWeight: "bold" }]}
         onPress={() => navigation.navigate("Dashboard")}

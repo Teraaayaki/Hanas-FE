@@ -4,9 +4,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@config";
 import styles from "./styles";
 
-export default ({ title }) => {
+export default ({ onPress, title }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <LinearGradient
         colors={[colors.primary, colors.secondary]}
         style={styles.linearGradient}
