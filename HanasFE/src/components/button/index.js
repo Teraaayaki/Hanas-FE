@@ -1,11 +1,12 @@
-import { TouchableOpacity, LinearGradient, Text } from "react-native";
 import React from "react";
+import { TouchableOpacity, Text } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@config";
 import styles from "./styles";
 
-export default ({ handleNavigate, title }) => {
+export default ({ title }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate({ handleNavigate })}>
+    <TouchableOpacity>
       <LinearGradient
         colors={[colors.primary, colors.secondary]}
         style={styles.linearGradient}

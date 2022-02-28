@@ -1,15 +1,7 @@
 import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import {
-  Image,
-  Text,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { Image, Text, View } from "react-native";
 
 import Button from "@components/button";
-import { colors } from "@config";
 import styles from "./style";
 
 const Landing = ({ navigation }) => {
@@ -19,8 +11,8 @@ const Landing = ({ navigation }) => {
         style={styles.imageContainer}
         source={require("@images/hanasLogoSquared.png")}
       />
-      <Button handleNavigate="Profile" title="REGISTER" />
-      <Button handleNavigate="Login" title="LOGIN" />
+      <Button title="REGISTER" />
+      <Button title="LOGIN" />
       <Text
         style={[styles.hanasDarkText, { marginTop: 15, fontWeight: "bold" }]}
         onPress={() => navigation.navigate("Dashboard")}
