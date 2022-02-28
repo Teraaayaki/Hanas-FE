@@ -8,12 +8,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#E5E5E5",
   },
-  hanasLightText: {
-    color: "#f6f3e4",
-  },
-  hanasDarkText: {
-    color: "#403f3c",
-  },
   imageContainer: {
     marginBottom: 100,
     height: 177,

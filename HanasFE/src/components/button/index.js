@@ -11,7 +11,7 @@ export default ({ onPress, title }) => {
         colors={[colors.primary, colors.secondary]}
         style={styles.linearGradient}
       >
-        <Text style={colors.hanasLightText}>{title}</Text>
+        <Text style={{ color: colors.white }}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );

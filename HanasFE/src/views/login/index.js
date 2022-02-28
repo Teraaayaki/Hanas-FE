@@ -2,6 +2,7 @@ import * as React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import Button from "@components/button";
 
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
@@ -39,8 +40,8 @@ export default function LogIn(props) {
             placeholder={"••••••••"}
           />
 
-          <View style={styles.width100}>
-            <TouchableOpacity
+          {/* <View style={styles.width100}> */}
+          {/* <TouchableOpacity
               onPress={() => props.navigation.navigate("Dashboard")}
             >
               <LinearGradient
@@ -49,8 +50,9 @@ export default function LogIn(props) {
               >
                 <Text style={[styles.white, styles.f13]}>LOGIN</Text>
               </LinearGradient>
-            </TouchableOpacity>
-          </View>
+            </TouchableOpacity> */}
+          <Button title="LOGIN" />
+          {/* </View> */}
 
           <View style={[styles.rowContainer, styles.pt3]}>
             <Text style={[styles.secondary, styles.f13, styles.pr2]}>
