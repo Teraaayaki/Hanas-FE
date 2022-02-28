@@ -12,7 +12,8 @@
         // Note: You can make a lot of aliases in here
         "alias": {
           "@screens": "./src/views",
-          "@images": "./assets/resources/images"
+          "@images": "./assets/resources/images",
+          "@routes": "./src/routes"
         }
       }
     ]

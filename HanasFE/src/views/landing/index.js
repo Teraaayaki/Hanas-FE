@@ -1,33 +1,47 @@
-import React from "react"
-import { LinearGradient } from 'expo-linear-gradient';
-import {Image, Text, View, ImageBackground, TouchableOpacity } from "react-native";
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
+import {
+  Image,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 
-import styles from './style';
-import { Font } from 'expo'
+import color from "../../config/colors";
+import styles from "./style";
 
-export default function Landing(props)  {
-  
+const Landing = ({ navigation }) => {
   return (
     <View style={styles.container}>
-       <Image style={styles.imageContainer} source={require('@images/hanasLogoSquared.png')}/>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
-            <Text style={styles.hanasLightText}>
-                REGISTER
-            </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']} style={styles.linearGradient }>
-        <TouchableOpacity onPress={() => props.navigation.navigate('LogIn')}>
-            <Text style={styles.hanasLightText}>
-                LOGIN
-            </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-      <Text style={[styles.hanasDarkText,{ marginTop: 15, fontWeight: 'bold'}]} onPress={() => props.navigation.navigate('Dashboard')}>
-          Skip for now
+      <Image
+        style={styles.imageContainer}
+        source={require("@images/hanasLogoSquared.png")}
+      />
+      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <LinearGradient
+          colors={[color.primary, color.secondary]}
+          style={styles.linearGradient}
+        >
+          <Text style={styles.hanasLightText}>REGISTER</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("LogIn")}>
+        <LinearGradient
+          colors={[color.primary, color.secondary]}
+          style={styles.linearGradient}
+        >
+          <Text style={styles.hanasLightText}>LOGIN</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+      <Text
+        style={[styles.hanasDarkText, { marginTop: 15, fontWeight: "bold" }]}
+        onPress={() => navigation.navigate("Dashboard")}
+      >
+        Skip for now
       </Text>
     </View>
-  )
-}
+  );
+};
+
+export default Landing;
