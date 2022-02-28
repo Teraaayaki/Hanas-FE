@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import color from "../../config/colors";
+import { colors } from "@config";
 import styles from "./style";
 
 const Landing = ({ navigation }) => {
@@ -20,7 +20,7 @@ const Landing = ({ navigation }) => {
       />
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <LinearGradient
-          colors={[color.primary, color.secondary]}
+          colors={[colors.primary, colors.secondary]}
           style={styles.linearGradient}
         >
           <Text style={styles.hanasLightText}>REGISTER</Text>
@@ -28,7 +28,7 @@ const Landing = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("LogIn")}>
         <LinearGradient
-          colors={[color.primary, color.secondary]}
+          colors={[colors.primary, colors.secondary]}
           style={styles.linearGradient}
         >
           <Text style={styles.hanasLightText}>LOGIN</Text>

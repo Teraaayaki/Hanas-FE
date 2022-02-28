@@ -13,7 +13,8 @@
         "alias": {
           "@screens": "./src/views",
           "@images": "./assets/resources/images",
-          "@routes": "./src/routes"
+          "@routes": "./src/routes",
+          "@config": "./src/config"
         }
       }
     ]
