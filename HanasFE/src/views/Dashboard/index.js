@@ -1,7 +1,5 @@
 import * as React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import styles from "./style";
+import { View } from "react-native";
 import Button from "@components/Button";
 
 const Dashboard = ({ navigation }) => {
