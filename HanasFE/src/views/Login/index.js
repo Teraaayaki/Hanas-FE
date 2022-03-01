@@ -37,7 +37,7 @@ export default function Login({ navigation }) {
             placeholder={"••••••••"}
           />
           <Button
-            onPress={() => navigation.navigate("Landing")}
+            onPress={() => navigation.navigate("Dashboard")}
             title="LOGIN"
           />
 
