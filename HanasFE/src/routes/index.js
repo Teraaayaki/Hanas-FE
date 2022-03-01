@@ -17,6 +17,7 @@ export default HanasStack = () => {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Landing"
     >
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
