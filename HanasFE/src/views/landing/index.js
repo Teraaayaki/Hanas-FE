@@ -1,33 +1,27 @@
-import React from "react"
-import { LinearGradient } from 'expo-linear-gradient';
-import {Image, Text, View, ImageBackground, TouchableOpacity } from "react-native";
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import React from "react";
+import { Image, Text, View } from "react-native";
 
-import styles from './style';
-import { Font } from 'expo'
+import Button from "@components/button";
+import styles from "./style";
+import { colors } from "@constants";
 
-export default function Landing(props)  {
-  
+const Landing = ({ navigation }) => {
   return (
     <View style={styles.container}>
-       <Image style={styles.imageContainer} source={require('@images/hanasLogoSquared.png')}/>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']}  style={styles.linearGradient}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
-            <Text style={styles.hanasLightText}>
-                REGISTER
-            </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-      <LinearGradient colors={['#e69fb4', '#ff5e84']} style={styles.linearGradient }>
-        <TouchableOpacity onPress={() => props.navigation.navigate('LogIn')}>
-            <Text style={styles.hanasLightText}>
-                LOGIN
-            </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-      <Text style={[styles.hanasDarkText,{ marginTop: 15, fontWeight: 'bold'}]} onPress={() => props.navigation.navigate('Dashboard')}>
-          Skip for now
+      <Image
+        style={styles.imageContainer}
+        source={require("@images/hanasLogoSquared.png")}
+      />
+      <Button onPress={() => navigation.navigate("Profile")} title="REGISTER" />
+      <Button onPress={() => navigation.navigate("Login")} title="LOGIN" />
+      <Text
+        style={[colors.hanasDarkText, styles.text]}
+        onPress={() => navigation.navigate("Dashboard")}
+      >
+        Skip for now
       </Text>
     </View>
-  )
-}
+  );
+};
+
+export default Landing;

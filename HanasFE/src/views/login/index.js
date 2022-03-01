@@ -2,11 +2,12 @@ import * as React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import Button from "@components/button";
 
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
 
-export default function LogIn(props) {
+export default function Login({ navigation }) {
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.content}>
@@ -39,26 +40,16 @@ export default function LogIn(props) {
             placeholder={"••••••••"}
           />
 
-          <View style={styles.width100}>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("Dashboard")}
-            >
-              <LinearGradient
-                colors={["#e69fb4", "#ff5e84"]}
-                style={styles.hanasPinkButton}
-              >
-                <Text style={[styles.white, styles.f13]}>LOGIN</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
+          <Button
+            onPress={() => navigation.navigate("Landing")}
+            title="LOGIN"
+          />
 
           <View style={[styles.rowContainer, styles.pt3]}>
             <Text style={[styles.secondary, styles.f13, styles.pr2]}>
               Don't have an account?
             </Text>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("Register")}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
               <Text style={[styles.pink, styles.f13]}>Register here</Text>
             </TouchableOpacity>
           </View>
