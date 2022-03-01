@@ -13,4 +13,8 @@ export default StyleSheet.create({
     height: 177,
     width: 347,
   },
+  text: {
+    marginTop: 15,
+    fontWeight: "bold",
+  },
 });
