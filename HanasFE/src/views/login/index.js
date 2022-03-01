@@ -1,11 +1,9 @@
 import * as React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import Button from "@components/button";
-import TextLink from "@components/textlink";
-import styles from "./style";
+import { TextInput, Text, Image, View } from "react-native";
+import Button from "@components/Button";
+import TextLink from "@components/TextLink";
 import { SafeAreaView } from "react-navigation";
+import styles from "./style";
 
 export default function Login({ navigation }) {
   return (

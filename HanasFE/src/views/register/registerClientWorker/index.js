@@ -1,9 +1,9 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-import Button from "@components/button";
-import TextLink from "@components/textlink";
-import styles from "@screens/landing/style";
+import Button from "@components/Button";
+import TextLink from "@components/TextLink";
+import styles from "@screens/Landing/style";
 
 const Landing = ({ navigation }) => {
   return (

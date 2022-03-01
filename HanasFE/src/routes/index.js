@@ -2,12 +2,12 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 /* START FOR THE IMPORT FOR ALL THE SCREENS*/
-import Landing from "@screens/landing";
-import Dashboard from "@screens/dashboard";
-import Profile from "@screens/profile";
-import Login from "@screens/login";
-import Settings from "@screens/settings";
-import RegisterClientWorker from "@screens/register/registerClientWorker";
+import Landing from "@screens/Landing";
+import Dashboard from "@screens/Dashboard";
+import Profile from "@screens/Profile";
+import Login from "@screens/Login";
+import Settings from "@screens/Settings";
+import RegisterClientWorker from "@screens/register/RegisterClientWorker";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 const Stack = createStackNavigator();

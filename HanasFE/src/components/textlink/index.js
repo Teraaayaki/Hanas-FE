@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import styles from "@screens/login/style";
+import styles from "@screens/Login/style";
 import React from "react";
 
 // @Props

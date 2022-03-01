@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-import Button from "@components/button";
+import Button from "@components/Button";
 import styles from "./style";
 import { colors } from "@constants";
 
