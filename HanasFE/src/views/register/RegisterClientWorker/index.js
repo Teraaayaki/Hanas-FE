@@ -13,9 +13,12 @@ const Landing = ({ navigation }) => {
         source={require("@images/hanasLogoSquared.png")}
       />
       <Text style={styles.text}>ARE YOU A?</Text>
-      <Button onPress={() => navigation.navigate("Profile")} title="CLIENT" />
       <Button
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("RegisterNumber")}
+        title="CLIENT"
+      />
+      <Button
+        onPress={() => navigation.navigate("RegisterNumber")}
         title="SKILLED WORKER"
       />
       <TextLink
