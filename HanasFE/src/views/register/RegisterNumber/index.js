@@ -1,14 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import * as React from "react";
+import { LinearGradient } from "expo-linear-gradient";
+import { Text, View, TouchableOpacity } from "react-native";
 
-const index = () => {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  );
-};
+import styles from "@screens/Profile/style";
 
-export default index;
+class Settings extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <LinearGradient colors={["#e69fb4", "#ff5e84"]} style={styles.goBack}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <Text style={styles.buttonText}>Go back</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
+    );
+  }
+}
 
-const styles = StyleSheet.create({});
+export default Settings;
