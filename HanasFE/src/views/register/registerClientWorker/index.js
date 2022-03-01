@@ -1,0 +1,33 @@
+import React from "react";
+import { Image, Text, View } from "react-native";
+
+import Button from "@components/button";
+import TextLink from "@components/textlink";
+import styles from "@screens/landing/style";
+
+const Landing = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.imageContainer}
+        source={require("@images/hanasLogoSquared.png")}
+      />
+      <Text style={styles.text}>ARE YOU A?</Text>
+      <Button onPress={() => navigation.navigate("Profile")} title="CLIENT" />
+      <Button
+        onPress={() => navigation.navigate("Login")}
+        title="SKILLED WORKER"
+      />
+      <TextLink
+        title="Already have an account?"
+        linkTitle="Login Here"
+        onPress={() => navigation.navigate("Login")}
+      />
+      <Text style={styles.text} onPress={() => navigation.navigate("Landing")}>
+        Cancel
+      </Text>
+    </View>
+  );
+};
+
+export default Landing;

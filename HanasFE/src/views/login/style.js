@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import { colors } from "@constants";
 
 export default StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: "#E5E5E5",
+    backgroundColor: colors.backgroundColor,
   },
 
   content: {

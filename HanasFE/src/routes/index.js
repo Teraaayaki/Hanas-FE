@@ -7,6 +7,7 @@ import Dashboard from "@screens/dashboard";
 import Profile from "@screens/profile";
 import Login from "@screens/login";
 import Settings from "@screens/settings";
+import RegisterClientWorker from "@screens/register/registerClientWorker";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 const Stack = createStackNavigator();
@@ -24,6 +25,11 @@ export default HanasStack = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Settings" component={Settings} />
+
+      <Stack.Screen
+        name="RegisterClientWorker"
+        component={RegisterClientWorker}
+      />
     </Stack.Navigator>
   );
 };

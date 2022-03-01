@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 import { Font } from "expo";
+import { colors } from "@constants";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#E5E5E5",
+    backgroundColor: colors.backgroundColor,
   },
   imageContainer: {
     marginBottom: 100,
@@ -16,5 +17,6 @@ export default StyleSheet.create({
   text: {
     marginTop: 15,
     fontWeight: "bold",
+    color: colors.hanasDarkText,
   },
 });
