@@ -23,9 +23,6 @@ const Landing = ({ navigation }) => {
         linkTitle="Login Here"
         onPress={() => navigation.navigate("Login")}
       />
-      <Text style={styles.text} onPress={() => navigation.navigate("Landing")}>
-        Cancel
-      </Text>
     </View>
   );
 };
