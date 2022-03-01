@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "@config";
+import { colors } from "@constants";
 import styles from "./styles";
 
 export default ({ onPress, title }) => {

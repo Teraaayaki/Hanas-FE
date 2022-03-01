@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, Button, View, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
-import styles from "../profile/style";
+import styles from "./style";
 
 class Profile extends React.Component {
   render() {
