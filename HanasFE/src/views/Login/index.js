@@ -1,11 +1,9 @@
 import * as React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { TextInput, Text, Image, View, TouchableOpacity } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import Button from "@components/button";
-
-import styles from "./style";
+import { TextInput, Text, Image, View } from "react-native";
+import Button from "@components/Button";
+import TextLink from "@components/TextLink";
 import { SafeAreaView } from "react-navigation";
+import styles from "./style";
 
 export default function Login({ navigation }) {
   return (
@@ -29,7 +27,6 @@ export default function Login({ navigation }) {
             placeholder={"0947xxxxxxx / johndoe@gmail.com"}
             placeholderTextColor={"#AAA"}
           />
-
           <View style={styles.labelContainer}>
             <Text style={styles.label}>Password</Text>
           </View>
@@ -39,20 +36,16 @@ export default function Login({ navigation }) {
             autoComplete={"password"}
             placeholder={"••••••••"}
           />
-
           <Button
-            onPress={() => navigation.navigate("Landing")}
+            onPress={() => navigation.navigate("Dashboard")}
             title="LOGIN"
           />
 
-          <View style={[styles.rowContainer, styles.pt3]}>
-            <Text style={[styles.secondary, styles.f13, styles.pr2]}>
-              Don't have an account?
-            </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-              <Text style={[styles.pink, styles.f13]}>Register here</Text>
-            </TouchableOpacity>
-          </View>
+          <TextLink
+            title="Don't have an account?"
+            linkTitle="Click Here"
+            onPress={() => navigation.navigate("RegisterClientWorker")}
+          />
         </View>
       </View>
     </SafeAreaView>

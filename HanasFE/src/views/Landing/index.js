@@ -1,9 +1,8 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-import Button from "@components/button";
+import Button from "@components/Button";
 import styles from "./style";
-import { colors } from "@constants";
 
 const Landing = ({ navigation }) => {
   return (
@@ -12,10 +11,13 @@ const Landing = ({ navigation }) => {
         style={styles.imageContainer}
         source={require("@images/hanasLogoSquared.png")}
       />
-      <Button onPress={() => navigation.navigate("Profile")} title="REGISTER" />
+      <Button
+        onPress={() => navigation.navigate("RegisterClientWorker")}
+        title="REGISTER"
+      />
       <Button onPress={() => navigation.navigate("Login")} title="LOGIN" />
       <Text
-        style={[colors.hanasDarkText, styles.text]}
+        style={styles.text}
         onPress={() => navigation.navigate("Dashboard")}
       >
         Skip for now

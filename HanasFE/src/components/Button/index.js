@@ -4,6 +4,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@constants";
 import styles from "./styles";
 
+// @Props
+// OnPress (Callback) - handle onPress prop
+// Title (String) - display text
 export default ({ onPress, title }) => {
   return (
     <TouchableOpacity onPress={onPress}>
