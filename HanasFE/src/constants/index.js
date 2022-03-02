@@ -1,4 +1,14 @@
-export const colors = {
+
+import { StyleSheet } from "react-native";
+
+const button = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    marginTop: "30%",
+  }
+});
+
+const colors = {
   primary: "#e69fb4",
   secondary: "#ff5e84",
   white: "#FFFFFF",
@@ -7,3 +17,5 @@ export const colors = {
   hanasDarkText: "#403f3c",
   backgroundColor: "#E5E5E5",
 };
+
+export {colors, button};
