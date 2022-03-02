@@ -33,7 +33,7 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    height: 177,
+    height: "50%",
     width: "130%",
   },
   
