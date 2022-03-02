@@ -1,15 +1,23 @@
 import { StyleSheet } from "react-native";
+import { colors } from "@constants";
+import { containerFlex } from "@constants";
+import { fontSize } from "@constants";
 
 export default StyleSheet.create({
-  body: {
+  //-------------Reusable Containers-----------------
+  screen: {
     flex: 1,
+  },
+
+  body: {
+    flex: containerFlex.body,
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: "#E5E5E5",
+    backgroundColor: colors.backgroundColor,
   },
 
   content: {
-    flex: 0.65,
+    flex: containerFlex.preLogin,
     flexDirection: "column",
   },
 
@@ -19,11 +27,6 @@ export default StyleSheet.create({
     flex: 0.4,
     flexDirection: "column-reverse",
     alignItems: "center",
-  },
-
-  logo: {
-    height: 177,
-    width: "130%",
   },
 
   //----------------------Form---------------------------
@@ -38,59 +41,18 @@ export default StyleSheet.create({
     padding: 5,
   },
 
-  label: {
-    fontFamily: "Roboto",
-    fontWeight: "700",
-    color: "#403f3c",
-    fontSize: 15,
+  dark: {
+    color: colors.dark,
   },
 
-  input: {
-    height: 46,
-    width: "100%",
-    marginTop: 7,
-    marginBottom: 18,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 5,
-    backgroundColor: "#FFF",
-    color: "#403f3c",
-    fontSize: 13,
-    justifyContent: "center",
-  },
-
-  //-------------------Login Button-------------------------
-  hanasPinkButton: {
-    marginTop: 20,
-    padding: 5,
-    width: "100%",
-    height: 52,
-    alignItems: "center",
-    textAlignVertical: "center",
-    justifyContent: "center",
-    borderRadius: 15,
+  secondary: {
+    color: colors.secondary,
   },
 
   //-------------------Reusables-----------------------
 
   rowContainer: {
     flexDirection: "row",
-  },
-
-  bgColor: {
-    color: "#f6f3e4",
-  },
-  secondary: {
-    color: "#403F3C",
-  },
-  dark: {
-    color: "#403f3c",
-  },
-  pink: {
-    color: "#ff5e84",
-  },
-  white: {
-    color: "#FFFFFF",
   },
 
   f13: {
@@ -105,7 +67,8 @@ export default StyleSheet.create({
     paddingRight: 10,
   },
 
-  width100: {
+  buttonContainer: {
     width: "100%",
+    marginTop: 20,
   },
 });

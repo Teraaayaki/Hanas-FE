@@ -15,7 +15,7 @@ const Landing = ({ navigation }) => {
       <Button onPress={() => navigation.navigate("Profile")} title="REGISTER" />
       <Button onPress={() => navigation.navigate("Login")} title="LOGIN" />
       <Text
-        style={[colors.hanasDarkText, styles.text]}
+        style={styles.text}
         onPress={() => navigation.navigate("Dashboard")}
       >
         Skip for now

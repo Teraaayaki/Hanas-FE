@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Font } from "expo";
+import { colors } from "@constants";
 
 export default StyleSheet.create({
   container: {
@@ -14,6 +15,7 @@ export default StyleSheet.create({
     width: 347,
   },
   text: {
+    color: colors.hanasDarkText,
     marginTop: 15,
     fontWeight: "bold",
   },
