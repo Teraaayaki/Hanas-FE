@@ -1,8 +1,12 @@
 import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@constants";
 import styles from "./styles";
+
+// Note:
+// To implement a dynamically sized button,
+// enclose this button in a dynamically sized <View>
 
 // @Props
 // OnPress (Callback) - handle onPress prop
@@ -14,7 +18,7 @@ export default ({ onPress, title }) => {
         colors={[colors.primary, colors.secondary]}
         style={styles.linearGradient}
       >
-        <Text style={{ color: colors.white }}>{title}</Text>
+        <Text style={styles.white}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );

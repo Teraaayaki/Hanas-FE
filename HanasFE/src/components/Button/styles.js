@@ -1,14 +1,18 @@
 import { StyleSheet } from "react-native";
+import { colors } from "@constants";
 
 export default StyleSheet.create({
   linearGradient: {
-    marginTop: 20,
     padding: 5,
-    width: 250,
-    height: 50,
+    width: "100%",
+    height: 52,
     alignItems: "center",
     textAlignVertical: "center",
     justifyContent: "center",
     borderRadius: 15,
+  },
+
+  white: {
+    color: colors.white,
   },
 });

@@ -15,6 +15,7 @@ export default StyleSheet.create({
     width: 347,
   },
   text: {
+    color: colors.hanasDarkText,
     marginTop: 15,
     fontWeight: "bold",
     color: colors.hanasDarkText,

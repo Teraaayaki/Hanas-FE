@@ -1,53 +1,49 @@
 import * as React from "react";
-import { TextInput, Text, Image, View } from "react-native";
-import Button from "@components/Button";
-import TextLink from "@components/TextLink";
+import { Text, View, KeyboardAvoidingView } from "react-native";
+import Button from "@components/button";
+import BigLogo from "@components/logo/big";
+import AccountField from "@components/form/accountField";
+import PasswordField from "@components/form/passwordField";
+import Label from "@components/form/label";
+import TouchableText from "@components/touchableText";
+
+import styles from "./style";
 import { SafeAreaView } from "react-navigation";
 import styles from "./style";
 
 export default function Login({ navigation }) {
   return (
-    <SafeAreaView style={styles.body}>
-      <View style={styles.content}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={require("@images/hanasLogoSquared.png")}
-          />
-        </View>
-        <View style={styles.formContainer}>
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}>Mobile Number / Email</Text>
+    <SafeAreaView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.body}>
+        <View style={styles.content}>
+          <View style={styles.logoContainer}>
+            <BigLogo />
           </View>
-          <TextInput
-            style={styles.input}
-            autoComplete={"email"}
-            keyboardType={"email-address"}
-            textContentType={"emailAddress"}
-            placeholder={"0947xxxxxxx / johndoe@gmail.com"}
-            placeholderTextColor={"#AAA"}
-          />
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}>Password</Text>
-          </View>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            autoComplete={"password"}
-            placeholder={"••••••••"}
-          />
-          <Button
-            onPress={() => navigation.navigate("Dashboard")}
-            title="LOGIN"
-          />
+          <View style={styles.formContainer}>
+            <Label title="Mobile Number / Email" />
+            <AccountField />
 
-          <TextLink
-            title="Don't have an account?"
-            linkTitle="Click Here"
-            onPress={() => navigation.navigate("RegisterClientWorker")}
-          />
+            <Label title="Password" />
+            <PasswordField />
+            <View style={styles.buttonContainer}>
+              <Button
+                onPress={() => navigation.navigate("Dashboard")}
+                title="LOGIN"
+              />
+            </View>
+
+            <View style={[styles.rowContainer, styles.pt3]}>
+              <Text style={[styles.dark, styles.f13, styles.pr2]}>
+                Don't have an account?
+              </Text>
+              <TouchableText
+                text="Register here"
+                onPress={() => navigation.navigate("Landing")}
+              />
+            </View>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
