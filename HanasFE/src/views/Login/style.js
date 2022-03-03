@@ -24,7 +24,7 @@ export default StyleSheet.create({
   //--------------------Logo---------------------
 
   logoContainer: {
-    flex: 0.4,
+    flex: 4,
     flexDirection: "column-reverse",
     alignItems: "center",
   },
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   //----------------------Form---------------------------
 
   formContainer: {
-    flex: 0.35,
+    flex: 6,
     alignItems: "center",
   },
 
@@ -55,8 +55,8 @@ export default StyleSheet.create({
     flexDirection: "row",
   },
 
-  f13: {
-    fontSize: 13,
+  p: {
+    fontSize: fontSize.p,
   },
 
   pt3: {

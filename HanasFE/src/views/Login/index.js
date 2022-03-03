@@ -5,7 +5,7 @@ import BigLogo from "@components/logo/Big";
 import AccountField from "@components/form/AccountField";
 import PasswordField from "@components/form/PasswordField";
 import Label from "@components/form/Label";
-import TouchableText from "@components/TouchableText";
+import TouchableText from "@components/text/touchable/Secondary";
 
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
             </View>
 
             <View style={[styles.rowContainer, styles.pt3]}>
-              <Text style={[styles.dark, styles.f13, styles.pr2]}>
+              <Text style={[styles.dark, styles.p, styles.pr2]}>
                 Don't have an account?
               </Text>
               <TouchableText

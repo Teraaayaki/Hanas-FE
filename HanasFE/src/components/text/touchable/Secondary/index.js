@@ -4,10 +4,8 @@ import styles from "./styles";
 
 export default ({ text, onPress }) => {
   return (
-    <TouchableOpacity>
-      <Text style={[styles.secondary, styles.f13]} onPress={onPress}>
-        {text}
-      </Text>
+    <TouchableOpacity onPress={onPress}>
+      <Text style={[styles.color, styles.p]}>{text}</Text>
     </TouchableOpacity>
   );
 };

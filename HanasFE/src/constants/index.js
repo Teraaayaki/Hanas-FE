@@ -1,11 +1,10 @@
-
 import { StyleSheet } from "react-native";
 
 const button = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     marginTop: "30%",
-  }
+  },
 });
 
 const colors = {
@@ -59,4 +58,4 @@ export const fontSize = {
   textInput: 13,
 };
 
-export {colors, button};
+export { colors, button };
