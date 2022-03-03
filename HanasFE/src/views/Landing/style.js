@@ -7,7 +7,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#E5E5E5",
+    backgroundColor: colors.backgroundColor,
   },
   imageContainer: {
     marginBottom: 100,
@@ -18,5 +18,6 @@ export default StyleSheet.create({
     color: colors.hanasDarkText,
     marginTop: 15,
     fontWeight: "bold",
+    color: colors.hanasDarkText,
   },
 });

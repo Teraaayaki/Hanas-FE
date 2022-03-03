@@ -9,6 +9,7 @@ import TouchableText from "@components/touchableText";
 
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
+import styles from "./style";
 
 export default function Login({ navigation }) {
   return (
