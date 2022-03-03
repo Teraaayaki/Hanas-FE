@@ -1,4 +1,14 @@
-export const colors = {
+
+import { StyleSheet } from "react-native";
+
+const button = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    marginTop: "30%",
+  }
+});
+
+const colors = {
   primary: "#e69fb4",
   secondary: "#ff5e84",
   danger: "#DD5555",
@@ -48,3 +58,5 @@ export const fontSize = {
   label: 15,
   textInput: 13,
 };
+
+export {colors, button};

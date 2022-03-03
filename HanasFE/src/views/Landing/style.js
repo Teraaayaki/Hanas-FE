@@ -9,15 +9,28 @@ export default StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.backgroundColor,
   },
-  imageContainer: {
-    marginBottom: 100,
-    height: 177,
-    width: 347,
-  },
   text: {
-    color: colors.hanasDarkText,
-    marginTop: 15,
     fontWeight: "bold",
     color: colors.hanasDarkText,
+    marginTop: "-40%",
+  },
+  logoContainer: {
+    flex: 1,
+    flexDirection: "column-reverse",
+    alignItems: "center",
+    marginTop: "30%",
+  },
+  buttonContainer: {
+    flex: 1,
+    marginTop: "30%",
+  },
+  logo: {
+    height: "100%",
+    width: "130%",
+  },
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    marginTop: "10%",
   },
 });
