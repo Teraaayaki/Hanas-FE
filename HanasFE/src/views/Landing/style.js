@@ -10,9 +10,9 @@ export default StyleSheet.create({
     backgroundColor: colors.backgroundColor,
   },
   text: {
-    fontWeight: "bold",
-    color: colors.hanasDarkText,
     marginTop: "-40%",
+    color: colors.hanasDarkText,
+    fontWeight: "bold",
   },
   logoContainer: {
     flex: 1,
@@ -23,6 +23,10 @@ export default StyleSheet.create({
   buttonContainer: {
     flex: 1,
     marginTop: "30%",
+  },
+  pinkButtonContainer:{
+    width: "100%",
+    marginTop: "5%",
   },
   logo: {
     height: "100%",

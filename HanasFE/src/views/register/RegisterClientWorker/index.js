@@ -18,14 +18,21 @@ const Landing = ({ navigation }) => {
         </View>
         <View style={styles.buttonContainer}>
           <Text style={styles.text}>ARE YOU A?</Text>
-          <Button
-            onPress={() => navigation.navigate("RegisterNumber")}
-            title="CLIENT"
-          />
-          <Button
-            onPress={() => navigation.navigate("RegisterNumber")}
-            title="SKILLED WORKER"
-          />
+          <View style={styles.pinkButtonContainer}>
+            <Button
+              onPress={() => navigation.navigate("RegisterNumber")}
+              title="CLIENT"
+            />
+          </View>
+          <View style={styles.pinkButtonContainer}>
+            <Button
+              onPress={() => navigation.navigate("RegisterNumber")}
+              title="SKILLED WORKER"
+            />
+          </View>
+            
+          
+          
           <TextLink
             title="Already have an account?"
             linkTitle="Login Here"
@@ -34,14 +41,8 @@ const Landing = ({ navigation }) => {
           <View style={styles.textContainer}>
             <Text style={styles.text} onPress={() => navigation.navigate("Landing")}>Cancel</Text>
           </View>
-          
         </View>
-        
       </View>
-          
-        
-        
-        
     </SafeAreaView>
   );
 };

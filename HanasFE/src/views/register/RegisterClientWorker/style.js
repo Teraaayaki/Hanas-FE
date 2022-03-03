@@ -32,6 +32,10 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  pinkButtonContainer: {
+    width: "100%",
+    marginTop: "5%",
+  },
   logo: {
     height: "50%",
     width: "130%",
