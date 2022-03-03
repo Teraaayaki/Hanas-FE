@@ -7,7 +7,6 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.backgroundColor,
   },
   text: {
     marginTop: "-40%",
@@ -16,25 +15,37 @@ export default StyleSheet.create({
   },
   logoContainer: {
     flex: 1,
-    flexDirection: "column-reverse",
+    width: "100%",
     alignItems: "center",
-    marginTop: "30%",
+    marginTop: "50%",
   },
-  buttonContainer: {
-    flex: 1,
-    marginTop: "30%",
+  buttonContainer:{
+    marginTop: "20%", 
+    flex: 1, 
+    width: "100%", 
+    justifyContent: "center", 
+    alignItems: "center",
   },
   pinkButtonContainer:{
-    width: "100%",
+    width: "65%",
     marginTop: "5%",
+  },
+  textContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "10%",
   },
   logo: {
     height: "100%",
-    width: "130%",
+    width: "100%",
   },
   content: {
+    width: "100%",
     flex: 1,
     flexDirection: "column",
-    marginTop: "10%",
-  },
+    alignItems: "center",
+    justifyContent: "center",
+  }
+  
 });

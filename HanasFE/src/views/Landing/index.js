@@ -15,14 +15,20 @@ const Landing = ({ navigation }) => {
             source={require("@images/hanasLogoSquared.png")}
           />
         </View>
-       
-          <Button
-            onPress={() => navigation.navigate("RegisterClientWorker")}
-            title="REGISTER"
-          />
-          <Button onPress={() => navigation.navigate("Login")} title="LOGIN" />
+        <View style={styles.buttonContainer}>
+          <View style={styles.pinkButtonContainer}>
+              <Button
+                onPress={() => navigation.navigate("RegisterClientWorker")}
+                title="REGISTER"
+              />
+            </View>
+            <View style={styles.pinkButtonContainer}>
+              <Button onPress={() => navigation.navigate("Login")} title="LOGIN" />
+            </View>
+        </View>
+          
         
-        <View style={styles.container}>
+        <View style={styles.textContainer}>
           <Text
             style={styles.text}
             onPress={() => navigation.navigate("Dashboard")}

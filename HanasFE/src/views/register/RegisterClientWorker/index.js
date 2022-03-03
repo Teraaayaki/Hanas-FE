@@ -33,13 +33,13 @@ const Landing = ({ navigation }) => {
             
           
           
-          <TextLink
+          <Text
             title="Already have an account?"
             linkTitle="Login Here"
             onPress={() => navigation.navigate("Login")}
           />
           <View style={styles.textContainer}>
-            <Text style={styles.text} onPress={() => navigation.navigate("Landing")}>Cancel</Text>
+            <TextLink style={styles.text} onPress={() => navigation.navigate("Landing")}>Cancel</TextLink>
           </View>
         </View>
       </View>
