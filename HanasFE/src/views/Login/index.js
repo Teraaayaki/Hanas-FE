@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Text, View, KeyboardAvoidingView } from "react-native";
 import Button from "@components/Button";
-import BigLogo from "@components/Logo/big";
-import AccountField from "@components/Form/accountField";
-import PasswordField from "@components/Form/passwordField";
-import Label from "@components/Form/label";
+import BigLogo from "@components/logo/Big";
+import AccountField from "@components/form/AccountField";
+import PasswordField from "@components/form/PasswordField";
+import Label from "@components/form/Label";
 import TouchableText from "@components/TouchableText";
 
 import styles from "./style";
