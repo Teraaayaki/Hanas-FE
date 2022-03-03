@@ -1,15 +1,14 @@
 import * as React from "react";
 import { Text, View, KeyboardAvoidingView } from "react-native";
-import Button from "@components/button";
-import BigLogo from "@components/logo/big";
-import AccountField from "@components/form/accountField";
-import PasswordField from "@components/form/passwordField";
-import Label from "@components/form/label";
-import TouchableText from "@components/touchableText";
+import Button from "@components/Button";
+import BigLogo from "@components/Logo/big";
+import AccountField from "@components/Form/accountField";
+import PasswordField from "@components/Form/passwordField";
+import Label from "@components/Form/label";
+import TouchableText from "@components/TouchableText";
 
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
-import styles from "./style";
 
 export default function Login({ navigation }) {
   return (
