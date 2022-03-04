@@ -51,22 +51,6 @@ export default StyleSheet.create({
 
   //-------------------Reusables-----------------------
 
-  rowContainer: {
-    flexDirection: "row",
-  },
-
-  p: {
-    fontSize: fontSize.p,
-  },
-
-  pt3: {
-    paddingTop: 15,
-  },
-
-  pr2: {
-    paddingRight: 10,
-  },
-
   buttonContainer: {
     width: "100%",
     marginTop: 20,
