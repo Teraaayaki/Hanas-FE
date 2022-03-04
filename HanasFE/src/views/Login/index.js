@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Text, View, KeyboardAvoidingView } from "react-native";
+import { View, KeyboardAvoidingView } from "react-native";
 import Button from "@components/Button";
 import BigLogo from "@components/logo/Big";
 import AccountField from "@components/form/AccountField";
 import PasswordField from "@components/form/PasswordField";
 import Label from "@components/form/Label";
-import TouchableText from "@components/TouchableText";
+import TextLink from "@components/TextLink";
 
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
@@ -31,15 +31,11 @@ export default function Login({ navigation }) {
               />
             </View>
 
-            <View style={[styles.rowContainer, styles.pt3]}>
-              <Text style={[styles.dark, styles.f13, styles.pr2]}>
-                Don't have an account?
-              </Text>
-              <TouchableText
-                text="Register here"
-                onPress={() => navigation.navigate("Landing")}
-              />
-            </View>
+            <TextLink
+              title="Don't have an account?"
+              linkTitle="Register here"
+              onPress={() => navigation.navigate("RegisterClientWorker")}
+            />
           </View>
         </View>
       </KeyboardAvoidingView>

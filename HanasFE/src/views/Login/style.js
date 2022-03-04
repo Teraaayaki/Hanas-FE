@@ -24,7 +24,7 @@ export default StyleSheet.create({
   //--------------------Logo---------------------
 
   logoContainer: {
-    flex: 0.4,
+    flex: 4,
     flexDirection: "column-reverse",
     alignItems: "center",
   },
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   //----------------------Form---------------------------
 
   formContainer: {
-    flex: 0.35,
+    flex: 6,
     alignItems: "center",
   },
 
@@ -50,22 +50,6 @@ export default StyleSheet.create({
   },
 
   //-------------------Reusables-----------------------
-
-  rowContainer: {
-    flexDirection: "row",
-  },
-
-  f13: {
-    fontSize: 13,
-  },
-
-  pt3: {
-    paddingTop: 15,
-  },
-
-  pr2: {
-    paddingRight: 10,
-  },
 
   buttonContainer: {
     width: "100%",
