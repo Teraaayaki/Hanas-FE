@@ -13,6 +13,8 @@ import SetLocation from "@screens/SetLocation";
 import GetVerified from "@screens/GetVerified";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
+import Tabs from "@components/Navigation/index";
+
 const Stack = createStackNavigator();
 
 export default HanasStack = () => {
@@ -24,7 +26,7 @@ export default HanasStack = () => {
       initialRouteName="Landing"
     >
       <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Dashboard" component={Tabs} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Settings" component={Settings} />
