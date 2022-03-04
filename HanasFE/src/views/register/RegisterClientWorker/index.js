@@ -3,16 +3,15 @@ import { Image, Text, View } from "react-native";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import { SafeAreaView } from "react-navigation";
-
 import styles from "./style";
-
 
 const Landing = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <View style={styles.logoContainer}>
-          <Image style={styles.logo}
+          <Image
+            style={styles.logo}
             source={require("@images/hanasLogoSquared.png")}
           />
         </View>
@@ -30,16 +29,19 @@ const Landing = ({ navigation }) => {
               title="SKILLED WORKER"
             />
           </View>
-            
-          
-          
-          <Text
+
+          <TextLink
             title="Already have an account?"
             linkTitle="Login Here"
             onPress={() => navigation.navigate("Login")}
           />
           <View style={styles.textContainer}>
-            <TextLink style={styles.text} onPress={() => navigation.navigate("Landing")}>Cancel</TextLink>
+            <Text
+              style={styles.text}
+              onPress={() => navigation.navigate("Landing")}
+            >
+              Cancel
+            </Text>
           </View>
         </View>
       </View>
