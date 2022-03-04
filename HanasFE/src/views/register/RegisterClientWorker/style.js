@@ -13,6 +13,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     marginTop: "10%",
+    width: "70%",
   },
   text: {
     fontWeight: "bold",
@@ -40,5 +41,4 @@ export default StyleSheet.create({
     height: "50%",
     width: "130%",
   },
-  
 });

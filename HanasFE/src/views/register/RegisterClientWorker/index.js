@@ -3,7 +3,6 @@ import { Image, Text, View } from "react-native";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import { SafeAreaView } from "react-navigation";
-
 import styles from "./style";
 
 const Landing = ({ navigation }) => {
@@ -36,6 +35,14 @@ const Landing = ({ navigation }) => {
             linkTitle="Login Here"
             onPress={() => navigation.navigate("Login")}
           />
+          <View style={styles.textContainer}>
+            <Text
+              style={styles.text}
+              onPress={() => navigation.navigate("Landing")}
+            >
+              Cancel
+            </Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
