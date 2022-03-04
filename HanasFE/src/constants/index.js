@@ -38,6 +38,7 @@ export const padding = {
   p3: 15,
   p4: 20,
   p5: 25,
+  p6: 30,
 };
 
 export const margin = {
