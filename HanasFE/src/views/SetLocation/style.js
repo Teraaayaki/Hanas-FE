@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     overflow: "hidden",
-    marginTop: "-50%",
+    marginTop: "-40%",
     paddingTop: 50,
     elevation: 50,
   },
   btnInputContainer: {
     width: "75%",
-    height: "60%",
+    marginTop: margin.m2,
   },
   inputContainer: {
     width: "85%",

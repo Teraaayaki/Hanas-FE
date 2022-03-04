@@ -16,7 +16,7 @@ const colors = {
   white: "#FFFFFF",
   black: "#403F3C",
   light: "#F6F3E4",
-  lightGrey: "#F5F5F5",
+  lightGrey: "#E8E8E8",
   dark: "#403f3c",
   placeholderText: "#AAA",
   background: "#E5E5E5",
@@ -50,7 +50,7 @@ export const margin = {
 };
 
 export const fontSize = {
-  h1: 20, //not Final - check Figma
+  h1: 23, //not Final - check Figma
   h2: 18, //not Final - check Figma
   h3: 16, //not Final - check Figma
   h4: 14, //not Final - check Figma

@@ -1,6 +1,14 @@
-import { StyleSheet, StatusBar, Text, View } from "react-native";
+import {
+  StyleSheet,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { colors, margin, fontSize, padding } from "@constants";
+import Button from "@components/Button";
 import { Icon } from "react-native-elements";
 
 const GetVerified = () => {
@@ -8,7 +16,7 @@ const GetVerified = () => {
     <View styles={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.header}>
-          <Icon color="green" name="verified" />
+          <Icon color="green" size={30} name="verified" />
           <Text style={styles.headerText}>Get Verified</Text>
         </View>
       </View>
@@ -47,6 +55,51 @@ const GetVerified = () => {
           </View>
         </View>
       </View>
+
+      <View style={styles.inputContainer}>
+        <View style={styles.input}>
+          <Text style={styles.textLink}>Valid ID</Text>
+          <View style={styles.fileInputContainer}>
+            <TouchableOpacity style={styles.regularButton} title="Browse">
+              <Text style={styles.browseText}>Browse</Text>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              editable={false}
+              placeholder="filename.pdf"
+            />
+          </View>
+          <Text style={styles.textLow}>
+            Please make sure that ID is clear enough
+          </Text>
+        </View>
+        <View style={styles.input}>
+          <Text style={styles.textLink}>NBI or Barangay Clearance</Text>
+          <View style={styles.fileInputContainer}>
+            <TouchableOpacity style={styles.regularButton} title="Browse">
+              <Text style={styles.browseText}>Browse</Text>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              editable={false}
+              placeholder="filename.pdf"
+            />
+          </View>
+          <Text style={styles.textLow}>
+            Please make sure that your NBI or Brgy Clearance is still valid.
+          </Text>
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <View style={styles.button}>
+          <Button title="SUBMIT" />
+          <View style={styles.textLinkContainer}>
+            <TouchableOpacity>
+              <Text style={styles.textLink}>Later</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -63,7 +116,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    margin: margin.m5,
+    marginTop: margin.m5,
+    marginHorizontal: margin.m5,
+    marginBottom: margin.m2,
     backgroundColor: colors.white,
     width: "75%",
     borderRadius: 10,
@@ -111,5 +166,52 @@ const styles = StyleSheet.create({
   text: {
     color: "grey",
     lineHeight: 20,
+  },
+  inputContainer: {
+    marginTop: margin.m1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  input: {
+    marginVertical: margin.m3,
+    width: "75%",
+  },
+  fileInputContainer: {
+    flexDirection: "row",
+    backgroundColor: colors.white,
+    borderRadius: 5,
+    padding: padding.p1,
+  },
+  regularButton: {
+    backgroundColor: colors.lightGrey,
+    padding: padding.p2,
+    borderRadius: 5,
+  },
+  browseText: {
+    color: colors.black,
+    fontSize: fontSize.h3,
+  },
+  textInput: {
+    marginLeft: margin.m1,
+  },
+  textLow: {
+    color: "darkgrey",
+    fontSize: fontSize.p,
+  },
+  buttonContainer: {
+    alignItems: "center",
+    marginTop: margin.m3,
+  },
+  button: {
+    width: "75%",
+  },
+  textLinkContainer: {
+    marginTop: margin.m4,
+    alignItems: "center",
+  },
+  textLink: {
+    color: colors.dark,
+    fontSize: fontSize.h4,
+    fontWeight: "bold",
   },
 });
