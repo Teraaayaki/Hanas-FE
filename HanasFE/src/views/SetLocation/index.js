@@ -1,7 +1,8 @@
 import React from "react";
 import { StatusBar, StyleSheet, Image, Text, View } from "react-native";
+import { Input, Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
-import { margin, fontSize, colors } from "@constants";
+import { margin, fontSize, colors, padding } from "@constants";
 import Button from "@components/Button";
 
 const SetLocation = () => {
@@ -21,7 +22,23 @@ const SetLocation = () => {
       </View>
 
       <View style={styles.selectContainer}>
-        <Button title="Set Location" />
+        <View style={styles.inputContainer}>
+          <Input
+            inputContainerStyle={styles.input}
+            placeholder="Search for Address..."
+            leftIcon={<Icon name="search" size={24} color={colors.dark} />}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Input
+            inputContainerStyle={styles.input}
+            placeholder="Use Current Location..."
+            leftIcon={<Icon name="explore" size={24} color={colors.dark} />}
+          />
+        </View>
+        <View style={styles.btnInputContainer}>
+          <Button title="SET LOCATION" />
+        </View>
       </View>
     </View>
   );
@@ -32,8 +49,8 @@ export default SetLocation;
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: {
-    paddingTop: StatusBar.currentHeight,
     alignItems: "center",
+    paddingTop: StatusBar.currentHeight,
   },
   headerText: {
     marginTop: margin.m3,
@@ -56,10 +73,23 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     overflow: "hidden",
-    marginTop: "-60%",
-    elevation: 3,
+    marginTop: "-50%",
+    paddingTop: 50,
+    elevation: 50,
   },
-  selectContainerText: {
-    fontSize: fontSize.h1,
+  btnInputContainer: {
+    width: "75%",
+    height: "60%",
+    // marginTop: 25,
+  },
+  inputContainer: {
+    width: "80%",
+    marginVertical: 5,
+  },
+  input: {
+    borderBottomWidth: 0,
+    backgroundColor: colors.white,
+    paddingHorizontal: padding.p2,
+    borderRadius: 5,
   },
 });
