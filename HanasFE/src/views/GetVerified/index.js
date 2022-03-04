@@ -2,7 +2,6 @@ import { StyleSheet, StatusBar, Text, View } from "react-native";
 import React from "react";
 import { colors, margin, fontSize, padding } from "@constants";
 import { Icon } from "react-native-elements";
-import { color } from "react-native-elements/dist/helpers";
 
 const GetVerified = () => {
   return (
