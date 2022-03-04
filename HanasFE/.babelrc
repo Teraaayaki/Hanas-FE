@@ -15,7 +15,8 @@
           "@images": "./assets/resources/images",
           "@routes": "./src/routes",
           "@constants": "./src/constants",
-          "@components": "./src/components"
+          "@components": "./src/components",
+          "@icons": "./assets/resources/icons",
         }
       }
     ]
