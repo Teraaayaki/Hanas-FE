@@ -1,11 +1,12 @@
 import React from "react";
-import { StatusBar, StyleSheet, Image, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
-import { margin, fontSize, colors, padding } from "@constants";
+import { colors } from "@constants";
 import Button from "@components/Button";
+import styles from "./style";
 
-const SetLocation = () => {
+const SetLocation = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -30,14 +31,20 @@ const SetLocation = () => {
           />
         </View>
         <View style={styles.inputContainer}>
-          <Input
-            inputContainerStyle={styles.input}
-            placeholder="Use Current Location..."
-            leftIcon={<Icon name="explore" size={24} color={colors.dark} />}
-          />
+          <TouchableOpacity>
+            <Input
+              disabled={true}
+              inputContainerStyle={styles.input}
+              placeholder="Use Current Location..."
+              leftIcon={<Icon name="explore" size={24} color={colors.dark} />}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.btnInputContainer}>
-          <Button title="SET LOCATION" />
+          <Button
+            title="SET LOCATION"
+            onPress={() => navigation.navigate("GetVerified")}
+          />
         </View>
       </View>
     </View>
@@ -45,51 +52,3 @@ const SetLocation = () => {
 };
 
 export default SetLocation;
-
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  header: {
-    alignItems: "center",
-    paddingTop: StatusBar.currentHeight,
-  },
-  headerText: {
-    marginTop: margin.m3,
-    marginBottom: margin.m2,
-  },
-  text: {
-    fontSize: fontSize.h1,
-    fontWeight: "bold",
-  },
-  mapContainer: {
-    flex: 2,
-  },
-  image: {
-    resizeMode: "contain",
-  },
-  selectContainer: {
-    alignItems: "center",
-    flex: 1,
-    backgroundColor: colors.lightGrey,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    overflow: "hidden",
-    marginTop: "-50%",
-    paddingTop: 50,
-    elevation: 50,
-  },
-  btnInputContainer: {
-    width: "75%",
-    height: "60%",
-    // marginTop: 25,
-  },
-  inputContainer: {
-    width: "80%",
-    marginVertical: 5,
-  },
-  input: {
-    borderBottomWidth: 0,
-    backgroundColor: colors.white,
-    paddingHorizontal: padding.p2,
-    borderRadius: 5,
-  },
-});
