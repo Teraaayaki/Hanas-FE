@@ -22,11 +22,6 @@ const colors = {
   background: "#E5E5E5",
 };
 
-export const text = {
-  emailPlaceholder: "",
-  passwordPlaceholder: "",
-};
-
 export const containerFlex = {
   body: 1,
   preLogin: 0.65,
