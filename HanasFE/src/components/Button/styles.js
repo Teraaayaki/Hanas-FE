@@ -11,7 +11,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     borderRadius: 15,
   },
-
   white: {
     color: colors.white,
   },

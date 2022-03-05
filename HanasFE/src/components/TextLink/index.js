@@ -18,14 +18,3 @@ const index = ({ title, linkTitle, onPress }) => {
 };
 
 export default index;
-
-{
-  /* <View style={[styles.rowContainer, styles.pt3]}>
-<Text style={[styles.dark, styles.p, styles.pr2]}>
-  Don't have an account?
-</Text>
-<TouchableText
-  text="Register here"
-  onPress={() => navigation.navigate("Landing")}
-/> */
-}

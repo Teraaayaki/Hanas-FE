@@ -9,6 +9,8 @@ import Login from "@screens/Login";
 import Settings from "@screens/Settings";
 import RegisterClientWorker from "@screens/register/RegisterClientWorker";
 import RegisterNumber from "@screens/register/RegisterNumber";
+import SetLocation from "@screens/SetLocation";
+import GetVerified from "@screens/GetVerified";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import Tabs from "@components/Navigation/index";
@@ -34,6 +36,8 @@ export default HanasStack = () => {
         component={RegisterClientWorker}
       />
       <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
+      <Stack.Screen name="SetLocation" component={SetLocation} />
+      <Stack.Screen name="GetVerified" component={GetVerified} />
     </Stack.Navigator>
   );
 };

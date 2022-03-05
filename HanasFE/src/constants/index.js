@@ -16,14 +16,10 @@ const colors = {
   white: "#FFFFFF",
   black: "#403F3C",
   light: "#F6F3E4",
+  lightGrey: "#E8E8E8",
   dark: "#403f3c",
   placeholderText: "#AAA",
   background: "#E5E5E5",
-};
-
-export const text = {
-  emailPlaceholder: "",
-  passwordPlaceholder: "",
 };
 
 export const containerFlex = {
@@ -37,6 +33,7 @@ export const padding = {
   p3: 15,
   p4: 20,
   p5: 25,
+  p6: 30,
 };
 
 export const margin = {
@@ -48,7 +45,7 @@ export const margin = {
 };
 
 export const fontSize = {
-  h1: 20, //not Final - check Figma
+  h1: 23, //not Final - check Figma
   h2: 18, //not Final - check Figma
   h3: 16, //not Final - check Figma
   h4: 14, //not Final - check Figma
