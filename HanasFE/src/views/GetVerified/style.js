@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: colors.white,
     borderRadius: 5,
-    padding: padding.p1,
+    padding: padding.p2,
   },
   regularButton: {
     backgroundColor: colors.lightGrey,
