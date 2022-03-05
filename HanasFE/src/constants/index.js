@@ -37,11 +37,11 @@ export const padding = {
 };
 
 export const margin = {
-  m1: 5,
-  m2: 10,
-  m3: 15,
-  m4: 20,
-  m5: 25,
+  m1: "1%",
+  m2: "2%",
+  m3: "3%",
+  m4: "4%",
+  m5: "5%",
 };
 
 export const fontSize = {
