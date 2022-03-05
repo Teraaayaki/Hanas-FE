@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: colors.white,
     borderRadius: 5,
-    padding: padding.p1,
+    padding: padding.p2,
   },
   regularButton: {
     backgroundColor: colors.lightGrey,
@@ -85,6 +85,12 @@ const styles = StyleSheet.create({
   browseText: {
     color: colors.black,
     fontSize: fontSize.h3,
+  },
+  label: {
+    marginBottom: margin.m1,
+    color: colors.dark,
+    fontSize: fontSize.h4,
+    fontWeight: "bold",
   },
   textInput: {
     marginLeft: margin.m1,
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textLink: {
-    marginBottom: margin.m1,
+    marginVertical: margin.m5,
     color: colors.dark,
     fontSize: fontSize.h4,
     fontWeight: "bold",

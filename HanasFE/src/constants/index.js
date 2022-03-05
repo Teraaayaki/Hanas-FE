@@ -28,20 +28,20 @@ export const containerFlex = {
 };
 
 export const padding = {
-  p1: 5,
-  p2: 10,
-  p3: 15,
-  p4: 20,
-  p5: 25,
-  p6: 30,
+  p1: "1%",
+  p2: "2%",
+  p3: "3%",
+  p4: "4%",
+  p5: "5%",
+  p6: "6%",
 };
 
 export const margin = {
-  m1: 5,
-  m2: 10,
-  m3: 15,
-  m4: 20,
-  m5: 25,
+  m1: "1%",
+  m2: "2%",
+  m3: "3%",
+  m4: "4%",
+  m5: "5%",
 };
 
 export const fontSize = {
