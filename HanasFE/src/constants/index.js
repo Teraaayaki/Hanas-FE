@@ -22,7 +22,7 @@ const colors = {
   background: "#E5E5E5",
 };
 
-export const padding = {
+const padding = {
   p1: "1%",
   p2: "2%",
   p3: "3%",
@@ -31,7 +31,7 @@ export const padding = {
   p6: "6%",
 };
 
-export const margin = {
+const margin = {
   m1: "1%",
   m2: "2%",
   m3: "3%",
@@ -39,7 +39,7 @@ export const margin = {
   m5: "5%",
 };
 
-export const fontSize = {
+const fontSize = {
   title: 25,
   h1: 20,
   h2: 18, //not Final - check Figma
@@ -51,4 +51,4 @@ export const fontSize = {
   textInput: 13,
 };
 
-export { colors, button };
+export { colors, button, fontSize, margin, padding };
