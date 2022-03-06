@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import { colors } from "@constants";
-import { containerFlex } from "@constants";
 import { fontSize } from "@constants";
 
 export default StyleSheet.create({
@@ -10,14 +9,14 @@ export default StyleSheet.create({
   },
 
   body: {
-    flex: containerFlex.body,
+    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: colors.backgroundColor,
   },
 
   content: {
-    flex: containerFlex.preLogin,
+    flex: 0.65, //Will Fix Soon...
     flexDirection: "column",
   },
 
