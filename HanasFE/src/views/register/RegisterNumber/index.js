@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Text, View, SafeAreaView, TextInput } from "react-native";
+import { Icon } from "react-native-elements";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 
@@ -17,10 +18,25 @@ export default function RegisterNumber({ navigation }) {
       </View>
       <View style={styles.formContainer}>
         <View style={styles.inputBox}>
-          <View style={styles.iconContainer}></View>
-          <TextInput style={styles.textInput} />
+          <View style={styles.iconContainer}>
+            <Icon
+              name="mobile-alt"
+              type="font-awesome-5"
+              style={styles.icon}
+              size={25}
+            />
+          </View>
+          <TextInput
+            style={styles.textInput}
+            keyboardType={"number-pad"}
+            placeholder={"0947xxxxxxx"}
+            placeholderTextColor={"#AAA"}
+          />
         </View>
-        <Button title="SEND" onPress={() => navigation.navigate("Login")} />
+        <Button
+          title="SEND"
+          onPress={() => navigation.navigate("RegisterDetails")}
+        />
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"

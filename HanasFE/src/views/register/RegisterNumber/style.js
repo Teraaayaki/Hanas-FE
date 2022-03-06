@@ -47,16 +47,18 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     color: colors.hanasDarkText,
     flexDirection: "row",
-    paddingHorizontal: padding.p2,
-    paddingVertical: padding.p2,
+    paddingHorizontal: padding.p5,
+    paddingVertical: padding.p3,
   },
   iconContainer: {
-    flex: 2,
     // backgroundColor: "#FCC",
+    justifyContent: "center",
+  },
+  icon: {
+    color: colors.dark,
   },
   textInput: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingLeft: padding.p4,
     flex: 10,
     fontSize: fontSize.textInput,
     // backgroundColor: "#CFC",
