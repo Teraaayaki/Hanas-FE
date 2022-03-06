@@ -1,19 +1,28 @@
 import * as React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, SafeAreaView, TextInput } from "react-native";
 
 import styles from "@screens/Profile/style";
 
 class Settings extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <LinearGradient colors={["#e69fb4", "#ff5e84"]} style={styles.goBack}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.buttonText}>Go back</Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
+      <SafeAreaView style={styles.body}>
+        <Text style={styles.title}>Register</Text>
+        <View style={styles.h1Container}>
+          <Text style={styles.h1}>Enter mobile number to create account</Text>
+        </View>
+        <View style={styles.h3Container}>
+          <Text style={styles.h3}>
+            We will send you a One Time Password (OTP)
+          </Text>
+        </View>
+        <View>
+          <TextInput />
+          <Button />
+          <TextLink />
+        </View>
+      </SafeAreaView>
     );
   }
 }

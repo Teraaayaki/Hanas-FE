@@ -45,9 +45,10 @@ export const margin = {
 };
 
 export const fontSize = {
-  h1: 23, //not Final - check Figma
+  title: 25,
+  h1: 20,
   h2: 18, //not Final - check Figma
-  h3: 16, //not Final - check Figma
+  h3: 15,
   h4: 14, //not Final - check Figma
   h5: 12, //not Final - check Figma
   p: 13, //not Final - check Figma
