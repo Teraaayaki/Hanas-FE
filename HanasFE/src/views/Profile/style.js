@@ -35,8 +35,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: fontSize.profileName,
     fontWeight: "bold",
-    textShadowRadius: 10,
-    textShadowColor: colors.borderGrey,
   },
   verified: {
     color: colors.white,

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { fontSize, margin, padding, colors } from "@constants";
 
 const styles = StyleSheet.create({

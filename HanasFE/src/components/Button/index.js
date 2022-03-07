@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@constants";
-import styles from "./styles";
+import styles from "./style";
 
 // Note:
 // To implement a dynamically sized button,
