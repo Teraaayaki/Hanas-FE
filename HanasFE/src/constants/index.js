@@ -34,6 +34,9 @@ export const padding = {
   p4: "4%",
   p5: "5%",
   p6: "6%",
+  p10: "10%",
+  p20: "20%",
+  p30: "30%",
 };
 
 export const margin = {
@@ -42,6 +45,7 @@ export const margin = {
   m3: "3%",
   m4: "4%",
   m5: "5%",
+  m6: "6%",
 };
 
 export const fontSize = {
@@ -53,6 +57,7 @@ export const fontSize = {
   p: 13, //not Final - check Figma
   label: 15,
   textInput: 13,
+  profileName: 20,
 };
 
 export { colors, button };
