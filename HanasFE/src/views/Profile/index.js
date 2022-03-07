@@ -1,18 +1,11 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  StyleSheet,
-  StatusBar,
-  Text,
-  Button,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-} from "react-native";
+import { Text, View, ScrollView, Image } from "react-native";
 import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
-import { colors, margin, padding, fontSize } from "@constants";
+import ButtonWhite from "@components/ButtonWhite";
+import { colors, fontSize } from "@constants";
+import styles from "./style";
 
 const Profile = () => {
   return (
@@ -42,112 +35,60 @@ const Profile = () => {
           <Text style={styles.infoHeader}>Account Info</Text>
           <View style={styles.headerBorder}></View>
           <View style={styles.accountInfo}>
-            <Text style={styles.infoText}>
-              Address:{"\n"}Email:{"\n"}Mobile Number:
-            </Text>
-            <Text style={styles.infoText}>
-              Info{"\n"}Info{"\n"}Info
-            </Text>
+            <View>
+              <Text style={styles.infoName}>Address:</Text>
+              <Text style={styles.infoText}>
+                53 P. Rodrigo Duterte St. Bogo City, Cebu
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.infoName}>Email:</Text>
+              <Text style={styles.infoText}>lebumfacilrenzo@yahoo.com</Text>
+            </View>
+            <View style={styles.data}>
+              <Text style={styles.infoName}>Mobile No:</Text>
+              <Text style={styles.infoText}>0953453443</Text>
+            </View>
           </View>
           <View style={styles.headerBorder}></View>
           <View style={styles.textLink}>
-            <TextLinkPink title="Edit Account Info" />
-            <TextLinkPink title="Edit Password" />
+            <TextLinkPink
+              title="Edit Account Info"
+              onPress={() => console.log("profile")}
+            />
+            <TextLinkPink
+              title="Edit Password"
+              onPress={() => console.log("profile")}
+            />
           </View>
         </View>
+
         <View style={styles.buttonContainer}>
-          <Text>Buttons</Text>
+          <ButtonWhite
+            title="Preferred Skilled Workers"
+            iconName="bookmark"
+            onPress={() => console.log("profile")}
+          />
+          <View style={styles.buttonRow}>
+            <ButtonWhite
+              title="Requests"
+              iconName="list"
+              onPress={() => console.log("profile")}
+            />
+            <ButtonWhite
+              title="Transactions"
+              iconName="description"
+              onPress={() => console.log("profile")}
+            />
+          </View>
         </View>
-        <Text>Logout</Text>
+        <View style={styles.headerBorder}></View>
+        <View style={styles.logout}>
+          <Text style={styles.logoutText}>LOGOUT</Text>
+        </View>
       </ScrollView>
     </View>
   );
 };
 
 export default Profile;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-  },
-  headerText: {
-    alignItems: "center",
-    marginTop: margin.m3,
-    marginBottom: margin.m2,
-  },
-  text: {
-    fontSize: fontSize.h1,
-  },
-  image: {
-    borderRadius: 70 / 2,
-    resizeMode: "cover",
-    height: 70,
-    width: 70,
-  },
-  headContainer: {
-    flexDirection: "row",
-    marginLeft: margin.m6,
-  },
-  nameContainer: {
-    marginLeft: margin.m3,
-    marginTop: margin.m5,
-  },
-  name: {
-    fontSize: fontSize.profileName,
-    fontWeight: "bold",
-    elevation: 10,
-  },
-  verified: {
-    color: colors.white,
-    fontSize: fontSize.h3,
-    elevation: 10,
-  },
-  profileDetails: {
-    flex: 1,
-    backgroundColor: colors.background,
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
-    overflow: "hidden",
-    marginTop: "-120%",
-    padding: padding.p5,
-  },
-  accountInfoContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 5,
-    borderColor: colors.borderGrey,
-    borderWidth: 1,
-    padding: padding.p5,
-    marginTop: margin.m6,
-  },
-  accountInfo: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: margin.m5,
-  },
-  buttonContainer: {
-    backgroundColor: "red",
-  },
-  headerBorder: {
-    borderBottomColor: colors.borderGrey,
-    borderBottomWidth: 1,
-  },
-  infoHeader: {
-    fontSize: fontSize.h3,
-    fontWeight: "bold",
-    padding: padding.p3,
-  },
-  infoText: {
-    lineHeight: 50,
-    fontWeight: "300",
-  },
-  textLink: {
-    marginTop: margin.m5,
-    marginHorizontal: margin.m5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-});

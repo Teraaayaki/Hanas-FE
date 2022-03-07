@@ -1,0 +1,16 @@
+import { TouchableOpacity, Text } from "react-native";
+import React from "react";
+import { colors } from "@constants";
+import { Icon } from "react-native-elements";
+import styles from "./styles";
+
+const ButtonWhite = ({ title, iconName, onPress }) => {
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Icon type="material" name={iconName} color={colors.secondary} />
+      <Text style={styles.buttonText}>{title.toUpperCase()}</Text>
+    </TouchableOpacity>
+  );
+};
+
+export default ButtonWhite;
