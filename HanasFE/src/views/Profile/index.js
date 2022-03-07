@@ -7,7 +7,7 @@ import ButtonWhite from "@components/ButtonWhite";
 import { colors, fontSize } from "@constants";
 import styles from "./style";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -15,7 +15,7 @@ const Profile = () => {
         colors={[colors.primary, colors.secondary]}
       >
         <View style={styles.headerText}>
-          <Text style={styles.text}>Profile</Text>
+          <Text style={styles.text}>Your Profile</Text>
         </View>
         <View style={styles.headContainer}>
           <Image style={styles.image} source={require("@images/mullet.jpg")} />
@@ -54,31 +54,31 @@ const Profile = () => {
           <View style={styles.textLink}>
             <TextLinkPink
               title="Edit Account Info"
-              onPress={() => console.log("profile")}
+              onPress={() => navigation.navigate("EditAccount")}
             />
             <TextLinkPink
               title="Edit Password"
-              onPress={() => console.log("profile")}
+              onPress={() => navigation.navigate("EditPassword")}
             />
           </View>
         </View>
 
         <View style={styles.buttonContainer}>
           <ButtonWhite
-            title="Preferred Skilled Workers"
-            iconName="bookmark"
-            onPress={() => console.log("profile")}
+            title="Services"
+            iconName="shopping-cart"
+            onPress={() => navigation.navigate("Services")}
           />
           <View style={styles.buttonRow}>
             <ButtonWhite
-              title="Requests"
-              iconName="list"
-              onPress={() => console.log("profile")}
+              title="Reviews"
+              iconName="description"
+              onPress={() => navigation.navigate("Reviews")}
             />
             <ButtonWhite
               title="Transactions"
-              iconName="description"
-              onPress={() => console.log("profile")}
+              iconName="credit-card"
+              onPress={() => navigation.navigate("Transactions")}
             />
           </View>
         </View>
