@@ -17,6 +17,7 @@ const colors = {
   black: "#403F3C",
   light: "#F6F3E4",
   lightGrey: "#E8E8E8",
+  borderGrey: "#a1a1a1",
   dark: "#403f3c",
   placeholderText: "#AAA",
   background: "#E5E5E5",
@@ -46,6 +47,7 @@ export const margin = {
   m4: "4%",
   m5: "5%",
   m6: "6%",
+  m10: "10%",
 };
 
 export const fontSize = {

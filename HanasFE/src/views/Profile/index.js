@@ -11,6 +11,7 @@ import {
   Image,
 } from "react-native";
 import { Icon } from "react-native-elements";
+import TextLinkPink from "@components/TextLinkPink";
 import { colors, margin, padding, fontSize } from "@constants";
 
 const Profile = () => {
@@ -33,11 +34,31 @@ const Profile = () => {
           </View>
         </View>
       </LinearGradient>
-
-      <ScrollView>
-        <View style={styles.profileDetails}>
-          <Text>Profile Page</Text>
+      <ScrollView
+        style={styles.profileDetails}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.accountInfoContainer}>
+          <Text style={styles.infoHeader}>Account Info</Text>
+          <View style={styles.headerBorder}></View>
+          <View style={styles.accountInfo}>
+            <Text style={styles.infoText}>
+              Address:{"\n"}Email:{"\n"}Mobile Number:
+            </Text>
+            <Text style={styles.infoText}>
+              Info{"\n"}Info{"\n"}Info
+            </Text>
+          </View>
+          <View style={styles.headerBorder}></View>
+          <View style={styles.textLink}>
+            <TextLinkPink title="Edit Account Info" />
+            <TextLinkPink title="Edit Password" />
+          </View>
         </View>
+        <View style={styles.buttonContainer}>
+          <Text>Buttons</Text>
+        </View>
+        <Text>Logout</Text>
       </ScrollView>
     </View>
   );
@@ -50,8 +71,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    flex: 1,
     paddingTop: StatusBar.currentHeight,
-    paddingBottom: padding.p30,
   },
   headerText: {
     alignItems: "center",
@@ -72,7 +93,8 @@ const styles = StyleSheet.create({
     marginLeft: margin.m6,
   },
   nameContainer: {
-    marginLeft: margin.m2,
+    marginLeft: margin.m3,
+    marginTop: margin.m5,
   },
   name: {
     fontSize: fontSize.profileName,
@@ -82,5 +104,50 @@ const styles = StyleSheet.create({
   verified: {
     color: colors.white,
     fontSize: fontSize.h3,
+    elevation: 10,
+  },
+  profileDetails: {
+    flex: 1,
+    backgroundColor: colors.background,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+    overflow: "hidden",
+    marginTop: "-120%",
+    padding: padding.p5,
+  },
+  accountInfoContainer: {
+    backgroundColor: colors.white,
+    borderRadius: 5,
+    borderColor: colors.borderGrey,
+    borderWidth: 1,
+    padding: padding.p5,
+    marginTop: margin.m6,
+  },
+  accountInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: margin.m5,
+  },
+  buttonContainer: {
+    backgroundColor: "red",
+  },
+  headerBorder: {
+    borderBottomColor: colors.borderGrey,
+    borderBottomWidth: 1,
+  },
+  infoHeader: {
+    fontSize: fontSize.h3,
+    fontWeight: "bold",
+    padding: padding.p3,
+  },
+  infoText: {
+    lineHeight: 50,
+    fontWeight: "300",
+  },
+  textLink: {
+    marginTop: margin.m5,
+    marginHorizontal: margin.m5,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
