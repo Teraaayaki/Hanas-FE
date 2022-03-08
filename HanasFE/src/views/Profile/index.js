@@ -1,6 +1,6 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, ScrollView, Image } from "react-native";
+import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
@@ -81,7 +81,9 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={styles.headerBorder}></View>
         <View style={styles.logout}>
-          <Text style={styles.logoutText}>LOGOUT</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.logoutText}>LOGOUT</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

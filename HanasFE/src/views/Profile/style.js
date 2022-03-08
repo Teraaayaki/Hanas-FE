@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     overflow: "hidden",
     marginTop: "-15%",
+    paddingBottom: padding.p10,
     padding: padding.p5,
     elevation: 150,
   },
@@ -96,10 +97,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   logout: {
-    marginVertical: margin.m15,
+    marginVertical: margin.m5,
     flexDirection: "row-reverse",
   },
   logoutText: {
+    paddingVertical: padding.p5,
     fontWeight: "bold",
   },
 });
