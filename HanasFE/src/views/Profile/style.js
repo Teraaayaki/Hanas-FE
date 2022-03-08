@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   logout: {
-    marginVertical: margin.m10,
+    marginVertical: margin.m15,
     flexDirection: "row-reverse",
   },
   logoutText: {
