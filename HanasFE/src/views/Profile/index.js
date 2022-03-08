@@ -1,33 +1,94 @@
-import * as React from "react";
+import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text, Button, View, TouchableOpacity } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-
+import { Text, View, ScrollView, Image } from "react-native";
+import { Icon } from "react-native-elements";
+import TextLinkPink from "@components/TextLinkPink";
+import ButtonWhite from "@components/ButtonWhite";
+import { colors, fontSize } from "@constants";
 import styles from "./style";
 
-class Profile extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <LinearGradient
-          colors={["#e69fb4", "#ff5e84"]}
-          style={styles.linearGradient}
-        >
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Login")}
-          >
-            <Text style={styles.buttonText}>Go to LogIn</Text>
-          </TouchableOpacity>
-        </LinearGradient>
+const Profile = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <LinearGradient
+        style={styles.header}
+        colors={[colors.primary, colors.secondary]}
+      >
+        <View style={styles.headerText}>
+          <Text style={styles.text}>Your Profile</Text>
+        </View>
+        <View style={styles.headContainer}>
+          <Image style={styles.image} source={require("@images/mullet.jpg")} />
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>Soy Lebumfacil</Text>
+            <Text style={styles.verified}>
+              <Icon color="green" size={fontSize.h3} name="verified" /> Verified
+            </Text>
+          </View>
+        </View>
+      </LinearGradient>
+      <ScrollView
+        style={styles.profileDetails}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.accountInfoContainer}>
+          <Text style={styles.infoHeader}>Account Info</Text>
+          <View style={styles.headerBorder}></View>
+          <View style={styles.accountInfo}>
+            <View>
+              <Text style={styles.infoName}>Address:</Text>
+              <Text style={styles.infoText}>
+                53 P. Rodrigo Duterte St. Bogo City, Cebu
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.infoName}>Email:</Text>
+              <Text style={styles.infoText}>lebumfacilrenzo@yahoo.com</Text>
+            </View>
+            <View style={styles.data}>
+              <Text style={styles.infoName}>Mobile No:</Text>
+              <Text style={styles.infoText}>0953453443</Text>
+            </View>
+          </View>
+          <View style={styles.headerBorder}></View>
+          <View style={styles.textLink}>
+            <TextLinkPink
+              title="Edit Account Info"
+              onPress={() => navigation.navigate("EditAccount")}
+            />
+            <TextLinkPink
+              title="Edit Password"
+              onPress={() => navigation.navigate("EditPassword")}
+            />
+          </View>
+        </View>
 
-        <LinearGradient colors={["#e69fb4", "#ff5e84"]} style={styles.goBack}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.buttonText}>Go back</Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
-    );
-  }
-}
+        <View style={styles.buttonContainer}>
+          <ButtonWhite
+            title="Services"
+            iconName="shopping-cart"
+            onPress={() => navigation.navigate("Services")}
+          />
+          <View style={styles.buttonRow}>
+            <ButtonWhite
+              title="Reviews"
+              iconName="description"
+              onPress={() => navigation.navigate("Reviews")}
+            />
+            <ButtonWhite
+              title="Transactions"
+              iconName="credit-card"
+              onPress={() => navigation.navigate("Transactions")}
+            />
+          </View>
+        </View>
+        <View style={styles.headerBorder}></View>
+        <View style={styles.logout}>
+          <Text style={styles.logoutText}>LOGOUT</Text>
+        </View>
+      </ScrollView>
+    </View>
+  );
+};
 
 export default Profile;

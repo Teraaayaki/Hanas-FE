@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
-
+import Profile from "@screens/Profile";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -92,7 +92,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Dashboard}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (

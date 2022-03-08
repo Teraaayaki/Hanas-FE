@@ -11,6 +11,11 @@ import RegisterClientWorker from "@screens/register/RegisterClientWorker";
 import RegisterNumber from "@screens/register/RegisterNumber";
 import SetLocation from "@screens/SetLocation";
 import GetVerified from "@screens/GetVerified";
+import EditAccount from "@screens/EditAccount";
+import EditPassword from "@screens/EditPassword";
+import Transactions from "@screens/Transactions";
+import Reviews from "@screens/Reviews";
+import Services from "@screens/Services";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import Tabs from "@components/Navigation/index";
@@ -38,6 +43,11 @@ export default HanasStack = () => {
       <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
       <Stack.Screen name="SetLocation" component={SetLocation} />
       <Stack.Screen name="GetVerified" component={GetVerified} />
+      <Stack.Screen name="EditAccount" component={EditAccount} />
+      <Stack.Screen name="EditPassword" component={EditPassword} />
+      <Stack.Screen name="Transactions" component={Transactions} />
+      <Stack.Screen name="Reviews" component={Reviews} />
+      <Stack.Screen name="Services" component={Services} />
     </Stack.Navigator>
   );
 };
