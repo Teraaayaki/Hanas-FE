@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flex: 0.3,
+    flex: 1,
     paddingTop: StatusBar.currentHeight,
   },
   headerText: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     overflow: "hidden",
-    marginTop: "-10%",
+    marginTop: "-115%",
     padding: padding.p5,
     elevation: 150,
   },
