@@ -17,12 +17,8 @@ const colors = {
   black: "#403F3C",
   light: "#F6F3E4",
   lightGrey: "#E8E8E8",
-<<<<<<< HEAD
   dark: "#403F3C",
-=======
   borderGrey: "#a1a1a1",
-  dark: "#403f3c",
->>>>>>> develop
   placeholderText: "#AAA",
   background: "#E5E5E5",
 };
