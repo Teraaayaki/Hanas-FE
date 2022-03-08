@@ -9,7 +9,11 @@ import styles from "./style";
 
 const Profile = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container} stickyHeaderHiddenOnScroll={true}>
+    <ScrollView
+      style={styles.container}
+      stickyHeaderHiddenOnScroll={true}
+      showsVerticalScrollIndicator={false}
+    >
       <LinearGradient
         style={styles.header}
         colors={[colors.primary, colors.secondary]}
