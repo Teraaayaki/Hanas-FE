@@ -1,21 +1,40 @@
 import * as React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
+import Button from "@components/Button";
+import TextLink from "@components/TextLink";
+import IconField from "@components/form/IconField";
 
-import styles from "@screens/Profile/style";
+import styles from "./style";
 
-class Settings extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <LinearGradient colors={["#e69fb4", "#ff5e84"]} style={styles.goBack}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.buttonText}>Go back</Text>
-          </TouchableOpacity>
-        </LinearGradient>
+export default function RegisterNumber({ navigation }) {
+  return (
+    <SafeAreaView style={styles.body}>
+      <Text style={styles.title}>Register</Text>
+      <View style={styles.h1Container}>
+        <Text style={styles.h1}>Enter mobile number to create account</Text>
       </View>
-    );
-  }
+      <View style={styles.h3Container}>
+        <Text style={styles.h3}>We will send you a One Time Pin (OTP)</Text>
+      </View>
+      <View style={styles.formContainer}>
+        <IconField
+          iconName="mobile-alt"
+          iconType="font-awesome-5"
+          iconSize={25}
+          keyboardType={"number-pad"}
+          placeholder={"0947xxxxxxx"}
+        />
+        <View style={{ height: 30 }}></View>
+        <Button
+          title="SEND"
+          onPress={() => navigation.navigate("RegisterOTP")}
+        />
+        <TextLink
+          title="Already have an account?"
+          linkTitle="Login here"
+          onPress={() => navigation.navigate("Login")}
+        />
+      </View>
+    </SafeAreaView>
+  );
 }
-
-export default Settings;
