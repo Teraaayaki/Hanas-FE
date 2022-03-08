@@ -3,14 +3,6 @@ import { margin, fontSize, colors, padding } from "@constants";
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  header: {
-    alignItems: "center",
-    paddingTop: StatusBar.currentHeight,
-  },
-  headerText: {
-    marginTop: margin.m3,
-    marginBottom: margin.m2,
-  },
   text: {
     fontSize: fontSize.h1,
     fontWeight: "bold",
