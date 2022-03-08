@@ -14,26 +14,35 @@ export default StyleSheet.create({
     marginBottom: 60,
     paddingBottom: padding.p5,
   },
-  h1Container: {
-    width: "60%",
-    marginVertical: margin.m5,
-  },
-  h1: {
-    fontSize: fontSize.h1,
-    textAlign: "center",
-  },
-  h3Container: {
-    width: "75%",
-    marginBottom: margin.m5,
-    paddingVertical: padding.p5,
-  },
-  h3: {
-    fontSize: fontSize.h3,
-    textAlign: "center",
-  },
   formContainer: {
     width: "65%",
     // backgroundColor: "#CCF",
     marginTop: margin.m3,
+  },
+  pinGroupContainer: {
+    width: "100%",
+    height: 70,
+    // backgroundColor: "#FFC",
+    marginBottom: margin.m2,
+    flexDirection: "row",
+  },
+  pinContainer: {
+    flex: 1,
+    marginHorizontal: margin.m3,
+    // backgroundColor: "#FCC",
+    borderBottomWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pin: {
+    fontSize: 25,
+    textAlign: "center",
+    color: colors.dark,
+  },
+  errorMessage: {
+    marginTop: 50,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: fontSize.p,
   },
 });

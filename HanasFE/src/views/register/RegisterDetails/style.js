@@ -13,23 +13,6 @@ export default StyleSheet.create({
     fontSize: fontSize.title,
     paddingBottom: padding.p5,
   },
-  h1Container: {
-    width: "60%",
-    marginVertical: margin.m5,
-  },
-  h1: {
-    fontSize: fontSize.h1,
-    textAlign: "center",
-  },
-  h3Container: {
-    width: "75%",
-    marginBottom: margin.m5,
-    paddingVertical: padding.p5,
-  },
-  h3: {
-    fontSize: fontSize.h3,
-    textAlign: "center",
-  },
   formContainer: {
     width: "65%",
     // backgroundColor: "#CCF",
