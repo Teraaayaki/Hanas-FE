@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         fontSize: fontSize.title,
         color: colors.dark,
         fontWeight: fontWeight.bold,
-        marginTop: margin.m6,
+        marginVertical: margin.m6,
         alignSelf: "center",
     },
     servicesContainer: {
