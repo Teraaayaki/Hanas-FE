@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
+    paddingBottom: padding.p20,
   },
   headerText: {
     alignItems: "center",
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     overflow: "hidden",
-    marginTop: "-115%",
+    marginTop: "-15%",
     padding: padding.p5,
     elevation: 150,
   },

@@ -9,7 +9,7 @@ import styles from "./style";
 
 const Profile = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} stickyHeaderHiddenOnScroll={true}>
       <LinearGradient
         style={styles.header}
         colors={[colors.primary, colors.secondary]}
@@ -27,10 +27,7 @@ const Profile = ({ navigation }) => {
           </View>
         </View>
       </LinearGradient>
-      <ScrollView
-        style={styles.profileDetails}
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={styles.profileDetails}>
         <View style={styles.accountInfoContainer}>
           <Text style={styles.infoHeader}>Account Info</Text>
           <View style={styles.headerBorder}></View>
@@ -86,8 +83,8 @@ const Profile = ({ navigation }) => {
         <View style={styles.logout}>
           <Text style={styles.logoutText}>LOGOUT</Text>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
