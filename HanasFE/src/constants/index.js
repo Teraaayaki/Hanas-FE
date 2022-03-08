@@ -17,18 +17,17 @@ const colors = {
   black: "#403F3C",
   light: "#F6F3E4",
   lightGrey: "#E8E8E8",
+<<<<<<< HEAD
+  dark: "#403F3C",
+=======
   borderGrey: "#a1a1a1",
   dark: "#403f3c",
+>>>>>>> develop
   placeholderText: "#AAA",
   background: "#E5E5E5",
 };
 
-export const containerFlex = {
-  body: 1,
-  preLogin: 0.65,
-};
-
-export const padding = {
+const padding = {
   p1: "1%",
   p2: "2%",
   p3: "3%",
@@ -40,7 +39,7 @@ export const padding = {
   p30: "30%",
 };
 
-export const margin = {
+const margin = {
   m1: "1%",
   m2: "2%",
   m3: "3%",
@@ -50,10 +49,11 @@ export const margin = {
   m10: "10%",
 };
 
-export const fontSize = {
-  h1: 23, //not Final - check Figma
+const fontSize = {
+  title: 25,
+  h1: 20,
   h2: 18, //not Final - check Figma
-  h3: 16, //not Final - check Figma
+  h3: 15,
   h4: 14, //not Final - check Figma
   h5: 12, //not Final - check Figma
   p: 13, //not Final - check Figma
@@ -62,4 +62,4 @@ export const fontSize = {
   profileName: 20,
 };
 
-export { colors, button };
+export { colors, button, fontSize, margin, padding };
