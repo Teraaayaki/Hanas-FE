@@ -29,12 +29,11 @@ export default function RegisterOTP({ navigation }) {
               placeholder={"X"}
               placeholderTextColor={"#AAA"}
               maxLength={1}
-              onChange={(pin1) => {
+              value={pin1}
+              onChangeText={(pin1) => {
                 setPin1(pin1);
                 if (pin1 !== "") {
                   pin2Ref.current.focus();
-                } else if (pin1 == null) {
-                  pin1Ref.current.focus();
                 }
               }}
             />
@@ -47,7 +46,16 @@ export default function RegisterOTP({ navigation }) {
               placeholder={"X"}
               placeholderTextColor={"#AAA"}
               maxLength={1}
-              onChange={(pin2) => {
+              value={pin2}
+              onKeyPress={({ nativeEvent }) => {
+                if (nativeEvent.key === "Backspace") {
+                  if (pin2 == "") {
+                    // pin1Ref.current.clear();
+                    pin1Ref.current.focus();
+                  }
+                }
+              }}
+              onChangeText={(pin2) => {
                 setPin2(pin2);
                 if (pin2 !== "") {
                   pin3Ref.current.focus();
@@ -62,8 +70,17 @@ export default function RegisterOTP({ navigation }) {
               keyboardType={"number-pad"}
               placeholder={"X"}
               placeholderTextColor={"#AAA"}
+              value={pin3}
               maxLength={1}
-              onChange={(pin3) => {
+              onKeyPress={({ nativeEvent }) => {
+                if (nativeEvent.key === "Backspace") {
+                  if (pin3 == "") {
+                    // pin2Ref.current.clear();
+                    pin2Ref.current.focus();
+                  }
+                }
+              }}
+              onChangeText={(pin3) => {
                 setPin3(pin3);
                 if (pin3 !== "") {
                   pin4Ref.current.focus();
@@ -79,7 +96,16 @@ export default function RegisterOTP({ navigation }) {
               placeholder={"X"}
               placeholderTextColor={"#AAA"}
               maxLength={1}
-              onChange={(pin4) => {
+              value={pin4}
+              onKeyPress={({ nativeEvent }) => {
+                if (nativeEvent.key === "Backspace") {
+                  if (pin4 == "") {
+                    // pin3Ref.current.clear();
+                    pin3Ref.current.focus();
+                  }
+                }
+              }}
+              onChangeText={(pin4) => {
                 setPin4(pin4);
               }}
             />
