@@ -5,13 +5,13 @@ export default StyleSheet.create({
   inputBox: {
     height: 46,
     width: "100%",
-    marginBottom: 40,
     borderRadius: 5,
     backgroundColor: colors.white,
     color: colors.hanasDarkText,
     flexDirection: "row",
     paddingHorizontal: padding.p5,
     paddingVertical: padding.p3,
+    marginBottom: 10,
   },
   iconContainer: {
     // backgroundColor: "#FCC",

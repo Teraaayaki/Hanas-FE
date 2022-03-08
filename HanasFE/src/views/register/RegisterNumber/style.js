@@ -1,8 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@constants";
-import { fontSize } from "@constants";
-import { margin } from "@constants";
-import { padding } from "@constants";
+import { colors, fontSize, margin, padding } from "@constants";
 
 export default StyleSheet.create({
   body: {
@@ -38,29 +35,5 @@ export default StyleSheet.create({
     width: "65%",
     // backgroundColor: "#CCF",
     marginTop: margin.m3,
-  },
-  inputBox: {
-    height: 46,
-    width: "100%",
-    marginBottom: 40,
-    borderRadius: 5,
-    backgroundColor: colors.white,
-    color: colors.hanasDarkText,
-    flexDirection: "row",
-    paddingHorizontal: padding.p5,
-    paddingVertical: padding.p3,
-  },
-  iconContainer: {
-    // backgroundColor: "#FCC",
-    justifyContent: "center",
-  },
-  icon: {
-    color: colors.dark,
-  },
-  textInput: {
-    paddingLeft: padding.p4,
-    flex: 10,
-    fontSize: fontSize.textInput,
-    // backgroundColor: "#CFC",
   },
 });

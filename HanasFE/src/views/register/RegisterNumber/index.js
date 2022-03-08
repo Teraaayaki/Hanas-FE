@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, SafeAreaView, TextInput } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
@@ -24,6 +24,7 @@ export default function RegisterNumber({ navigation }) {
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
         />
+        <View style={{ height: 30 }}></View>
         <Button
           title="SEND"
           onPress={() => navigation.navigate("RegisterDetails")}
