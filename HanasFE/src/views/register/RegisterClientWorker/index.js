@@ -19,7 +19,7 @@ const Landing = ({ navigation }) => {
           <Text style={styles.text}>ARE YOU A?</Text>
           <View style={styles.pinkButtonContainer}>
             <Button
-              onPress={() => navigation.navigate("SetLocation")}
+              onPress={() => navigation.navigate("RegisterNumber")}
               title="CLIENT"
             />
           </View>

@@ -64,7 +64,7 @@ export default function RegisterNumber({ navigation }) {
         <View style={{ height: 20 }}></View>
         <Button
           title="SEND"
-          onPress={() => navigation.navigate("RegisterNumber")}
+          onPress={() => navigation.navigate("SetLocation")}
         />
       </View>
     </SafeAreaView>

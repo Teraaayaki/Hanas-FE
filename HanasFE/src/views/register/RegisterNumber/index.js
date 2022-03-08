@@ -27,7 +27,7 @@ export default function RegisterNumber({ navigation }) {
         <View style={{ height: 30 }}></View>
         <Button
           title="SEND"
-          onPress={() => navigation.navigate("RegisterDetails")}
+          onPress={() => navigation.navigate("RegisterOTP")}
         />
         <TextLink
           title="Already have an account?"
