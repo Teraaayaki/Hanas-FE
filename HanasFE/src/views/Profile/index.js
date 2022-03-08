@@ -1,6 +1,6 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, ScrollView, Image } from "react-native";
+import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
@@ -9,7 +9,11 @@ import styles from "./style";
 
 const Profile = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      stickyHeaderHiddenOnScroll={true}
+      showsVerticalScrollIndicator={false}
+    >
       <LinearGradient
         style={styles.header}
         colors={[colors.primary, colors.secondary]}
@@ -27,10 +31,7 @@ const Profile = ({ navigation }) => {
           </View>
         </View>
       </LinearGradient>
-      <ScrollView
-        style={styles.profileDetails}
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={styles.profileDetails}>
         <View style={styles.accountInfoContainer}>
           <Text style={styles.infoHeader}>Account Info</Text>
           <View style={styles.headerBorder}></View>
@@ -84,10 +85,12 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={styles.headerBorder}></View>
         <View style={styles.logout}>
-          <Text style={styles.logoutText}>LOGOUT</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.logoutText}>LOGOUT</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

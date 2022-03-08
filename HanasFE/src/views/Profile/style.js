@@ -6,8 +6,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flex: 1.3,
+    flex: 1,
     paddingTop: StatusBar.currentHeight,
+    paddingBottom: padding.p20,
   },
   headerText: {
     alignItems: "center",
@@ -46,7 +47,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     overflow: "hidden",
-    marginTop: "-115%",
+    marginTop: "-15%",
+    paddingBottom: padding.p10,
     padding: padding.p5,
     elevation: 150,
   },
@@ -95,10 +97,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   logout: {
-    marginVertical: margin.m10,
+    marginVertical: margin.m5,
     flexDirection: "row-reverse",
   },
   logoutText: {
+    paddingVertical: padding.p5,
     fontWeight: "bold",
   },
 });
