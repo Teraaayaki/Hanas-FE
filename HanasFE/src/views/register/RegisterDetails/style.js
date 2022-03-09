@@ -14,7 +14,7 @@ export default StyleSheet.create({
     paddingBottom: padding.p5,
   },
   formContainer: {
-    width: "65%",
+    width: "80%",
     // backgroundColor: "#CCF",
     marginTop: margin.m3,
   },

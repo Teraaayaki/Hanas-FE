@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { Icon } from "react-native-elements";
 import Button from "@components/Button";
 import IconField from "@components/form/IconField";
@@ -15,12 +21,18 @@ export default function RegisterDetails({ navigation }) {
   const [dob, setDob] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
-  const [isWorker, setIsWorker] = useState("");
+  const [isWorker, setIsWorker] = useState(true);
   const [mobileNo, setMobileNo] = useState("09658584333");
   const [email, setEmail] = useState("");
 
-  const handleChange = (e) => {
-    console.log(e);
+  const handleChangeGender = (gender) => {
+    setGender(gender);
+  };
+
+  const handleSubmit = () => {
+    console.log(
+      firstName + middleName + lastName + mobileNo + suffix + address
+    );
   };
 
   return (
@@ -37,6 +49,7 @@ export default function RegisterDetails({ navigation }) {
           keyboardType={"default"}
           placeholder={"John"}
           value={firstName}
+          onChangeText={(e) => setFirstName(e)}
         />
         <View style={styles.inputRow}>
           <View style={styles.rowContainer}>
@@ -50,6 +63,7 @@ export default function RegisterDetails({ navigation }) {
               keyboardType={"default"}
               placeholder={"Lumberg"}
               value={middleName}
+              onChangeText={(e) => setMiddleName(e)}
             />
           </View>
 
@@ -64,6 +78,7 @@ export default function RegisterDetails({ navigation }) {
               keyboardType={"default"}
               placeholder={"Jr. , III"}
               value={suffix}
+              onChangeText={(e) => setSuffix(e)}
             />
           </View>
         </View>
@@ -78,49 +93,67 @@ export default function RegisterDetails({ navigation }) {
           keyboardType={"default"}
           placeholder={"Doe"}
           value={lastName}
-        />
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>Date of Birth</Text>
-        </View>
-        <IconField
-          iconName="calendar"
-          iconType="entypo"
-          iconSize={25}
-          keyboardType={"default"}
-          placeholder={"02/3/2022"}
-          value={dob}
+          onChangeText={(e) => setLastName(e)}
         />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Gender</Text>
         </View>
         <View style={styles.inputRow}>
-          <View
-            style={{ ...styles.genderContainer, backgroundColor: "lightpink" }}
+          <TouchableOpacity
+            style={{
+              ...styles.genderContainer,
+              backgroundColor: gender === "female" ? "lightpink" : "white",
+            }}
+            onPress={() => handleChangeGender("female")}
           >
             <Icon
               type="material-community"
               name="gender-female"
               color="violet"
             />
-          </View>
-          <View
-            style={{ ...styles.genderContainer, backgroundColor: "lightpink" }}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              ...styles.genderContainer,
+              backgroundColor: gender === "male" ? "lightpink" : "white",
+            }}
+            onPress={() => handleChangeGender("male")}
           >
             <Icon type="material-community" name="gender-male" color="blue" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.inputRow}>
+          <View style={styles.rowContainer}>
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Address</Text>
+            </View>
+            <IconField
+              iconName="location-pin"
+              iconType="material-icons"
+              iconSize={25}
+              keyboardType={"default"}
+              placeholder={"Cebu, City"}
+              value={address}
+              onChangeText={(e) => setAddress(e)}
+            />
+          </View>
+          <View style={styles.rowContainer2}>
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Date of Birth</Text>
+            </View>
+            <IconField
+              iconName="calendar"
+              iconType="entypo"
+              iconSize={25}
+              keyboardType={"default"}
+              placeholder={"02/3/2022"}
+              value={dob}
+              onChangeText={(e) => setDob(e)}
+            />
           </View>
         </View>
 
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>Address</Text>
-        </View>
-        <IconField
-          iconName="location-pin"
-          iconType="material-icons"
-          iconSize={25}
-          keyboardType={"default"}
-          placeholder={"Cebu, City"}
-          value={address}
-        />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
         </View>
@@ -128,15 +161,13 @@ export default function RegisterDetails({ navigation }) {
           iconName="lock"
           iconType="material-community-icons"
           iconSize={25}
-          keyboardType={"number-pad"}
+          keyboardType={"default"}
           placeholder={"************"}
           value={password}
+          onChangeText={(e) => setPassword(e)}
         />
         <View style={{ height: 20 }}></View>
-        <Button
-          title="SEND"
-          onPress={() => navigation.navigate("SetLocation")}
-        />
+        <Button title="SEND" onPress={handleSubmit} />
       </View>
     </SafeAreaView>
   );
