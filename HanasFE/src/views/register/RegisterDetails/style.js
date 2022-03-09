@@ -27,4 +27,22 @@ export default StyleSheet.create({
     fontSize: fontSize.label,
     fontWeight: "bold",
   },
+  inputRow: {
+    flexDirection: "row",
+  },
+  rowContainer: {
+    flex: 1,
+    paddingRight: padding.p3,
+  },
+  rowContainer2: {
+    flex: 1,
+    paddingLeft: padding.p3,
+  },
+  genderContainer: {
+    flex: 1,
+    paddingVertical: padding.p3,
+    backgroundColor: colors.white,
+    borderRadius: 5,
+    marginBottom: margin.m3,
+  },
 });
