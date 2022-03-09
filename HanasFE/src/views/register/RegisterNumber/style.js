@@ -36,4 +36,10 @@ export default StyleSheet.create({
     // backgroundColor: "#CCF",
     marginTop: margin.m3,
   },
+  text: {
+    fontSize: fontSize.p,
+    fontWeight: "bold",
+    color: colors.danger,
+    alignSelf: "center",
+  },
 });

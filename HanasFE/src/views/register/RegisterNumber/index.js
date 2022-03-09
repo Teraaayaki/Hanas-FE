@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
@@ -7,6 +7,20 @@ import IconField from "@components/form/IconField";
 import styles from "./style";
 
 export default function RegisterNumber({ navigation }) {
+  const [number, setNumber] = useState("");
+  const [route, setRoute] = useState("RegisterNumber");
+  const [show, setShow] = useState(false);
+
+  const handleChange = (e) => {
+    if (e.length === 10) {
+      setShow(false);
+      setRoute("RegisterOTP");
+    } else {
+      setShow(true);
+    }
+    setNumber(e);
+  };
+
   return (
     <SafeAreaView style={styles.body}>
       <Text style={styles.title}>Register</Text>
@@ -22,13 +36,18 @@ export default function RegisterNumber({ navigation }) {
           iconType="font-awesome-5"
           iconSize={25}
           keyboardType={"number-pad"}
-          placeholder={"0947xxxxxxx"}
+          placeholder={"+947xxxxxxx"}
+          value={number}
+          onChangeText={handleChange}
         />
-        <View style={{ height: 30 }}></View>
-        <Button
-          title="SEND"
-          onPress={() => navigation.navigate("RegisterOTP")}
-        />
+        <View style={{ height: 30 }}>
+          {show ? (
+            <Text style={styles.text}>
+              Mobile no. length should be 10 numbers
+            </Text>
+          ) : null}
+        </View>
+        <Button title="SEND" onPress={() => navigation.navigate(`${route}`)} />
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"
