@@ -18,8 +18,18 @@ export default function RegisterNumber({ navigation }) {
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
-          keyboardType={"number-pad"}
-          placeholder={"0947xxxxxxx"}
+          keyboardType={"default"}
+          placeholder={"John"}
+        />
+        <View style={styles.labelContainer}>
+          <Text style={styles.label}>Middle Name</Text>
+        </View>
+        <IconField
+          iconName="person-outline"
+          iconType="ionicons"
+          iconSize={25}
+          keyboardType={"default"}
+          placeholder={"Lumberg"}
         />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Last Name</Text>
@@ -28,8 +38,8 @@ export default function RegisterNumber({ navigation }) {
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
-          keyboardType={"number-pad"}
-          placeholder={"0947xxxxxxx"}
+          keyboardType={"default"}
+          placeholder={"Doe"}
         />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Date of Birth</Text>
@@ -38,8 +48,8 @@ export default function RegisterNumber({ navigation }) {
           iconName="calendar"
           iconType="entypo"
           iconSize={25}
-          keyboardType={"number-pad"}
-          placeholder={"0947xxxxxxx"}
+          keyboardType={"default"}
+          placeholder={"02/3/2022"}
         />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Address</Text>
@@ -48,8 +58,8 @@ export default function RegisterNumber({ navigation }) {
           iconName="location-pin"
           iconType="material-icons"
           iconSize={25}
-          keyboardType={"number-pad"}
-          placeholder={"0947xxxxxxx"}
+          keyboardType={"default"}
+          placeholder={"Cebu, City"}
         />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
@@ -59,7 +69,7 @@ export default function RegisterNumber({ navigation }) {
           iconType="material-community-icons"
           iconSize={25}
           keyboardType={"number-pad"}
-          placeholder={"0947xxxxxxx"}
+          placeholder={"************"}
         />
         <View style={{ height: 20 }}></View>
         <Button
