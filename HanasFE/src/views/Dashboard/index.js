@@ -1,11 +1,21 @@
 import * as React from "react";
-import { View } from "react-native";
-import Button from "@components/Button";
+import LightHeader from "@components/LightHeaderWithHanas";
+import CircularImage from "@components/CircularImage";
+import { View, Text, ScrollView } from "react-native";
+import styles from "./style";
+import HorizontalCarousel from "@components/Carousel";
 
 const Dashboard = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button onPress={() => navigation.navigate("Landing")} title="GO BACK" />
+    <View style={styles.container}>
+      <LightHeader />
+      <ScrollView style={styles.scrollContainer}>
+        <View>
+          <Text style={styles.headerText}>CHOOSE YOUR SERVICE</Text>
+        </View>
+        <HorizontalCarousel />
+      </ScrollView>
+      
     </View>
   );
 };

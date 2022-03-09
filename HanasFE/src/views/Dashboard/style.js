@@ -1,26 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
+import { colors, margin, fontSize, padding, fontWeight } from "@constants";
 
 export default StyleSheet.create({
-    linearGradient: {
-      padding: 5,
-      width: 150,
-      height: 50,
-      alignItems: 'center',
-      textAlignVertical: 'center',
-      justifyContent: 'center',
-      borderRadius: 50/2,
-    },
-    goBack: {
-      marginTop: 15,
-      padding: 5,
-      width: 150,
-      height: 50,
-      alignItems: 'center',
-      textAlignVertical: 'center',
-      justifyContent: 'center',
-      borderRadius: 50/2,
-    },
-    buttonText: {
-      fontSize: 16,
-    }
+  container: {
+    flex: 1,
+    backgroundColor: colors.lightGrey,  
+  },
+  headerText: {
+    fontSize: fontSize.title,
+    color: colors.dark,
+    fontWeight: fontWeight.bold,
+    alignSelf: "center",
+  }
 });
