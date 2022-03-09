@@ -68,7 +68,7 @@ const Profile = ({ navigation }) => {
           <ButtonWhite
             title="Services"
             iconName="shopping-cart"
-            onPress={() => navigation.navigate("Services")}
+            onPress={() => navigation.navigate("BrowseServices")}
           />
           <View style={styles.buttonRow}>
             <ButtonWhite

@@ -17,10 +17,10 @@ import EditAccount from "@screens/EditAccount";
 import EditPassword from "@screens/EditPassword";
 import Transactions from "@screens/Transactions";
 import Reviews from "@screens/Reviews";
-import Services from "@screens/Services";
+import BrowseServices from "@screens/BrowseServices";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
-import Tabs from "@components/Navigation/index";
+import Tabs from "@routes/BottomTabNavigator";
 
 const Stack = createStackNavigator();
 
@@ -51,7 +51,7 @@ export default HanasStack = () => {
       <Stack.Screen name="EditPassword" component={EditPassword} />
       <Stack.Screen name="Transactions" component={Transactions} />
       <Stack.Screen name="Reviews" component={Reviews} />
-      <Stack.Screen name="Services" component={Services} />
+      <Stack.Screen name="BrowseServices" component={BrowseServices} />
     </Stack.Navigator>
   );
 };

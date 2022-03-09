@@ -21,6 +21,8 @@ const colors = {
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
   background: "#E5E5E5",
+  lightYellow: "#F6F3E4",
+  middlePink: "#FAA9B5",
 };
 
 const padding = {
@@ -31,7 +33,6 @@ const padding = {
   p5: "5%",
   p6: "6%",
   p10: "10%",
-  p15: "15%",
   p20: "20%",
   p30: "30%",
 };
@@ -44,8 +45,6 @@ const margin = {
   m5: "5%",
   m6: "6%",
   m10: "10%",
-  m15: "15%",
-  m20: "20%",
 };
 
 const fontSize = {
@@ -61,4 +60,10 @@ const fontSize = {
   profileName: 20,
 };
 
-export { colors, button, fontSize, margin, padding };
+const fontWeight = {
+  bold: "bold",
+  regular: "regular",
+  italic: "italic",
+}
+
+export { colors, button, fontSize, margin, padding, fontWeight };
