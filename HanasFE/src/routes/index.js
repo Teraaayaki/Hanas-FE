@@ -18,6 +18,8 @@ import EditPassword from "@screens/EditPassword";
 import Transactions from "@screens/Transactions";
 import Reviews from "@screens/Reviews";
 import BrowseServices from "@screens/BrowseServices";
+import MyServices from "@screens/services/MyServices";
+// import AddService from "@screens/services/AddService";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import Tabs from "@routes/BottomTabNavigator";
@@ -45,6 +47,8 @@ export default HanasStack = () => {
       <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
       <Stack.Screen name="RegisterDetails" component={RegisterDetails} />
       <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
+      <Stack.Screen name="MyServices" component={MyServices} />
+      {/* <Stack.Screen name="AddService" component={AddService} /> */}
       <Stack.Screen name="SetLocation" component={SetLocation} />
       <Stack.Screen name="GetVerified" component={GetVerified} />
       <Stack.Screen name="EditAccount" component={EditAccount} />

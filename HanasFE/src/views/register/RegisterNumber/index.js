@@ -29,6 +29,7 @@ export default function RegisterNumber({ navigation }) {
           title="SEND"
           onPress={() => navigation.navigate("RegisterOTP")}
         />
+        <View style={{ height: 10 }}></View>
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"

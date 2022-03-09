@@ -14,9 +14,10 @@ const colors = {
   info: "#005484",
   info2: "#1400FF",
   white: "#FFFFFF",
-  black: "#403F3C",
+  black: "#000000",
   light: "#F6F3E4",
   lightGrey: "#E8E8E8",
+  grey: "#808080",
   dark: "#403F3C",
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
@@ -64,6 +65,6 @@ const fontWeight = {
   bold: "bold",
   regular: "regular",
   italic: "italic",
-}
+};
 
 export { colors, button, fontSize, margin, padding, fontWeight };

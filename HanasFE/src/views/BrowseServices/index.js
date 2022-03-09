@@ -1,6 +1,6 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, Text, ScrollView} from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import styles from "./style";
 import { colors, fontSize } from "@constants";
 import LightHeader from "@components/LightHeaderWithHanas";
@@ -15,7 +15,7 @@ const BrowseServices = () => {
         <View>
           <Text style={styles.headerText}>SERVICES</Text>
         </View>
-      
+
         <View style={styles.servicesContainer}>
           <CircularImage imageSource={require("@images/service1.png")} />
           <CircularImage imageSource={require("@images/service2.png")} />
