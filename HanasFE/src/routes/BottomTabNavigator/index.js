@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
+import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 const Tab = createBottomTabNavigator();
 
@@ -106,6 +107,17 @@ const Tabs = () => {
               />
             );
           },
+        }}
+      />
+
+      {/*ari i add ang mga screens nga mag require ani nga navigator */}
+
+      <Tab.Screen
+        name="BrowseServices"
+        component={BrowseServices}
+        options = {{
+          tabBarButton: () => null,
+          tabBarVisible: false,
         }}
       />
     </Tab.Navigator>

@@ -7,7 +7,7 @@ import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import style from "../../components/LightHeaderWithHanas/style";
 
-const Services = () => {
+const BrowseServices = () => {
   return (
     <View style={styles.container}>
       <LightHeader />
@@ -39,9 +39,8 @@ const Services = () => {
           <CircularImage imageSource={require("@images/service20.png")} />
         </View>
       </ScrollView>
-      
     </View>
   );
 };
 
-export default Services;
+export default BrowseServices;

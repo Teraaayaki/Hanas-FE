@@ -16,7 +16,7 @@ const LightHeader = () => {
         setSearch(search);
       };
   return (
-    <View style={{backgroundColor: "transparent"}}>
+    <View>
         <LinearGradient
         style={styles.header}
         colors={[colors.lightYellow, colors.secondary]}
