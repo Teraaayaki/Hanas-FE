@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         fontSize: fontSize.title,
         color: colors.dark,
         fontWeight: fontWeight.bold,
-        marginVertical: margin.m6,
         alignSelf: "center",
     },
     servicesContainer: {
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-evenly",
-        height: "100%",
+        alignItems: "flex-start",
         marginVertical: margin.m3,
     }
 });
