@@ -11,6 +11,7 @@ import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 
 import styles from "./style";
+import axios from '@helpers/axios';
 
 export default function RegisterDetails({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -20,19 +21,34 @@ export default function RegisterDetails({ navigation }) {
   const [suffix, setSuffix] = useState("");
   const [dob, setDob] = useState("");
   const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
+  const [sex, setSex] = useState("");
   const [isWorker, setIsWorker] = useState(true);
   const [mobileNo, setMobileNo] = useState("09658584333");
   const [email, setEmail] = useState("");
 
-  const handleChangeGender = (gender) => {
-    setGender(gender);
+  const handleChangeSex = (sex) => {
+    setGender(sex);
   };
 
-  const handleSubmit = () => {
-    console.log(
-      firstName + middleName + lastName + mobileNo + suffix + address
-    );
+  const handleSubmit = async() => {
+    await axios.post({
+      method:'post',
+      url: '/api/client/register',
+      data: {
+      first_name: firstName,
+      middle_name: middleName,
+      family_name: lastName,
+      suffix: suffix,
+      email: email,
+      password: password,
+      mobile_no: mobileNo,
+      address: address,
+      birthdate: dob,
+      sex: sex,
+      is_worker: isWorker,
+      }
+    }).then(res => console.log(res))
+      .catch(err => console.log(err))
   };
 
   return (
