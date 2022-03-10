@@ -7,5 +7,6 @@ export default StyleSheet.create({
     height: 80,
     marginVertical: margin.m3,
     marginHorizontal: margin.m2,
+    backgroundColor: "yellow"
   },
 });

@@ -41,7 +41,7 @@ const HorizontalCarousel = () => {
     };
        
     return (
-        <View style={{flex: 1, flexDirection: "row", justifyContent: "center", marginLeft: 15}}>
+        <View style={{flex: 1, flexDirection: "row", justifyContent: "center", marginLeft: 15, marginVertical: "5%"}}>
             <Carousel
             layout={"default"}
             // ref={ref => carousel = ref}
