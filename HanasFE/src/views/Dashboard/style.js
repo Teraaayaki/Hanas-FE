@@ -10,7 +10,6 @@ export default StyleSheet.create({
   horizontalContainer: {
     flex: 1,
     flexDirection: "row",
-    flexWrap: "nowrap"
   },
   headerText: {
     fontSize: fontSize.title,
@@ -19,9 +18,19 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   horizontalScrollContainer: {
-    flex: 1,
-    height: 100,
-    backgroundColor: "blue",
-   
+    height: "auto",
+  },
+  textContainer: {
+    flex: 1, 
+    marginHorizontal: margin.m3, 
+    flexDirection: "row", 
+    justifyContent: "space-between"
+  },
+  labelText: {
+    fontSize: fontSize.label,
+  },
+  fadeText: {
+    fontSize: fontSize.h5,
+    color: colors.borderGrey
   }
 });

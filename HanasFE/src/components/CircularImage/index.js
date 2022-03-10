@@ -6,7 +6,7 @@ import { colors, fontSize } from "@constants";
 
 const CircularImage = ({ imageSource }) => {
   return (
-    <Image source={imageSource} style={styles.dimension}></Image>
+    <Image source={imageSource} style={styles.dimension} ></Image>
   );
 };
 
