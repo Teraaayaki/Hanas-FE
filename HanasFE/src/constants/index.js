@@ -54,7 +54,7 @@ const fontSize = {
   h2: 18, //not Final - check Figma
   h3: 15,
   h4: 14, //not Final - check Figma
-  h5: 12, //not Final - check Figma
+  h5: 12,
   p: 13, //not Final - check Figma
   label: 15,
   textInput: 13,
