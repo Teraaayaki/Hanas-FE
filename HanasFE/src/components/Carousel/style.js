@@ -1,8 +1,9 @@
 import { StyleSheet, Dimensions} from "react-native";
+import { margin } from "../../constants";
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
     item: {
         width: screenWidth - 60,
         height: screenWidth - 60,
@@ -18,9 +19,13 @@ const styles = StyleSheet.create({
     },
     renderedContainer: {
         borderRadius: 5,
-        height: 150,
-        marginLeft: 25,
-        marginVertical: 100,
-        backgroundColor: "red"
+        height: 200,
+    },
+    carouselContainer: {
+      flex: 1, 
+      flexDirection: "row", 
+      justifyContent: "center", 
+      marginLeft: 15, 
+      marginVertical: "5%",
     }
 })
