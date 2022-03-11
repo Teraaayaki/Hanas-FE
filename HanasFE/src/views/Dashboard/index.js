@@ -32,8 +32,8 @@ const Dashboard = ({ navigation }) => {
         <View style={styles.textContainer}>
           <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
         </View>
-        <CardContainer name={"Hosea Barriga"} profession={"Electrical Services"} rating={"4.5"} jobs={"1000"} image={"@images/profile1.png"} rate={"100"}/>
-        <CardContainer name={"Renzo Lebumfacil"} profession={"Electrical Services"} rating={"4.0"} jobs={"699"} image={"@images/profile1.png"} rate={"99"}/>
+        <CardContainer name={"Hosea Barriga"} profession={"Electrical Services"} rating={"4.5"} jobs={"1000"} image={require("@images/profile1.png")} rate={"100"}/>
+        <CardContainer name={"Renzo Lebumfacil"} profession={"Electrical Services"} rating={"4.0"} jobs={"699"} image={require("@images/profile2.png")} rate={"99"}/>
       </ScrollView>
       
     </View>

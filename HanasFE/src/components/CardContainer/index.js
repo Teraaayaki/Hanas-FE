@@ -7,11 +7,12 @@ import TextLinkPink from '@components/TextLinkPink';
 
 
 const CardContainer = ({name, profession, image, rating, jobs, rate}) => {
+    console.log(image);
   return (
     <View style={styles.container}>
         <View style={styles.cardContainer}>
             <View >
-                <CircularImage imageSource={{uri: image}}/>
+                <CircularImage imageSource={image}/>
             </View>
             <View style={styles.profileContainer}>
                 <Text style={styles.name}>{name}</Text>
