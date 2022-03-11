@@ -7,7 +7,7 @@ import { colors, fontSize } from "@constants";
 const CircularImage = ({ imageSource, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Image source={imageSource} style={styles.dimension}></Image>
+      <Image source={imageSource} style={styles.dimension} />
     </TouchableOpacity>
   );
 };

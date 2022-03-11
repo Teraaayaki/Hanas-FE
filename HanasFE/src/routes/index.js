@@ -18,6 +18,7 @@ import EditPassword from "@screens/EditPassword";
 import Transactions from "@screens/Transactions";
 import Reviews from "@screens/Reviews";
 import BrowseServices from "@screens/BrowseServices";
+import ServicesNearYou from "@screens/ServicesNearYou";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import Tabs from "@routes/BottomTabNavigator";
@@ -52,6 +53,7 @@ export default HanasStack = () => {
       <Stack.Screen name="Transactions" component={Transactions} />
       <Stack.Screen name="Reviews" component={Reviews} />
       <Stack.Screen name="BrowseServices" component={BrowseServices} />
+      <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
     </Stack.Navigator>
   );
 };

@@ -10,9 +10,7 @@ const CardContainer = ({name, profession, image, rating, jobs, rate, onPress}) =
   return (
     <View style={styles.container}>
         <View style={styles.cardContainer}>
-            <View >
-                <CircularImage imageSource={image}/>
-            </View>
+                <CircularImage imageSource={image} onPress={onPress}/>
             <View style={styles.profileContainer}>
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.profession}>{profession}</Text>

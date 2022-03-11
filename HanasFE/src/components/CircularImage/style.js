@@ -5,7 +5,7 @@ export default StyleSheet.create({
   dimension: {
     width: 80, 
     height: 80,
-    marginVertical: margin.m3,
+    marginVertical: 10,
     marginHorizontal: 10,
     borderRadius: 50,
   },
