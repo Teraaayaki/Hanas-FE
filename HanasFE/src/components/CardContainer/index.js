@@ -6,13 +6,12 @@ import CircularImage from '@components/CircularImage';
 import TextLinkPink from '@components/TextLinkPink';
 
 
-const CardContainer = ({name, profession, image, rating, jobs, rate}) => {
-    console.log(image);
+const CardContainer = ({name, profession, image, rating, jobs, rate, onPress}) => {
   return (
     <View style={styles.container}>
         <View style={styles.cardContainer}>
             <View >
-                <CircularImage imageSource={image}/>
+                <CircularImage imageSource={image} onPress={onPress}/>
             </View>
             <View style={styles.profileContainer}>
                 <Text style={styles.name}>{name}</Text>

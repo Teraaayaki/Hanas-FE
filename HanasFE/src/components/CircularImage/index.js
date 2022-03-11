@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text, Image} from "react-native";
+import { View, Text, Image, Touchable} from "react-native";
 import styles from "./style";
 import { colors, fontSize } from "@constants";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const CircularImage = ({ imageSource }) => {
+const CircularImage = ({ imageSource, onPress}) => {
   return (
-    <Image source={imageSource} style={styles.dimension} ></Image>
+    <TouchableOpacity onPress={onPress}>
+      <Image source={imageSource} style={styles.dimension}></Image>
+    </TouchableOpacity>
   );
 };
 

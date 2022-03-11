@@ -21,7 +21,7 @@ const Dashboard = ({ navigation }) => {
         </View>
         <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScrollContainer} showsHorizontalScrollIndicator={false}>
           <View style={styles.horizontalContainer}>
-            <CircularImage imageSource={require("@images/service1.png")} />
+            <CircularImage imageSource={require("@images/service1.png")} onPress={() =>  navigation.navigate("BrowseServices")}/>
             <CircularImage imageSource={require("@images/service2.png")} />
             <CircularImage imageSource={require("@images/service3.png")} />
             <CircularImage imageSource={require("@images/service4.png")} />
