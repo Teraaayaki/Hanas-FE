@@ -11,7 +11,7 @@ import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 
 import styles from "./style";
-import axios from '@helpers/axios';
+import axios from "@helpers/axios";
 
 export default function RegisterDetails({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -24,31 +24,38 @@ export default function RegisterDetails({ navigation }) {
   const [sex, setSex] = useState("");
   const [isWorker, setIsWorker] = useState(true);
   const [mobileNo, setMobileNo] = useState("09658584333");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("renzolebumfacil@gmail.com");
+  const [errMessage, setErrMessage] = useState(false);
 
   const handleChangeSex = (sex) => {
-    setGender(sex);
+    setSex(sex);
   };
 
-  const handleSubmit = async() => {
-    await axios.post({
-      method:'post',
-      url: '/api/client/register',
-      data: {
-      first_name: firstName,
-      middle_name: middleName,
-      family_name: lastName,
-      suffix: suffix,
-      email: email,
-      password: password,
-      mobile_no: mobileNo,
-      address: address,
-      birthdate: dob,
-      sex: sex,
-      is_worker: isWorker,
-      }
-    }).then(res => console.log(res))
-      .catch(err => console.log(err))
+  const handleSubmit = async () => {
+    const valid = false;
+
+    !firstName ? setErrMessage(true) : null;
+
+    await axios
+      .get("/")
+      .then((res) => console.log(res.data.mess))
+      .catch((err) => err);
+
+    // method:'post',
+    // url: '/api/client/register',
+    // data: {
+    // first_name: firstName,
+    // middle_name: middleName,
+    // family_name: lastName,
+    // suffix: suffix,
+    // email: email,
+    // password: password,
+    // mobile_no: mobileNo,
+    // address: address,
+    // birthdate: dob,
+    // gender: sex,
+    // is_worker: isWorker,
+    // }
   };
 
   return (
@@ -118,9 +125,9 @@ export default function RegisterDetails({ navigation }) {
           <TouchableOpacity
             style={{
               ...styles.genderContainer,
-              backgroundColor: gender === "female" ? "lightpink" : "white",
+              backgroundColor: sex === "female" ? "lightpink" : "white",
             }}
-            onPress={() => handleChangeGender("female")}
+            onPress={() => handleChangeSex("female")}
           >
             <Icon
               type="material-community"
@@ -132,9 +139,9 @@ export default function RegisterDetails({ navigation }) {
           <TouchableOpacity
             style={{
               ...styles.genderContainer,
-              backgroundColor: gender === "male" ? "lightpink" : "white",
+              backgroundColor: sex === "male" ? "lightpink" : "white",
             }}
-            onPress={() => handleChangeGender("male")}
+            onPress={() => handleChangeSex("male")}
           >
             <Icon type="material-community" name="gender-male" color="blue" />
           </TouchableOpacity>
@@ -170,7 +177,12 @@ export default function RegisterDetails({ navigation }) {
           </View>
         </View>
 
-        <View style={styles.labelContainer}>
+        {errMessage ? (
+          <View>
+            <Text style={styles.error}>Error: Incomplete Data Inputted</Text>
+          </View>
+        ) : null}
+        {/* <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
         </View>
         <IconField
@@ -181,7 +193,7 @@ export default function RegisterDetails({ navigation }) {
           placeholder={"************"}
           value={password}
           onChangeText={(e) => setPassword(e)}
-        />
+        /> */}
         <View style={{ height: 20 }}></View>
         <Button title="SEND" onPress={handleSubmit} />
       </View>

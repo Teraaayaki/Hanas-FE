@@ -45,4 +45,9 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginBottom: margin.m3,
   },
+  error:{
+    color: colors.danger,
+    fontWeight: "bold",
+    alignSelf: "center"
+  }
 });
