@@ -1,12 +1,23 @@
-import * as React from "react";
+import React, {useState} from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
-import { View, Text, ScrollView, Image, TouchableOpacity} from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, TouchableHighlight} from "react-native";
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
+import { colors } from "@constants";
 
 const Dashboard = ({ navigation }) => {
+  var [ isPress, setIsPress ] = useState(false);
+
+  var touchProps = {
+    activeOpacity: 0.2,
+    underlayColor: colors.lightGrey,                               // <-- "backgroundColor" will be always overwritten by "underlayColor"
+    style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
+    onHideUnderlay: () => setIsPress(false),
+    onShowUnderlay: () => setIsPress(true),
+    onPress: () => navigation.navigate("BrowseServices"),                 // <-- "onPress" is apparently required
+  };
   return (
     <View style={styles.container}>
       <LightHeader />
@@ -15,9 +26,11 @@ const Dashboard = ({ navigation }) => {
           <Text style={styles.headerText}>CHOOSE YOUR SERVICE</Text>
         </View>
         <HorizontalCarousel />
-        <View style={styles.textContainer}>
+        <View style={styles.textContainer} >
           <Text style={styles.labelText}>Top Services</Text>
-          <Text style={styles.fadeText} onPress={() => navigation.navigate("BrowseServices")}>View more</Text>
+          <TouchableHighlight  {...touchProps}>
+            <Text style={styles.fadeText}>View more</Text>
+          </TouchableHighlight>
         </View>
         <ScrollView horizontal={true} contentContainerStyle={styles.horizontalScrollContainer} showsHorizontalScrollIndicator={false}>
           <View style={styles.horizontalContainer}>
