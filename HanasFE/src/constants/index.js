@@ -58,6 +58,8 @@ const fontSize = {
   label: 15,
   textInput: 13,
   profileName: 20,
+  services: 10,
+
 };
 
 const fontWeight = {
