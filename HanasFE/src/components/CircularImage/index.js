@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, Image} from "react-native";
+import { View, Text, Image, TouchableOpacity} from "react-native";
 import styles from "./style";
 import { colors, fontSize } from "@constants";
 
 
-const CircularImage = ({ imageSource }) => {
+const CircularImage = ({ imageSource, onPress}) => {
   return (
-    <Image source={imageSource} style={styles.dimension}></Image>
+    <TouchableOpacity onPress={onPress}>
+      <Image source={imageSource} style={styles.dimension} />
+    </TouchableOpacity>
   );
 };
 
