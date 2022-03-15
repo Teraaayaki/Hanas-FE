@@ -24,7 +24,8 @@ export default StyleSheet.create({
     flex: 1, 
     marginHorizontal: margin.m3, 
     flexDirection: "row", 
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    padding: padding.p3
   },
   labelText: {
     fontSize: fontSize.label,
@@ -32,5 +33,9 @@ export default StyleSheet.create({
   fadeText: {
     fontSize: fontSize.h5,
     color: colors.borderGrey
+  },
+  btnPress: {
+    borderRadius: 10,
+    padding: 5,
   }
 });
