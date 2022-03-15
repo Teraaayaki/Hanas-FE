@@ -1,12 +1,11 @@
 import * as React from "react";
-import { Text, View, SafeAreaView, TextInput } from "react-native";
+import { Text, View, SafeAreaView, TextInput, Icon } from "react-native";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
-import IconField from "@components/form/IconField";
 
 import styles from "./style";
 
-export default function RegisterNumber({ navigation }) {
+export default function RegisterDetails({ navigation }) {
   return (
     <SafeAreaView style={styles.body}>
       <Text style={styles.title}>User Details</Text>
@@ -14,53 +13,53 @@ export default function RegisterNumber({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>First Name</Text>
         </View>
-        <IconField
+        {/* <Icon
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        />
+        /> */}
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Last Name</Text>
         </View>
-        <IconField
+        {/* <Icon
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        />
+        /> */}
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Date of Birth</Text>
         </View>
-        <IconField
+        {/* <Icon
           iconName="calendar"
           iconType="entypo"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        />
+        /> */}
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Address</Text>
         </View>
-        <IconField
+        {/* <Icon
           iconName="location-pin"
           iconType="material-icons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        />
+        /> */}
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
         </View>
-        <IconField
+        {/* <Icon
           iconName="lock"
           iconType="material-community-icons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        />
+        /> */}
         <View style={{ height: 20 }}></View>
         <Button
           title="SEND"

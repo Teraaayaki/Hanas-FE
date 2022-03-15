@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@constants";
+import { colors, fontSize } from "@constants";
 
 export default StyleSheet.create({
   //-------------Reusable Containers-----------------
@@ -26,6 +26,10 @@ export default StyleSheet.create({
     flexDirection: "column-reverse",
     alignItems: "center",
   },
+  logo: {
+    height: 177,
+    width: "130%",
+  },
 
   //----------------------Form---------------------------
 
@@ -38,7 +42,25 @@ export default StyleSheet.create({
     width: "100%",
     padding: 5,
   },
-
+  input: {
+    height: 46,
+    width: "100%",
+    marginTop: 7,
+    marginBottom: 18,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: colors.white,
+    color: colors.hanasDarkText,
+    fontSize: fontSize.textInput,
+    justifyContent: "center",
+  },
+  label: {
+    fontFamily: "Roboto",
+    fontWeight: "700",
+    color: colors.dark,
+    fontSize: fontSize.label,
+  },
   dark: {
     color: colors.dark,
   },
@@ -53,4 +75,5 @@ export default StyleSheet.create({
     width: "100%",
     marginTop: 20,
   },
+  
 });

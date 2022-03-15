@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, Text, Image} from "react-native";
+import { View, Text, Image, TouchableOpacity} from "react-native";
 import styles from "./style";
 import { colors, fontSize, margin } from "@constants";
 import CircularImage from '@components/CircularImage';
 import TextLinkPink from '@components/TextLinkPink';
 
 
-const CardContainer = ({name, profession, image, rating, jobs, rate, onPress}) => {
+const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, navigation}) => {
   return (
-    <View style={styles.container}>
-        <View style={styles.cardContainer}>
-                <CircularImage imageSource={image} onPress={onPress}/>
+    <View style={styles.container} >
+        <TouchableOpacity style={styles.cardContainer} activeOpacity={0.6} onPress={onPress}>
+            <CircularImage imageSource={image} onPress={onPress}/>
             <View style={styles.profileContainer}>
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.profession}>{profession}</Text>
@@ -25,7 +25,7 @@ const CardContainer = ({name, profession, image, rating, jobs, rate, onPress}) =
                     <Text style={styles.fadeTextValues}>{rate} Php/hr</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     </View>
   );
 };
