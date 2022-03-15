@@ -5,7 +5,7 @@ import styles from "../styles";
 //Containers are invisible
 //Cards are visible
 
-const Certificates = () => {
+const Certificates = ({ navigation }) => {
   return (
     <View style={[styles.infoContainer, styles.mt5]}>
       <View style={[styles.flexRowContainer, styles.alignCenter, styles.mb2]}>
@@ -17,28 +17,40 @@ const Certificates = () => {
       <View style={styles.scrollViewHeight}>
         <ScrollView horizontal={true} style={[styles.scrollView]}>
           <View style={styles.scrollContent}>
-            <TouchableOpacity style={styles.certificateIMGCard}>
+            <TouchableOpacity
+              style={styles.certificateIMGCard}
+              onPress={navigation}
+            >
               <Image
                 style={styles.containedIMG}
                 source={require("@images/mullet.jpg")}
               />
             </TouchableOpacity>
             <View style={{ padding: "1%" }}></View>
-            <TouchableOpacity style={styles.certificateIMGCard}>
+            <TouchableOpacity
+              style={styles.certificateIMGCard}
+              onPress={navigation}
+            >
               <Image
                 style={styles.containedIMG}
                 source={require("@images/mullet.jpg")}
               />
             </TouchableOpacity>
             <View style={{ padding: "1%" }}></View>
-            <TouchableOpacity style={styles.certificateIMGCard}>
+            <TouchableOpacity
+              style={styles.certificateIMGCard}
+              onPress={navigation}
+            >
               <Image
                 style={styles.containedIMG}
                 source={require("@images/mullet.jpg")}
               />
             </TouchableOpacity>
             <View style={{ padding: "1%" }}></View>
-            <TouchableOpacity style={styles.certificateIMGCard}>
+            <TouchableOpacity
+              style={styles.certificateIMGCard}
+              onPress={navigation}
+            >
               <Image
                 style={styles.containedIMG}
                 source={require("@images/mullet.jpg")}

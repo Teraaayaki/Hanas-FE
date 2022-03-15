@@ -19,6 +19,8 @@ const MyService = ({
   ratePerHour,
   description,
 }) => {
+  const AddEditServiceRoute = () => navigation.navigate("AddEditService");
+  const FullScreenImageRoute = () => navigation.navigate("FullScreenImage");
   return (
     <View style={(styles.serviceContainer, styles.mb5)}>
       <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
@@ -35,10 +37,7 @@ const MyService = ({
         >
           {name} Service
         </Text>
-        <TouchableOpacity
-          style={styles.ml3}
-          onPressOut={() => navigation.navigate("AddEditService")}
-        >
+        <TouchableOpacity style={styles.ml3} onPressOut={AddEditServiceRoute}>
           <View style={[styles.infoColumn, styles.alignCenter]}>
             <View
               style={[
@@ -62,13 +61,12 @@ const MyService = ({
       </View>
       {/* Header --- END */}
       <InfoCard
-        navigation={navigation}
         serviceType={serviceType}
         ratePerHour={ratePerHour}
         description={description}
       />
-      <SampleWorks />
-      <Certificates />
+      <SampleWorks navigation={FullScreenImageRoute} />
+      <Certificates navigation={FullScreenImageRoute} />
     </View>
   );
 };
