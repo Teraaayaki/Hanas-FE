@@ -29,26 +29,21 @@ const HorizontalCarousel = () => {
 
   const renderItems = ({ item, index }) => {
     return (
-      <View style={styles.renderedContainer}>
-        <Image source={item.image} style={styles.image} />
-      </View>
-    );
-  };
+        <View style={styles.carouselContainer}>
+            <Carousel
+            layout={"default"}
+            // ref={ref => carousel = ref}
+            data={images.carouselItems}
+            sliderWidth={300}
+            itemWidth={310}
+            renderItem={renderItems}
+            onSnapToItem = { index => setIndex({index}) }
+            hasParallaxImages={true} 
+            overScrollMode={'always'}
+            />
+        </View>
+      );
 
-  return (
-    <View style={styles.carouselContainer}>
-      <Carousel
-        layout={"default"}
-        // ref={ref => carousel = ref}
-        data={images.carouselItems}
-        sliderWidth={300}
-        itemWidth={300}
-        renderItem={renderItems}
-        onSnapToItem={(index) => setIndex({ index })}
-        hasParallaxImages={true}
-      />
-    </View>
-  );
-};
+}
 
 export default HorizontalCarousel;
