@@ -38,7 +38,14 @@ const MyService = ({
           {name} Service
         </Text>
         <TouchableOpacity style={styles.ml3} onPressOut={AddEditServiceRoute}>
-          <View style={[styles.infoColumn, styles.alignCenter]}>
+          <View
+            style={[
+              styles.infoColumn,
+              styles.alignCenter,
+              styles.py5,
+              styles.px4,
+            ]}
+          >
             <View
               style={[
                 styles.borderSecondary,
@@ -53,7 +60,7 @@ const MyService = ({
                 name="pen"
                 type="font-awesome-5"
                 color={colors.secondary}
-                size={20}
+                size={16}
               />
             </View>
           </View>
