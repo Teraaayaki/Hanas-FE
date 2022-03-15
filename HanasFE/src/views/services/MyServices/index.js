@@ -48,7 +48,12 @@ const MyServices = ({ navigation }) => {
           description="Service Type is a very very long lorem ipsum text that is
           completely not going to fit. This also does not have any typo
           whatsoever. This is not going to fit at all isn't it??? Make sure this
-          fits or this will break!"
+          fits or this will break!
+          Service Type is a very very long lorem ipsum text that is
+          completely not going to fit. This also does not have any typo
+          whatsoever. This is not going to fit at all isn't it??? Make sure this
+          fits or this will break!
+          "
         />
       </View>
       <AddServiceCard navigation={navigation} ID="4" />
