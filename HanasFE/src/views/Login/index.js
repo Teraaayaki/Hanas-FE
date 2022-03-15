@@ -1,12 +1,7 @@
 import * as React from "react";
-import { View, KeyboardAvoidingView } from "react-native";
+import { View, KeyboardAvoidingView, TextInput, Text, Image} from "react-native";
 import Button from "@components/Button";
-import BigLogo from "@components/logo/Big";
-import AccountField from "@components/form/AccountField";
-import PasswordField from "@components/form/PasswordField";
-import Label from "@components/form/Label";
 import TextLink from "@components/TextLink";
-
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
 
@@ -16,14 +11,18 @@ export default function Login({ navigation }) {
       <KeyboardAvoidingView style={styles.body}>
         <View style={styles.content}>
           <View style={styles.logoContainer}>
-            <BigLogo />
+            <Image style={styles.logo} source={require("@images/hanasLogoSquared.png")} />
           </View>
           <View style={styles.formContainer}>
-            <Label title="Mobile Number / Email" />
-            <AccountField />
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Mobile Number / Email</Text>
+            </View>
+            <TextInput style={styles.input} autoComplete={"email"} keyboardType={"email-address"} textContentType={"emailAddress"} placeholder={"0947xxxxxxx / johndoe@gmail.com"} placeholderTextColor={"#AAA"}/>
 
-            <Label title="Password" />
-            <PasswordField />
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Password</Text>
+            </View>
+            <TextInput style={styles.input} secureTextEntry={true} autoComplete={"password"} placeholder={"••••••••"} />
             <View style={styles.buttonContainer}>
               <Button
                 onPress={() => navigation.navigate("Dashboard")}
