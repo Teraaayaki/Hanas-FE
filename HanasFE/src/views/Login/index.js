@@ -8,7 +8,6 @@ import PasswordField from "@components/form/PasswordField";
 import Label from "@components/form/Label";
 import TextLink from "@components/TextLink";
 import { userLogin } from "@redux/actions/authActions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
 
@@ -16,13 +15,13 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { token, error } = useSelector((state) => state.userLogin);
+  const { success, error } = useSelector((state) => state.userLogin);
 
-  useEffect(async () => {
-    console.log("Component Rerendered");
-    console.log(error);
-    console.log(await AsyncStorage.getItem("token"));
-  }, [token, error]);
+  useEffect(() => {
+    if (success) {
+      navigation.navigate("Dashboard");
+    }
+  }, [success, error]);
 
   const handleSubmit = () => {
     dispatch(userLogin(email, password));

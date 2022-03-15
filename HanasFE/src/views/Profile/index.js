@@ -6,8 +6,18 @@ import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import { colors, fontSize } from "@constants";
 import styles from "./style";
+import { useDispatch } from "react-redux";
+import { userLogout } from "@redux/actions/authActions";
 
 const Profile = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    console.log("logging out");
+    dispatch(userLogout());
+    navigation.navigate("Landing");
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -85,7 +95,7 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={styles.headerBorder}></View>
         <View style={styles.logout}>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity onPress={handleSubmit}>
             <Text style={styles.logoutText}>LOGOUT</Text>
           </TouchableOpacity>
         </View>
