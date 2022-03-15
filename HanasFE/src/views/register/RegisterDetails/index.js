@@ -11,7 +11,7 @@ import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 
 import styles from "./style";
-import axios from "@helpers/axios";
+import axios from "@helpers";
 
 export default function RegisterDetails({ navigation }) {
   const [firstName, setFirstName] = useState("");
