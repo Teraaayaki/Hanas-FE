@@ -2,6 +2,7 @@ import * as React from "react";
 import { Text, View, SafeAreaView, TextInput, Icon } from "react-native";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
+import IconField from "@components/form/IconField";
 
 import styles from "./style";
 
@@ -13,53 +14,53 @@ export default function RegisterDetails({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>First Name</Text>
         </View>
-        {/* <Icon
+        <IconField
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        /> */}
+        />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Last Name</Text>
         </View>
-        {/* <Icon
+        <IconField
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        /> */}
+        />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Date of Birth</Text>
         </View>
-        {/* <Icon
+        <IconField
           iconName="calendar"
           iconType="entypo"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        /> */}
+        />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Address</Text>
         </View>
-        {/* <Icon
+        <IconField
           iconName="location-pin"
           iconType="material-icons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        /> */}
+        />
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
         </View>
-        {/* <Icon
+        <IconField
           iconName="lock"
           iconType="material-community-icons"
           iconSize={25}
           keyboardType={"number-pad"}
           placeholder={"0947xxxxxxx"}
-        /> */}
+        />
         <View style={{ height: 20 }}></View>
         <Button
           title="SEND"
