@@ -14,9 +14,10 @@ const colors = {
   info: "#005484",
   info2: "#1400FF",
   white: "#FFFFFF",
-  black: "#403F3C",
+  black: "#000000",
   light: "#F6F3E4",
   lightGrey: "#E8E8E8",
+  grey: "#808080",
   dark: "#403F3C",
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
@@ -49,13 +50,14 @@ const margin = {
 
 const fontSize = {
   title: 25,
-  h1: 20,
-  h2: 18, //not Final - check Figma
-  h3: 15,
+  h1: 20, //Final
+  h2: 18, //Final
+  h3: 15, //Final
   h4: 14, //not Final - check Figma
-  h5: 12, //not Final - check Figma
+  h5: 12, //Final
   p: 13, //not Final - check Figma
   label: 15,
+  labelSmall: 10,
   textInput: 13,
   profileName: 20,
   services: 10,
@@ -66,6 +68,6 @@ const fontWeight = {
   bold: "bold",
   regular: "regular",
   italic: "italic",
-}
+};
 
 export { colors, button, fontSize, margin, padding, fontWeight };

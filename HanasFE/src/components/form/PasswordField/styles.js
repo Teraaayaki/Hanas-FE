@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 5,
     backgroundColor: colors.white,
-    color: colors.hanasDarkText,
+    color: colors.dark,
     fontSize: fontSize.textInput,
     justifyContent: "center",
   },
