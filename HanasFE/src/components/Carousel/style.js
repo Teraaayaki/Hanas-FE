@@ -25,8 +25,7 @@ export default StyleSheet.create({
       flex: 1, 
       flexDirection: "row", 
       justifyContent: "center", 
-      marginLeft: 0,
-      marginRight: 10,
+      marginHorizontal: 0,
       marginVertical: "5%",
     }
 })

@@ -47,10 +47,12 @@ const HorizontalCarousel = () => {
             // ref={ref => carousel = ref}
             data={images.carouselItems}
             sliderWidth={300}
-            itemWidth={300}
+            itemWidth={310}
             renderItem={renderItems}
             onSnapToItem = { index => setIndex({index}) }
-            hasParallaxImages={true} />
+            hasParallaxImages={true} 
+            overScrollMode={'always'}
+            />
         </View>
       );
 
