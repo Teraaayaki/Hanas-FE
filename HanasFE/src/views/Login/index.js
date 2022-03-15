@@ -46,6 +46,7 @@ export default function Login({ navigation }) {
             <TextInput
               style={styles.input}
               autoComplete={"email"}
+              autoCapitalize="none"
               keyboardType={"email-address"}
               textContentType={"emailAddress"}
               placeholder={"0947xxxxxxx / johndoe@gmail.com"}
@@ -58,6 +59,7 @@ export default function Login({ navigation }) {
             <TextInput
               style={styles.input}
               secureTextEntry={true}
+              autoCapitalize="none"
               autoComplete={"password"}
               placeholder={"••••••••"}
             />
