@@ -65,7 +65,7 @@ export default function RegisterDetails({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>First Name</Text>
         </View>
-        <IconField
+        <Icon
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
@@ -109,7 +109,7 @@ export default function RegisterDetails({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Last Name</Text>
         </View>
-        <IconField
+        <Icon
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
@@ -182,10 +182,10 @@ export default function RegisterDetails({ navigation }) {
             <Text style={styles.error}>Error: Incomplete Data Inputted</Text>
           </View>
         ) : null}
-        {/* <View style={styles.labelContainer}>
+        <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
         </View>
-        <IconField
+        <Icon
           iconName="lock"
           iconType="material-community-icons"
           iconSize={25}
@@ -193,7 +193,7 @@ export default function RegisterDetails({ navigation }) {
           placeholder={"************"}
           value={password}
           onChangeText={(e) => setPassword(e)}
-        /> */}
+        />
         <View style={{ height: 20 }}></View>
         <Button title="SEND" onPress={handleSubmit} />
       </View>

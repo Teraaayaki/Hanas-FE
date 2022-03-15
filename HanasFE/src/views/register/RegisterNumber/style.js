@@ -33,13 +33,34 @@ export default StyleSheet.create({
   },
   formContainer: {
     width: "65%",
-    // backgroundColor: "#CCF",
     marginTop: margin.m3,
   },
+<<<<<<< HEAD
   text: {
     fontSize: fontSize.p,
     fontWeight: "bold",
     color: colors.danger,
     alignSelf: "center",
   },
+=======
+  inputBox: {
+    height: 46,
+    width: "100%",
+    borderRadius: 5,
+    backgroundColor: colors.white,
+    color: colors.hanasDarkText,
+    flexDirection: "row",
+    paddingHorizontal: padding.p5,
+    paddingVertical: padding.p3,
+    marginBottom: 10,
+  },
+  iconContainer: {
+    justifyContent: "center",
+  },
+  textInput: {
+    paddingLeft: padding.p4,
+    flex: 10,
+    fontSize: fontSize.textInput
+  }
+>>>>>>> ee1ac1a6e480c42f086b9dd50cf13f0a646793b1
 });
