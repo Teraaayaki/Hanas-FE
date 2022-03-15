@@ -14,8 +14,7 @@ const Profile = ({ navigation }) => {
 
   const handleSubmit = () => {
     console.log("logging out");
-    dispatch(userLogout());
-    navigation.navigate("Landing");
+    dispatch(userLogout(navigation));
   };
 
   return (

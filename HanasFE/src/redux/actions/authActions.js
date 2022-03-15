@@ -35,7 +35,7 @@ const doUserLogin = async (email, password, dispatch) => {
   }
 };
 
-export const userLogout = () => async (dispatch) => {
+export const userLogout = (navigation) => async (dispatch) => {
   console.log("Removing items");
   await AsyncStorage.removeItem("user_id");
   await AsyncStorage.removeItem("token");
@@ -43,4 +43,5 @@ export const userLogout = () => async (dispatch) => {
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
   });
+  navigation.navigate("Landing");
 };
