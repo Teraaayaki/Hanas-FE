@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   text: {
     marginTop: "-40%",
-    color: colors.hanasDarkText,
+    color: colors.dark,
     fontWeight: "bold",
   },
   logoContainer: {
@@ -19,14 +19,14 @@ export default StyleSheet.create({
     alignItems: "center",
     marginTop: "50%",
   },
-  buttonContainer:{
-    marginTop: "20%", 
-    flex: 1, 
-    width: "100%", 
-    justifyContent: "center", 
+  buttonContainer: {
+    marginTop: "20%",
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
     alignItems: "center",
   },
-  pinkButtonContainer:{
+  pinkButtonContainer: {
     width: "65%",
     marginTop: "5%",
   },
@@ -46,6 +46,5 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  }
-  
+  },
 });

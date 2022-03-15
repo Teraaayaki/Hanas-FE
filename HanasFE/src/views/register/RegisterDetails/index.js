@@ -65,7 +65,7 @@ export default function RegisterDetails({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>First Name</Text>
         </View>
-        <Icon
+        <IconField
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
@@ -109,7 +109,7 @@ export default function RegisterDetails({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Last Name</Text>
         </View>
-        <Icon
+        <IconField
           iconName="person-outline"
           iconType="ionicons"
           iconSize={25}
@@ -177,15 +177,10 @@ export default function RegisterDetails({ navigation }) {
           </View>
         </View>
 
-        {errMessage ? (
-          <View>
-            <Text style={styles.error}>Error: Incomplete Data Inputted</Text>
-          </View>
-        ) : null}
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Password</Text>
         </View>
-        <Icon
+        <IconField
           iconName="lock"
           iconType="material-community-icons"
           iconSize={25}
@@ -194,7 +189,11 @@ export default function RegisterDetails({ navigation }) {
           value={password}
           onChangeText={(e) => setPassword(e)}
         />
-        <View style={{ height: 20 }}></View>
+        {errMessage ? (
+          <View>
+            <Text style={styles.error}>Error: Incomplete Data Inputted</Text>
+          </View>
+        ) : null}
         <Button title="SEND" onPress={handleSubmit} />
       </View>
     </SafeAreaView>

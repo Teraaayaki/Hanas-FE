@@ -35,14 +35,6 @@ export default StyleSheet.create({
     width: "65%",
     marginTop: margin.m3,
   },
-<<<<<<< HEAD
-  text: {
-    fontSize: fontSize.p,
-    fontWeight: "bold",
-    color: colors.danger,
-    alignSelf: "center",
-  },
-=======
   inputBox: {
     height: 46,
     width: "100%",
@@ -60,7 +52,6 @@ export default StyleSheet.create({
   textInput: {
     paddingLeft: padding.p4,
     flex: 10,
-    fontSize: fontSize.textInput
-  }
->>>>>>> ee1ac1a6e480c42f086b9dd50cf13f0a646793b1
+    fontSize: fontSize.textInput,
+  },
 });

@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   browseText: {
-    color: colors.black,
+    color: colors.dark,
     fontSize: fontSize.h3,
   },
   label: {
