@@ -8,8 +8,8 @@ export default StyleSheet.create({
     paddingBottom: padding.p10,
   },
   infoCard: {
-    borderColor: "#AAA",
-    borderWidth: 2,
+    borderColor: "#BBB",
+    borderWidth: 1,
     borderRadius: 5,
     backgroundColor: colors.white,
     minHeight: 140,
@@ -32,6 +32,7 @@ export default StyleSheet.create({
   },
   scrollViewHeight: {
     flex: 1,
+
     // backgroundColor: "#666",
   },
   scrollView: {
@@ -48,7 +49,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     flex: 1,
     aspectRatio: 1,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.black,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -56,7 +57,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     flex: 1,
     aspectRatio: 1.6,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.black,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -66,6 +67,9 @@ export default StyleSheet.create({
     width: "100%",
   },
   //Reusables====================================
+  //   flexGrow: {
+  //     flexGrow: "true",
+  //   },
   rounded: {
     borderRadius: 10,
   },
@@ -216,11 +220,17 @@ export default StyleSheet.create({
   ml5: {
     marginLeft: margin.m5,
   },
-  mr5: {
-    marginRight: margin.m5,
+  mt1: {
+    marginTop: margin.m1,
+  },
+  mt2: {
+    marginTop: margin.m2,
   },
   mt3: {
     marginTop: margin.m3,
+  },
+  mt4: {
+    marginTop: margin.m4,
   },
   mt5: {
     marginTop: margin.m5,
@@ -254,6 +264,21 @@ export default StyleSheet.create({
   },
   mr5: {
     marginRight: margin.m5,
+  },
+  ml1: {
+    marginLeft: margin.m1,
+  },
+  ml2: {
+    marginLeft: margin.m2,
+  },
+  ml3: {
+    marginLeft: margin.m3,
+  },
+  ml4: {
+    marginLeft: margin.m4,
+  },
+  ml5: {
+    marginLeft: margin.m5,
   },
 
   //Font=========================================

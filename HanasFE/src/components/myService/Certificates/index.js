@@ -1,7 +1,5 @@
 import React from "react";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
-import { Icon } from "react-native-elements";
-import { colors } from "@constants";
 import styles from "../styles";
 
 //Containers are invisible
@@ -14,15 +12,7 @@ const Certificates = () => {
         <Text style={[styles.p, styles.grey, styles.bold]}>Certificates</Text>
         <TouchableOpacity
           style={[styles.flexRowContainer, styles.alignCenter, styles.p3]}
-        >
-          <Icon
-            name="add-circle-outline"
-            type="ionicons"
-            color={colors.secondary}
-            size={18}
-          />
-          <Text style={[styles.secondary, styles.p, styles.bold]}>Add</Text>
-        </TouchableOpacity>
+        ></TouchableOpacity>
       </View>
       <View style={styles.scrollViewHeight}>
         <ScrollView horizontal={true} style={[styles.scrollView]}>

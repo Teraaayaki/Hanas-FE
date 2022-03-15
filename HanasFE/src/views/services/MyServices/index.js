@@ -1,7 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView } from "react-native";
-import { Icon } from "react-native-elements";
-import { colors, fontSize } from "@constants";
+import { View, ScrollView } from "react-native";
 import styles from "./style";
 
 import Header from "@components/Header";
