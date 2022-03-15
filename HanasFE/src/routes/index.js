@@ -18,9 +18,13 @@ import EditPassword from "@screens/EditPassword";
 import Transactions from "@screens/Transactions";
 import Reviews from "@screens/Reviews";
 import BrowseServices from "@screens/BrowseServices";
+<<<<<<< HEAD
 // myServices Routes
 import MyServices from "@screens/services/MyServices";
 import AddEditService from "@screens/services/AddEditService";
+=======
+import ServicesNearYou from "@screens/ServicesNearYou";
+>>>>>>> develop
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 import FullScreenImage from "@screens/FullScreenImage";
 
@@ -58,7 +62,11 @@ export default HanasStack = () => {
       <Stack.Screen name="Transactions" component={Transactions} />
       <Stack.Screen name="Reviews" component={Reviews} />
       <Stack.Screen name="BrowseServices" component={BrowseServices} />
+<<<<<<< HEAD
       <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
+=======
+      <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
+>>>>>>> develop
     </Stack.Navigator>
   );
 };
