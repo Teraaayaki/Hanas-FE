@@ -4,10 +4,9 @@ import axios from "@helpers";
 
 export const userLogin = (email, password) => async (dispatch) => {
   let token = await AsyncStorage.getItem("token");
-  let user_id = await AsyncStorage.getItem("user_id");
 
   if (token) {
-    dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: user_id });
+    dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: true });
   } else {
     console.log("No Token");
     doUserLogin(email, password, dispatch);
@@ -35,7 +34,7 @@ const doUserLogin = async (email, password, dispatch) => {
   }
 };
 
-export const userLogout = (navigation) => async (dispatch) => {
+export const userLogout = () => async (dispatch) => {
   console.log("Removing items");
   await AsyncStorage.removeItem("user_id");
   await AsyncStorage.removeItem("token");
@@ -43,5 +42,4 @@ export const userLogout = (navigation) => async (dispatch) => {
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
   });
-  navigation.navigate("Landing");
 };
