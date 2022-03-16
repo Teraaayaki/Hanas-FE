@@ -6,6 +6,7 @@ import styles from "./styles";
 import Header from "@components/Header";
 import Button from "@components/Button";
 import AttachImage from "@components/AttachImage";
+import DropdownList from "@components/modal/DropdownList";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
 //Containers are invisible
@@ -46,8 +47,15 @@ const AddEditService = ({ navigation }) => {
                 />
               </View>
             </TouchableOpacity>
+            {/* <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable> */}
           </View>
         </View>
+        <DropdownList title={"Hello World"} />
         <Text style={[styles.h4, styles.w100, styles.textJustify, styles.mt5]}>
           Help your clients get to know more about what you do by providing a
           description on your expertise and the service you offer.

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { Alert, Modal, Text, ScrollView, View } from "react-native";
 
+import DropdownItem from "../DropdownItem";
 import styles from "./styles";
 
-export default () => {
-  const [modalVisible, setModalVisible] = useState(false);
+const DropdownList = ({ title }) => {
+  const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -16,22 +17,61 @@ export default () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Hello World!</Text>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+        <View style={[styles.alignCenter, styles.mt12]}>
+          <View
+            style={[
+              styles.bgWhite,
+              styles.w75,
+              styles.rounded,
+              styles.border,
+              styles.borderMuted50,
+              styles.maxheight75,
+            ]}
           >
-            <Text style={styles.textStyle}>Hide Modal</Text>
-          </Pressable>
+            <Text
+              style={[
+                styles.dropdownTitle,
+                styles.h4,
+                styles.bold,
+                styles.py5,
+                styles.px5,
+              ]}
+            >
+              {title}
+            </Text>
+            <ScrollView style={[styles.temp1, styles.dropdownItem]}>
+              <DropdownItem title={"Item 1"} onPress={""} />
+              <DropdownItem title={"Item 2"} onPress={""} />
+              <DropdownItem title={"Item 3"} onPress={""} />
+              <DropdownItem title={"Item 4"} onPress={""} />
+              <DropdownItem title={"Item 5"} onPress={""} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+              <DropdownItem title={"Item 5"} />
+            </ScrollView>
+            <View style={styles.py3}></View>
+          </View>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
     </View>
   );
 };
+
+export default DropdownList;
