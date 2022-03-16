@@ -52,6 +52,6 @@ export default StyleSheet.create({
   textInput: {
     paddingLeft: padding.p4,
     flex: 10,
-    fontSize: fontSize.textInput
-  }
+    fontSize: fontSize.textInput,
+  },
 });
