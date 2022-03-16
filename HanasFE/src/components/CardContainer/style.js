@@ -49,6 +49,15 @@ export default StyleSheet.create({
     profession: {
         fontSize: fontSize.textInput,
         color: colors.secondary,
+    },
+    btnPress: {
+        borderRadius: 10,
+        padding: 10,
+        textDecorationLine: "underline",
+        backgroundColor: "red",
+    },
+    btnNormal: {
+        textDecorationLine: "none",
     }
 })
 

@@ -81,6 +81,7 @@ const Dashboard = ({ navigation }) => {
           jobs={"1000"}
           image={require("@images/profile1.png")}
           rate={"100"}
+          onPressServices={() => navigation.navigate("ServicesNearYou")}
           onPress={() => navigation.navigate("Profile")}
         />
         <CardContainer

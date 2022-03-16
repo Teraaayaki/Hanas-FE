@@ -1,19 +1,31 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity} from "react-native";
+import React, {useState} from 'react';
+import { View, Text, Image, TouchableOpacity, TouchableHighlight} from "react-native";
 import styles from "./style";
 import { colors, fontSize, margin } from "@constants";
 import CircularImage from '@components/CircularImage';
 import TextLinkPink from '@components/TextLinkPink';
 
 
-const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, navigation}) => {
+const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, onPressServices, navigation}) => {
+
+    var [isPress, setIsPress] = useState(false);
+
+    var touchPropsServices = {
+        activeOpacity: 0.8,
+        underlayColor: colors.primary, // <-- "backgroundColor" will be always overwritten by "underlayColor"
+        style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
+        onHideUnderlay: () => setIsPress(console.log("I SHOULD BESHOWN")),
+        onShowUnderlay: () => setIsPress(console.log("I AM SHOWN")),
+      };
   return (
     <View style={styles.container} >
         <TouchableOpacity style={styles.cardContainer} activeOpacity={0.6} onPress={onPress}>
             <CircularImage imageSource={image} onPress={onPress}/>
             <View style={styles.profileContainer}>
                 <Text style={styles.name}>{name}</Text>
-                <Text style={styles.profession}>{profession}</Text>
+                <TouchableHighlight {...touchPropsServices}>
+                    <Text style={styles.profession} onPress={onPressServices} >{profession}</Text>
+                </TouchableHighlight>
                 <View style={styles.detailsContainer}>
                     <Text style={styles.fadeText}>Rating</Text>
                     <Text style={styles.fadeText}>Jobs</Text>
