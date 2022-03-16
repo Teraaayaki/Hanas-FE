@@ -6,11 +6,16 @@ export default StyleSheet.create({
 
   //Unique===================================================================
   //Reusables================================================================
-  Temp: {
+  temp1: {
     backgroundColor: "#CFF",
-    borderWidth: 1,
-    borderColor: "#0FF",
   },
+  temp2: {
+    backgroundColor: "#FFC",
+  },
+  temp3: {
+    backgroundColor: "#FCF",
+  },
+
   body: {
     width: "100%",
     flex: 1,
@@ -93,6 +98,9 @@ export default StyleSheet.create({
   textCenter: {
     textAlign: "center",
   },
+  textRight: {
+    textAlign: "right",
+  },
   textJustify: {
     textAlign: "justify",
   },
@@ -100,8 +108,14 @@ export default StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
-  //Color ---------------------------------------
-  TextSecondary: { color: colors.secondary },
+  //Color ==================================================
+  //Background Color-----------------------------
+  bgWhite: { backgroundColor: "#FFF" },
+  bgDark: { backgroundColor: colors.dark },
+  bgLight: { backgroundColor: colors.light },
+  bgGrey: { backgroundColor: colors.grey },
+  //Text Color-----------------------------------
+  textSecondary: { color: colors.secondary },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,
@@ -161,6 +175,9 @@ export default StyleSheet.create({
   },
   px5: {
     paddingHorizontal: padding.p5,
+  },
+  px6: {
+    paddingHorizontal: padding.p6,
   },
   //Padding Vertical ----------------------------
   py1: {
@@ -307,19 +324,19 @@ export default StyleSheet.create({
     marginTop: margin.m5,
   },
   //Margin Bottom -------------------------------
-  mt1: {
+  mb1: {
     marginBottom: margin.m1,
   },
-  mt2: {
+  mb2: {
     marginBottom: margin.m2,
   },
-  mt3: {
+  mb3: {
     marginBottom: margin.m3,
   },
-  mt4: {
+  mb4: {
     marginBottom: margin.m4,
   },
-  mt5: {
+  mb5: {
     marginBottom: margin.m5,
   },
   //Margin Left ---------------------------------
