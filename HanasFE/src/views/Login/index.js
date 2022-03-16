@@ -51,6 +51,8 @@ export default function Login({ navigation }) {
               textContentType={"emailAddress"}
               placeholder={"0947xxxxxxx / johndoe@gmail.com"}
               placeholderTextColor={"#AAA"}
+              value={email}
+              onChangeText={(e) => setEmail(e)}
             />
 
             <View style={styles.labelContainer}>
@@ -62,6 +64,8 @@ export default function Login({ navigation }) {
               autoCapitalize="none"
               autoComplete={"password"}
               placeholder={"••••••••"}
+              value={password}
+              onChangeText={(e) => setPassword(e)}
             />
             {error && <Text style={styles.text}>{error}</Text>}
             <View style={styles.buttonContainer}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
@@ -6,17 +6,24 @@ import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import { colors, fontSize } from "@constants";
 import styles from "./style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { success } = useSelector((state) => state.userLogin);
 
   const handleSubmit = () => {
     console.log("logging out");
     dispatch(userLogout());
-    navigation.navigate("Landing");
   };
+
+  useEffect(() => {
+    console.log("Navigating to landing page");
+    if (!success) {
+      navigation.navigate("Landing");
+    }
+  }, [success]);
 
   return (
     <ScrollView

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
 /* START FOR THE IMPORT FOR ALL THE SCREENS*/
 import Landing from "@screens/Landing";
 import Dashboard from "@screens/Dashboard";
@@ -30,6 +31,12 @@ import Tabs from "@routes/BottomTabNavigator";
 const Stack = createStackNavigator();
 
 export default HanasStack = () => {
+  const { success } = useSelector((state) => state.userLogin);
+
+  useEffect(() => {
+    console.log("Stack Navigation Rerendered");
+  }, [success]);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -37,31 +44,36 @@ export default HanasStack = () => {
       }}
       initialRouteName="Landing"
     >
-      <Stack.Screen name="Landing" component={Landing} />
-
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen
-        name="RegisterClientWorker"
-        component={RegisterClientWorker}
-      />
-      <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
-      <Stack.Screen name="RegisterDetails" component={RegisterDetails} />
-      <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
-      <Stack.Screen name="MyServices" component={MyServices} />
-      <Stack.Screen name="AddEditService" component={AddEditService} />
-      <Stack.Screen name="SetLocation" component={SetLocation} />
-      <Stack.Screen name="GetVerified" component={GetVerified} />
-
-      <Stack.Screen name="Dashboard" component={Tabs} />
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="EditAccount" component={EditAccount} />
-      <Stack.Screen name="EditPassword" component={EditPassword} />
-      <Stack.Screen name="Transactions" component={Transactions} />
-      <Stack.Screen name="Reviews" component={Reviews} />
-      <Stack.Screen name="BrowseServices" component={BrowseServices} />
-      <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
-      <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
+      {!success ? (
+        <>
+          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="RegisterClientWorker"
+            component={RegisterClientWorker}
+          />
+          <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
+          <Stack.Screen name="RegisterDetails" component={RegisterDetails} />
+          <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
+          <Stack.Screen name="MyServices" component={MyServices} />
+          <Stack.Screen name="AddEditService" component={AddEditService} />
+          <Stack.Screen name="SetLocation" component={SetLocation} />
+          <Stack.Screen name="GetVerified" component={GetVerified} />
+          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Dashboard" component={Tabs} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="EditAccount" component={EditAccount} />
+          <Stack.Screen name="EditPassword" component={EditPassword} />
+          <Stack.Screen name="Transactions" component={Transactions} />
+          <Stack.Screen name="Reviews" component={Reviews} />
+          <Stack.Screen name="BrowseServices" component={BrowseServices} />
+          <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

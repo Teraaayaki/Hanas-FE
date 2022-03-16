@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Carousel, { ParallaxImage } from "react-native-snap-carousel";
-import { View, Text, Image, Dimensions } from "react-native";
-import { colors, fontSize } from "@constants";
+import Carousel from "react-native-snap-carousel";
+import { View, Image, Dimensions } from "react-native";
 
 import styles from "./style";
 
