@@ -64,6 +64,7 @@ const AddEditService = ({ navigation }) => {
           style={[styles.bgWhite, styles.mt2, styles.px4, styles.py2]}
           multiline={true}
           numberOfLines={3}
+          placeholder={"Say something..."}
         />
         <Text style={[styles.h3, styles.bold, styles.mt5]}>Rate per Hour</Text>
         <View

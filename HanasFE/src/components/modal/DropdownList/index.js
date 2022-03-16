@@ -73,6 +73,50 @@ const DropdownList = (props, { title }) => {
                   title={"Item 3"}
                   setModalVisible={props.setModalVisible}
                 />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
+                <DropdownItem
+                  title={"Item 3"}
+                  setModalVisible={props.setModalVisible}
+                />
               </ScrollView>
               <View style={styles.py3}></View>
             </View>
