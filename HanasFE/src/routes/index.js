@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
 /* START FOR THE IMPORT FOR ALL THE SCREENS*/
 import Landing from "@screens/Landing";
