@@ -11,11 +11,7 @@ const InfoCard = ({ serviceType, ratePerHour, description }) => {
   return (
     <View style={[styles.infoCard, styles.mt5, styles.p5]}>
       <View style={[styles.flexRowContainer, styles.f1]}>
-        <View style={[styles.infoColumn, styles.f1]}>
-          <Text style={[styles.text10, styles.grey]}>Service Type</Text>
-          <Text style={styles.text12}>{serviceType}</Text>
-        </View>
-        <View style={[styles.flexRowContainer, styles.f1, styles.ml5]}>
+        <View style={[styles.flexRowContainer, styles.f1s]}>
           <View style={[styles.infoColumn, styles.f1]}>
             <Text style={[styles.text10, styles.grey]}>Rate Per Hour</Text>
             <Text style={styles.text12}>{ratePerHour} PHP</Text>

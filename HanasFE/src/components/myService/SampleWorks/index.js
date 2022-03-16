@@ -15,8 +15,8 @@ const SampleWorks = ({ navigation }) => {
         ></TouchableOpacity>
       </View>
       <View style={styles.scrollViewHeight}>
-        <ScrollView horizontal={true} style={styles.scrollView}>
-          <View style={styles.scrollContent}>
+        <ScrollView horizontal={true} style={[styles.scrollView]}>
+          <View style={[styles.scrollContent, styles.SWpadding]}>
             <TouchableOpacity
               style={styles.sampleWorkIMGCard}
               onPress={navigation}
