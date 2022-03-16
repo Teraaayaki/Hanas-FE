@@ -11,6 +11,12 @@ const AddEditService = ({ navigation }) => {
   return (
     <ScrollView style={styles.body}>
       <Header title="Add/Edit Service Page" />
+      <View className={styles.flexRow}>
+        <View>
+          <Text className={styles.h1}>Choose a Service</Text>
+        </View>
+        <View></View>
+      </View>
     </ScrollView>
   );
 };
