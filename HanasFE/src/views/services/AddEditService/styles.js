@@ -28,6 +28,9 @@ export default StyleSheet.create({
   square: {
     aspectRatio: 1,
   },
+  rotate130deg: {
+    transform: [{ rotateZ: "0.75rad" }],
+  },
   //Layout=================================================
   flexRow: {
     flexDirection: "row",
@@ -114,6 +117,13 @@ export default StyleSheet.create({
   bgDark: { backgroundColor: colors.dark },
   bgLight: { backgroundColor: colors.light },
   bgGrey: { backgroundColor: colors.grey },
+  // Border Color -------------------------------
+  border: {
+    borderWidth: 1,
+  },
+  borderMuted50: { borderColor: colors.muted50 },
+  borderMuted25: { borderColor: colors.muted25 },
+  borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textSecondary: { color: colors.secondary },
   //Size ----------------------------------------
