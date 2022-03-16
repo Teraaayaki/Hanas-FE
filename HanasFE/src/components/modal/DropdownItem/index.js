@@ -3,11 +3,12 @@ import { Text, TouchableOpacity } from "react-native";
 
 import styles from "./styles";
 
-const DropdownItem = ({ title }) => {
-  const [modalVisible, setModalVisible] = useState(true);
+const DropdownItem = (props) => {
   return (
-    <TouchableOpacity>
-      <Text style={[styles.bgWhite, styles.px5, styles.py3]}>{title}</Text>
+    <TouchableOpacity onPress={() => props.setModalVisible(false)}>
+      <Text style={[styles.bgWhite, styles.px5, styles.py3]}>
+        {props.title}
+      </Text>
     </TouchableOpacity>
   );
 };

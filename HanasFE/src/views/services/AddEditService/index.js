@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
-import { colors, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
 import styles from "./styles";
 
 import Header from "@components/Header";
@@ -13,6 +13,7 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 //Cards are visible
 
 const AddEditService = ({ navigation }) => {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
     <ScrollView style={[styles.body]}>
       <Header title="Add/Edit Service Page" />
@@ -24,7 +25,7 @@ const AddEditService = ({ navigation }) => {
             Choose a Service
           </Text>
           <View style={[styles.w50, styles.pl4]}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setDropdownVisible(true)}>
               <View
                 style={[
                   styles.bgWhite,
@@ -47,15 +48,13 @@ const AddEditService = ({ navigation }) => {
                 />
               </View>
             </TouchableOpacity>
-            {/* <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable> */}
           </View>
         </View>
-        <DropdownList title={"Hello World"} />
+        <DropdownList
+          title={"Services List"}
+          modalVisible={dropdownVisible}
+          setModalVisible={setDropdownVisible}
+        />
         <Text style={[styles.h4, styles.w100, styles.textJustify, styles.mt5]}>
           Help your clients get to know more about what you do by providing a
           description on your expertise and the service you offer.

@@ -11,8 +11,12 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.muted20,
   },
-  mt12: {
-    marginTop: "12%",
+  shadow: {
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 15,
   },
   //Unique===================================================================
   //Reusables================================================================
