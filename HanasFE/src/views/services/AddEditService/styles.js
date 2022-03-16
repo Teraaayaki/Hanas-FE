@@ -2,11 +2,14 @@ import { StyleSheet } from "react-native";
 import { colors, fontSize, margin, padding } from "@constants";
 
 export default StyleSheet.create({
+  //Unique===================================================================
+
+  //Unique===================================================================
   //Reusables================================================================
   Temp: {
     backgroundColor: "#CFF",
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: "#0FF",
   },
   body: {
     width: "100%",
