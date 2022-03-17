@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import { colors } from "@constants";
@@ -12,7 +12,11 @@ const AddServiceCard = ({ navigation, ID }) => {
     <View style={styles.m5}>
       <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
       <View style={[styles.infoCard, styles.mt5, styles.p10]}>
-        <TouchableOpacity onPress={() => navigation.navigate("AddEditService")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("AddEditService", { modType: true })
+          }
+        >
           <View
             style={[
               styles.addButton,

@@ -19,7 +19,13 @@ const MyService = ({
   ratePerHour,
   description,
 }) => {
-  const AddEditServiceRoute = () => navigation.navigate("AddEditService");
+  const AddEditServiceRoute = () =>
+    navigation.navigate("AddEditService", {
+      modType: false,
+      editName: name,
+      editRatePerHour: ratePerHour,
+      editDescription: description,
+    });
   const FullScreenImageRoute = () => navigation.navigate("FullScreenImage");
   return (
     <View style={(styles.serviceContainer, styles.mb5)}>

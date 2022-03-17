@@ -9,14 +9,31 @@ import AttachImage from "@components/AttachImage";
 import DropdownList from "@components/modal/DropdownList";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
-//Containers are invisible
-//Cards are visible
+// ======================================
+// HOW TO USE GUIDE:
+// ======================================
+// {modType} determines whether this function will render Add Service or Edit Service.
+// Add Service: modType = true
+// Edit Service: modType = false
 
-const AddEditService = ({ navigation }) => {
+// { modTypeParam } sets the value of {modType} betweeen true and false.
+
+const AddEditService = ({ route, navigation }) => {
+  const { modType, editName, editRatePerHour, editDescription } = route.params;
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const defaultService = "Electrical";
+  const [ratePerHourValue, setRatePerHourValue] = useState(
+    modType ? 100 : editRatePerHour
+  );
+
   return (
     <ScrollView style={[styles.body]}>
-      <Header title="Add/Edit Service Page" />
+      <DropdownList
+        title={"Services List"}
+        modalVisible={dropdownVisible}
+        setModalVisible={setDropdownVisible}
+      />
+      <Header title={modType ? "Add Service" : "Edit Service"} />
       <View
         style={[styles.flex1, styles.mx5, styles.my5, styles.pb5, styles.px4]}
       >
@@ -39,7 +56,9 @@ const AddEditService = ({ navigation }) => {
                   styles.flexRow,
                 ]}
               >
-                <Text style={[styles.flex1]}>Electrical</Text>
+                <Text style={[styles.flex1]}>
+                  {modType ? defaultService : editName}
+                </Text>
                 <Icon
                   name="chevron-down-outline"
                   type="ionicon"
@@ -50,11 +69,6 @@ const AddEditService = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <DropdownList
-          title={"Services List"}
-          modalVisible={dropdownVisible}
-          setModalVisible={setDropdownVisible}
-        />
         <Text style={[styles.h4, styles.w100, styles.textJustify, styles.mt5]}>
           Help your clients get to know more about what you do by providing a
           description on your expertise and the service you offer.
@@ -65,6 +79,7 @@ const AddEditService = ({ navigation }) => {
           multiline={true}
           numberOfLines={3}
           placeholder={"Say something..."}
+          value={modType ? "" : editDescription}
         />
         <Text style={[styles.h3, styles.bold, styles.mt5]}>Rate per Hour</Text>
         <View
@@ -78,7 +93,9 @@ const AddEditService = ({ navigation }) => {
               styles.w33,
               styles.textRight,
             ]}
+            keyboardType="number-pad"
             placeholder={"2000.00"}
+            defaultValue={ratePerHourValue.toString() + ".00"}
           />
           <Text style={[styles.hp, styles.mx3, styles.textCenter]}>
             Philippine Peso (PHP)
@@ -132,7 +149,10 @@ const AddEditService = ({ navigation }) => {
         {/* Uploaded Sample Works List --- End */}
         <View style={[styles.my5, styles.pt5]}></View>
         <View style={[styles.mx5, styles.px5]}>
-          <Button title={"Submit"} />
+          <Button
+            title={"Submit"}
+            onPress={() => navigation.navigate("MyServices")}
+          />
         </View>
         <View style={[styles.my5]}></View>
       </View>

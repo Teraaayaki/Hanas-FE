@@ -26,7 +26,7 @@ const DropdownList = (props, { title }) => {
         transparent={true}
         visible={props.modalVisible}
         onRequestClose={() => {
-          setModalVisible(false);
+          props.setModalVisible(false);
         }}
       >
         <View
