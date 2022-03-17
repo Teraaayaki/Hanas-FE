@@ -3,7 +3,7 @@ import { fontSize, colors, padding } from "@constants";
 
 const styles = StyleSheet.create({
     labelText: {
-        fontSize: fontSize.h3,
+        fontSize: fontSize.h2,
         fontWeight: "bold",
         color: colors.dark
     },
