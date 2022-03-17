@@ -43,7 +43,12 @@ export default StyleSheet.create({
   scrollContent: {
     // backgroundColor: "#CCF",
     flexDirection: "row",
-    flex: 1,
+  },
+  SWpadding: {
+    paddingRight: 38,
+  },
+  CertificatesPadding: {
+    paddingRight: 61,
   },
   sampleWorkIMGCard: {
     borderRadius: 10,
@@ -141,6 +146,22 @@ export default StyleSheet.create({
   },
   p10: {
     padding: padding.p10,
+  },
+  //Padding Right -------------------------------
+  pr1: {
+    paddingRight: padding.p1,
+  },
+  pr2: {
+    paddingRight: padding.p2,
+  },
+  pr3: {
+    paddingRight: padding.p3,
+  },
+  pr4: {
+    paddingRight: padding.p4,
+  },
+  pr5: {
+    paddingRight: padding.p5,
   },
   px1: {
     paddingHorizontal: padding.p1,

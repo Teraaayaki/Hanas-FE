@@ -24,6 +24,9 @@ const colors = {
   background: "#E5E5E5",
   lightYellow: "#F6F3E4",
   middlePink: "#FAA9B5",
+  muted50: "#888", //Black @ 50% transparency
+  muted25: "#BBB", //Black @ 25% transparency
+  muted20: "#CCC", //Black @ 20% transparency
 };
 
 const padding = {
@@ -61,7 +64,6 @@ const fontSize = {
   textInput: 13,
   profileName: 20,
   services: 10,
-
 };
 
 const fontWeight = {
