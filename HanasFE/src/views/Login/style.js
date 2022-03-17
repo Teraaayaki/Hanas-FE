@@ -69,6 +69,10 @@ export default StyleSheet.create({
     color: colors.secondary,
   },
 
+  text: {
+    color: colors.danger,
+    fontWeight: "bold",
+  },
   //-------------------Reusables-----------------------
 
   buttonContainer: {

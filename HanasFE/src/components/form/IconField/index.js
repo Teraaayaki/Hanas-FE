@@ -9,6 +9,8 @@ export default ({
   iconSize,
   keyboardType,
   placeholder,
+  value,
+  onChangeText,
 }) => {
   return (
     <View style={styles.inputBox}>
@@ -25,6 +27,8 @@ export default ({
         keyboardType={keyboardType}
         placeholder={placeholder}
         placeholderTextColor={"#AAA"}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );
