@@ -44,7 +44,7 @@ export default HanasStack = () => {
       initialRouteName="Landing"
     >
       {!success ? (
-        <>
+        <Stack.Group>
           <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
@@ -54,14 +54,12 @@ export default HanasStack = () => {
           <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
           <Stack.Screen name="RegisterDetails" component={RegisterDetails} />
           <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
-          <Stack.Screen name="MyServices" component={MyServices} />
-          <Stack.Screen name="AddEditService" component={AddEditService} />
+
           <Stack.Screen name="SetLocation" component={SetLocation} />
           <Stack.Screen name="GetVerified" component={GetVerified} />
-          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
-        </>
+        </Stack.Group>
       ) : (
-        <>
+        <Stack.Group>
           <Stack.Screen name="Dashboard" component={Tabs} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Settings" component={Settings} />
@@ -71,7 +69,10 @@ export default HanasStack = () => {
           <Stack.Screen name="Reviews" component={Reviews} />
           <Stack.Screen name="BrowseServices" component={BrowseServices} />
           <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
-        </>
+          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
+          <Stack.Screen name="MyServices" component={MyServices} />
+          <Stack.Screen name="AddEditService" component={AddEditService} />
+        </Stack.Group>
       )}
     </Stack.Navigator>
   );
