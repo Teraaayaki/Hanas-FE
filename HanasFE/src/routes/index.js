@@ -23,7 +23,6 @@ import MyServices from "@screens/services/MyServices";
 import AddEditService from "@screens/services/AddEditService";
 import ServicesNearYou from "@screens/ServicesNearYou";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
-import FullScreenImage from "@screens/FullScreenImage";
 
 import Tabs from "@routes/BottomTabNavigator";
 
@@ -70,7 +69,6 @@ export default HanasStack = () => {
           <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
           <Stack.Screen name="MyServices" component={MyServices} />
           <Stack.Screen name="AddEditService" component={AddEditService} />
-          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
         </Stack.Group>
       )}
     </Stack.Navigator>

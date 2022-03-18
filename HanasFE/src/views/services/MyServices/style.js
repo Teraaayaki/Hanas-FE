@@ -7,6 +7,9 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
   },
+  bgBlack: {
+    backgroundColor: colors.black,
+  },
   listContainer: {
     flex: 1,
     width: "100%",

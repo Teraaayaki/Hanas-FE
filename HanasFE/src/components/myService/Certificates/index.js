@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import styles from "../styles";
+import FullscreenImage from "@components/modal/FullscreenImage";
 
 //Containers are invisible
 //Cards are visible
@@ -19,7 +20,7 @@ const Certificates = ({ navigation }) => {
           <View style={[styles.scrollContent, styles.CertificatesPadding]}>
             <TouchableOpacity
               style={styles.certificateIMGCard}
-              onPress={navigation}
+              // onPress={navigation}
             >
               <Image
                 style={styles.containedIMG}
@@ -29,7 +30,7 @@ const Certificates = ({ navigation }) => {
             <View style={{ padding: "1%" }}></View>
             <TouchableOpacity
               style={styles.certificateIMGCard}
-              onPress={navigation}
+              // onPress={navigation}
             >
               <Image
                 style={styles.containedIMG}
@@ -39,7 +40,7 @@ const Certificates = ({ navigation }) => {
             <View style={{ padding: "1%" }}></View>
             <TouchableOpacity
               style={styles.certificateIMGCard}
-              onPress={navigation}
+              // onPress={navigation}
             >
               <Image
                 style={styles.containedIMG}
@@ -49,7 +50,7 @@ const Certificates = ({ navigation }) => {
             <View style={{ padding: "1%" }}></View>
             <TouchableOpacity
               style={styles.certificateIMGCard}
-              onPress={navigation}
+              // onPress={navigation}
             >
               <Image
                 style={styles.containedIMG}

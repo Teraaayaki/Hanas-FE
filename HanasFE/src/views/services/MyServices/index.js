@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import styles from "./style";
 
 import Header from "@components/Header";
 import MyService from "@components/myService/MyService";
 import AddServiceCard from "@components/myService/AddServiceCard";
+import FullscreenImage from "@components/modal/FullscreenImage";
 
 //Containers are invisible
 //Cards are visible
 
 const MyServices = ({ navigation }) => {
+  const [fullscreenImageDisplay, setFullscreenImageDisplay] = useState(true);
   return (
     <ScrollView style={styles.body}>
+      <FullscreenImage
+        modalVisible={fullscreenImageDisplay}
+        setModalVisible={setFullscreenImageDisplay}
+      />
       <Header title="Services" />
       <View style={styles.listContainer}>
         <MyService

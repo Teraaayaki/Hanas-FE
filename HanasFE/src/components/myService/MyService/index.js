@@ -26,7 +26,6 @@ const MyService = ({
       editRatePerHour: ratePerHour,
       editDescription: description,
     });
-  const FullScreenImageRoute = () => navigation.navigate("FullScreenImage");
   return (
     <View style={(styles.serviceContainer, styles.mb5)}>
       <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
@@ -71,8 +70,8 @@ const MyService = ({
         ratePerHour={ratePerHour}
         description={description}
       />
-      <SampleWorks navigation={FullScreenImageRoute} />
-      <Certificates navigation={FullScreenImageRoute} />
+      <SampleWorks />
+      <Certificates />
     </View>
   );
 };
