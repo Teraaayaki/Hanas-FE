@@ -1,15 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import styles from "./style";
 import Header from "@components/Header";
+import TransactionFlatlist from "@components/TransactionFlatlist";
 
-const Transactions = () => {
+const Transactions = ({navigation}) => {
+  console.log(navigation);
   return (
-    <View>
-      <Header title="Transactions" />
-      <View>
-        <Text>Mic Test</Text>
-      </View>
+    <View style={styles.container}>
+      <Header title="Transaction History" />
+        <TransactionFlatlist navigation={navigation}/>
     </View>
   );
 };
