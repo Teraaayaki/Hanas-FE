@@ -11,7 +11,7 @@ import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 
 import styles from "./style";
-import axios from "@helpers";
+import axios from "@axios";
 
 export default function RegisterDetails({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -36,10 +36,10 @@ export default function RegisterDetails({ navigation }) {
 
     !firstName ? setErrMessage(true) : null;
 
-    await axios
-      .get("/")
-      .then((res) => console.log(res.data.mess))
-      .catch((err) => err);
+    // await axios
+    //   .get("/")
+    //   .then((res) => console.log(res.data.mess))
+    //   .catch((err) => err);
 
     // method:'post',
     // url: '/api/client/register',
@@ -194,7 +194,10 @@ export default function RegisterDetails({ navigation }) {
             <Text style={styles.error}>Error: Incomplete Data Inputted</Text>
           </View>
         ) : null}
-        <Button title="SEND" onPress={handleSubmit} />
+        <Button
+          title="SEND"
+          onPress={() => navigation.navigate("SetLocation")}
+        />
       </View>
     </SafeAreaView>
   );

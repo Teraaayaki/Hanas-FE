@@ -1,18 +1,26 @@
-import React from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
+import MapView from "react-native-maps";
 import { colors } from "@constants";
 import Button from "@components/Button";
 import Header from "@components/Header";
 import styles from "./style";
 
+let regionDefault = {
+  longitude: 123.893078,
+  latitude: 10.309608,
+  longitudeDelta: 0.9,
+  latitudeDelta: 0.9,
+};
+
 const SetLocation = ({ navigation }) => {
+  const [region, setRegion] = useState(regionDefault);
+
   return (
     <View style={styles.container}>
       <Header title="Set Location" />
-      <View style={styles.mapContainer}>
-        <Image style={styles.image} source={require("@images/maps.jpg")} />
-      </View>
+      <MapView style={styles.mapContainer} region={region} />
       <View style={styles.selectContainer}>
         <View style={styles.inputContainer}>
           <Input

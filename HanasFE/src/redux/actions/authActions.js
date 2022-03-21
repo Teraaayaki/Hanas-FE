@@ -1,6 +1,6 @@
 import { UserLoginActions } from "./types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "@helpers";
+import axios from "@axios";
 
 export const userLogin = (email, password) => async (dispatch) => {
   let token = await AsyncStorage.getItem("token");
