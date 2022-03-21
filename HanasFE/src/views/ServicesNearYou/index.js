@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
-import { View, Text, ScrollView, Image, TouchableOpacity, LogBox} from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  LogBox,
+} from "react-native";
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
-import DropdownPicker from "@components/dropdowns/DropDownPickerServicesNearYou";
-
+import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 
 const ServicesNearYou = ({ navigation }) => {
-  
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  }, [])
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -21,7 +26,14 @@ const ServicesNearYou = ({ navigation }) => {
       <ScrollView style={styles.scrollContainer}>
         <View>
           <TouchableOpacity style={styles.location}>
-            <Text onPress={() => navigation.navigate("SetLocation")}> <Image source={require("@images/marker.png")} style={styles.pin}/> Tungkil, Minglanilla, Cebu</Text>
+            <Text onPress={() => navigation.navigate("SetLocation")}>
+              {" "}
+              <Image
+                source={require("@images/marker.png")}
+                style={styles.pin}
+              />{" "}
+              Tungkil, Minglanilla, Cebu
+            </Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>SERVICES NEAR YOU</Text>
         </View>
@@ -29,7 +41,7 @@ const ServicesNearYou = ({ navigation }) => {
           <TypeOfService title={"Electrical Services"} />
           <DropdownPicker />
         </View>
-        
+
         <CardContainer
           name={"Hosea Barriga"}
           profession={"Electrical Services"}
