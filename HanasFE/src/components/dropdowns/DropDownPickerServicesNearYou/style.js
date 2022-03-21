@@ -10,12 +10,15 @@ export default StyleSheet.create({
         borderRadius: 0,
         borderWidth: 2,
         borderColor: 'rgba(255, 94, 132, .25)',
-        width: 110,
+        width: "35%",
         height: 40
     },
     iconDrop: {
         width: 20,
         height: 20,
+    },
+    dropContainer: {
+        backgroundColor: colors.white,
     }
     
 });

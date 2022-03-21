@@ -71,6 +71,7 @@ export default HanasStack = () => {
           <Stack.Screen name="MyServices" component={MyServices} />
           <Stack.Screen name="AddEditService" component={AddEditService} />
           <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
+          <Stack.Screen name="SetLocation" component={SetLocation} /> 
         </Stack.Group>
       )}
     </Stack.Navigator>

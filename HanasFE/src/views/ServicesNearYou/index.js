@@ -6,7 +6,7 @@ import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
-import DropdownPicker from "@components/DropdownPicker";
+import DropdownPicker from "@components/dropdowns/DropDownPickerServicesNearYou";
 
 
 const ServicesNearYou = ({ navigation }) => {
@@ -21,7 +21,7 @@ const ServicesNearYou = ({ navigation }) => {
       <ScrollView style={styles.scrollContainer}>
         <View>
           <TouchableOpacity style={styles.location}>
-            <Text onPress={() => navigation.navigate("BrowseServices")}> <Image source={require("@images/marker.png")} style={styles.pin}/> Tungkil, Minglanilla, Cebu</Text>
+            <Text onPress={() => navigation.navigate("SetLocation")}> <Image source={require("@images/marker.png")} style={styles.pin}/> Tungkil, Minglanilla, Cebu</Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>SERVICES NEAR YOU</Text>
         </View>

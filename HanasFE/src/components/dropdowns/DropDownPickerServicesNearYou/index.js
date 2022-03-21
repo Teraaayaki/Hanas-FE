@@ -14,8 +14,13 @@ const DropdownPicker = () => {
     ]);
   return (
         <DropDownPicker
-            listMode="SCROLLVIEW"
+            listMode="MODAL"
             placeholder="SORT BY"
+            modalTitle="Sort By"
+            searchable={false}
+            modalProps={{
+              animationType: "slide",
+            }}
             open={open}
             value={value}
             items={items}
