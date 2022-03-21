@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { colors, fontWeight, margin } from "@constants";
 import styles from './style';
 
-const DropdownPicker = () => {
+const DropDownPickerServicesNearYou = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
@@ -37,4 +37,4 @@ const DropdownPicker = () => {
   );
 }
 
-export default DropdownPicker;
+export default DropDownPickerServicesNearYou;
