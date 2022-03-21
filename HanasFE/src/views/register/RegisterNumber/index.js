@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
+
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
-
 import styles from "./style";
 
 export default function RegisterNumber({ navigation }) {

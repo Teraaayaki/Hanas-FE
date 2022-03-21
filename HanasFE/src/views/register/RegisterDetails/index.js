@@ -3,17 +3,19 @@ import {
   Text,
   View,
   SafeAreaView,
-  TextInput,
+  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import Button from "@components/Button";
-import IconField from "@components/form/IconField";
-
-import styles from "./style";
 import axios from "@axios";
 
+import Button from "@components/Button";
+import IconField from "@components/form/IconField";
+import styles from "./style";
+
 export default function RegisterDetails({ navigation }) {
+  const [pageOne, setPageOne] = useState(false);
+  const [errMessage, setErrMessage] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -25,7 +27,6 @@ export default function RegisterDetails({ navigation }) {
   const [isWorker, setIsWorker] = useState(true);
   const [mobileNo, setMobileNo] = useState("09658584333");
   const [email, setEmail] = useState("renzolebumfacil@gmail.com");
-  const [errMessage, setErrMessage] = useState(false);
 
   const handleChangeSex = (sex) => {
     setSex(sex);
@@ -60,94 +61,38 @@ export default function RegisterDetails({ navigation }) {
 
   return (
     <SafeAreaView style={styles.body}>
-      <Text style={styles.title}>User Details</Text>
-      <View style={styles.formContainer}>
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>First Name</Text>
-        </View>
-        <IconField
-          iconName="person-outline"
-          iconType="ionicons"
-          iconSize={25}
-          keyboardType={"default"}
-          placeholder={"John"}
-          value={firstName}
-          onChangeText={(e) => setFirstName(e)}
-        />
-        <View style={styles.inputRow}>
-          <View style={styles.rowContainer}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>User Details</Text>
+      </View>
+      <ScrollView style={styles.formContainer}>
+        {!pageOne ? (
+          <>
             <View style={styles.labelContainer}>
-              <Text style={styles.label}>Middle Name</Text>
+              <Text style={styles.label}>Email</Text>
             </View>
             <IconField
-              iconName="person-outline"
+              iconName="mail"
               iconType="ionicons"
               iconSize={25}
               keyboardType={"default"}
-              placeholder={"Lumberg"}
+              placeholder={"sample@email.com"}
               value={middleName}
               onChangeText={(e) => setMiddleName(e)}
             />
-          </View>
 
-          <View style={styles.rowContainer2}>
             <View style={styles.labelContainer}>
-              <Text style={styles.label}>Suffix</Text>
+              <Text style={styles.label}>Password</Text>
             </View>
             <IconField
-              iconName="person-outline"
-              iconType="ionicons"
+              iconName="lock"
+              iconType="material-community-icons"
               iconSize={25}
               keyboardType={"default"}
-              placeholder={"Jr. , III"}
-              value={suffix}
-              onChangeText={(e) => setSuffix(e)}
+              placeholder={"************"}
+              value={password}
+              onChangeText={(e) => setPassword(e)}
             />
-          </View>
-        </View>
 
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>Last Name</Text>
-        </View>
-        <IconField
-          iconName="person-outline"
-          iconType="ionicons"
-          iconSize={25}
-          keyboardType={"default"}
-          placeholder={"Doe"}
-          value={lastName}
-          onChangeText={(e) => setLastName(e)}
-        />
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>Gender</Text>
-        </View>
-        <View style={styles.inputRow}>
-          <TouchableOpacity
-            style={{
-              ...styles.genderContainer,
-              backgroundColor: sex === "female" ? "lightpink" : "white",
-            }}
-            onPress={() => handleChangeSex("female")}
-          >
-            <Icon
-              type="material-community"
-              name="gender-female"
-              color="violet"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{
-              ...styles.genderContainer,
-              backgroundColor: sex === "male" ? "lightpink" : "white",
-            }}
-            onPress={() => handleChangeSex("male")}
-          >
-            <Icon type="material-community" name="gender-male" color="blue" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.inputRow}>
-          <View style={styles.rowContainer}>
             <View style={styles.labelContainer}>
               <Text style={styles.label}>Address</Text>
             </View>
@@ -160,8 +105,7 @@ export default function RegisterDetails({ navigation }) {
               value={address}
               onChangeText={(e) => setAddress(e)}
             />
-          </View>
-          <View style={styles.rowContainer2}>
+
             <View style={styles.labelContainer}>
               <Text style={styles.label}>Date of Birth</Text>
             </View>
@@ -174,30 +118,124 @@ export default function RegisterDetails({ navigation }) {
               value={dob}
               onChangeText={(e) => setDob(e)}
             />
-          </View>
-        </View>
+          </>
+        ) : (
+          <>
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>First Name</Text>
+            </View>
+            <IconField
+              iconName="person-outline"
+              iconType="ionicons"
+              iconSize={25}
+              keyboardType={"default"}
+              placeholder={"John"}
+              value={firstName}
+              onChangeText={(e) => setFirstName(e)}
+            />
+            <View style={styles.inputRow}>
+              <View style={styles.rowContainer}>
+                <View style={styles.labelContainer}>
+                  <Text style={styles.label}>Middle Name</Text>
+                </View>
+                <IconField
+                  iconName="person-outline"
+                  iconType="ionicons"
+                  iconSize={25}
+                  keyboardType={"default"}
+                  placeholder={"Lumberg"}
+                  value={middleName}
+                  onChangeText={(e) => setMiddleName(e)}
+                />
+              </View>
 
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>Password</Text>
-        </View>
-        <IconField
-          iconName="lock"
-          iconType="material-community-icons"
-          iconSize={25}
-          keyboardType={"default"}
-          placeholder={"************"}
-          value={password}
-          onChangeText={(e) => setPassword(e)}
-        />
+              <View style={styles.rowContainer2}>
+                <View style={styles.labelContainer}>
+                  <Text style={styles.label}>Suffix</Text>
+                </View>
+                <IconField
+                  iconName="person-outline"
+                  iconType="ionicons"
+                  iconSize={25}
+                  keyboardType={"default"}
+                  placeholder={"Jr. , III"}
+                  value={suffix}
+                  onChangeText={(e) => setSuffix(e)}
+                />
+              </View>
+            </View>
+
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Last Name</Text>
+            </View>
+            <IconField
+              iconName="person-outline"
+              iconType="ionicons"
+              iconSize={25}
+              keyboardType={"default"}
+              placeholder={"Doe"}
+              value={lastName}
+              onChangeText={(e) => setLastName(e)}
+            />
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Gender</Text>
+            </View>
+            <View style={styles.inputRow}>
+              <TouchableOpacity
+                style={{
+                  ...styles.genderContainer,
+                  backgroundColor: sex === "female" ? "lightpink" : "white",
+                }}
+                onPress={() => handleChangeSex("female")}
+              >
+                <Icon
+                  type="material-community"
+                  name="gender-female"
+                  color="violet"
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  ...styles.genderContainer,
+                  backgroundColor: sex === "male" ? "lightpink" : "white",
+                }}
+                onPress={() => handleChangeSex("male")}
+              >
+                <Icon
+                  type="material-community"
+                  name="gender-male"
+                  color="blue"
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </ScrollView>
+      <View style={styles.bottomContainer}>
         {errMessage ? (
-          <View>
-            <Text style={styles.error}>Error: Incomplete Data Inputted</Text>
+          <View style={styles.errorContainer}>
+            <Text style={styles.error}>Incomplete Data Inputted</Text>
           </View>
         ) : null}
-        <Button
-          title="SEND"
-          onPress={() => navigation.navigate("SetLocation")}
-        />
+
+        <View style={styles.buttonContainer}>
+          {!pageOne ? (
+            <Button title="NEXT" onPress={() => setPageOne(!pageOne)} />
+          ) : (
+            <>
+              <Button
+                title="SUBMIT"
+                onPress={() => navigation.navigate("SetLocation")}
+              />
+              <TouchableOpacity onPress={() => setPageOne(!pageOne)}>
+                <View style={styles.touchable}>
+                  <Text style={styles.touchableText}>Back</Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
       </View>
     </SafeAreaView>
   );
