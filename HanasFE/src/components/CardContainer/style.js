@@ -43,11 +43,11 @@ export default StyleSheet.create({
         color: colors.black,
     },
     name: {
-        fontSize: fontSize.h3,
+        fontSize: fontSize.h4,
         fontWeight: fontWeight.bold,
     },
     profession: {
-        fontSize: fontSize.textInput,
+        fontSize: fontSize.h5,
         color: colors.secondary,
     },
     btnPress: {
