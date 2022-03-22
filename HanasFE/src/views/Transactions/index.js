@@ -3,12 +3,17 @@ import React from "react";
 import styles from "./style";
 import Header from "@components/Header";
 import TransactionFlatlist from "@components/TransactionFlatlist";
+import TypeOfService from "@components/TypeOfService";
+import DropdownPicker from "@components/modal/DropDownPickerTransactionHistory";
 
 const Transactions = ({navigation}) => {
-  console.log(navigation);
   return (
     <View style={styles.container}>
       <Header title="Transaction History" />
+        <View style={styles.textContainer}>
+          <TypeOfService title={"September, 2021"} />
+          <DropdownPicker />
+        </View>
         <TransactionFlatlist navigation={navigation}/>
     </View>
   );

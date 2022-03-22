@@ -8,10 +8,8 @@ export default StyleSheet.create({
     },
     item: {
       padding: 20,
-      // marginVertical: 8,
-      // marginHorizontal: 16,
       borderBottomColor: colors.black,
-      borderWidth: .5,
+      borderBottomWidth: .5,
     },
     name: {
       color: colors.info, 
