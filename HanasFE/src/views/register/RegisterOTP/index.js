@@ -1,8 +1,14 @@
 import React, { useState, useRef } from "react";
-import { Text, TextInput, View, SafeAreaView } from "react-native";
+import {
+  Text,
+  TextInput,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
-
 import styles from "./style";
 
 export default function RegisterOTP({ navigation }) {
@@ -111,17 +117,17 @@ export default function RegisterOTP({ navigation }) {
             />
           </View>
         </View>
-        <TextLink
-          title="Didn't receive the code?"
-          linkTitle="Resend"
-          onPress={() => navigation.navigate("Login")}
-        />
+
+        <TextLink title="Didn't receive the code?" linkTitle="Resend" />
+
         <View style={{ height: 80 }}></View>
         <Button
           title="SEND"
           onPress={() => navigation.navigate("RegisterDetails")}
         />
-        <Text style={styles.errorMessage}>Enter mobile number again</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("RegisterNumber")}>
+          <Text style={styles.linkText}>Enter mobile number again</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

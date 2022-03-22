@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   titleContainer: {
     flexDirection: "column-reverse",
-    flex: 0.5,
+    flex: 0.7,
   },
   title: {
     fontSize: fontSize.title,
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     flex: 1.5,
   },
   bottomContainer: {
-    flex: 1,
+    flex: 0.8,
     width: "80%",
   },
   labelContainer: {

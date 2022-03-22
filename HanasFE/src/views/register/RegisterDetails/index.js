@@ -64,7 +64,10 @@ export default function RegisterDetails({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>User Details</Text>
       </View>
-      <ScrollView style={styles.formContainer}>
+      <ScrollView
+        style={styles.formContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {!pageOne ? (
           <>
             <View style={styles.labelContainer}>

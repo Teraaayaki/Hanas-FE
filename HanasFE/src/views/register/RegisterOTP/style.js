@@ -39,10 +39,12 @@ export default StyleSheet.create({
     textAlign: "center",
     color: colors.dark,
   },
-  errorMessage: {
-    marginTop: 50,
+  linkText: {
+    marginTop: 20,
+    padding: 30,
     textAlign: "center",
     fontWeight: "bold",
+    color: colors.dark,
     fontSize: fontSize.p,
   },
 });

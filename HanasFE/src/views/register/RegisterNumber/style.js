@@ -54,4 +54,9 @@ export default StyleSheet.create({
     flex: 10,
     fontSize: fontSize.textInput,
   },
+  text: {
+    color: colors.danger,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
 });

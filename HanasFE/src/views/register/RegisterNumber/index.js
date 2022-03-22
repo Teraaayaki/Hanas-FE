@@ -8,15 +8,16 @@ import styles from "./style";
 
 export default function RegisterNumber({ navigation }) {
   const [number, setNumber] = useState("");
+  const [show, setShow] = useState(true);
   const [route, setRoute] = useState("RegisterNumber");
-  const [show, setShow] = useState(false);
-
   const handleChange = (e) => {
+    e = e.replace(/[^0-9]/g, "");
     if (e.length === 10) {
       setShow(false);
       setRoute("RegisterOTP");
     } else {
       setShow(true);
+      setRoute("RegisterNumber");
     }
     setNumber(e);
   };
@@ -42,9 +43,7 @@ export default function RegisterNumber({ navigation }) {
         />
         <View style={{ height: 30 }}>
           {show ? (
-            <Text style={styles.text}>
-              Mobile no. length should be 10 numbers
-            </Text>
+            <Text style={styles.text}>Mobile no. should contain 10 digits</Text>
           ) : null}
         </View>
         <Button title="SEND" onPress={() => navigation.navigate(`${route}`)} />
