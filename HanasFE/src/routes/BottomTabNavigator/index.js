@@ -6,7 +6,7 @@ import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
-import Transactions from "@screens/Transactions";
+import TransactionHistory from "@screens/transaction/TransactionHistory";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -122,8 +122,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Transactions"
-        component={Transactions}
+        name="TransactionHistory"
+        component={TransactionHistory}
         options = {{
           tabBarButton: () => null,
           tabBarVisible: false,
