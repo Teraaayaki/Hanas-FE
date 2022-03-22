@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import styles from "./style";
 import Header from "@components/Header";
@@ -10,10 +10,11 @@ const Reviews = () => {
     <View style={styles.container}>
       <Header title="Reviews" />
         <View style={styles.textContainer}>
-          <TypeOfService title={"September, 2021"} />
+          <Text style={styles.ratingText}>Overall Rating</Text>
+          <Text style={styles.fadeTextValues}><Image source={require("@images/star.png")} style={{height: 13, width: 13}}/> 4.5/5</Text>
           <DropdownPicker />
         </View>
-        <TransactionFlatlist navigation={navigation}/>
+        {/* <TransactionFlatlist navigation={navigation}/> */}
     </View>
   );
 };

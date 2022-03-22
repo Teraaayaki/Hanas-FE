@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import {margin, padding, colors} from "@constants";
+import {margin, padding, colors, fontSize, fontWeight} from "@constants";
 
 const styles = StyleSheet.create({
     container:{
@@ -16,6 +16,17 @@ const styles = StyleSheet.create({
         padding: padding.p3,
         backgroundColor: colors.background,
     },
+    ratingText: {
+        fontSize: fontSize.h1, 
+        fontWeight: fontWeight.light
+    },
+    fadeTextValues: {
+        marginLeft: "8%",
+        marginRight: "-17%",
+        fontSize: fontSize.h3,
+        fontWeight: fontWeight.bold,
+        color: colors.black,
+    }
 });
 
 export default styles;
