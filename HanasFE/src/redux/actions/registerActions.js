@@ -10,14 +10,12 @@ export const worker = (isWorker) => async (dispatch) => {
 };
 
 export const registerNumber = (number) => async (dispatch) => {
-  dispatch({
-    type: RegisterActions.REGISTER_LOADING,
-  });
   await AsyncStorage.setItem("number", number);
   dispatch({
     type: RegisterActions.REGISTER_SUCCESS,
     payload: true,
   });
+  console.log("Number Registered");
 };
 
 export const verifyNumber = (otp) => async (dispatch) => {

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: "50%",
-    width: "70%",
+    width: "100%",
     alignSelf: "center",
   },
   textContainer: {

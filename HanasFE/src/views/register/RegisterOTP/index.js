@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Text,
   TextInput,
@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
@@ -21,6 +22,11 @@ export default function RegisterOTP({ navigation }) {
   const [pin2, setPin2] = useState("");
   const [pin3, setPin3] = useState("");
   const [pin4, setPin4] = useState("");
+
+  useEffect(async () => {
+    let number = await AsyncStorage.getItem("number");
+    console.log(number);
+  }, []);
 
   return (
     <SafeAreaView style={styles.body}>

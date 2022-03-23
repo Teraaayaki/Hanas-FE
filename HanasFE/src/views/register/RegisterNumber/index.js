@@ -2,29 +2,33 @@ import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
+import { registerNumber } from "@redux/actions/registerActions";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
-import Loading from "components/Loading";
 import styles from "./style";
 
 export default function RegisterNumber({ navigation }) {
   const [number, setNumber] = useState("");
   const [show, setShow] = useState(true);
-  const [route, setRoute] = useState("RegisterNumber");
   const dispatch = useDispatch();
-  const { loading, success } = useSelector((state) => state.userRegister);
+  const { success } = useSelector((state) => state.userRegister);
 
   const handleChange = (e) => {
     e = e.replace(/[^0-9]/g, "");
     if (e.length === 10) {
       setShow(false);
-      setRoute("RegisterOTP");
     } else {
       setShow(true);
-      setRoute("RegisterNumber");
     }
     setNumber(e);
+  };
+
+  const handleSubmit = () => {
+    dispatch(registerNumber(number));
+    if (success && !show) {
+      navigation.navigate("RegisterOTP");
+    }
   };
 
   return (
@@ -51,7 +55,7 @@ export default function RegisterNumber({ navigation }) {
             <Text style={styles.text}>Mobile no. should contain 10 digits</Text>
           ) : null}
         </View>
-        <Button title="SEND" onPress={() => navigation.navigate(`${route}`)} />
+        <Button title="SEND" onPress={handleSubmit} />
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"
