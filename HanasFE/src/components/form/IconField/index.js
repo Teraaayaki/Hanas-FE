@@ -11,6 +11,8 @@ export default ({
   placeholder,
   value,
   onChangeText,
+  editable,
+  secureTextEntry,
 }) => {
   return (
     <View style={styles.inputBox}>
@@ -25,6 +27,8 @@ export default ({
       <TextInput
         style={styles.textInput}
         keyboardType={keyboardType}
+        editable={editable}
+        secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         placeholderTextColor={"#AAA"}
         value={value}

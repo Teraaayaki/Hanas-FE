@@ -57,7 +57,7 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   errorContainer: {
-    paddingTop: padding.p3,
+    paddingTop: padding.p1,
   },
   buttonContainer: {
     marginVertical: margin.m3,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -7,57 +7,74 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import axios from "@axios";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import dayjs from "dayjs";
 
+import axios from "@axios";
 import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 import styles from "./style";
 
+// await axios
+//   .get("/")
+//   .then((res) => console.log(res.data.mess))
+//   .catch((err) => err);
+
+// method:'post',
+// url: '/api/client/register',
+// data: {
+// first_name: firstName,
+// middle_name: middleName,
+// family_name: lastName,
+// suffix: suffix,
+// email: email,
+// password: password,
+// mobile_no: mobileNo,
+// address: address,
+// birthdate: dob,
+// gender: sex,
+// is_worker: isWorker,
+// }
+
+const details = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  suffix: "",
+  dob: new Date(),
+  address: "",
+  sex: "",
+};
+
 export default function RegisterDetails({ navigation }) {
   const [pageOne, setPageOne] = useState(false);
-  const [errMessage, setErrMessage] = useState(true);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [middleName, setMiddleName] = useState("");
-  const [password, setPassword] = useState("");
-  const [suffix, setSuffix] = useState("");
-  const [dob, setDob] = useState("");
-  const [address, setAddress] = useState("");
-  const [sex, setSex] = useState("");
-  const [isWorker, setIsWorker] = useState(true);
-  const [mobileNo, setMobileNo] = useState("09658584333");
-  const [email, setEmail] = useState("renzolebumfacil@gmail.com");
+  const [errMessage, setErrMessage] = useState("Error hehe");
+  const [dateModal, setDateModal] = useState(false);
+
+  const [userDetails, setUserDetails] = useState(details);
+
+  const changeDate = (e, dob) => {
+    setUserDetails({ ...userDetails, dob });
+    setDateModal(false);
+    console.log("birthdate changed");
+  };
 
   const handleChangeSex = (sex) => {
-    setSex(sex);
+    setUserDetails({ ...userDetails, sex });
   };
 
   const handleSubmit = async () => {
-    const valid = false;
-
-    !firstName ? setErrMessage(true) : null;
-
-    // await axios
-    //   .get("/")
-    //   .then((res) => console.log(res.data.mess))
-    //   .catch((err) => err);
-
-    // method:'post',
-    // url: '/api/client/register',
-    // data: {
-    // first_name: firstName,
-    // middle_name: middleName,
-    // family_name: lastName,
-    // suffix: suffix,
-    // email: email,
-    // password: password,
-    // mobile_no: mobileNo,
-    // address: address,
-    // birthdate: dob,
-    // gender: sex,
-    // is_worker: isWorker,
-    // }
+    // const valid = false;
+    // !firstName ? setErrMessage(true) : null;
+    console.log(userDetails);
   };
+
+  useEffect(() => {
+    console.log("Date " + userDetails.dob);
+    console.log("Date Valid " + dayjs(userDetails.dob).isValid());
+  }, []);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -79,8 +96,8 @@ export default function RegisterDetails({ navigation }) {
               iconSize={25}
               keyboardType={"default"}
               placeholder={"sample@email.com"}
-              value={middleName}
-              onChangeText={(e) => setMiddleName(e)}
+              value={userDetails.email}
+              onChangeText={(e) => setUserDetails({ ...userDetails, email: e })}
             />
 
             <View style={styles.labelContainer}>
@@ -92,8 +109,11 @@ export default function RegisterDetails({ navigation }) {
               iconSize={25}
               keyboardType={"default"}
               placeholder={"************"}
-              value={password}
-              onChangeText={(e) => setPassword(e)}
+              secureTextEntry={true}
+              value={userDetails.password}
+              onChangeText={(e) =>
+                setUserDetails({ ...userDetails, password: e })
+              }
             />
 
             <View style={styles.labelContainer}>
@@ -105,22 +125,32 @@ export default function RegisterDetails({ navigation }) {
               iconSize={25}
               keyboardType={"default"}
               placeholder={"Cebu, City"}
-              value={address}
-              onChangeText={(e) => setAddress(e)}
+              editable={false}
+              value={userDetails.address}
             />
 
             <View style={styles.labelContainer}>
               <Text style={styles.label}>Date of Birth</Text>
             </View>
-            <IconField
-              iconName="calendar"
-              iconType="entypo"
-              iconSize={25}
-              keyboardType={"default"}
-              placeholder={"02/3/2022"}
-              value={dob}
-              onChangeText={(e) => setDob(e)}
-            />
+            <TouchableOpacity onPress={() => setDateModal(true)}>
+              <IconField
+                iconName="calendar"
+                iconType="entypo"
+                iconSize={25}
+                editable={false}
+                keyboardType={"default"}
+                placeholder={"02/3/2022"}
+                value={dayjs(userDetails.dob).format("MMMM D, YYYY")}
+              />
+            </TouchableOpacity>
+            {dateModal ? (
+              <DateTimePicker
+                mode="date"
+                value={userDetails.dob}
+                display="calendar"
+                onChange={changeDate}
+              />
+            ) : null}
           </>
         ) : (
           <>
@@ -133,8 +163,10 @@ export default function RegisterDetails({ navigation }) {
               iconSize={25}
               keyboardType={"default"}
               placeholder={"John"}
-              value={firstName}
-              onChangeText={(e) => setFirstName(e)}
+              value={userDetails.firstName}
+              onChangeText={(e) =>
+                setUserDetails({ ...userDetails, firstName: e })
+              }
             />
             <View style={styles.inputRow}>
               <View style={styles.rowContainer}>
@@ -147,8 +179,10 @@ export default function RegisterDetails({ navigation }) {
                   iconSize={25}
                   keyboardType={"default"}
                   placeholder={"Lumberg"}
-                  value={middleName}
-                  onChangeText={(e) => setMiddleName(e)}
+                  value={userDetails.middleName}
+                  onChangeText={(e) =>
+                    setUserDetails({ ...userDetails, middleName: e })
+                  }
                 />
               </View>
 
@@ -162,8 +196,10 @@ export default function RegisterDetails({ navigation }) {
                   iconSize={25}
                   keyboardType={"default"}
                   placeholder={"Jr. , III"}
-                  value={suffix}
-                  onChangeText={(e) => setSuffix(e)}
+                  value={userDetails.suffix}
+                  onChangeText={(e) =>
+                    setUserDetails({ ...userDetails, suffix: e })
+                  }
                 />
               </View>
             </View>
@@ -177,8 +213,10 @@ export default function RegisterDetails({ navigation }) {
               iconSize={25}
               keyboardType={"default"}
               placeholder={"Doe"}
-              value={lastName}
-              onChangeText={(e) => setLastName(e)}
+              value={userDetails.lastName}
+              onChangeText={(e) =>
+                setUserDetails({ ...userDetails, lastName: e })
+              }
             />
             <View style={styles.labelContainer}>
               <Text style={styles.label}>Gender</Text>
@@ -187,7 +225,8 @@ export default function RegisterDetails({ navigation }) {
               <TouchableOpacity
                 style={{
                   ...styles.genderContainer,
-                  backgroundColor: sex === "female" ? "lightpink" : "white",
+                  backgroundColor:
+                    userDetails.sex === "female" ? "lightpink" : "white",
                 }}
                 onPress={() => handleChangeSex("female")}
               >
@@ -201,7 +240,8 @@ export default function RegisterDetails({ navigation }) {
               <TouchableOpacity
                 style={{
                   ...styles.genderContainer,
-                  backgroundColor: sex === "male" ? "lightpink" : "white",
+                  backgroundColor:
+                    userDetails.sex === "male" ? "lightpink" : "white",
                 }}
                 onPress={() => handleChangeSex("male")}
               >
@@ -216,21 +256,16 @@ export default function RegisterDetails({ navigation }) {
         )}
       </ScrollView>
       <View style={styles.bottomContainer}>
-        {errMessage ? (
-          <View style={styles.errorContainer}>
-            <Text style={styles.error}>Incomplete Data Inputted</Text>
-          </View>
-        ) : null}
+        <View style={styles.errorContainer}>
+          <Text style={styles.error}>{errMessage}</Text>
+        </View>
 
         <View style={styles.buttonContainer}>
           {!pageOne ? (
             <Button title="NEXT" onPress={() => setPageOne(!pageOne)} />
           ) : (
             <>
-              <Button
-                title="SUBMIT"
-                onPress={() => navigation.navigate("SetLocation")}
-              />
+              <Button title="SUBMIT" onPress={handleSubmit} />
               <TouchableOpacity onPress={() => setPageOne(!pageOne)}>
                 <View style={styles.touchable}>
                   <Text style={styles.touchableText}>Back</Text>
