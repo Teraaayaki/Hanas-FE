@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { View,FlatList, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
-import {colors, fontWeight, fontSize, margin} from "@constants";
+import { colors, fontWeight, fontSize, margin } from "@constants";
 import styles from "./style";
 
 const DATA = [
@@ -59,18 +66,18 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
           <Text style={styles.viewText}>View</Text>
         </TouchableOpacity>
       </View>
-      <Text>{item.date}</Text>
+      <Text style={styles.dateText}>{item.date}</Text>
     </View>
   </TouchableOpacity>
 );
 
-const TransactionFlatlist = ({navigation}) => {
+const TransactionFlatlist = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
-
-    const backgroundColor = item.id === selectedId ? colors.borderGrey : colors.background;
-    const color = item.id === selectedId ? 'white' : 'black';
+    const backgroundColor =
+      item.id === selectedId ? colors.borderGrey : colors.background;
+    const color = item.id === selectedId ? "white" : "black";
 
     return (
       <Item
@@ -83,18 +90,16 @@ const TransactionFlatlist = ({navigation}) => {
   };
 
   return (
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        extraData={selectedId}
-        contentContainerStyle={{
-            flexGrow: 1,
-            
-        }}
-      />
+    <FlatList
+      data={DATA}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      extraData={selectedId}
+      contentContainerStyle={{
+        flexGrow: 1,
+      }}
+    />
   );
 };
-
 
 export default TransactionFlatlist;
