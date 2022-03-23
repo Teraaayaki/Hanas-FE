@@ -2,7 +2,7 @@ import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import styles from "./style";
 import Header from "@components/Header";
-import TransactionFlatlist from "@components/TransactionFlatlist";
+import TransactionFlatlist from "@components/flatlist/TransactionFlatlist";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerTransactionHistory";
 

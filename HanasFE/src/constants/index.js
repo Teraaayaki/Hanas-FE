@@ -68,8 +68,7 @@ const fontSize = {
 
 const fontWeight = {
   bold: "bold",
-  regular: "regular",
-  italic: "italic",
+  light: "100",
 };
 
 export { colors, button, fontSize, margin, padding, fontWeight };
