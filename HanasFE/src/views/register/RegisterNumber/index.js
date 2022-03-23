@@ -26,9 +26,8 @@ export default function RegisterNumber({ navigation }) {
 
   const handleSubmit = () => {
     dispatch(registerNumber(number));
-    if (success && !show) {
-      navigation.navigate("RegisterOTP");
-    }
+    console.log("Success: " + success + "\nShow: " + show);
+    navigation.navigate("RegisterOTP");
   };
 
   return (
@@ -55,7 +54,7 @@ export default function RegisterNumber({ navigation }) {
             <Text style={styles.text}>Mobile no. should contain 10 digits</Text>
           ) : null}
         </View>
-        <Button title="SEND" onPress={handleSubmit} />
+        <Button title="SEND" onPress={!show ? handleSubmit : null} />
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"

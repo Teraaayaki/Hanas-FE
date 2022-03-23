@@ -10,6 +10,7 @@ export const worker = (isWorker) => async (dispatch) => {
 };
 
 export const registerNumber = (number) => async (dispatch) => {
+  console.log("Number received by action: " + number);
   await AsyncStorage.setItem("number", number);
   dispatch({
     type: RegisterActions.REGISTER_SUCCESS,
@@ -22,12 +23,15 @@ export const verifyNumber = (otp) => async (dispatch) => {
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
-  await AsyncStorage.getItem("number");
+  let number = await AsyncStorage.getItem("number");
   //   axios logic
-  dispatch({
-    type: RegisterActions.REGISTER_SUCCESS,
-    payload: true,
-  });
+  setTimeout(() => {
+    console.log("verifying number: " + number + " and " + otp);
+    dispatch({
+      type: RegisterActions.REGISTER_SUCCESS,
+      payload: true,
+    });
+  }, 5000);
 };
 
 export const registerUser = (user) => async (dispatch) => {

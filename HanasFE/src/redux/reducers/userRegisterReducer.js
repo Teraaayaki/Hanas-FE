@@ -3,7 +3,7 @@ import { RegisterActions } from "../actions/types";
 const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case RegisterActions.REGISTER_LOADING:
-      return { ...state, loading: true };
+      return { ...state, loading: true, success: false };
     case RegisterActions.REGISTER_WORKER:
       return { ...state, loading: false, isWorker: action.payload };
     case RegisterActions.REGISTER_USER:
