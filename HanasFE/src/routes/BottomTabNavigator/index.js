@@ -7,6 +7,7 @@ import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
+import MessagesLobby from "@screens/messages/MessagesLobby";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -76,7 +77,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={Dashboard}
+        component={MessagesLobby}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
