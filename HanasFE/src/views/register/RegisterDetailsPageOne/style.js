@@ -26,6 +26,10 @@ export default StyleSheet.create({
     width: "100%",
     marginBottom: margin.m3,
   },
+  rowLabelContainer: {
+    width: "100%",
+    marginBottom: margin.m5,
+  },
   label: {
     fontSize: fontSize.label,
     fontWeight: "bold",
@@ -46,10 +50,11 @@ export default StyleSheet.create({
     color: colors.danger,
     fontWeight: "bold",
     alignSelf: "center",
+    width: "100%",
+    marginTop: "-3%",
+    marginBottom: margin.m2,
   },
-  errorContainer: {
-    paddingTop: padding.p1,
-  },
+
   buttonContainer: {
     marginVertical: margin.m5,
   },
