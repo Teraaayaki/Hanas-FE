@@ -4,8 +4,9 @@ import styles from "./style";
 import Header from "@components/Header";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
+import ReviewsFlatlist from "@components/flatlist/ReviewsFlatlist";
 
-const Reviews = () => {
+const Reviews = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header title="Reviews" />
@@ -14,7 +15,7 @@ const Reviews = () => {
           <Text style={styles.fadeTextValues}><Image source={require("@images/star.png")} style={{height: 13, width: 13}}/> 4.5/5</Text>
           <DropdownPicker />
         </View>
-        {/* <TransactionFlatlist navigation={navigation}/> */}
+        <ReviewsFlatlist navigation={navigation}/>
     </View>
   );
 };

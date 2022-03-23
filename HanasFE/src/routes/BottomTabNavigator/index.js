@@ -7,6 +7,7 @@ import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
+import Reviews from "@screens/Reviews";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -124,6 +125,14 @@ const Tabs = () => {
       <Tab.Screen
         name="TransactionHistory"
         component={TransactionHistory}
+        options = {{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="Reviews"
+        component={Reviews}
         options = {{
           tabBarButton: () => null,
           tabBarVisible: false,
