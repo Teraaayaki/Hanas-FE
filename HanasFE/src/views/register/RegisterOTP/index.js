@@ -123,7 +123,7 @@ export default function RegisterOTP({ navigation }) {
         <View style={{ height: 80 }}></View>
         <Button
           title="SEND"
-          onPress={() => navigation.navigate("RegisterDetails")}
+          onPress={() => navigation.navigate("RegisterDetailsPageOne")}
         />
         <TouchableOpacity onPress={() => navigation.navigate("RegisterNumber")}>
           <Text style={styles.linkText}>Enter mobile number again</Text>

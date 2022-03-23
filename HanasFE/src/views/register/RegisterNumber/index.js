@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
+import Loading from "components/Loading";
 import styles from "./style";
 
 export default function RegisterNumber({ navigation }) {
   const [number, setNumber] = useState("");
   const [show, setShow] = useState(true);
   const [route, setRoute] = useState("RegisterNumber");
+  const dispatch = useDispatch();
+  const { loading, success } = useSelector((state) => state.userRegister);
+
   const handleChange = (e) => {
     e = e.replace(/[^0-9]/g, "");
     if (e.length === 10) {
