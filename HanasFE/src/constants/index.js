@@ -12,7 +12,7 @@ const colors = {
   secondary: "#ff5e84",
   danger: "#DD5555",
   info: "#005484",
-  info2: "#1400FF",
+  info2: "#8488FF",
   white: "#FFFFFF",
   black: "#000000",
   light: "#F6F3E4",
