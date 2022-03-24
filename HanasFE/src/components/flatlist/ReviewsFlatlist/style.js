@@ -36,6 +36,7 @@ export default StyleSheet.create({
     color: colors.black,
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h5,
+    marginTop: margin.m2
   },
   dateText: {
     color: colors.muted50,

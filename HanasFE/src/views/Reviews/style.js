@@ -21,12 +21,15 @@ const styles = StyleSheet.create({
         fontWeight: fontWeight.light
     },
     fadeTextValues: {
-        marginLeft: "8%",
-        marginRight: "-17%",
         fontSize: fontSize.h3,
         fontWeight: fontWeight.bold,
         color: colors.black,
-    }
+    },
+    ratingContainer: {
+        flexDirection: "row", 
+        marginLeft: "6%", 
+        marginRight: "-17%"
+    },
 });
 
 export default styles;

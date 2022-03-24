@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
+import {Icon} from "react-native-elements";
 
 import { colors, fontWeight, fontSize, margin } from "@constants";
 import CircularImage from "@components/CircularImage";
@@ -74,7 +75,11 @@ const Item = ({ item, onPress, backgroundColor, textColor}) => (
             <Text style={styles.name} numberOfLines={1}>{`${item.name}`}</Text>
             <View style={styles.viewButtonContainerFlex}>
                 <Text style={styles.reviewText}>{item.review}</Text>
-                <Text style={styles.viewText}><Image source={require("@images/star.png")} style={{height: 16, width: 16}}/> 4.5/5</Text>
+                <View style={{flexDirection: "row"}}>
+                  <Icon color="#FFD706" size={22} name="star" style={{marginTop:"-15%"}}/>
+                  <Text style={styles.viewText}> 4.5/5</Text>
+                </View>
+                
             </View>
             <Text style={styles.dateText}>{item.date}</Text>
         </View>
