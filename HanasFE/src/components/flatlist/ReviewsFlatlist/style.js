@@ -18,7 +18,7 @@ export default StyleSheet.create({
     color: colors.black,
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h3,
-    width: "70%",
+    width: "100%",
   },
   viewButtonContainerFlex: {
     flex: 1,
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     marginVertical: margin.m3,
   },
   reviewText: {
-    maxWidth: "70%",
+    maxWidth: "80%",
     color: colors.black,
     fontSize: fontSize.p,
     textAlign: "justify"
