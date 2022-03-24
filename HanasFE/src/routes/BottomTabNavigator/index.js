@@ -6,6 +6,8 @@ import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
+import TransactionHistory from "@screens/transaction/TransactionHistory";
+import MessagesLobby from "@screens/messages/MessagesLobby";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -75,7 +77,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={Dashboard}
+        component={MessagesLobby}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -115,6 +117,14 @@ const Tabs = () => {
       <Tab.Screen
         name="BrowseServices"
         component={BrowseServices}
+        options = {{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="TransactionHistory"
+        component={TransactionHistory}
         options = {{
           tabBarButton: () => null,
           tabBarVisible: false,

@@ -96,7 +96,7 @@ const Profile = ({ navigation }) => {
             <ButtonWhite
               title="Transactions"
               iconName="credit-card"
-              onPress={() => navigation.navigate("Transactions")}
+              onPress={() => navigation.navigate("TransactionHistory")}
             />
           </View>
         </View>
