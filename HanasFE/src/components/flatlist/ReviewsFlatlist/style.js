@@ -27,7 +27,7 @@ export default StyleSheet.create({
     marginVertical: margin.m3,
   },
   reviewText: {
-    maxWidth: "80%",
+    maxWidth: "75%",
     color: colors.black,
     fontSize: fontSize.p,
     textAlign: "justify"
