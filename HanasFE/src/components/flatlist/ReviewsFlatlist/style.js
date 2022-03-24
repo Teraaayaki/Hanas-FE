@@ -18,6 +18,7 @@ export default StyleSheet.create({
     color: colors.black,
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h3,
+    width: "70%",
   },
   viewButtonContainerFlex: {
     flex: 1,
@@ -29,6 +30,7 @@ export default StyleSheet.create({
     maxWidth: "70%",
     color: colors.black,
     fontSize: fontSize.p,
+    textAlign: "justify"
   },
   viewText: {
     color: colors.black,

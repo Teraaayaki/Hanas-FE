@@ -53,7 +53,7 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d74",
     title: "Third Item",
-    name: "Wonderful, Amazing, Wow!!!",
+    name: "Wonderful, Amazing, Wow!!!Wonderful, Amazing, Wow!!!",
     review: "Wonderful, Amazing, Wow!!!",
     image: require("@images/profile1.png"),
   },
@@ -71,10 +71,10 @@ const Item = ({ item, onPress, backgroundColor, textColor}) => (
     <View style={{flex: 1, flexDirection: "row"}}>
         <CircularImage imageSource={item.image} style={{borderRadius: 50,}}/>
         <View style={styles.container}>
-            <Text style={styles.name}>{`${item.name}`}</Text>
+            <Text style={styles.name} numberOfLines={1}>{`${item.name}`}</Text>
             <View style={styles.viewButtonContainerFlex}>
                 <Text style={styles.reviewText}>{item.review}</Text>
-                <Text style={styles.viewText}><Image source={require("@images/star.png")} style={{height: 13, width: 13}}/> 4.5/5</Text>
+                <Text style={styles.viewText}><Image source={require("@images/star.png")} style={{height: 16, width: 16}}/> 4.5/5</Text>
             </View>
             <Text style={styles.dateText}>{item.date}</Text>
         </View>

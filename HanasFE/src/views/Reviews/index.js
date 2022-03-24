@@ -12,7 +12,7 @@ const Reviews = ({navigation}) => {
       <Header title="Reviews" />
         <View style={styles.textContainer}>
           <Text style={styles.ratingText}>Overall Rating</Text>
-          <Text style={styles.fadeTextValues}><Image source={require("@images/star.png")} style={{height: 13, width: 13}}/> 4.5/5</Text>
+          <Text style={styles.fadeTextValues}><Image source={require("@images/star.png")} style={{height: 16, width: 16}}/> 4.5/5</Text>
           <DropdownPicker />
         </View>
         <ReviewsFlatlist navigation={navigation}/>
