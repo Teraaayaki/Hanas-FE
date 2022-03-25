@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
 import MapView from "react-native-maps";
+import Geocode from "react-geocode";
 
 import Loading from "@components/Loading";
 import { colors } from "@constants";
@@ -18,11 +19,22 @@ let regionDefault = {
 
 const SetLocation = ({ navigation }) => {
   const [region, setRegion] = useState(regionDefault);
+  const [address, setAddress] = useState("");
   const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
     setMapLoaded(true);
   }, []);
+
+  const handleRegionChange = (region) => {
+    console.log(region);
+    region && getAddress(region.latitude, region.longitude);
+  };
+
+  const getAddress = async (lat, long) => {
+    let response = await Geocode.fromLatLng(lat, long);
+    console.log(response);
+  };
 
   return (
     <View style={styles.container}>
@@ -34,9 +46,7 @@ const SetLocation = ({ navigation }) => {
           <MapView
             style={styles.mapContainer}
             region={region}
-            onRegionChangeComplete={(region) => {
-              setRegion(region);
-            }}
+            onRegionChangeComplete={(region) => handleRegionChange(region)}
           />
           <View style={styles.selectContainer}>
             <View style={styles.inputContainer}>
