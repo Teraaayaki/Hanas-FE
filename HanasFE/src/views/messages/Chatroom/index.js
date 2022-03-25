@@ -12,7 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 // inboundAvatarImageSource
 // outboundAvatarImageSource
 
-const Chatroom = ({ route }) => {
+const Chatroom = ({ navigation, route }) => {
   const [messages, setMessages] = useState([
     /**
      * Mock message data
@@ -37,6 +37,9 @@ const Chatroom = ({ route }) => {
         avatar: route.params.inboundAvatarImageSource,
       },
     },
+    //example of outbound chat message
+    // if user_id == 1 the message is outbound
+    // else if user_id == 2 the message is inbound
     {
       _id: 2,
       text: "Hi!",
@@ -47,6 +50,7 @@ const Chatroom = ({ route }) => {
         avatar: route.params.outboundAvatarImageSource,
       },
     },
+    // more examples
     {
       _id: 3,
       text: "Nicen!",
@@ -151,6 +155,7 @@ const Chatroom = ({ route }) => {
         }}
         renderBubble={renderBubble}
         showUserAvatar
+        onPressAvatar={() => navigation.navigate("Profile")}
         alwaysShowSend
         renderSend={renderSend}
         isTyping={true}
