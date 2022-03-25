@@ -63,7 +63,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
       <View style={styles.viewButtonContainerFlex}>
         <Text style={styles.boldText}>Php {item.amount}</Text>
         <TouchableOpacity onPress={onPress}>
-          <Text style={styles.viewText}>View</Text>
+          <Text style={styles.viewText} onPress={onPress}>View</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>{item.date}</Text>
@@ -82,7 +82,7 @@ const TransactionFlatlist = ({ navigation }) => {
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate("BrowseServices")}
+        onPress={() => navigation.navigate("TransactionReport")}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
