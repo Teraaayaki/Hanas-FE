@@ -28,7 +28,8 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     name: "Beth Williams",
-    message: "I'm looking for tips around capturing the milky way. I have a 6D with a 24-100mm...",
+    message:
+      "I'm looking for tips around capturing the milky way. I have a 6D with a 24-100mm...",
     image: require("@images/profile4.png"),
   },
   {
@@ -42,14 +43,14 @@ const DATA = [
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <View style={styles.containerRow}>
-        <CircularImage imageSource={item.image} />
-        <View style={styles.container}>
-            <Text style={styles.name}>{item.name}</Text>
-            <View style={styles.viewButtonContainerFlex}>
-                <Text style={styles.messageText}>{item.message}</Text>
-            </View>
-            <Text style={styles.dateText}>{item.date}</Text>
+      <CircularImage imageSource={item.image} />
+      <View style={styles.container}>
+        <Text style={styles.name}>{item.name}</Text>
+        <View style={styles.viewButtonContainerFlex}>
+          <Text style={styles.messageText}>{item.message}</Text>
         </View>
+        <Text style={styles.dateText}>{item.date}</Text>
+      </View>
     </View>
   </TouchableOpacity>
 );
@@ -65,7 +66,14 @@ const MessagesFlatlist = ({ navigation }) => {
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate("BrowseServices")}
+        onPress={() =>
+          navigation.navigate("Chatroom", {
+            inboundName: item.name,
+            outboundName: "Username",
+            inboundAvatarImageSource: item.image,
+            outboundAvatarImageSource: "",
+          })
+        }
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

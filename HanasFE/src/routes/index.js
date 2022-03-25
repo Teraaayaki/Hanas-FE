@@ -22,8 +22,10 @@ import BrowseServices from "@screens/BrowseServices";
 import MyServices from "@screens/services/MyServices";
 import AddEditService from "@screens/services/AddEditService";
 import ServicesNearYou from "@screens/ServicesNearYou";
+// Messages Routes
+import Messages from "@screens/messages/MessagesLobby";
+import Chatroom from "@screens/messages/Chatroom";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
-import FullScreenImage from "@screens/FullScreenImage";
 
 import Tabs from "@routes/BottomTabNavigator";
 
@@ -64,14 +66,18 @@ export default HanasStack = () => {
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
-          <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
+          <Stack.Screen
+            name="TransactionHistory"
+            component={TransactionHistory}
+          />
           <Stack.Screen name="Reviews" component={Reviews} />
           <Stack.Screen name="BrowseServices" component={BrowseServices} />
           <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
           <Stack.Screen name="MyServices" component={MyServices} />
           <Stack.Screen name="AddEditService" component={AddEditService} />
-          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
-          <Stack.Screen name="SetLocation" component={SetLocation} /> 
+          <Stack.Screen name="SetLocation" component={SetLocation} />
+          <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="Chatroom" component={Chatroom} />
         </Stack.Group>
       )}
     </Stack.Navigator>
