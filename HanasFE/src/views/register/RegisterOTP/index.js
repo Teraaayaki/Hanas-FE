@@ -27,10 +27,7 @@ export default function RegisterOTP({ navigation }) {
   const { loading, success } = useSelector((state) => state.userRegister);
 
   const handleSubmit = () => {
-    dispatch(verifyNumber(9055));
-    if (success) {
-      navigation.navigate("RegisterDetailsPageOne");
-    }
+    dispatch(verifyNumber(9055, navigation));
   };
 
   useEffect(() => {

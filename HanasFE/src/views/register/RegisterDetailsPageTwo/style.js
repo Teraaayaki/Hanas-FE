@@ -20,11 +20,6 @@ export default StyleSheet.create({
   formContainer: {
     width: "80%",
     marginTop: margin.m3,
-    flex: 1.5,
-  },
-  bottomContainer: {
-    flex: 1.5,
-    width: "80%",
   },
   labelContainer: {
     width: "100%",

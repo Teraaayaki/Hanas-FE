@@ -28,6 +28,8 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   const changeDate = (e, dob) => {
     setDateModal(false);
     dob && setUserDetails({ ...userDetails, dob });
+
+    //set address
     setUserDetails({ ...userDetails, address: "Bogo City, Cebu" });
     console.log("birthdate changed " + userDetails.dob);
   };
@@ -36,11 +38,12 @@ export default function RegisterDetailsPageTwo({ navigation }) {
     setUserDetails({ ...userDetails, sex });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (userDetails.address === "" || userDetails.sex === "") {
       setErrMessage("Incomplete Data");
     } else {
-      navigation.navigate("SetLocation");
+      setErrMessage("");
+      navigation.navigate("GetVerified");
     }
     console.log(userDetails);
   };
@@ -62,15 +65,17 @@ export default function RegisterDetailsPageTwo({ navigation }) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Address</Text>
         </View>
-        <IconField
-          iconName="location-pin"
-          iconType="material-icons"
-          iconSize={25}
-          keyboardType={"default"}
-          placeholder={"Cebu, City"}
-          editable={false}
-          value={userDetails.address}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate("SetLocation")}>
+          <IconField
+            iconName="location-pin"
+            iconType="material-icons"
+            iconSize={25}
+            keyboardType={"default"}
+            placeholder={"Cebu, City"}
+            editable={false}
+            value={userDetails.address}
+          />
+        </TouchableOpacity>
 
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Date of Birth</Text>
@@ -127,8 +132,6 @@ export default function RegisterDetailsPageTwo({ navigation }) {
             <Icon type="material-community" name="gender-male" color="blue" />
           </TouchableOpacity>
         </View>
-      </ScrollView>
-      <View style={styles.bottomContainer}>
         <View style={styles.errorContainer}>
           <Text style={styles.error}>{errMessage}</Text>
         </View>
@@ -138,7 +141,10 @@ export default function RegisterDetailsPageTwo({ navigation }) {
             <Button title="SUBMIT" onPress={handleSubmit} />
           </>
         </View>
-      </View>
+      </ScrollView>
+      {/* <View style={styles.bottomContainer}>
+     
+      </View> */}
     </SafeAreaView>
   );
 }
