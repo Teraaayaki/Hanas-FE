@@ -8,6 +8,7 @@ import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import Reviews from "@screens/Reviews";
+import MessagesLobby from "@screens/messages/MessagesLobby";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -77,7 +78,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={Dashboard}
+        component={MessagesLobby}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -117,7 +118,7 @@ const Tabs = () => {
       <Tab.Screen
         name="BrowseServices"
         component={BrowseServices}
-        options = {{
+        options={{
           tabBarButton: () => null,
           tabBarVisible: false,
         }}
@@ -125,7 +126,7 @@ const Tabs = () => {
       <Tab.Screen
         name="TransactionHistory"
         component={TransactionHistory}
-        options = {{
+        options={{
           tabBarButton: () => null,
           tabBarVisible: false,
         }}
@@ -133,7 +134,7 @@ const Tabs = () => {
       <Tab.Screen
         name="Reviews"
         component={Reviews}
-        options = {{
+        options={{
           tabBarButton: () => null,
           tabBarVisible: false,
         }}
