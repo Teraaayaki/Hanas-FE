@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingLeft: padding.p3,
-    paddingVertical: padding.p3
+    paddingVertical: padding.p3,
     // marginTop: StatusBar.currentHeight || 0,
   },
   item: {
@@ -27,16 +27,16 @@ export default StyleSheet.create({
     marginVertical: margin.m3,
   },
   reviewText: {
-    maxWidth: "75%",
+    width: "75%",
     color: colors.black,
     fontSize: fontSize.p,
-    textAlign: "justify"
+    textAlign: "justify",
   },
   viewText: {
     color: colors.black,
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h5,
-    marginTop: margin.m2
+    marginTop: margin.m2,
   },
   dateText: {
     color: colors.muted50,
