@@ -10,7 +10,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     marginHorizontal: margin.m5,
-    marginVertical: "20%",
+    marginVertical: "10%",
     borderRadius: 10,
     padding: padding.p5,
   },
