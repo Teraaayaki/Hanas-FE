@@ -2,14 +2,34 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { colors, fontSize } from "@constants";
 import styles from "./styles";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 // {disabled} renders the card Greyed out. Used for Schedule Screen.
-//
+// {}
 
 const PinkSidedCard = ({ navigation, disabled, hideCard, title, content }) => {
   // DESIGN FUNCTIONS=================================================
-  const renderHeader = (title, hideCard) => {};
+  //Header-------------------------------------------------
+  const renderHeader = ({ title, hideCard }) => {
+    if (hideCard) {
+      return (
+        <View style={[styles.temp1, styles.w100, styles.flexRow]}>
+          {renderTitle({ title })}
+        </View>
+      );
+    }
+    return (
+      <View style={[styles.temp1, styles.w100, styles.flexRow]}>
+        {renderTitle({ title })}
+      </View>
+    );
+  };
 
+  const renderHideButton = ({ hideCard }) => {
+    return <TouchableOpacity style={[styles.px4]}></TouchableOpacity>;
+  };
+
+  //Card---------------------------------------------------
   const PinkSide = (disabled) => {
     if (disabled) {
       return (
@@ -86,10 +106,11 @@ const PinkSidedCard = ({ navigation, disabled, hideCard, title, content }) => {
   };
 
   // CONTENT FUNCTIONS================================================
+  //Header-------------------------------------------------
   const renderTitle = ({ title }) => {
     if (title) {
       return (
-        <Text style={[styles.w100, styles.bold, styles.h1, styles.mb3]}>
+        <Text style={[styles.flex1, styles.bold, styles.h1, styles.mb3]}>
           {title}
         </Text>
       );
@@ -97,6 +118,7 @@ const PinkSidedCard = ({ navigation, disabled, hideCard, title, content }) => {
     return "";
   };
 
+  //Card---------------------------------------------------
   const renderContent = ({ content }) => {
     if (content) {
       return <View style={[styles.w100, styles.flex1]}>{content}</View>;
@@ -111,7 +133,7 @@ const PinkSidedCard = ({ navigation, disabled, hideCard, title, content }) => {
   // RENDER ===========================================================
   return (
     <View style={[styles.mt3, styles.w100]}>
-      {renderTitle({ title })}
+      {renderHeader({ title, hideCard })}
       {renderCard({ content, disabled })}
     </View>
   );
