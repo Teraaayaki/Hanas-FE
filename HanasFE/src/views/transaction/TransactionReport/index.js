@@ -7,7 +7,7 @@ import Button from "@components/Button";
 
 import {margin, padding, fontSize, fontWeight} from "@constants";
 
-const TransactionReport = ({}) => {
+const TransactionReport = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header title="Transaction Report" />
@@ -16,7 +16,7 @@ const TransactionReport = ({}) => {
                 "James Karl Sia"} address={"Tungkil, Minglanilla, Cebu"} booked_date={"September 25, 2021"} time_start={"10:00 AM"} time_end={"12:00 PM"}
                 />
             <View style={{ marginHorizontal: "15%", marginBottom: "20%"}}>
-                <Button title={"DOWNLOAD"}/>
+                <Button title={"DOWNLOAD"} onPress={() => navigation.navigate("BookingSummary")}/>
             </View>
         </ScrollView>
     </View>

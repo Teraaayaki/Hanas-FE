@@ -10,6 +10,7 @@ import TransactionHistory from "@screens/transaction/TransactionHistory";
 import Reviews from "@screens/Reviews";
 import MessagesLobby from "@screens/messages/MessagesLobby";
 import TransactionReport from "@screens/transaction/TransactionReport";
+import BookingSummary from "@screens/transaction/BookingSummary";
 
 const Tab = createBottomTabNavigator();
 
@@ -149,7 +150,14 @@ const Tabs = () => {
           tabBarVisible: false,
         }}
       />
-      
+      <Tab.Screen
+        name="BookingSummary"
+        component={BookingSummary}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };
