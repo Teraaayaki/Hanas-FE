@@ -4,12 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
-import Messages from "@screens/messages/Messages";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import Reviews from "@screens/Reviews";
-import MessagesLobby from "@screens/messages/MessagesLobby";
+import Messages from "@screens/messages/MessagesLobby";
 import TransactionReport from "@screens/transaction/TransactionReport";
 import BookingSummary from "@screens/transaction/BookingSummary";
 
@@ -82,7 +81,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={MessagesLobby}
+        component={Messages}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
