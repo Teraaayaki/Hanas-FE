@@ -36,6 +36,11 @@ export const verifyNumber = (otp, navigation) => async (dispatch) => {
   }, 3000);
 };
 
+export const setUserDetails = (user) => async (dispatch) => {
+  let user = await AsyncStorage.setItem("user", user);
+  console.log(user);
+};
+
 export const registerUser = (user) => async (dispatch) => {
   //  logic
 };

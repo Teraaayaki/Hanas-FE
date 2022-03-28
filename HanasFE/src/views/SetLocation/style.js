@@ -15,24 +15,23 @@ const styles = StyleSheet.create({
   },
   selectContainer: {
     alignItems: "center",
-    flex: 1,
+    flex: 0.5,
     backgroundColor: colors.lightGrey,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     overflow: "hidden",
     marginTop: "-40%",
-    paddingTop: 50,
-    elevation: 50,
+    paddingBottom: 60,
+    paddingTop: 20,
+    elevation: 10,
   },
   btnInputContainer: {
     width: "75%",
-    // marginTop: margin.m2,
   },
   inputContainer: {
-    width: "85%",
+    width: "90%",
   },
   input: {
-    borderBottomWidth: 0,
     backgroundColor: colors.white,
     paddingHorizontal: padding.p2,
     borderRadius: 5,
@@ -42,7 +41,16 @@ const styles = StyleSheet.create({
     color: colors.dark,
   },
   logoContainer: {
-    marginHorizontal: margin.m2,
+    paddingHorizontal: padding.p2,
+  },
+  errMessage: {
+    color: colors.danger,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: fontSize.h3,
+  },
+  label: {
+    paddingBottom: padding.p2,
   },
 });
 

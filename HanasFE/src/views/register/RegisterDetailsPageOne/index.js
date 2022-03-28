@@ -37,7 +37,7 @@ const RegisterSchema = yup.object().shape({
 export default function RegisterDetailsPageOne({ navigation }) {
   const handleSubmit = (values) => {
     console.log(values);
-    navigation.navigate("RegisterDetailsPageTwo");
+    // navigation.navigate("RegisterDetailsPageTwo");
   };
 
   return (

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
-import MapView from "react-native-maps";
-import Geocode from "react-geocode";
+import MapView, { Marker } from "react-native-maps";
+import Geocoder from "react-native-geocoding";
 
-import Loading from "@components/Loading";
 import { colors } from "@constants";
 import Button from "@components/Button";
 import Header from "@components/Header";
@@ -20,67 +19,85 @@ let regionDefault = {
 const SetLocation = ({ navigation }) => {
   const [region, setRegion] = useState(regionDefault);
   const [address, setAddress] = useState("");
-  const [mapLoaded, setMapLoaded] = useState(false);
-
-  useEffect(() => {
-    setMapLoaded(true);
-  }, []);
+  const [errMessage, setErrMessage] = useState("");
+  const inputElem = useRef();
 
   const handleRegionChange = (region) => {
-    console.log(region);
-    region && getAddress(region.latitude, region.longitude);
+    setRegion({ ...region });
   };
 
-  const getAddress = async (lat, long) => {
-    let response = await Geocode.fromLatLng(lat, long);
-    console.log(response);
+  const handleSetLocation = async () => {
+    let input = inputElem.current;
+    let { results } = await Geocoder.from(region.latitude, region.longitude);
+    if (results[0].formatted_address.includes("Cebu")) {
+      setAddress(results[0].formatted_address);
+      setErrMessage("");
+    } else {
+      setAddress("Invalid Location");
+      setErrMessage("Location Currently Unsupported");
+      input.shake();
+    }
+  };
+
+  const handleSubmitLocation = () => {
+    let input = inputElem.current;
+    if (address === "") {
+      setErrMessage("No address selected");
+      input.shake();
+      setTimeout(() => {
+        setErrMessage("");
+      }, 2000);
+    } else {
+      console.log("Address selected: " + address);
+    }
   };
 
   return (
     <View style={styles.container}>
-      {!mapLoaded ? (
-        <Loading title="Loading Map..." />
-      ) : (
-        <>
-          <Header title="Set Location" />
-          <MapView
-            style={styles.mapContainer}
-            region={region}
-            onRegionChangeComplete={(region) => handleRegionChange(region)}
-          />
-          <View style={styles.selectContainer}>
-            <View style={styles.inputContainer}>
-              <Input
-                inputContainerStyle={styles.input}
-                placeholder="Search for Address..."
-                inputStyle={styles.inputText}
-                leftIconContainerStyle={styles.logoContainer}
-                leftIcon={<Icon name="search" size={24} color={colors.dark} />}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <TouchableOpacity>
-                <Input
-                  disabled={true}
-                  inputContainerStyle={styles.input}
-                  inputStyle={styles.inputText}
-                  leftIconContainerStyle={styles.logoContainer}
-                  placeholder="Use Current Location..."
-                  leftIcon={
-                    <Icon name="explore" size={24} color={colors.dark} />
-                  }
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnInputContainer}>
-              <Button
-                title="SET LOCATION"
-                onPress={() => navigation.navigate("GetVerified")}
-              />
-            </View>
-          </View>
-        </>
-      )}
+      <Header title="Set Location" />
+      <MapView
+        style={styles.mapContainer}
+        region={region}
+        onRegionChangeComplete={(region) => handleRegionChange(region)}
+      >
+        <Marker
+          coordinate={{
+            latitude: region.latitude,
+            longitude: region.longitude,
+          }}
+          title="Pin here"
+          description="Choose you address"
+        />
+      </MapView>
+      <View style={styles.selectContainer}>
+        <View style={styles.inputContainer}>
+          <TouchableOpacity onPress={handleSetLocation}>
+            <Input
+              label="Press here to select address"
+              labelStyle={{
+                ...styles.label,
+                color: errMessage !== "" ? colors.danger : colors.dark,
+              }}
+              ref={inputElem}
+              disabled={true}
+              inputContainerStyle={{
+                ...styles.input,
+                borderBottomColor: errMessage !== "" ? colors.danger : "grey",
+              }}
+              inputStyle={styles.inputText}
+              leftIconContainerStyle={styles.logoContainer}
+              placeholder="Cebu City, Cebu"
+              value={address.substring(0, address.lastIndexOf(", "))}
+              leftIcon={<Icon name="explore" size={24} color={colors.dark} />}
+              errorMessage={errMessage}
+              errorStyle={styles.errMessage}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.btnInputContainer}>
+          <Button title="SET LOCATION" onPress={handleSubmitLocation} />
+        </View>
+      </View>
     </View>
   );
 };
