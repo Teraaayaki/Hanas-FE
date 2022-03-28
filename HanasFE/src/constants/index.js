@@ -19,6 +19,7 @@ const colors = {
   lightGrey: "#E8E8E8",
   grey: "#808080",
   dark: "#403F3C",
+  blue: "#005484",
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
   background: "#E5E5E5",

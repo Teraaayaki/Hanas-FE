@@ -9,6 +9,8 @@ import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import Reviews from "@screens/Reviews";
 import MessagesLobby from "@screens/messages/MessagesLobby";
+import Notification from "@screens/Notification";
+
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -42,7 +44,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Notification"
-        component={Dashboard}
+        component={Notification}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
