@@ -3,6 +3,7 @@ import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
   FlatList,
+  Fragment,
   View,
   Text,
   ScrollView,
@@ -16,10 +17,7 @@ import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
 import Header from "@components/Header";
 import PinkSidedCard from "@components/card/PinkSidedCard";
-import {
-  PinkSidedCardList,
-  PinkSidedCardItem,
-} from "@components/card/PinkSidedCardList";
+import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 import { colors } from "@constants";
 
 const Dashboard = ({ navigation, isWorker }) => {
@@ -116,64 +114,15 @@ const Dashboard = ({ navigation, isWorker }) => {
       <View style={[styles.body]}>
         <Header title={"Dashboard"} />
         <ScrollView style={[styles.flex1, styles.w100, styles.p3, styles.pb5]}>
-          {renderServicesList()}
-          <PinkSidedCard title={"Overview"} hideCardBtn={true} />
-          <PinkSidedCard title={"Achievements"} hideCardBtn={true} />
-          <PinkSidedCard title={"Convenience Fee"} hideCardBtn={true} />
+          <View style={[styles.w100, styles.mb5, styles.pb5]}>
+            <SkilledWorkerDashboardFlatlist />
+            <PinkSidedCard title={"Overview"} hideCardBtn={true} />
+            <PinkSidedCard title={"Achievements"} hideCardBtn={true} />
+            <PinkSidedCard title={"Convenience Fee"} hideCardBtn={true} />
+            <View style={styles.my3}></View>
+          </View>
         </ScrollView>
       </View>
-    );
-  };
-
-  const renderServicesList = () => {
-    const [hideCard, setHideCard] = useState(false);
-
-    const DATA = [
-      {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "Plumbing Service",
-        image: "",
-        timeStart: "",
-        timeEnd: "",
-      },
-    ];
-
-    const renderCardItem = (hideCard, item, index) => {
-      return (
-        <PinkSidedCardItem
-          disabled={hideCard}
-          content={
-            <Fragment>
-              <View style={styles.temp1}></View>
-              <View
-                style={[
-                  styles.temp2,
-                  styles.borderTop,
-                  styles.borderMuted20,
-                  styles.pt3,
-                  styles.flexRow,
-                ]}
-              ></View>
-            </Fragment>
-          }
-        />
-      );
-    };
-
-    return (
-      <PinkSidedCardList
-        title={title}
-        hideCardBtn={true}
-        hideCard={hideCard}
-        setHideCard={setHideCard}
-        content={
-          <Flatlist
-            data={DATA}
-            renerItem={renderCardItem(item, index)}
-            keyExtractor={(item) => item.id}
-          />
-        }
-      />
     );
   };
   //SKILLED WORKER DASHBOARD --- END ===============================================

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Flatlist, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -7,14 +7,13 @@ import { colors, fontSize } from "@constants";
 import styles from "./styles";
 
 // {disabled} renders the card Greyed out. Used for Schedule Screen.
-// {hideCard} renders a clickable Hide Card Button that hides all Cards in the list.
-// {title} card header message
+// {hideCard} renders the Hide Card button on the header.
 
 const PinkSidedCardList = ({
   navigation,
-  title,
-  listContent,
   hideCardBtn,
+  title,
+  content,
   hideCard,
   setHideCard,
 }) => {
@@ -22,7 +21,7 @@ const PinkSidedCardList = ({
   //Header-------------------------------------------------
   const renderHeader = ({ title, hideCardBtn, hideCard, setHideCard }) => {
     return (
-      <View style={[styles.w100, styles.flexRow, styles.mb3]}>
+      <View style={[styles.w100, styles.flexRow]}>
         {renderTitle({ title })}
         {renderHideButton({ hideCardBtn, hideCard, setHideCard })}
       </View>
@@ -63,18 +62,18 @@ const PinkSidedCardList = ({
     }
     return <Fragment></Fragment>;
   };
+
   // RENDER ===========================================================
   return (
     <View style={[styles.mt3, styles.w100]}>
       {renderHeader({ title, hideCardBtn, hideCard, setHideCard })}
-      {listContent}
+      {content}
     </View>
   );
 };
 
-const PinkSidedCardItem = ({ navigation, disabled, content }) => {
-  const [hideCard, setHideCard] = useState(false);
-
+const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
+  // DESIGN FUNCTIONS=================================================
   //Card---------------------------------------------------
   const PinkSide = (disabled) => {
     if (disabled) {
@@ -111,7 +110,6 @@ const PinkSidedCardItem = ({ navigation, disabled, content }) => {
             styles.roundedTopRight,
             styles.roundedBottomRight,
             styles.py3,
-            styles.px5,
           ]}
         >
           {renderContent({ content })}
@@ -126,7 +124,6 @@ const PinkSidedCardItem = ({ navigation, disabled, content }) => {
           styles.roundedTopRight,
           styles.roundedBottomRight,
           styles.py3,
-          styles.px5,
         ]}
       >
         {renderContent({ content })}
@@ -144,6 +141,7 @@ const PinkSidedCardItem = ({ navigation, disabled, content }) => {
             styles.flexRow,
             styles.rounded,
             styles.shadow,
+            styles.mt3,
           ]}
         >
           {PinkSide(disabled)}
@@ -155,7 +153,6 @@ const PinkSidedCardItem = ({ navigation, disabled, content }) => {
   };
 
   // CONTENT FUNCTIONS================================================
-
   //Card---------------------------------------------------
   const renderContent = ({ content }) => {
     if (content != null) {
@@ -169,7 +166,11 @@ const PinkSidedCardItem = ({ navigation, disabled, content }) => {
   };
 
   // RENDER ===========================================================
-  return <Fragment>{renderCard({ content, disabled, hideCard })}</Fragment>;
+  return (
+    <View style={[styles.w100]}>
+      {renderCard({ content, disabled, hideCard })}
+    </View>
+  );
 };
 
-export default { PinkSidedCardList, PinkSidedCardItem };
+export { PinkSidedCardList, PinkSidedCardItem };
