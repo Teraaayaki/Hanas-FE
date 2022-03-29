@@ -4,7 +4,6 @@ import {
   FlatList,
   StatusBar,
   StyleSheet,
-  Fragment,
   Text,
   TouchableOpacity,
 } from "react-native";
@@ -65,21 +64,21 @@ const DATA = [
   },
 ];
 
+
 const Item = ({ item, onPress, backgroundColor, textColor, notif }) => (
+
+
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <View style={styles.container}>
       <View style={styles.viewContainerFlex}>
-        {item.title != "" ? (
-          <Text style={styles.title}>{item.title}</Text>
-        ) : (
-          <Text style={styles.sub_title}>{item.sub_title}</Text>
-        )}
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.sub_title}>{item.sub_title}</Text>
         <Text style={styles.time_elapsed}>{item.time_elapsed} ago</Text>
       </View>
-
+      
       <View style={styles.viewButtonContainerFlex}>
         <TouchableOpacity>
-          <Text style={styles.boldText}>{item.action}</Text>
+            <Text style={styles.boldText}>{item.action}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={onPress}>
           <Text style={styles.new_notif} notif={item.setNew}></Text>
@@ -92,11 +91,11 @@ const Item = ({ item, onPress, backgroundColor, textColor, notif }) => (
 
 const NotificationFlatlist = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
-
+  
   const renderItem = ({ item }) => {
     const backgroundColor =
       item.id === selectedId ? colors.borderGrey : colors.background;
-    const color = item.id === selectedId ? "white" : "black";
+      const color = item.id === selectedId ? "white" : "black";
 
     return (
       <Item

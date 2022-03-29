@@ -7,6 +7,7 @@ import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
+import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
 import MessagesLobby from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
