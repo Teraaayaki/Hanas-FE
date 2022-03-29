@@ -18,6 +18,7 @@ import PinkSidedCard from "@components/card/PinkSidedCard";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 import Overview from "@components/dashboardCards/Overview";
 import Achievements from "@components/dashboardCards/Achievements";
+import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
 import { colors } from "@constants";
 
 const Dashboard = ({ navigation, isWorker }) => {
@@ -134,12 +135,7 @@ const Dashboard = ({ navigation, isWorker }) => {
             <SkilledWorkerDashboardFlatlist />
             <Overview />
             <Achievements />
-            <PinkSidedCard
-              title={"Convenience Fee"}
-              hideCardBtn={true}
-              content={renderConvenienceFeeContent()}
-            />
-            <View style={styles.my3}></View>
+            <ConvenienceFee />
           </View>
         </ScrollView>
       </View>
