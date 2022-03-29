@@ -25,7 +25,7 @@ export default StyleSheet.create({
   viewContainerFlex: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
   },
   boldText: {
     color: colors.blue,
@@ -45,9 +45,9 @@ export default StyleSheet.create({
     fontSize: fontSize.h5,
   },
   time_elapsed: {
-    opacity: 0.3,
-    fontSize: fontSize.h5,
-    marginTop: margin.m1,
-    marginLeft: "2%",
-  },
+      opacity: 0.3, 
+      fontSize: fontSize.h5,
+      marginTop: margin.m1,
+      marginLeft: "2%"
+    }
 });
