@@ -16,6 +16,8 @@ import GetVerified from "@screens/GetVerified";
 import EditAccount from "@screens/EditAccount";
 import EditPassword from "@screens/EditPassword";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
+import TransactionReport from "@screens/transaction/TransactionReport";
+import BookingSummary from "@screens/transaction/BookingSummary";
 import Reviews from "@screens/Reviews";
 import BrowseServices from "@screens/BrowseServices";
 // myServices Routes
@@ -66,10 +68,9 @@ export default HanasStack = () => {
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
-          <Stack.Screen
-            name="TransactionHistory"
-            component={TransactionHistory}
-          />
+          <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
+          <Stack.Screen name="TransactionReport" component={TransactionReport} />
+          <Stack.Screen name="BookingSummary" component={BookingSummary} />
           <Stack.Screen name="Reviews" component={Reviews} />
           <Stack.Screen name="BrowseServices" component={BrowseServices} />
           <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />

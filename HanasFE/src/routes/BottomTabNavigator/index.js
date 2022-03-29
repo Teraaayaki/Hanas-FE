@@ -9,7 +9,12 @@ import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import Reviews from "@screens/Reviews";
 import MessagesLobby from "@screens/messages/MessagesLobby";
+<<<<<<< HEAD
 import Notification from "@screens/Notification";
+=======
+import TransactionReport from "@screens/transaction/TransactionReport";
+import BookingSummary from "@screens/transaction/BookingSummary";
+>>>>>>> 73c270ab1a4bcd89c737ef045231c3140d7f6d72
 
 const Tab = createBottomTabNavigator();
 
@@ -134,8 +139,24 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
+        name="TransactionReport"
+        component={TransactionReport}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
         name="Reviews"
         component={Reviews}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookingSummary"
+        component={BookingSummary}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
