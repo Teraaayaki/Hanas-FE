@@ -7,9 +7,10 @@ import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
+import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
 import MessagesLobby from "@screens/messages/MessagesLobby";
-import TransactionReport from "@screens/transaction/TransactionReport";
+import Notification from "@screens/Notification";
 import BookingSummary from "@screens/transaction/BookingSummary";
 
 const Tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Notification"
-        component={Dashboard}
+        component={Notification}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
