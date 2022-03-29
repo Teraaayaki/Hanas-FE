@@ -1,11 +1,13 @@
 import React from "react";
 import { Text, View, SafeAreaView, ScrollView } from "react-native";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
 
 import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 import styles from "./style";
+import { setUserDetails } from "@redux/actions/registerActions";
 
 const details = {
   firstName: "",
@@ -35,9 +37,12 @@ const RegisterSchema = yup.object().shape({
 });
 
 export default function RegisterDetailsPageOne({ navigation }) {
+  const dispatch = useDispatch();
+
   const handleSubmit = (values) => {
     console.log(values);
-    // navigation.navigate("RegisterDetailsPageTwo");
+    console.log("SetUser Dispatch Called");
+    dispatch(setUserDetails(values, navigation));
   };
 
   return (

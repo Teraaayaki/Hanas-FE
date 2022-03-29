@@ -68,6 +68,7 @@ const fontSize = {
 
 const fontWeight = {
   bold: "bold",
+  regular: "400",
   light: "100",
 };
 

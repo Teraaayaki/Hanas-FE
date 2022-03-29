@@ -36,9 +36,17 @@ export const verifyNumber = (otp, navigation) => async (dispatch) => {
   }, 3000);
 };
 
-export const setUserDetails = (user) => async (dispatch) => {
-  let user = await AsyncStorage.setItem("user", user);
+export const setUserDetails = (user, navigation) => async (dispatch) => {
+  await AsyncStorage.setItem("user", JSON.stringify(user));
   console.log(user);
+  navigation.navigate("RegisterDetailsPageTwo");
+};
+
+export const setLocation = (address, navigation) => (dispatch) => {
+  dispatch({
+    type: RegisterActions.REGISTER_LOCATION,
+    data: address,
+  });
 };
 
 export const registerUser = (user) => async (dispatch) => {

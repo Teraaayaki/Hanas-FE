@@ -30,7 +30,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
     dob && setUserDetails({ ...userDetails, dob });
 
     //set address
-    setUserDetails({ ...userDetails, address: "Bogo City, Cebu" });
+    setUserDetails({ ...userDetails });
     console.log("birthdate changed " + userDetails.dob);
   };
 
@@ -142,9 +142,6 @@ export default function RegisterDetailsPageTwo({ navigation }) {
           </>
         </View>
       </ScrollView>
-      {/* <View style={styles.bottomContainer}>
-     
-      </View> */}
     </SafeAreaView>
   );
 }
