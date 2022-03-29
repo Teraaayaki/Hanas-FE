@@ -10,7 +10,6 @@ import TransactionHistory from "@screens/transaction/TransactionHistory";
 import Reviews from "@screens/Reviews";
 import MessagesLobby from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
-import TransactionReport from "@screens/transaction/TransactionReport";
 import BookingSummary from "@screens/transaction/BookingSummary";
 
 const Tab = createBottomTabNavigator();
