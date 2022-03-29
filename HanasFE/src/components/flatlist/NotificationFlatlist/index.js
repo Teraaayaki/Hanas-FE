@@ -4,6 +4,7 @@ import {
   FlatList,
   StatusBar,
   StyleSheet,
+  Fragment,
   Text,
   TouchableOpacity,
 } from "react-native";
