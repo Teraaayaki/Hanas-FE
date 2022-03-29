@@ -19,7 +19,8 @@
           "@icons": "./assets/resources/icons",
           "@axios": "./src/helper/axios",
           "@redux": "./src/redux",
-          "@hooks": "./src/hooks"
+          "@hooks": "./src/hooks",
+          "@helpers": "./src/helper"
         }
       }
     ]

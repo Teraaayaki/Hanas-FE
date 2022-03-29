@@ -54,7 +54,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
         dob: userDetails.dob,
         sex: userDetails.sex,
       };
-      dispatch(registerUser(completeUserDetails));
+      dispatch(registerUser(completeUserDetails, navigation));
     }
   };
 

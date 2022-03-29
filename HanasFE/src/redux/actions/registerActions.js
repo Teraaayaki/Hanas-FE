@@ -1,6 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "@axios";
 import dayjs from "dayjs";
+
+import { setItem } from "@helpers/asyncStorage";
+import axios from "@axios";
 
 import { RegisterActions, UserLoginActions } from "./types";
 
@@ -38,7 +39,7 @@ export const verifyNumber = (otp, number, navigation) => (dispatch) => {
     dispatch({
       type: RegisterActions.REGISTER_SUCCESS,
     });
-  }, 3000);
+  }, 1000);
 };
 
 export const setUserDetails = (user, navigation) => (dispatch) => {
@@ -71,11 +72,14 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     sex,
     isWorker,
   } = user;
+
   console.log("User Details:\n", user);
   console.log(dayjs(dob).format("YYYY-MM-DD"));
+
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
+
   try {
     console.log("Axios Call");
     let { data } = await axios.post("/api/client/register", {
@@ -91,10 +95,10 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       sex,
       isWorker,
     });
+
     if (data) {
-      console.log("Storing Token");
-      await AsyncStorage.setItem("token", data.token);
-      await AsyncStorage.setItem("user_id", data.user_id);
+      setItem("token", data.token);
+      setItem("user_id", data.user_id);
       console.log("Data is: ", data);
       dispatch({
         type: UserLoginActions.USER_LOGIN_SUCCESS,
@@ -113,6 +117,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
   } catch (err) {
     let { error } = err.response.data;
     console.log("Error catched: ", error);
+
     dispatch({
       type: RegisterActions.REGISTER_FAIL,
       payload: error,
