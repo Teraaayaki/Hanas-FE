@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  FlatList,
-  StatusBar,
-  StyleSheet,
-  Fragment,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import { colors, fontWeight, fontSize, margin } from "@constants";
 import styles from "./style";
