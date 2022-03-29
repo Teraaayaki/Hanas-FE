@@ -11,8 +11,7 @@ const Landing = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (isUserWorker) => {
-    dispatch(worker(isUserWorker));
-    navigation.navigate("RegisterNumber");
+    dispatch(worker(isUserWorker, navigation));
   };
 
   return (
@@ -27,13 +26,10 @@ const Landing = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Text style={styles.text}>ARE YOU A?</Text>
           <View style={styles.pinkButtonContainer}>
-            <Button onPress={() => handleSubmit("false")} title="CLIENT" />
+            <Button onPress={() => handleSubmit(false)} title="CLIENT" />
           </View>
           <View style={styles.pinkButtonContainer}>
-            <Button
-              onPress={() => handleSubmit("true")}
-              title="SKILLED WORKER"
-            />
+            <Button onPress={() => handleSubmit(true)} title="SKILLED WORKER" />
           </View>
 
           <TextLink

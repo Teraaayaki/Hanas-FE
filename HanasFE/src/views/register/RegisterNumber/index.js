@@ -12,7 +12,6 @@ export default function RegisterNumber({ navigation }) {
   const [number, setNumber] = useState("");
   const [show, setShow] = useState(true);
   const dispatch = useDispatch();
-  const { success } = useSelector((state) => state.userRegister);
 
   const handleChange = (e) => {
     e = e.replace(/[^0-9]/g, "");
@@ -25,9 +24,7 @@ export default function RegisterNumber({ navigation }) {
   };
 
   const handleSubmit = () => {
-    dispatch(registerNumber(number));
-    console.log("Success: " + success + "\nShow: " + show);
-    navigation.navigate("RegisterOTP");
+    dispatch(registerNumber(number, navigation));
   };
 
   return (

@@ -17,11 +17,20 @@ const details = {
   password: "",
   suffix: "",
 };
-
+//prettier-ignore
 const RegisterSchema = yup.object().shape({
-  firstName: yup.string().required("Please enter your first name"),
-  middleName: yup.string().required("Required"),
-  lastName: yup.string().required("Please enter your last name"),
+  firstName: yup
+    .string()
+    .required("Please enter your first name")
+    .matches(/^([^0-9]*)$/,"No numeric values allowed"),
+  middleName: yup
+    .string()
+    .required("Required")
+    .matches(/^([^0-9]*)$/,"No numeric values allowed"),
+  lastName: yup
+    .string()
+    .required("Please enter your last name")
+    .matches(/^([^0-9]*)$/,"No numeric values allowed"),
   suffix: yup.string(),
   email: yup
     .string()

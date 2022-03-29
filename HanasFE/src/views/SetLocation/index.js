@@ -3,11 +3,13 @@ import { TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoding";
+import { useDispatch } from "react-redux";
 
 import { colors } from "@constants";
 import Button from "@components/Button";
 import Header from "@components/Header";
 import styles from "./style";
+import { setLocation } from "@redux/actions/registerActions";
 
 let regionDefault = {
   longitude: 123.893078,
@@ -21,6 +23,7 @@ const SetLocation = ({ navigation }) => {
   const [address, setAddress] = useState("");
   const [errMessage, setErrMessage] = useState("");
   const inputElem = useRef();
+  const dispatch = useDispatch();
 
   const handleRegionChange = (region) => {
     setRegion({ ...region });
@@ -48,7 +51,7 @@ const SetLocation = ({ navigation }) => {
         setErrMessage("");
       }, 2000);
     } else {
-      console.log("Address selected: " + address);
+      dispatch(setLocation(address, navigation));
     }
   };
 

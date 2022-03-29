@@ -24,10 +24,12 @@ export default function RegisterOTP({ navigation }) {
   const pin3Ref = useRef(null);
   const pin4Ref = useRef(null);
   const dispatch = useDispatch();
-  const { loading, success } = useSelector((state) => state.userRegister);
+  const { loading, success, number } = useSelector(
+    (state) => state.userRegister
+  );
 
   const handleSubmit = () => {
-    dispatch(verifyNumber(9055, navigation));
+    dispatch(verifyNumber(9055, number, navigation));
   };
 
   useEffect(() => {
