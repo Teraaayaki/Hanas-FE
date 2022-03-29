@@ -67,10 +67,10 @@ export default HanasStack = () => {
           />
           <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
           <Stack.Screen name="SetLocation" component={SetLocation} />
-          <Stack.Screen name="GetVerified" component={GetVerified} />
         </Stack.Group>
       ) : (
         <Stack.Group>
+          <Stack.Screen name="GetVerified" component={GetVerified} />
           <Stack.Screen name="Dashboard" component={Tabs} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Settings" component={Settings} />

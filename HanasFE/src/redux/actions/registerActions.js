@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "@axios";
 import dayjs from "dayjs";
 
-import { RegisterActions } from "./types";
+import { RegisterActions, UserLoginActions } from "./types";
 
 export const worker = (isWorker, navigation) => (dispatch) => {
   console.log("Is user a worker: " + isWorker);
@@ -57,7 +57,7 @@ export const setLocation = (address, navigation) => (dispatch) => {
   navigation.navigate("RegisterDetailsPageTwo");
 };
 
-export const registerUser = (user) => async (dispatch) => {
+export const registerUser = (user, navigation) => async (dispatch) => {
   let {
     firstName,
     middleName,
@@ -92,10 +92,23 @@ export const registerUser = (user) => async (dispatch) => {
       isWorker,
     });
     if (data) {
+      console.log("Storing Token");
+      await AsyncStorage.setItem("token", data.token);
+      await AsyncStorage.setItem("user_id", data.user_id);
       console.log("Data is: ", data);
+      dispatch({
+        type: UserLoginActions.USER_LOGIN_SUCCESS,
+        payload: true,
+      });
       dispatch({
         type: RegisterActions.REGISTER_SUCCESS,
       });
+      console.log("Navigate to another page");
+      if (data.is_worker) {
+        navigation.navigate("GetVerified");
+      } else {
+        navigation.navigate("Dashboard");
+      }
     }
   } catch (err) {
     let { error } = err.response.data;
