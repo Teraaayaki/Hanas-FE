@@ -169,6 +169,7 @@ export default StyleSheet.create({
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textSecondary: { color: colors.secondary },
+  textMuted50: { color: colors.muted50 },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,

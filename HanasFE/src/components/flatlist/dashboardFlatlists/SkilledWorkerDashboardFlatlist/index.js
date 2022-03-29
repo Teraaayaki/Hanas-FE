@@ -26,14 +26,30 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
       {
         id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
         title: "First Item",
+        name: "Hosea Barriga",
+        image: require("@images/service1.png"),
+        address: "Danao City",
       },
       {
         id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
         title: "Second Item",
+        name: "Soy Lebumfacil",
+        image: require("@images/service2.png"),
+        address: "Bogo City",
       },
       {
         id: "58694a0f-3da1-471f-bd96-145571e29d72",
         title: "Third Item",
+        name: "James Karl Sia",
+        image: require("@images/service3.png"),
+        address: "Talamban",
+      },
+      {
+        id: "58694a0f-3da1-471f-bd96-145571e29d78",
+        title: "Fourth Item",
+        name: "Mary Therese Sun Alegre",
+        image: require("@images/service4.png"),
+        address: "Lapu-lapu City",
       },
     ];
 
@@ -48,70 +64,109 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
 
     const renderCardBody = ({ item }) => {
       return (
-        <View style={[styles.flex1, styles.w100, styles.temp1]}>
+        <View style={[styles.flex1, styles.w100]}>
           {/* Card Body */}
-          <View
-            style={[styles.temp2, styles.flex1, styles.w100, styles.flexRow]}
-          >
+          <View style={[styles.flex1, styles.w100, styles.flexRow]}>
             {/* Body Left */}
             <View
               style={[
-                styles.temp1,
                 styles.ml3,
                 styles.justifyContentCenter,
                 styles.alignCenter,
               ]}
             >
-              <CircularImage imageSource={require("@images/profile3.png")} />
+              <CircularImage imageSource={item.image} />
             </View>
             {/* Body Right */}
             {renderItem({ item })}
           </View>
           {/* Card Footer */}
-          <View
-            style={[styles.temp6, styles.flex1, styles.w100, styles.flexRow]}
-          >
-            <View
-              style={[
-                styles.temp3,
-                styles.w100,
-                styles.flex1,
-                styles.borderTop,
-                styles.borderMuted20,
-                styles.mx5,
-              ]}
-            >
-              <Text>A</Text>
-            </View>
+          <View style={[styles.flex1, styles.w100, styles.flexRow]}>
+            {footerMessage()}
           </View>
+        </View>
+      );
+    };
+
+    const footerMessage = () => {
+      const renderServiceEnd = () => {
+        return "2" + " hrs " + "38" + " mins";
+      };
+
+      return (
+        <View
+          style={[
+            styles.w100,
+            styles.flex1,
+            styles.borderTop,
+            styles.borderMuted20,
+            styles.mx5,
+            styles.flexRow,
+            styles.justifyContentCenter,
+            styles.pt1,
+            styles.mt1,
+          ]}
+        >
+          <Text style={[styles.h1, styles.bold, styles.textMuted50]}>
+            Service ends in:{" "}
+          </Text>
+          <Text style={[styles.h1, styles.bold]}>{renderServiceEnd()}</Text>
         </View>
       );
     };
 
     const renderItem = ({ item }) => {
       return (
-        <View style={[styles.temp5, styles.w100, styles.flex1, styles.mr5]}>
+        <View style={[styles.w100, styles.flex1, styles.mr5]}>
           <Text
             style={[
-              styles.h1,
+              styles.h2,
               styles.bold,
               styles.textCenter,
               styles.borderBottom,
-              styles.py2,
               styles.borderMuted20,
+              styles.mb2,
+              styles.pb3,
             ]}
           >
             {item.title}
           </Text>
-          <Text style={[styles.h3, styles.textCenter]}>
-            <Icon name="alarm" type="material-community-icons" />A
-          </Text>
-          <Text style={[styles.h3, styles.textCenter]}>
-            <Icon />A
-          </Text>
-          <Text style={[styles.h3, styles.textCenter]}>
-            <Icon />A
-          </Text>
+          <View
+            style={[
+              styles.w100,
+              styles.flexRow,
+              styles.justifyContentCenter,
+              styles.alignCenter,
+              styles.mb2,
+            ]}
+          >
+            <Icon name="alarm" type="material-community-icons" size={18} />
+            <Text style={[styles.h4, styles.textCenter]}>A</Text>
+          </View>
+          <View
+            style={[
+              styles.w100,
+              styles.flexRow,
+              styles.justifyContentCenter,
+              styles.alignCenter,
+              styles.mb2,
+            ]}
+          >
+            <Icon name="person-outline" type="material-icons" size={18} />
+            <Text style={[styles.h4, styles.textCenter]}>{item.name}</Text>
+          </View>
+          <View
+            style={[
+              styles.w100,
+              styles.flexRow,
+              styles.justifyContentCenter,
+              styles.alignCenter,
+              styles.mb2,
+            ]}
+          >
+            <Icon name="location-sharp" type="ionicon" size={18} />
+            <Text style={[styles.h4, styles.textCenter]}>{item.address}</Text>
+          </View>
         </View>
       );
     };

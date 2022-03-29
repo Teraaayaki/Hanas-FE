@@ -100,6 +100,9 @@ export default StyleSheet.create({
   justifyContentCenter: {
     justifyContent: "center",
   },
+  justifyContentSpaceEvenly: {
+    justifyContent: "space-evenly",
+  },
   //Height---------------------------------------
   h100: {
     height: "100%",
@@ -175,6 +178,7 @@ export default StyleSheet.create({
   bgDark: { backgroundColor: colors.dark },
   bgLight: { backgroundColor: colors.light },
   bgGrey: { backgroundColor: colors.grey },
+  bgPrimary: { backgroundColor: colors.primary },
   bgSecondary: { backgroundColor: colors.secondary },
   // Border Color -------------------------------
   border: {
