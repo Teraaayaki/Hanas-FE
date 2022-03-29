@@ -27,6 +27,8 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
         title: "First Item",
         name: "Hosea Barriga",
+        timeStart: "10:00 AM",
+        timeEnd: "8:30 PM",
         image: require("@images/service1.png"),
         address: "Danao City",
       },
@@ -34,6 +36,8 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
         title: "Second Item",
         name: "Soy Lebumfacil",
+        timeStart: "11:00 AM",
+        timeEnd: "1:30 PM",
         image: require("@images/service2.png"),
         address: "Bogo City",
       },
@@ -41,6 +45,8 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         id: "58694a0f-3da1-471f-bd96-145571e29d72",
         title: "Third Item",
         name: "James Karl Sia",
+        timeStart: "8:00 AM",
+        timeEnd: "1:00 PM",
         image: require("@images/service3.png"),
         address: "Talamban",
       },
@@ -48,6 +54,8 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         id: "58694a0f-3da1-471f-bd96-145571e29d78",
         title: "Fourth Item",
         name: "Mary Therese Sun Alegre",
+        timeStart: "7:30 AM",
+        timeEnd: "2:30 PM",
         image: require("@images/service4.png"),
         address: "Lapu-lapu City",
       },
@@ -141,7 +149,9 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
             ]}
           >
             <Icon name="alarm" type="material-community-icons" size={18} />
-            <Text style={[styles.h4, styles.textCenter]}>A</Text>
+            <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
+              {item.timeStart} - {item.timeEnd}
+            </Text>
           </View>
           <View
             style={[
@@ -153,7 +163,9 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
             ]}
           >
             <Icon name="person-outline" type="material-icons" size={18} />
-            <Text style={[styles.h4, styles.textCenter]}>{item.name}</Text>
+            <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
+              {item.name}
+            </Text>
           </View>
           <View
             style={[
@@ -165,7 +177,9 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
             ]}
           >
             <Icon name="location-sharp" type="ionicon" size={18} />
-            <Text style={[styles.h4, styles.textCenter]}>{item.address}</Text>
+            <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
+              {item.address}
+            </Text>
           </View>
         </View>
       );

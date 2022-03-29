@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
-  FlatList,
-  Fragment,
   View,
   Text,
   ScrollView,
@@ -18,7 +16,8 @@ import CardContainer from "@components/CardContainer";
 import Header from "@components/Header";
 import PinkSidedCard from "@components/card/PinkSidedCard";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
-import TextToggle from "@components/TextToggle";
+import Overview from "@components/dashboardCards/Overview";
+import Achievements from "@components/dashboardCards/Achievements";
 import { colors } from "@constants";
 
 const Dashboard = ({ navigation, isWorker }) => {
@@ -111,49 +110,6 @@ const Dashboard = ({ navigation, isWorker }) => {
 
   //SKILLED WORKER DASHBOARD --- START =============================================
   const workerDashboard = ({ navigation }) => {
-    const renderOverviewContent = () => {
-      const [toggle, setToggle] = useState({
-        weekly: true,
-        monthly: false,
-        yearly: false,
-      });
-
-      const handleWeeklyToggle = () => {
-        return setToggle({ weekly: true, monthly: false, yearly: false });
-      };
-
-      const handleMonthlyToggle = () => {
-        return setToggle({ weekly: false, monthly: true, yearly: false });
-      };
-
-      const handleYearlyToggle = () => {
-        return setToggle({ weekly: false, monthly: false, yearly: true });
-      };
-
-      return (
-        <View style={[styles.flex1]}>
-          <View style={[styles.flex1, styles.flexRow]}>
-            <Text>Total Earned</Text>
-          </View>
-          <View
-            style={[
-              styles.flex1,
-              styles.flexRow,
-              styles.justifyContentSpaceEvenly,
-            ]}
-          >
-            <TextToggle
-              title="Weekly"
-              active={toggle.weekly}
-              onPress={handleWeeklyToggle()}
-            />
-            <TextToggle title="Monthly" active={toggle.monthly} />
-            <TextToggle title="Yearly" active={toggle.yearly} />
-          </View>
-        </View>
-      );
-    };
-
     const renderAchievementsContent = () => {
       return (
         <View style={[styles.flex1]}>
@@ -176,16 +132,8 @@ const Dashboard = ({ navigation, isWorker }) => {
         <ScrollView style={[styles.flex1, styles.w100, styles.p3, styles.pb5]}>
           <View style={[styles.w100, styles.mb5, styles.pb5]}>
             <SkilledWorkerDashboardFlatlist />
-            <PinkSidedCard
-              title={"Overview"}
-              hideCardBtn={true}
-              content={renderOverviewContent()}
-            />
-            <PinkSidedCard
-              title={"Achievements"}
-              hideCardBtn={true}
-              content={renderAchievementsContent()}
-            />
+            <Overview />
+            <Achievements />
             <PinkSidedCard
               title={"Convenience Fee"}
               hideCardBtn={true}
