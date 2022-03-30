@@ -10,8 +10,6 @@ import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
-import TransactionReport from "@screens/transaction/TransactionReport";
-import MessagesLobby from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
 import BookingSummary from "@screens/transaction/BookingSummary";
 
