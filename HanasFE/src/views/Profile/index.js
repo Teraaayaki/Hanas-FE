@@ -8,6 +8,7 @@ import { colors, fontSize } from "@constants";
 import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
+import CircularImage from "@components/CircularImage";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ const Profile = ({ navigation }) => {
       stickyHeaderHiddenOnScroll={true}
       showsVerticalScrollIndicator={false}
     >
+      <View>
+        
+      </View>
       <LinearGradient
         style={styles.header}
         colors={[colors.primary, colors.secondary]}
@@ -39,7 +43,7 @@ const Profile = ({ navigation }) => {
           <Text style={styles.text}>Your Profile</Text>
         </View>
         <View style={styles.headContainer}>
-          <Image style={styles.image} source={require("@images/mullet.jpg")} />
+          <CircularImage style={styles.image} imageSource={require("@images/mullet.jpg")} />
           <View style={styles.nameContainer}>
             <Text style={styles.name}>Soy Lebumfacil</Text>
             <Text style={styles.verified}>
@@ -88,16 +92,20 @@ const Profile = ({ navigation }) => {
             onPress={() => navigation.navigate("MyServices")}
           />
           <View style={styles.buttonRow}>
-            <ButtonWhite
-              title="Reviews"
-              iconName="description"
-              onPress={() => navigation.navigate("Reviews")}
-            />
-            <ButtonWhite
-              title="Transactions"
-              iconName="credit-card"
-              onPress={() => navigation.navigate("TransactionHistory")}
-            />
+            <View style={styles.flexedView}>
+              <ButtonWhite
+                title="Reviews"
+                iconName="description"
+                onPress={() => navigation.navigate("Reviews")}
+              />
+            </View>
+            <View style={{flex: 1, alignItems: "center"}}>
+              <ButtonWhite
+                title="Transactions"
+                iconName="credit-card"
+                onPress={() => navigation.navigate("TransactionHistory")}
+              />
+            </View>
           </View>
         </View>
         <View style={styles.headerBorder}></View>
