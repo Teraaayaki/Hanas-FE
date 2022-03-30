@@ -20,13 +20,12 @@ import TransactionReport from "@screens/transaction/TransactionReport";
 import BookingSummary from "@screens/transaction/BookingSummary";
 import Reviews from "@screens/Reviews";
 import BrowseServices from "@screens/BrowseServices";
-// myServices Routes
 import MyServices from "@screens/services/MyServices";
 import AddEditService from "@screens/services/AddEditService";
 import ServicesNearYou from "@screens/ServicesNearYou";
-// Messages Routes
 import Messages from "@screens/messages/MessagesLobby";
 import Chatroom from "@screens/messages/Chatroom";
+import Schedule from "@screens/Schedule";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import Tabs from "@routes/BottomTabNavigator";
@@ -85,6 +84,7 @@ export default HanasStack = () => {
           <Stack.Screen name="SetLocation" component={SetLocation} />
           <Stack.Screen name="Messages" component={Messages} />
           <Stack.Screen name="Chatroom" component={Chatroom} />
+          <Stack.Screen name="Schedule" component={Schedule} />
         </Stack.Group>
       )}
     </Stack.Navigator>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
@@ -12,6 +12,7 @@ import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
 import BookingSummary from "@screens/transaction/BookingSummary";
+import Schedule from "@screens/Schedule";
 
 const Tab = createBottomTabNavigator();
 
@@ -64,7 +65,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Calendar"
-        component={Dashboard}
+        component={Schedule}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
