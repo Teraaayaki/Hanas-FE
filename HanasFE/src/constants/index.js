@@ -10,6 +10,7 @@ const button = StyleSheet.create({
 const colors = {
   primary: "#e69fb4",
   secondary: "#ff5e84",
+  success: "#8bd948",
   danger: "#DD5555",
   info: "#005484",
   info2: "#8488FF",
@@ -19,6 +20,7 @@ const colors = {
   lightGrey: "#E8E8E8",
   grey: "#808080",
   dark: "#403F3C",
+  blue: "#005484",
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
   background: "#E5E5E5",

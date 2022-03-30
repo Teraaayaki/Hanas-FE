@@ -6,10 +6,12 @@ import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
+import ProfileClient from "@screens/ProfileClient";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
-import Reviews from "@screens/Reviews";
-import MessagesLobby from "@screens/messages/MessagesLobby";
 import TransactionReport from "@screens/transaction/TransactionReport";
+import Reviews from "@screens/Reviews";
+import Messages from "@screens/messages/MessagesLobby";
+import Notification from "@screens/Notification";
 import BookingSummary from "@screens/transaction/BookingSummary";
 
 const Tab = createBottomTabNavigator();
@@ -45,7 +47,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Notification"
-        component={Dashboard}
+        component={Notification}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -81,7 +83,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={MessagesLobby}
+        component={Messages}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -98,8 +100,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileClient"
+        component={ProfileClient}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
