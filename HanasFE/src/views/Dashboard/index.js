@@ -18,7 +18,7 @@ import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatli
 import { colors } from "@constants";
 
 const Dashboard = ({ navigation }) => {
-  const [isWorker, setIsWorker] = useState(true);
+  const [isWorker, setIsWorker] = useState(false);
 
   //CLIENT DASHBOARD --- START =====================================================
   var [isPress, setIsPress] = useState(false);

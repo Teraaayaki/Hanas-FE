@@ -3,7 +3,6 @@ import { View, Text } from "react-native";
 
 import styles from "./styles";
 import PinkSidedCard from "@components/card/PinkSidedCard";
-import TextToggle from "@components/TextToggle";
 import { Icon } from "react-native-elements";
 import { colors } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -24,7 +23,9 @@ const Achievements = () => {
           <Text style={[styles.h2, styles.textMuted50]}>
             Remaining Balance:{" "}
           </Text>
-          <Text style={[styles.h3, styles.textRight]}>PHP 345.00</Text>
+          <Text style={[styles.mt2, styles.textRight, { fontSize: 22 }]}>
+            PHP 345.00
+          </Text>
         </View>
         <View style={[]}>
           <View

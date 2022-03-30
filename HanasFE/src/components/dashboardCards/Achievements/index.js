@@ -3,7 +3,6 @@ import { View, Text } from "react-native";
 
 import styles from "./styles";
 import PinkSidedCard from "@components/card/PinkSidedCard";
-import TextToggle from "@components/TextToggle";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
