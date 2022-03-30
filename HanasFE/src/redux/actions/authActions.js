@@ -1,10 +1,10 @@
 import { UserLoginActions } from "./types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "@axios";
+import { getItem, setItem, removeItem } from "@helpers/asyncStorage";
 
 export const userLogin = (email, password) => async (dispatch) => {
-  let token = await AsyncStorage.getItem("token");
-
+  let token = await getItem("token");
+  let isWorker = JSON.parse(await getItem("is_worker"));
   if (token) {
     console.log("Token Already Exists - userLoginAction");
     dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: true });
@@ -28,9 +28,9 @@ const doUserLogin = async (email, password, dispatch) => {
       password,
     });
     console.log("Storing Token");
-    await AsyncStorage.setItem("token", data.token);
-    await AsyncStorage.setItem("user_id", data.user_id);
-    await AsyncStorage.setItem("is_worker", data.is_worker);
+    setItem("token", data.token);
+    setItem("user_id", data.user_id);
+    setItem("is_worker", JSON.stringify(data.is_worker));
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
       payload: true,
@@ -44,9 +44,9 @@ const doUserLogin = async (email, password, dispatch) => {
 
 export const userLogout = () => async (dispatch) => {
   console.log("Removing items");
-  await AsyncStorage.removeItem("user_id");
-  await AsyncStorage.removeItem("token");
-
+  removeItem("user_id");
+  removeItem("token");
+  removeItem("is_worker");
   console.log("Succesfully removed items");
   console.log("Dispatching Logout");
 

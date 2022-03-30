@@ -3,7 +3,6 @@ import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "@redux/actions/authActions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Button from "@components/Button";
 import styles from "./style";
 

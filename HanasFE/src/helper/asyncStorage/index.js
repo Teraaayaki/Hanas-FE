@@ -8,3 +8,26 @@ export const setItem = async (key, value) => {
     return error;
   }
 };
+
+export const getItem = async (key) => {
+  console.log("fetching value with key: ", key);
+  try {
+    return await AsyncStorage.getItem(key);
+    // if (value !== null) {
+    //   return value;
+    // } else {
+    //   return false;
+    // }
+  } catch (error) {
+    return error;
+  }
+};
+
+export const removeItem = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    return error;
+  }
+};
