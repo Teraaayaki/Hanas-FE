@@ -31,7 +31,7 @@ const Overview = () => {
         <View
           style={[styles.flex1, styles.flexRow, styles.mb3, styles.alignCenter]}
         >
-          <Text style={[styles.h2, styles.bold, styles.mr1]}>Total Earned</Text>
+          <Text style={[styles.h2, styles.bold, styles.mr2]}>Total Earned</Text>
           <Icon
             name="bank"
             type="font-awesome"
