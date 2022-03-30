@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
-import { colors, fontSize } from "@constants";
+import CircularImage from "@components/CircularImage";
+import { colors, fontSize, margin, padding } from "@constants";
 import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
-import CircularImage from "@components/CircularImage";
 
-const Profile = ({ navigation }) => {
+const Profile = ({navigation}) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.userLogin);
 
@@ -25,55 +26,56 @@ const Profile = ({ navigation }) => {
       navigation.navigate("Landing");
     }
   }, [success]);
-
-  return (
-    <ScrollView
-      style={styles.container}
-      stickyHeaderHiddenOnScroll={true}
-      showsVerticalScrollIndicator={false}
-    >
-      <View>
-        
-      </View>
-      <LinearGradient
-        style={styles.header}
-        colors={[colors.primary, colors.secondary]}
-      >
-        <View style={styles.headerText}>
-          <Text style={styles.text}>Your Profile</Text>
-        </View>
-        <View style={styles.headContainer}>
-          <CircularImage style={styles.image} imageSource={require("@images/mullet.jpg")} />
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>Soy Lebumfacil</Text>
-            <Text style={styles.verified}>
-              <Icon color="green" size={fontSize.h3} name="verified" /> Verified
-            </Text>
+  return(
+    <ParallaxScrollView
+      backgroundColor = "#FF6D8F"
+      contentBackgroundColor= "#FF6D8F"
+      contentContainerStyle={{height: "100%"}}
+      parallaxHeaderHeight={180}
+      renderForeground={() => (
+        <LinearGradient style={styles.header} colors={[colors.primary, colors.secondary]}>
+          <View style={styles.headerText}>
+            <Text style={styles.text}>Your Profile</Text>
           </View>
-        </View>
-      </LinearGradient>
-      <View style={styles.profileDetails}>
-        <View style={styles.accountInfoContainer}>
-          <Text style={styles.infoHeader}>Account Info</Text>
-          <View style={styles.headerBorder}></View>
-          <View style={styles.accountInfo}>
-            <View>
-              <Text style={styles.infoName}>Address:</Text>
-              <Text style={styles.infoText}>
-                53 P. Rodrigo Duterte St. Bogo City, Cebu
+          <View style={styles.headContainer}>
+            <CircularImage style={styles.image} imageSource={require("@images/mullet.jpg")} />
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>Soy Lebumfacil</Text>
+              <Text style={styles.verified}>
+                <Icon color="green" size={fontSize.h3} name="verified" /> Verified
               </Text>
             </View>
-            <View>
-              <Text style={styles.infoName}>Email:</Text>
-              <Text style={styles.infoText}>lebumfacilrenzo@yahoo.com</Text>
-            </View>
-            <View style={styles.data}>
-              <Text style={styles.infoName}>Mobile No:</Text>
-              <Text style={styles.infoText}>0953453443</Text>
-            </View>
           </View>
-          <View style={styles.headerBorder}></View>
-          <View style={styles.textLink}>
+        </LinearGradient>
+      )}
+      stickyHeaderHeight={70}
+      renderStickyHeader={() => (
+        <View style={{flexDirection: "row", justifyContent: "center", backgroundColor: "#FF6D8F", height: "100%"}}>
+            <Text style={{color: colors.black, alignSelf: "center", fontSize: fontSize.h1}}>Soy Lebumfacil</Text>
+            <Icon color="green" size={fontSize.h3} name="verified" style={{marginTop: 28, marginLeft: 5}}></Icon>
+        </View>
+           
+      )}  
+    >
+      <View style={styles.parallaxContentContainer}>
+        <View style={styles.profileDetailsContainer}>
+          <Text style={styles.headingText}>Account Info</Text>
+          <View style={styles.hr}></View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.label}>Address</Text>
+            <Text style={styles.values}>Tungkil, Minglanilla, Cebu</Text>
+          </View>
+          <View style={styles.hrFaded}></View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.values}>johndoe@gmail.com</Text>
+          </View>
+          <View style={styles.hrFaded}></View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.label}>Mobile Number</Text>
+            <Text style={styles.values}>09478619973</Text>
+          </View>
+          <View style={styles.profileInfoContainer}>
             <TextLinkPink
               title="Edit Account Info"
               onPress={() => navigation.navigate("EditAccount")}
@@ -86,11 +88,11 @@ const Profile = ({ navigation }) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <ButtonWhite
-            title="Services"
-            iconName="shopping-cart"
-            onPress={() => navigation.navigate("MyServices")}
-          />
+              <ButtonWhite
+                title="View services"
+                iconName="shopping-cart"
+                onPress={() => navigation.navigate("Services")}
+              />
           <View style={styles.buttonRow}>
             <View style={styles.flexedView}>
               <ButtonWhite
@@ -108,15 +110,15 @@ const Profile = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={styles.headerBorder}></View>
         <View style={styles.logout}>
           <TouchableOpacity onPress={handleSubmit}>
             <Text style={styles.logoutText}>LOGOUT</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.hr}></View>
       </View>
-    </ScrollView>
-  );
-};
-
+    </ParallaxScrollView>
+      
+  )
+}
 export default Profile;
