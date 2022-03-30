@@ -51,8 +51,8 @@ const ProfileClient = ({navigation}) => {
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View style={{flexDirection: "row", justifyContent: "center", backgroundColor: "#FF6D8F", height: "100%"}}>
-            <Text style={{color: colors.black, alignSelf: "center", fontSize: fontSize.h1}}>Soy Lebumfacil</Text>
-            <Icon color="green" size={fontSize.h3} name="verified" style={{marginTop: 28, marginLeft: 5}}></Icon>
+            <Text style={{color: colors.black, alignSelf: "center", fontSize: fontSize.h1, marginTop: 30}}>Soy Lebumfacil</Text>
+            <Icon color="green" size={fontSize.h3} name="verified" style={{marginTop: 42, marginLeft: 5}}></Icon>
         </View>
            
       )}  

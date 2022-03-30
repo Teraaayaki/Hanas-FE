@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   profileDetailsContainer: {
       marginVertical: 50, 
       padding: padding.p5, 
+      backgroundColor: colors.white, 
       borderWidth: 1, 
       borderColor: 
       colors.borderGrey, 

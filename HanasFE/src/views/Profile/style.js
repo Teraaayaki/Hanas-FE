@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
       elevation: 100
     },
   profileDetailsContainer: {
+      backgroundColor: colors.white, 
       marginVertical: 50, 
       padding: padding.p5, 
       borderWidth: 1, 
