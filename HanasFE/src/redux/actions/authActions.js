@@ -30,6 +30,7 @@ const doUserLogin = async (email, password, dispatch) => {
     console.log("Storing Token");
     await AsyncStorage.setItem("token", data.token);
     await AsyncStorage.setItem("user_id", data.user_id);
+    await AsyncStorage.setItem("is_worker", data.is_worker);
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
       payload: true,

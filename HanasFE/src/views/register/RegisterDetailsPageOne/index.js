@@ -17,6 +17,7 @@ const details = {
   password: "",
   suffix: "",
 };
+
 //prettier-ignore
 const RegisterSchema = yup.object().shape({
   firstName: yup

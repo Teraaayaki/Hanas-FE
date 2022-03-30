@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 import { registerNumber } from "@redux/actions/registerActions";
 import Button from "@components/Button";
@@ -8,22 +10,19 @@ import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
 import styles from "./style";
 
+const numberSchema = yup.object().shape({
+  number: yup
+    .string()
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(10, "Must be exactly 10 digits")
+    .max(10, "Must be exactly 10 digits")
+    .required("Please input your number."),
+});
+
 export default function RegisterNumber({ navigation }) {
-  const [number, setNumber] = useState("");
-  const [show, setShow] = useState(true);
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    e = e.replace(/[^0-9]/g, "");
-    if (e.length === 10) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-    setNumber(e);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = ({ number }) => {
     dispatch(registerNumber(number, navigation));
   };
 
@@ -37,21 +36,40 @@ export default function RegisterNumber({ navigation }) {
         <Text style={styles.h3}>We will send you a One Time Pin (OTP)</Text>
       </View>
       <View style={styles.formContainer}>
-        <IconField
-          iconName="mobile-alt"
-          iconType="font-awesome-5"
-          iconSize={25}
-          keyboardType={"number-pad"}
-          placeholder={"+947xxxxxxx"}
-          value={number}
-          onChangeText={handleChange}
-        />
-        <View style={{ height: 30 }}>
-          {show ? (
-            <Text style={styles.text}>Mobile no. should contain 10 digits</Text>
-          ) : null}
-        </View>
-        <Button title="SEND" onPress={!show ? handleSubmit : null} />
+        <Formik
+          validationSchema={numberSchema}
+          initialValues={{ number: "" }}
+          onSubmit={(value) => handleSubmit(value)}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <>
+              <IconField
+                iconName="mobile-alt"
+                iconType="font-awesome-5"
+                iconSize={25}
+                keyboardType={"number-pad"}
+                placeholder={"+947xxxxxxx"}
+                value={values.number}
+                onChangeText={handleChange("number")}
+                onBlur={handleBlur("number")}
+                error={errors.number && touched.number ? true : null}
+              />
+              <View style={styles.errorContainer}>
+                {errors.number && touched.number && (
+                  <Text style={styles.text}>{errors.number}</Text>
+                )}
+              </View>
+              <Button title="SEND" onPress={handleSubmit} />
+            </>
+          )}
+        </Formik>
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"

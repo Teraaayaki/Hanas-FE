@@ -46,6 +46,9 @@ export default StyleSheet.create({
     paddingVertical: padding.p3,
     marginBottom: 10,
   },
+  errorContainer: {
+    height: 30,
+  },
   iconContainer: {
     justifyContent: "center",
   },

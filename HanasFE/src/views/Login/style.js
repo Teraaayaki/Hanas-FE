@@ -72,6 +72,7 @@ export default StyleSheet.create({
   text: {
     color: colors.danger,
     fontWeight: "bold",
+    marginVertical: -5,
   },
   //-------------------Reusables-----------------------
 
@@ -79,5 +80,4 @@ export default StyleSheet.create({
     width: "100%",
     marginTop: 20,
   },
-  
 });

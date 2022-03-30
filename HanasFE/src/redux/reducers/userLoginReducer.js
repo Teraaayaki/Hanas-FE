@@ -1,9 +1,14 @@
 import { UserLoginActions } from "../actions/types";
 
-const userLoginReducer = (state = {}, action) => {
+const initialValues = {
+  success: false,
+  error: " ",
+};
+
+const userLoginReducer = (state = initialValues, action) => {
   switch (action.type) {
     case UserLoginActions.USER_LOGIN_SUCCESS:
-      return { ...state, success: action.payload };
+      return { ...state, error: "", success: action.payload };
     case UserLoginActions.USER_LOGIN_FAIL:
       return { ...state, error: action.payload };
     case UserLoginActions.USER_LOGOUT:
