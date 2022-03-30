@@ -17,6 +17,9 @@ import {
   PinkSidedCardList,
   PinkSidedCardItem,
 } from "@components/card/PinkSidedCardList";
+import Overview from "@components/dashboardCards/Overview";
+import Achievements from "@components/dashboardCards/Achievements";
+import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
 
 const SkilledWorkerDashboardFlatlist = ({}) => {
   const [hideCard, setHideCard] = useState(false);
@@ -191,6 +194,13 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         renderItem={renderCard}
         keyExtractor={(item) => item.id}
         extraData={[hideCard]}
+        ListFooterComponent={
+          <View style={[styles.flex1]}>
+            <Overview />
+            <Achievements />
+            <ConvenienceFee />
+          </View>
+        }
       />
     );
   };

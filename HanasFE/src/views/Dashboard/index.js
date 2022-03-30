@@ -14,11 +14,7 @@ import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
 import Header from "@components/Header";
-import PinkSidedCard from "@components/card/PinkSidedCard";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
-import Overview from "@components/dashboardCards/Overview";
-import Achievements from "@components/dashboardCards/Achievements";
-import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
 import { colors } from "@constants";
 
 const Dashboard = ({ navigation, isWorker }) => {
@@ -111,31 +107,12 @@ const Dashboard = ({ navigation, isWorker }) => {
 
   //SKILLED WORKER DASHBOARD --- START =============================================
   const workerDashboard = ({ navigation }) => {
-    const renderAchievementsContent = () => {
-      return (
-        <View style={[styles.flex1]}>
-          <Text>B</Text>
-        </View>
-      );
-    };
-
-    const renderConvenienceFeeContent = () => {
-      return (
-        <View style={[styles.flex1]}>
-          <Text>C</Text>
-        </View>
-      );
-    };
-
     return (
       <View style={[styles.body]}>
         <Header title={"Dashboard"} />
         <ScrollView style={[styles.flex1, styles.w100, styles.p3, styles.pb5]}>
           <View style={[styles.w100, styles.mb5, styles.pb5]}>
             <SkilledWorkerDashboardFlatlist />
-            <Overview />
-            <Achievements />
-            <ConvenienceFee />
           </View>
         </ScrollView>
       </View>
