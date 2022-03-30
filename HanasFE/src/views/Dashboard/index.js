@@ -17,7 +17,9 @@ import Header from "@components/Header";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 import { colors } from "@constants";
 
-const Dashboard = ({ navigation, isWorker }) => {
+const Dashboard = ({ navigation }) => {
+  const [isWorker, setIsWorker] = useState(true);
+
   //CLIENT DASHBOARD --- START =====================================================
   var [isPress, setIsPress] = useState(false);
 
@@ -33,7 +35,9 @@ const Dashboard = ({ navigation, isWorker }) => {
   const clientDashboard = ({ navigation }) => {
     return (
       <View style={styles.container}>
-        <LightHeader />
+        <TouchableOpacity onPressOut={() => setIsWorker(true)}>
+          <LightHeader />
+        </TouchableOpacity>
         <ScrollView style={styles.scrollContainer}>
           <View>
             <Text style={styles.headerText}>CHOOSE YOUR SERVICE</Text>
@@ -109,18 +113,18 @@ const Dashboard = ({ navigation, isWorker }) => {
   const workerDashboard = ({ navigation }) => {
     return (
       <View style={[styles.body]}>
-        <Header title={"Dashboard"} />
-        <ScrollView style={[styles.flex1, styles.w100, styles.p3, styles.pb5]}>
-          <View style={[styles.w100, styles.mb5, styles.pb5]}>
-            <SkilledWorkerDashboardFlatlist />
-          </View>
-        </ScrollView>
+        <TouchableOpacity onPressOut={() => setIsWorker(false)}>
+          <Header title={"Dashboard"} />
+        </TouchableOpacity>
+        <View style={[styles.flex1, styles.w100, styles.px3]}>
+          <SkilledWorkerDashboardFlatlist />
+        </View>
       </View>
     );
   };
   //SKILLED WORKER DASHBOARD --- END ===============================================
 
-  return !isWorker ? workerDashboard(navigation) : clientDashboard(navigation);
+  return isWorker ? workerDashboard(navigation) : clientDashboard(navigation);
 };
 
 export default Dashboard;

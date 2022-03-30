@@ -3,22 +3,29 @@ import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { colors, fontSize } from "@constants";
 import styles from "./styles";
 
-// {disabled} renders the card Greyed out. Used for Schedule Screen.
-// {hideCard} renders the Hide Card button on the header.
+// PINK SIDED CARD HEADER --- START ==========================================
 
-const PinkSidedCardList = ({
+// PARAMETERS:
+// PinkSidedCardHeader
+// {disabled} renders the card Greyed out. Used for Schedule Screen.
+// {hideCardBtn} renders the Hide Card button on the header.
+// {hideCard} the Hide Card state.
+// {setHideCard} sets the Hide Card state.
+
+// PinkSidedCardItem
+// {disabled} renders the card Greyed out. Used for Schedule Screen.
+// {hideCard} the Hide Card state.
+// {content} contains what is rendered inside the PinkSidedCard.
+
+const PinkSidedCardHeader = ({
   navigation,
   hideCardBtn,
   title,
-  content,
   hideCard,
   setHideCard,
 }) => {
-  // DESIGN FUNCTIONS=================================================
-  //Header-------------------------------------------------
   const renderHeader = ({ title, hideCardBtn, hideCard, setHideCard }) => {
     return (
       <View style={[styles.w100, styles.flexRow]}>
@@ -52,30 +59,63 @@ const PinkSidedCardList = ({
     return <Fragment></Fragment>;
   };
 
-  // CONTENT FUNCTIONS================================================
-  //Header-------------------------------------------------
   const renderTitle = ({ title }) => {
     if (title) {
       return (
-        <Text style={[styles.flex1, styles.bold, styles.h1]}>{title}</Text>
+        <Text style={[styles.flex1, styles.bold, styles.h1, styles.mb3]}>
+          {title}
+        </Text>
       );
     }
     return <Fragment></Fragment>;
   };
 
-  // RENDER ===========================================================
+  // PINK SIDED CARD HEADER RENDER -----------------------------------------
   return (
     <View style={[styles.mt3, styles.w100]}>
       {renderHeader({ title, hideCardBtn, hideCard, setHideCard })}
-      {content}
     </View>
   );
 };
+// PINK SIDED CARD HEADER --- END ==========================================
+
+// PINK SIDED CARD ITEM --- START ==========================================
+
+// PARAMETERS:
+// PinkSidedCardHeader
+// {disabled} renders the card Greyed out. Used for Schedule Screen.
+// {hideCardBtn} renders the Hide Card button on the header.
+// {hideCard} the Hide Card state.
+// {setHideCard} sets the Hide Card state.
+
+// PinkSidedCardItem
+// {disabled} renders the card Greyed out. Used for Schedule Screen.
+// {hideCard} the Hide Card state.
+// {content} contains what is rendered inside the PinkSidedCard.
 
 const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
-  // DESIGN FUNCTIONS=================================================
-  //Card---------------------------------------------------
-  const PinkSide = (disabled) => {
+  const renderCard = ({ content, disabled, hideCard }) => {
+    if (!hideCard) {
+      return (
+        <View
+          style={[
+            styles.temp4,
+            styles.w100,
+            styles.flexRow,
+            styles.rounded,
+            styles.shadow,
+            styles.mt3,
+          ]}
+        >
+          {PinkSideBorder(disabled)}
+          {ContentSide(disabled, content)}
+        </View>
+      );
+    }
+    return <Fragment></Fragment>;
+  };
+
+  const PinkSideBorder = (disabled) => {
     if (disabled) {
       return (
         <View
@@ -131,29 +171,6 @@ const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
     );
   };
 
-  const renderCard = ({ content, disabled, hideCard }) => {
-    if (!hideCard) {
-      return (
-        <View
-          style={[
-            styles.temp4,
-            styles.w100,
-            styles.flexRow,
-            styles.rounded,
-            styles.shadow,
-            styles.mt3,
-          ]}
-        >
-          {PinkSide(disabled)}
-          {ContentSide(disabled, content)}
-        </View>
-      );
-    }
-    return <Fragment></Fragment>;
-  };
-
-  // CONTENT FUNCTIONS================================================
-  //Card---------------------------------------------------
   const renderContent = ({ content }) => {
     if (content != null) {
       return <View style={[styles.w100, styles.flex1]}>{content}</View>;
@@ -165,12 +182,13 @@ const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
     );
   };
 
-  // RENDER ===========================================================
+  // PINK SIDED CARD RENDER ------------------------------------------------
   return (
     <View style={[styles.w100]}>
       {renderCard({ content, disabled, hideCard })}
     </View>
   );
 };
+// PINK SIDED CARD ITEM --- END ============================================
 
-export { PinkSidedCardList, PinkSidedCardItem };
+export { PinkSidedCardHeader, PinkSidedCardItem };

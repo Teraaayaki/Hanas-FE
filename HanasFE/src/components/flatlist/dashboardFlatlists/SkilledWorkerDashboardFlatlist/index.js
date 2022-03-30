@@ -14,7 +14,7 @@ import { Icon } from "react-native-elements";
 
 import styles from "./styles";
 import {
-  PinkSidedCardList,
+  PinkSidedCardHeader,
   PinkSidedCardItem,
 } from "@components/card/PinkSidedCardList";
 import Overview from "@components/dashboardCards/Overview";
@@ -194,8 +194,16 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         renderItem={renderCard}
         keyExtractor={(item) => item.id}
         extraData={[hideCard]}
+        ListHeaderComponent={
+          <PinkSidedCardHeader
+            title="Upcomming Services"
+            hideCardBtn
+            hideCard={hideCard}
+            setHideCard={setHideCard}
+          />
+        }
         ListFooterComponent={
-          <View style={[styles.flex1]}>
+          <View style={[styles.flex1, styles.mb5, styles.pb5]}>
             <Overview />
             <Achievements />
             <ConvenienceFee />
@@ -207,13 +215,7 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
 
   return (
     <View style={[styles.mt3, styles.w100]}>
-      <PinkSidedCardList
-        title="Upcomming Services"
-        hideCardBtn
-        hideCard={hideCard}
-        setHideCard={setHideCard}
-        content={renderFlatlist({ hideCard })}
-      />
+      {renderFlatlist({ hideCard })}
     </View>
   );
 };

@@ -19,7 +19,7 @@ const PinkSidedCard = ({
 }) => {
   const [hideCard, setHideCard] = useState(false);
 
-  // DESIGN FUNCTIONS=================================================
+  // FRONT END DESIGN FUNCTIONS============================================
   //Header-------------------------------------------------
   const renderHeader = ({ title, hideCardBtn, hideCard, setHideCard }) => {
     return (
@@ -54,8 +54,7 @@ const PinkSidedCard = ({
     return <Fragment></Fragment>;
   };
 
-  //Card---------------------------------------------------
-  const PinkSide = (disabled) => {
+  const PinkSideBorder = (disabled) => {
     if (disabled) {
       return (
         <View
@@ -125,7 +124,7 @@ const PinkSidedCard = ({
             styles.shadow,
           ]}
         >
-          {PinkSide(disabled)}
+          {PinkSideBorder(disabled)}
           {ContentSide(disabled, content)}
         </View>
       );
@@ -133,7 +132,7 @@ const PinkSidedCard = ({
     return <Fragment></Fragment>;
   };
 
-  // CONTENT FUNCTIONS================================================
+  // CONTENT & DATA FUNCTIONS============================================
   //Header-------------------------------------------------
   const renderTitle = ({ title }) => {
     if (title) {
