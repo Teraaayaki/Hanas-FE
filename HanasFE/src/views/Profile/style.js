@@ -104,6 +104,11 @@ const styles = StyleSheet.create({
     paddingVertical: padding.p5,
     fontWeight: "bold",
   },
+  flexedView: {
+    flex: 1, 
+    alignItems: "center",
+    marginHorizontal: margin.m1,
+  },
 });
 
 export default styles;

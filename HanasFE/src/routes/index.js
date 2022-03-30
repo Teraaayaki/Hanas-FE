@@ -68,8 +68,14 @@ export default HanasStack = () => {
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
-          <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
-          <Stack.Screen name="TransactionReport" component={TransactionReport} />
+          <Stack.Screen
+            name="TransactionHistory"
+            component={TransactionHistory}
+          />
+          <Stack.Screen
+            name="TransactionReport"
+            component={TransactionReport}
+          />
           <Stack.Screen name="BookingSummary" component={BookingSummary} />
           <Stack.Screen name="Reviews" component={Reviews} />
           <Stack.Screen name="BrowseServices" component={BrowseServices} />

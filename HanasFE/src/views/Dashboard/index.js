@@ -9,12 +9,18 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from "react-native";
+
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
+import Header from "@components/Header";
+import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 import { colors } from "@constants";
 
 const Dashboard = ({ navigation }) => {
+  const [isWorker, setIsWorker] = useState(false);
+
+  //CLIENT DASHBOARD --- START =====================================================
   var [isPress, setIsPress] = useState(false);
 
   var touchProps = {
@@ -25,77 +31,100 @@ const Dashboard = ({ navigation }) => {
     onShowUnderlay: () => setIsPress(true),
     onPress: () => navigation.navigate("BrowseServices"), // <-- "onPress" is apparently required
   };
-  return (
-    <View style={styles.container}>
-      <LightHeader />
-      <ScrollView style={styles.scrollContainer}>
-        <View>
-          <Text style={styles.headerText}>CHOOSE YOUR SERVICE</Text>
-        </View>
-        <HorizontalCarousel />
-        <View style={styles.textContainer}>
-          <Text style={styles.labelText}>Top Services</Text>
-          <TouchableHighlight {...touchProps}>
-            <Text style={styles.fadeText}>View more</Text>
-          </TouchableHighlight>
-        </View>
-        <ScrollView
-          horizontal={true}
-          contentContainerStyle={styles.horizontalScrollContainer}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View style={styles.horizontalContainer}>
-            <CircularImage
-              imageSource={require("@images/service1.png")}
-              onPress={() => navigation.navigate("ServicesNearYou")}
-            />
-            <CircularImage
-              imageSource={require("@images/service2.png")}
-              onPress={() => navigation.navigate("ServicesNearYou")}
-            />
-            <CircularImage
-              imageSource={require("@images/service3.png")}
-              onPress={() => navigation.navigate("ServicesNearYou")}
-            />
-            <CircularImage
-              imageSource={require("@images/service4.png")}
-              onPress={() => navigation.navigate("ServicesNearYou")}
-            />
-            <CircularImage
-              imageSource={require("@images/service5.png")}
-              onPress={() => navigation.navigate("ServicesNearYou")}
-            />
-            <CircularImage
-              imageSource={require("@images/service6.png")}
-              onPress={() => navigation.navigate("ServicesNearYou")}
-            />
+
+  const clientDashboard = ({ navigation }) => {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity onPressOut={() => setIsWorker(true)}>
+          <LightHeader />
+        </TouchableOpacity>
+        <ScrollView style={styles.scrollContainer}>
+          <View>
+            <Text style={styles.headerText}>CHOOSE YOUR SERVICE</Text>
           </View>
+          <HorizontalCarousel />
+          <View style={styles.textContainer}>
+            <Text style={styles.labelText}>Top Services</Text>
+            <TouchableHighlight {...touchProps}>
+              <Text style={styles.fadeText}>View more</Text>
+            </TouchableHighlight>
+          </View>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={styles.horizontalScrollContainer}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View style={styles.horizontalContainer}>
+              <CircularImage
+                imageSource={require("@images/service1.png")}
+                onPress={() => navigation.navigate("ServicesNearYou")}
+              />
+              <CircularImage
+                imageSource={require("@images/service2.png")}
+                onPress={() => navigation.navigate("ServicesNearYou")}
+              />
+              <CircularImage
+                imageSource={require("@images/service3.png")}
+                onPress={() => navigation.navigate("ServicesNearYou")}
+              />
+              <CircularImage
+                imageSource={require("@images/service4.png")}
+                onPress={() => navigation.navigate("ServicesNearYou")}
+              />
+              <CircularImage
+                imageSource={require("@images/service5.png")}
+                onPress={() => navigation.navigate("ServicesNearYou")}
+              />
+              <CircularImage
+                imageSource={require("@images/service6.png")}
+                onPress={() => navigation.navigate("ServicesNearYou")}
+              />
+            </View>
+          </ScrollView>
+          <View style={styles.textContainer}>
+            <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
+          </View>
+          <CardContainer
+            name={"Hosea Barriga"}
+            profession={"Electrical Services"}
+            rating={"4.5"}
+            jobs={"1000"}
+            image={require("@images/profile1.png")}
+            rate={"100"}
+            onPressServices={() => navigation.navigate("ServicesNearYou")}
+            onPress={() => navigation.navigate("Profile")}
+          />
+          <CardContainer
+            name={"Renzo Lebumfacil"}
+            profession={"Electrical Services"}
+            rating={"4.0"}
+            jobs={"699"}
+            image={require("@images/profile2.png")}
+            rate={"99"}
+            onPress={() => navigation.navigate("Profile")}
+          />
         </ScrollView>
-        <View style={styles.textContainer}>
-          <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
+      </View>
+    );
+  };
+  //CLIENT DASHBOARD --- END =======================================================
+
+  //SKILLED WORKER DASHBOARD --- START =============================================
+  const workerDashboard = ({ navigation }) => {
+    return (
+      <View style={[styles.body]}>
+        <TouchableOpacity onPressOut={() => setIsWorker(false)}>
+          <Header title={"Dashboard"} />
+        </TouchableOpacity>
+        <View style={[styles.flex1, styles.w100, styles.px3]}>
+          <SkilledWorkerDashboardFlatlist />
         </View>
-        <CardContainer
-          name={"Hosea Barriga"}
-          profession={"Electrical Services"}
-          rating={"4.5"}
-          jobs={"1000"}
-          image={require("@images/profile1.png")}
-          rate={"100"}
-          onPressServices={() => navigation.navigate("ServicesNearYou")}
-          onPress={() => navigation.navigate("Profile")}
-        />
-        <CardContainer
-          name={"Renzo Lebumfacil"}
-          profession={"Electrical Services"}
-          rating={"4.0"}
-          jobs={"699"}
-          image={require("@images/profile2.png")}
-          rate={"99"}
-          onPress={() => navigation.navigate("Profile")}
-        />
-      </ScrollView>
-    </View>
-  );
+      </View>
+    );
+  };
+  //SKILLED WORKER DASHBOARD --- END ===============================================
+
+  return isWorker ? workerDashboard(navigation) : clientDashboard(navigation);
 };
 
 export default Dashboard;
