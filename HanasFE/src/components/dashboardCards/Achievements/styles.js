@@ -1,5 +1,5 @@
-import { StyleSheet, StatusBar } from "react-native";
-import { colors, margin, fontSize, padding, fontWeight } from "@constants";
+import { StyleSheet } from "react-native";
+import { colors, margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================

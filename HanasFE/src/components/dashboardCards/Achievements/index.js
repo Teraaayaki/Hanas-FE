@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 import styles from "./styles";
 import PinkSidedCard from "@components/card/PinkSidedCard";
 import { Icon } from "react-native-elements";
+import { colors } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Achievements = () => {
@@ -80,7 +81,7 @@ const Achievements = () => {
               name="info-circle"
               type="font-awesome-5"
               size={22}
-              color="#8bd948"
+              color={colors.success}
               style={[styles.mb5, styles.pb5]}
             />
           </TouchableOpacity>
