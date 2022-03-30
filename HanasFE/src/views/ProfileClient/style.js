@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.h3,
   },
   parallaxContentContainer: { 
-      flex: 1, 
+      flex: 1,
       backgroundColor: colors.background, 
       marginTop: 10 , 
       borderTopEndRadius: 50, 
@@ -51,15 +51,16 @@ const styles = StyleSheet.create({
       elevation: 100
     },
   profileDetailsContainer: {
-      flex: 1, 
       marginVertical: 50, 
       padding: padding.p5, 
+      backgroundColor: colors.white, 
       borderWidth: 1, 
       borderColor: 
       colors.borderGrey, 
       borderRadius: 5
   },
   profileInfoContainer: {
+    flex: 1,
     flexDirection: "row", 
     padding: padding.p5, 
     justifyContent: "space-between"
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   },
   values: {
       fontSize: fontSize.p, 
-      color: colors.borderGrey
+      color: colors.black
   },
   hr: {
       borderBottomColor: colors.borderGrey, 
@@ -95,6 +96,31 @@ const styles = StyleSheet.create({
     marginTop: margin.m5,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  flexedView: {
+    flex: 1, 
+    alignItems: "center",
+    marginHorizontal: margin.m1,
+  },
+  logout: {
+    marginVertical: margin.m5,
+    flexDirection: "row-reverse",
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    padding: padding.p5,
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    height: 80
+  },
+  buttonText: {
+    marginLeft: margin.m3,
+    fontSize: fontSize.h3,
+    fontWeight: "bold",
+    justifyContent: "flex-start"
   },
 });
 

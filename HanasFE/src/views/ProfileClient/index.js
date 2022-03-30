@@ -6,17 +6,31 @@ import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import CircularImage from "@components/CircularImage";
-import { colors, fontSize } from "@constants";
+import { colors, fontSize, margin, padding } from "@constants";
 import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
-import { margin } from "@constants";
 
 const ProfileClient = ({navigation}) => {
+  const dispatch = useDispatch();
+  const { success } = useSelector((state) => state.userLogin);
+
+  const handleSubmit = () => {
+    console.log("logging out");
+    dispatch(userLogout());
+  };
+
+  useEffect(() => {
+    console.log("Navigating to landing page");
+    if (!success) {
+      navigation.navigate("Landing");
+    }
+  }, [success]);
   return(
     <ParallaxScrollView
       backgroundColor = "#FF6D8F"
       contentBackgroundColor= "#FF6D8F"
+      contentContainerStyle={{height: "100%"}}
       parallaxHeaderHeight={180}
       renderForeground={() => (
         <LinearGradient style={styles.header} colors={[colors.primary, colors.secondary]}>
@@ -37,8 +51,8 @@ const ProfileClient = ({navigation}) => {
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View style={{flexDirection: "row", justifyContent: "center", backgroundColor: "#FF6D8F", height: "100%"}}>
-            <Text style={{color: colors.black, alignSelf: "center", fontSize: fontSize.h1}}>Soy Lebumfacil</Text>
-            <Icon color="green" size={fontSize.h3} name="verified" style={{marginTop: 28, marginLeft: 5}}></Icon>
+            <Text style={{color: colors.black, alignSelf: "center", fontSize: fontSize.h1, marginTop: 30}}>Soy Lebumfacil</Text>
+            <Icon color="green" size={fontSize.h3} name="verified" style={{marginTop: 42, marginLeft: 5}}></Icon>
         </View>
            
       )}  
@@ -74,26 +88,36 @@ const ProfileClient = ({navigation}) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <ButtonWhite
-            title="Preferred Skilled Workers"
-            iconName="shopping-cart"
-            subText="Your favorites and previously booked skilled workers"
-            onPress={() => navigation.navigate("MyServices")}
-          />
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("MyServices")}>
+            <Icon type="material" name="bookmark" color={colors.secondary} />
+            <View style={{flexDirection: "column", justifyContent: "flex-start"}}>
+              <Text style={styles.buttonText}>PREFERRED SKILLED WORKERS</Text>
+              <Text style={{fontSize: fontSize.h5, marginLeft: margin.m3}}>Your favorites and previously booked skilled workers</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.buttonRow}>
-            <ButtonWhite
-              title="Reviews"
-              iconName="description"
-              onPress={() => navigation.navigate("Reviews")}
-            />
-            <ButtonWhite
-              title="Transactions"
-              iconName="credit-card"
-              onPress={() => navigation.navigate("TransactionHistory")}
-            />
+            <View style={styles.flexedView}>
+              <ButtonWhite
+                title="Requests"
+                iconName="description"
+                onPress={() => navigation.navigate("Reviews")}
+              />
+            </View>
+            <View style={{flex: 1, alignItems: "center"}}>
+              <ButtonWhite
+                title="Transactions"
+                iconName="credit-card"
+                onPress={() => navigation.navigate("TransactionHistory")}
+              />
+            </View>
           </View>
         </View>
-      
+        <View style={styles.logout}>
+          <TouchableOpacity onPress={handleSubmit}>
+            <Text style={styles.logoutText}>LOGOUT</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.hr}></View>
       </View>
     </ParallaxScrollView>
       
