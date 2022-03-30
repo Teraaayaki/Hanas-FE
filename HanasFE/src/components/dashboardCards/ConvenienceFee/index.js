@@ -7,7 +7,7 @@ import { Icon } from "react-native-elements";
 import { colors } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Achievements = () => {
+const ConvenienceFee = () => {
   const renderContent = () => {
     const [error, setError] = useState(true);
     return (
@@ -118,11 +118,11 @@ const Achievements = () => {
   };
   return (
     <PinkSidedCard
-      title={"Achievements"}
+      title={"Convenience Fee"}
       hideCardBtn={true}
       content={renderContent()}
     />
   );
 };
 
-export default Achievements;
+export default ConvenienceFee;
