@@ -10,7 +10,9 @@ const Schedule = ({ navigation }) => {
   return (
     <View style={[styles.body]}>
       <Header title={"Schedule"} />
-      <ScheduleFlatlist />
+      <View style={[styles.mx3, styles.mt2, styles.flex1]}>
+        <ScheduleFlatlist />
+      </View>
     </View>
   );
 };

@@ -26,6 +26,7 @@ const colors = {
   background: "#E5E5E5",
   lightYellow: "#F6F3E4",
   middlePink: "#FAA9B5",
+  muted75: "#444", //Black @ 75% transparency
   muted50: "#888", //Black @ 50% transparency
   muted25: "#BBB", //Black @ 25% transparency
   muted20: "#CCC", //Black @ 20% transparency
