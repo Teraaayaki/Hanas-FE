@@ -15,7 +15,7 @@ const ScheduleFlatlist = ({ navigation }) => {
 
   const DATA = [
     {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      id: "1",
       date: "date1",
       serviceType: "Electrical",
       clientName: "Soy Lebumfacil",
@@ -25,7 +25,7 @@ const ScheduleFlatlist = ({ navigation }) => {
       done: false,
     },
     {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+      id: "2",
       date: "date1",
       serviceType: "Mechanical",
       clientName: "James Karl Sia",
@@ -35,7 +35,7 @@ const ScheduleFlatlist = ({ navigation }) => {
       done: false,
     },
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
+      id: "3",
       date: "date2",
       serviceType: "Electrical",
       clientName: "Mary Therese Sun Alegre",
@@ -45,8 +45,12 @@ const ScheduleFlatlist = ({ navigation }) => {
       done: false,
     },
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d78",
+      id: "4",
       date: "date3",
+    },
+    {
+      id: "5",
+      date: "date4",
       serviceType: "Electrical",
       clientName: "Soy Lebumfacil",
       address: "Bogo City, Cebu",
@@ -55,14 +59,22 @@ const ScheduleFlatlist = ({ navigation }) => {
       done: true,
     },
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d79",
-      date: "date3",
+      id: "6",
+      date: "date4",
       serviceType: "Mechanical",
       clientName: "Hosea Barriga",
       address: "Danao City, Cebu",
       timeStart: "12:00 AM",
       timeEnd: "3:00 PM",
       done: true,
+    },
+    {
+      id: "7",
+      date: "date5",
+    },
+    {
+      id: "8",
+      date: "date6",
     },
   ];
 
@@ -140,7 +152,19 @@ const ScheduleFlatlist = ({ navigation }) => {
     return (
       <View>
         {renderTitle({ item })}
-        <PinkSidedCardItem content={renderCard({ item })} />
+
+        {item.serviceType ? (
+          <PinkSidedCardItem content={renderCard({ item })} />
+        ) : (
+          <PinkSidedCardItem
+            disabled
+            content={
+              <Text style={[styles.textCenter, styles.h2, styles.textMuted75]}>
+                NONE
+              </Text>
+            }
+          />
+        )}
       </View>
     );
   };
