@@ -196,7 +196,7 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         extraData={[hideCard]}
         ListHeaderComponent={
           <PinkSidedCardHeader
-            title="Upcomming Services"
+            title="Upcoming Services"
             hideCardBtn
             hideCard={hideCard}
             setHideCard={setHideCard}
