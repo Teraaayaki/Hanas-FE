@@ -79,7 +79,7 @@ const Profile = ({ navigation }) => {
             color="green"
             size={fontSize.h3}
             name="verified"
-            style={{ marginTop: 28, marginLeft: 5 }}
+            style={{ marginTop: 42, marginLeft: 5 }}
           ></Icon>
         </View>
       )}

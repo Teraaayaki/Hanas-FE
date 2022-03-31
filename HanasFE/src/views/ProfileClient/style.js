@@ -47,8 +47,10 @@ const styles = StyleSheet.create({
       marginTop: 10 , 
       borderTopEndRadius: 50, 
       borderTopStartRadius: 50, 
+      borderBottomLeftRadius: 25,
+      borderBottomRightRadius: 25,
       padding: padding.p5 , 
-      elevation: 100
+      marginBottom: 120
     },
   profileDetailsContainer: {
       marginVertical: 50, 

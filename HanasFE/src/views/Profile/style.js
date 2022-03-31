@@ -42,14 +42,16 @@ const styles = StyleSheet.create({
     fontSize: fontSize.h3,
   },
   parallaxContentContainer: { 
-      flex: 1,
-      backgroundColor: colors.background, 
-      marginTop: 10 , 
-      borderTopEndRadius: 50, 
-      borderTopStartRadius: 50, 
-      padding: padding.p5 , 
-      elevation: 100
-    },
+    flex: 1,
+    backgroundColor: colors.background, 
+    marginTop: 10 , 
+    borderTopEndRadius: 50, 
+    borderTopStartRadius: 50, 
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    padding: padding.p5 , 
+    marginBottom: 120
+  },
   profileDetailsContainer: {
       backgroundColor: colors.white, 
       marginVertical: 50, 

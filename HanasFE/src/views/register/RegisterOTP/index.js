@@ -12,6 +12,8 @@ import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import Loading from "@components/Loading";
 import styles from "./style";
+import { resetError, verifyNumber } from "@redux/actions/registerActions";
+import showToast from "@helpers/toast";
 
 export default function RegisterOTP({ navigation }) {
   const [pin1, setPin1] = useState("");
@@ -23,27 +25,20 @@ export default function RegisterOTP({ navigation }) {
   const pin3Ref = useRef(null);
   const pin4Ref = useRef(null);
   const dispatch = useDispatch();
-
-  const { loading, success, number } = useSelector(
-    (state) => state.userRegister
-  );
-
-  const showToast = () => {
-    Toast.show({
-      type: "error",
-      text1: "Login Error",
-      text2: error,
-      position: "bottom",
-      onHide: () => dispatch(resetError()),
-    });
-  };
+  const { loading, number, error } = useSelector((state) => state.userRegister);
 
   const handleSubmit = () => {
     console.log(`${pin1}${pin2}${pin3}${pin4}`);
-    // dispatch(verifyNumber(9055, number, navigation));
+    dispatch(verifyNumber(9055, number, navigation));
   };
 
-  useEffect(() => {}, [success]);
+  useEffect(() => {
+    showToast(
+      "success",
+      `Sent a verification code to ${number}`,
+      "Please check your phone"
+    );
+  }, [number]);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -147,7 +142,7 @@ export default function RegisterOTP({ navigation }) {
 
             <TextLink title="Didn't receive the code?" linkTitle="Resend" />
 
-            <View style={{ height: 80 }}></View>
+            <View style={styles.errContainer}></View>
             <Button title="SEND" onPress={handleSubmit} />
             <TouchableOpacity
               onPress={() => navigation.navigate("RegisterNumber")}

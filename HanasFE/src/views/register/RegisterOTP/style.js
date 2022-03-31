@@ -47,4 +47,7 @@ export default StyleSheet.create({
     color: colors.dark,
     fontSize: fontSize.p,
   },
+  errContainer: {
+    height: 80,
+  },
 });
