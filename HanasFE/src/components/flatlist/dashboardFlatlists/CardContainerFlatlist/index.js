@@ -35,7 +35,7 @@ const DATA = [
   },
 ];
 
-const Item = ({ item, onPress, backgroundColor, textColor, notif }) => (
+const Item = ({ item, onPress, onPressServices, backgroundColor, textColor, notif }) => (
     <CardContainer
             name={item.name}
             profession={item.profession}
@@ -44,13 +44,13 @@ const Item = ({ item, onPress, backgroundColor, textColor, notif }) => (
             image={item.image}
             rate={item.rate}
             onPress={onPress}
+            onPressServices={onPressServices}
           />
 );
 
 const CardContainerFlatlist = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
-  
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item}) => {
     const backgroundColor =
       item.id === selectedId ? colors.borderGrey : colors.background;
     const color = item.id === selectedId ? "white" : "black";
@@ -59,6 +59,7 @@ const CardContainerFlatlist = ({ navigation }) => {
       <Item
         item={item}
         onPress={() => navigation.navigate("Profile")}
+        onPressServices={() => navigation.navigate("ServicesNearYou")}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
