@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { ActivityIndicator, TouchableOpacity, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "@constants";
 import styles from "./style";
@@ -11,14 +11,18 @@ import styles from "./style";
 // @Props
 // OnPress (Callback) - handle onPress prop
 // Title (String) - display text
-export default ({ onPress, title }) => {
+export default ({ onPress, title, loading = false }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <LinearGradient
         colors={[colors.primary, colors.secondary]}
         style={styles.linearGradient}
       >
-        <Text style={styles.white}>{title}</Text>
+        {loading ? (
+          <ActivityIndicator size="large" color={colors.white} />
+        ) : (
+          <Text style={styles.white}>{title}</Text>
+        )}
       </LinearGradient>
     </TouchableOpacity>
   );

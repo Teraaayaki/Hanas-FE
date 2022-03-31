@@ -22,6 +22,9 @@ export const worker = (isWorker, navigation) => (dispatch) => {
 
 export const registerNumber = (number, navigation) => async (dispatch) => {
   console.log("Number received by action: " + number);
+  dispatch({
+    type: RegisterActions.REGISTER_LOADING,
+  });
 
   try {
     console.log("axios call");
@@ -47,22 +50,33 @@ export const registerNumber = (number, navigation) => async (dispatch) => {
   }
 };
 
-export const verifyNumber = (otp, number, navigation) => (dispatch) => {
+export const verifyNumber = (otp, number, navigation) => async (dispatch) => {
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
-  //   axios logic
-  setTimeout(() => {
-    navigation.navigate("RegisterDetailsPageOne");
-    console.log("verifying number: " + number + " and " + otp);
-    dispatch({
-      type: RegisterActions.REGISTER_NUMBER,
-      payload: number,
+  console.log("verifying number: " + number + " and " + otp);
+  try {
+    let { data } = await axios.post("/api/client/verify-number-otp", {
+      number,
+      otp: parseInt(otp),
     });
+    if (data.success) {
+      dispatch({
+        type: RegisterActions.REGISTER_SUCCESS,
+      });
+      dispatch({
+        type: RegisterActions.REGISTER_NUMBER,
+        payload: number,
+      });
+      navigation.navigate("RegisterDetailsPageOne");
+    }
+  } catch (err) {
+    let { error } = err.response.data;
     dispatch({
-      type: RegisterActions.REGISTER_SUCCESS,
+      type: RegisterActions.REGISTER_FAIL,
+      payload: error,
     });
-  }, 1000);
+  }
 };
 
 export const setUserDetails = (user, navigation) => (dispatch) => {
@@ -98,9 +112,6 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     isWorker,
   } = user;
 
-  console.log("User Details:\n", user);
-  console.log(dayjs(dob).format("YYYY-MM-DD"));
-
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
@@ -126,7 +137,6 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       setItem("user_id", data.user_id);
       setItem("is_worker", JSON.stringify(data.is_worker));
 
-      console.log("Data is: ", data);
       dispatch({
         type: UserLoginActions.USER_LOGIN_SUCCESS,
         payload: true,

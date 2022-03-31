@@ -16,6 +16,7 @@ import IconField from "@components/form/IconField";
 import Loading from "@components/Loading";
 import styles from "./style";
 import { registerUser } from "@redux/actions/registerActions";
+import showToast from "@helpers/toast";
 
 const details = {
   dob: new Date(2004, 11, 31),
@@ -42,8 +43,10 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   };
 
   const handleSubmit = () => {
-    if (address === "" || userDetails.sex === "") {
-      setErrMessage("Incomplete Data");
+    if (address === "") {
+      setErrMessage("Please input your address");
+    } else if (userDetails.sex === "") {
+      setErrMessage("Please choose a sex");
     } else {
       setErrMessage("");
       let completeUserDetails = {
@@ -59,12 +62,16 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   };
 
   useEffect(() => {
-    setErrMessage(error);
+    if (typeof error !== "undefined") {
+      showToast("error", error, "Please fix input errors", () =>
+        dispatch(resetError())
+      );
+    }
   }, [error]);
 
   return (
     <SafeAreaView style={styles.body}>
-      {loading ? (
+      {false ? (
         <Loading title="Registering User..." />
       ) : (
         <>
@@ -157,7 +164,11 @@ export default function RegisterDetailsPageTwo({ navigation }) {
 
             <View style={styles.buttonContainer}>
               <>
-                <Button title="SUBMIT" onPress={handleSubmit} />
+                <Button
+                  title="SUBMIT"
+                  onPress={handleSubmit}
+                  loading={loading}
+                />
               </>
             </View>
           </ScrollView>

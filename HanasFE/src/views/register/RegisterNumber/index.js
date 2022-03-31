@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { ActivityIndicator, Text, View, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -11,6 +11,7 @@ import IconField from "@components/form/IconField";
 import styles from "./style";
 import { resetError } from "@redux/actions/registerActions";
 import showToast from "@helpers/toast";
+import { colors } from "@constants";
 
 const numberSchema = yup.object().shape({
   number: yup
@@ -23,7 +24,7 @@ const numberSchema = yup.object().shape({
 
 export default function RegisterNumber({ navigation }) {
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.userRegister);
+  const { loading, error } = useSelector((state) => state.userRegister);
 
   const handleSubmit = ({ number }) => {
     dispatch(registerNumber(number, navigation));
@@ -80,6 +81,12 @@ export default function RegisterNumber({ navigation }) {
             </>
           )}
         </Formik>
+
+        {loading && (
+          <View style={styles.spinner}>
+            <ActivityIndicator size="large" color={colors.secondary} />
+          </View>
+        )}
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"

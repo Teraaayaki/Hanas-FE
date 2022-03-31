@@ -10,7 +10,6 @@ export const setItem = async (key, value) => {
 };
 
 export const getItem = async (key) => {
-  console.log("fetching value with key: ", key);
   try {
     return await AsyncStorage.getItem(key);
   } catch (error) {

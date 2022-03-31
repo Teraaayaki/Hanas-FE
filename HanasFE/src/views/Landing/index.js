@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { useDispatch, useSelector } from "react-redux";
+
+import { resetError } from "@redux/actions/registerActions";
 import { userLogin } from "@redux/actions/authActions";
 import Button from "@components/Button";
 import styles from "./style";
@@ -9,6 +11,10 @@ import styles from "./style";
 const Landing = ({ navigation }) => {
   const { success } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetError());
+  }, []);
 
   useEffect(() => {
     dispatch(userLogin(navigation));

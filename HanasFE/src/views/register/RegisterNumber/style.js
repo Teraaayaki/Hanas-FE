@@ -62,4 +62,7 @@ export default StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
   },
+  spinner: {
+    padding: padding.p1,
+  },
 });

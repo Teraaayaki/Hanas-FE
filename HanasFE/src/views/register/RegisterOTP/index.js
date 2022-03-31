@@ -20,6 +20,7 @@ export default function RegisterOTP({ navigation }) {
   const [pin2, setPin2] = useState("");
   const [pin3, setPin3] = useState("");
   const [pin4, setPin4] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
   const pin1Ref = useRef(null);
   const pin2Ref = useRef(null);
   const pin3Ref = useRef(null);
@@ -27,18 +28,37 @@ export default function RegisterOTP({ navigation }) {
   const dispatch = useDispatch();
   const { loading, number, error } = useSelector((state) => state.userRegister);
 
+  //prettier-ignore
   const handleSubmit = () => {
     console.log(`${pin1}${pin2}${pin3}${pin4}`);
-    dispatch(verifyNumber(9055, number, navigation));
+    if ((pin1 === "") || (pin2 === "") || (pin3 === "") || (pin4 === "")) {
+      setErrorMessage(true);
+    } else {
+      setErrorMessage(false);
+      dispatch(
+        verifyNumber(`${pin1}${pin2}${pin3}${pin4}`, number, navigation)
+      );
+    }
   };
 
   useEffect(() => {
+    pin1Ref.current.focus();
+    dispatch(resetError());
     showToast(
       "success",
       `Sent a verification code to ${number}`,
       "Please check your phone"
     );
-  }, [number]);
+  }, []);
+
+  useEffect(() => {
+    if (typeof error !== "undefined") {
+      pin4Ref.current.focus();
+      showToast("error", error, "Please try again", () =>
+        dispatch(resetError())
+      );
+    }
+  }, [error]);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -142,7 +162,11 @@ export default function RegisterOTP({ navigation }) {
 
             <TextLink title="Didn't receive the code?" linkTitle="Resend" />
 
-            <View style={styles.errContainer}></View>
+            <View style={styles.errContainer}>
+              {errorMessage && (
+                <Text style={styles.errMessage}>Please input your OTP</Text>
+              )}
+            </View>
             <Button title="SEND" onPress={handleSubmit} />
             <TouchableOpacity
               onPress={() => navigation.navigate("RegisterNumber")}

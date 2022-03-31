@@ -49,5 +49,11 @@ export default StyleSheet.create({
   },
   errContainer: {
     height: 80,
+    paddingTop: padding.p10,
+  },
+  errMessage: {
+    color: colors.danger,
+    fontWeight: "bold",
+    alignSelf: "center",
   },
 });
