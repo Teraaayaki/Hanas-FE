@@ -9,6 +9,7 @@ import {
 import ContainedIcon from "@components/icons/ContainedIcon";
 import styles from "./styles";
 import { colors } from "@constants";
+import { padding } from "../../../constants";
 
 const ScheduleFlatlist = ({ navigation }) => {
   let date = "_";
@@ -80,7 +81,9 @@ const ScheduleFlatlist = ({ navigation }) => {
 
   const renderCard = ({ item }) => {
     return (
-      <View style={[styles.flex1, styles.flexRow, styles.alignCenter]}>
+      <View
+        style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
+      >
         <View style={[styles.flex1, styles.pl3]}>
           <View style={[styles.flex1, styles.flexRow, styles.mb2]}>
             <Text style={[styles.flex1, styles.mx1, styles.h3, styles.bold]}>
@@ -141,7 +144,7 @@ const ScheduleFlatlist = ({ navigation }) => {
     if (item.date != date) {
       date = item.date;
       return (
-        <View style={[styles.flex1, styles.mt5]}>
+        <View style={[styles.flex1, styles.mt2]}>
           <PinkSidedCardHeader title={item.date} />
         </View>
       );
@@ -174,6 +177,7 @@ const ScheduleFlatlist = ({ navigation }) => {
       data={DATA}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
+      contentContainerStyle={{ paddingBottom: padding.p5 }}
     />
   );
 };

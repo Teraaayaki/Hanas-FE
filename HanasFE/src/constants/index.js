@@ -23,7 +23,7 @@ const colors = {
   blue: "#005484",
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
-  background: "#E5E5E5",
+  background: "#F5F5F5",
   lightYellow: "#F6F3E4",
   middlePink: "#FAA9B5",
   muted75: "#444", //Black @ 75% transparency

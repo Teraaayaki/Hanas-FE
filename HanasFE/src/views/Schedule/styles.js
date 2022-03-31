@@ -48,6 +48,10 @@ export default StyleSheet.create({
     borderBottomEndRadius: 100,
   },
 
+  absolute: {
+    position: "absolute",
+  },
+
   square: {
     aspectRatio: 1,
   },
@@ -143,6 +147,9 @@ export default StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+  underline: {
+    textDecorationLine: "underline",
+  },
   //Color ==================================================
   //Background Color-----------------------------
   bgWhite: { backgroundColor: "#FFF" },
@@ -152,6 +159,7 @@ export default StyleSheet.create({
   bgGrey: { backgroundColor: colors.grey },
   bgPrimary: { backgroundColor: colors.primary },
   bgSecondary: { backgroundColor: colors.secondary },
+  bgBG: { backgroundColor: colors.background },
   // Border Color -------------------------------
   border: {
     borderWidth: 1,
