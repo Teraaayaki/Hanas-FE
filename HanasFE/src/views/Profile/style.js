@@ -124,6 +124,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     justifyContent: "flex-start"
   },
+  stickyHeaderContainer: {
+    flexDirection: "row", 
+    justifyContent: "center", 
+    backgroundColor: "#FF6D8F", 
+    height: "100%"
+  },
+  stickyName: {
+    color: colors.black, 
+    alignSelf: "center", 
+    fontSize: fontSize.h1, 
+    marginTop: 30
+  },
+  iconAdjusted: {
+    marginTop: 42, 
+    marginLeft: 5
+  },
+  h100: {
+    height: "100%"
+  }
 });
 
 export default styles;

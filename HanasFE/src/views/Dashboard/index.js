@@ -12,7 +12,7 @@ import {
 
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
-import CardContainer from "@components/CardContainer";
+import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import Header from "@components/Header";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 import { colors } from "@constants";
@@ -81,29 +81,11 @@ const Dashboard = ({ navigation }) => {
               />
             </View>
           </ScrollView>
+        </ScrollView>
           <View style={styles.textContainer}>
             <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
           </View>
-          <CardContainer
-            name={"Hosea Barriga"}
-            profession={"Electrical Services"}
-            rating={"4.5"}
-            jobs={"1000"}
-            image={require("@images/profile1.png")}
-            rate={"100"}
-            onPressServices={() => navigation.navigate("ServicesNearYou")}
-            onPress={() => navigation.navigate("Profile")}
-          />
-          <CardContainer
-            name={"Renzo Lebumfacil"}
-            profession={"Electrical Services"}
-            rating={"4.0"}
-            jobs={"699"}
-            image={require("@images/profile2.png")}
-            rate={"99"}
-            onPress={() => navigation.navigate("Profile")}
-          />
-        </ScrollView>
+          <CardContainerFlatlist navigation={navigation}/>
       </View>
     );
   };
@@ -124,7 +106,7 @@ const Dashboard = ({ navigation }) => {
   };
   //SKILLED WORKER DASHBOARD --- END ===============================================
 
-  return isWorker ? workerDashboard(navigation) : clientDashboard(navigation);
+  return isWorker ? workerDashboard(navigation={navigation}) : clientDashboard(navigation={navigation});
 };
 
 export default Dashboard;
