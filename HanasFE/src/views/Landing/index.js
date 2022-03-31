@@ -11,7 +11,7 @@ const Landing = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(userLogin());
+    dispatch(userLogin(navigation));
     if (success) {
       console.log("User Currently is LoggedIn");
     } else {

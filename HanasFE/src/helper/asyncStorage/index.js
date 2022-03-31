@@ -13,11 +13,6 @@ export const getItem = async (key) => {
   console.log("fetching value with key: ", key);
   try {
     return await AsyncStorage.getItem(key);
-    // if (value !== null) {
-    //   return value;
-    // } else {
-    //   return false;
-    // }
   } catch (error) {
     return error;
   }

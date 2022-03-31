@@ -7,7 +7,7 @@ const initialState = {
   number: "",
   user: {},
   address: "",
-  error: "",
+  error: " ",
 };
 
 const userRegisterReducer = (state = initialState, action) => {
@@ -23,9 +23,11 @@ const userRegisterReducer = (state = initialState, action) => {
     case RegisterActions.REGISTER_LOCATION:
       return { ...state, loading: false, address: action.payload };
     case RegisterActions.REGISTER_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return { ...state, loading: false, success: true, error: action.payload };
     case RegisterActions.REGISTER_FAIL:
       return { ...state, loading: false, error: action.payload };
+    case RegisterActions.REGISTER_LOGOUT:
+      return {};
     default:
       return state;
   }

@@ -37,7 +37,7 @@ const LoginSchema = yup.object().shape({
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
-  const { success, error } = useSelector((state) => state.userLogin);
+  const { error } = useSelector((state) => state.userLogin);
 
   const showToast = () => {
     Toast.show({
@@ -45,25 +45,22 @@ export default function Login({ navigation }) {
       text1: "Login Error",
       text2: error,
       position: "bottom",
+      onHide: () => dispatch(userLogin()),
     });
   };
 
   const handleSubmit = ({ email, password }) => {
-    dispatch(userLogin(email, password, navigation));
+    dispatch(userLogin(navigation, email, password));
     if (error) {
       showToast();
     }
   };
 
   useEffect(() => {
-    console.log("Error State Changes", error);
-    // if (success) {
-    //   navigation.navigate("Dashboard");
-    // }
     if (typeof error !== "undefined") {
       showToast();
     }
-  }, [success, error]);
+  }, [error]);
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -137,7 +134,6 @@ export default function Login({ navigation }) {
             />
           </View>
         </View>
-        <Toast />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

@@ -5,6 +5,12 @@ import axios from "@axios";
 
 import { RegisterActions, UserLoginActions } from "./types";
 
+export const resetError = () => (dispatch) => {
+  dispatch({
+    type: RegisterActions.REGISTER_FAIL,
+  });
+};
+
 export const worker = (isWorker, navigation) => (dispatch) => {
   console.log("Is user a worker: " + isWorker);
   dispatch({
@@ -14,14 +20,31 @@ export const worker = (isWorker, navigation) => (dispatch) => {
   navigation.navigate("RegisterNumber");
 };
 
-export const registerNumber = (number, navigation) => (dispatch) => {
+export const registerNumber = (number, navigation) => async (dispatch) => {
   console.log("Number received by action: " + number);
-  dispatch({
-    type: RegisterActions.REGISTER_NUMBER,
-    payload: number,
-  });
-  console.log("Number Registered");
-  navigation.navigate("RegisterOTP");
+
+  try {
+    console.log("axios call");
+    let { data } = await axios.post("/api/client/verify-number", {
+      number,
+    });
+
+    dispatch({
+      type: RegisterActions.REGISTER_NUMBER,
+      payload: number,
+    });
+
+    if (data.success) {
+      navigation.navigate("RegisterOTP");
+    }
+  } catch (err) {
+    let { error } = err.response.data;
+    console.log(error);
+    dispatch({
+      type: RegisterActions.REGISTER_FAIL,
+      payload: error,
+    });
+  }
 };
 
 export const verifyNumber = (otp, number, navigation) => (dispatch) => {
@@ -47,6 +70,7 @@ export const setUserDetails = (user, navigation) => (dispatch) => {
     type: RegisterActions.REGISTER_USER,
     payload: user,
   });
+
   navigation.navigate("RegisterDetailsPageTwo");
 };
 
@@ -55,6 +79,7 @@ export const setLocation = (address, navigation) => (dispatch) => {
     type: RegisterActions.REGISTER_LOCATION,
     payload: address,
   });
+
   navigation.navigate("RegisterDetailsPageTwo");
 };
 
@@ -100,6 +125,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       setItem("token", data.token);
       setItem("user_id", data.user_id);
       setItem("is_worker", JSON.stringify(data.is_worker));
+
       console.log("Data is: ", data);
       dispatch({
         type: UserLoginActions.USER_LOGIN_SUCCESS,
@@ -108,6 +134,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       dispatch({
         type: RegisterActions.REGISTER_SUCCESS,
       });
+
       console.log("Navigate to another page");
       if (data.is_worker) {
         navigation.navigate("GetVerified");
