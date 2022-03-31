@@ -13,7 +13,7 @@ const Schedule = ({ navigation }) => {
       <Header title={"Schedule"} />
       <View style={[styles.mx3, styles.flex1]}>
         <ScheduleFlatlist />
-        <View style={[styles.flexRow, styles.p3, styles.absolute]}>
+        <View style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}>
           <View style={[styles.flex1]} />
           <TouchableOpacity>
             <Text
@@ -25,6 +25,7 @@ const Schedule = ({ navigation }) => {
                 styles.bold,
                 styles.underline,
                 styles.bgBG,
+                styles.px3,
               ]}
             >
               Booking Requests ({BRcount})
