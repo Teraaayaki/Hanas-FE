@@ -43,7 +43,7 @@ const ConvenienceFee = () => {
                 name="info-circle"
                 type="font-awesome-5"
                 size={22}
-                color="#8bd948"
+                color={colors.success}
                 style={[styles.mb5, styles.pb5]}
               />
             </TouchableOpacity>

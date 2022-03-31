@@ -9,6 +9,7 @@ import styles from "./styles";
 
 // PARAMETERS:
 // PinkSidedCardHeader
+// {title} Title Text
 // {disabled} renders the card Greyed out. Used for Schedule Screen.
 // {hideCardBtn} renders the Hide Card button on the header.
 // {hideCard} the Hide Card state.
