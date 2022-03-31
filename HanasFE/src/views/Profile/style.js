@@ -1,12 +1,12 @@
 import { StyleSheet, StatusBar } from "react-native";
-import { colors, margin, padding, fontSize } from "@constants";
+import { colors, margin, padding, fontSize, fontWeight } from "@constants";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   header: {
-    flex: 1,
+    // flex: 1,
     paddingTop: StatusBar.currentHeight,
     paddingBottom: padding.p20,
   },
@@ -41,73 +41,88 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: fontSize.h3,
   },
-  profileDetails: {
+  parallaxContentContainer: { 
     flex: 1,
-    backgroundColor: colors.background,
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
-    overflow: "hidden",
-    marginTop: "-15%",
-    paddingBottom: padding.p10,
-    padding: padding.p5,
-    elevation: 150,
+    backgroundColor: colors.background, 
+    marginTop: 10 , 
+    borderTopEndRadius: 50, 
+    borderTopStartRadius: 50, 
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    padding: padding.p5 , 
+    marginBottom: 120
   },
-  accountInfoContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 15,
-    paddingTop: padding.p5,
-    paddingLeft: padding.p5,
-    paddingRight: padding.p5,
-    marginTop: margin.m6,
+  profileDetailsContainer: {
+      backgroundColor: colors.white, 
+      marginVertical: 50, 
+      padding: padding.p5, 
+      borderWidth: 1, 
+      borderColor: 
+      colors.borderGrey, 
+      borderRadius: 5
   },
-  accountInfo: {
-    marginHorizontal: margin.m5,
-    marginVertical: margin.m5,
+  profileInfoContainer: {
+    flex: 1,
+    flexDirection: "row", 
+    padding: padding.p5, 
+    justifyContent: "space-between"
+  },
+  headingText: {
+      fontWeight: fontWeight.bold, 
+      fontSize: fontSize.h3, 
+      padding: padding.p1
+  },
+  label: {
+      fontSize: fontSize.p, 
+      fontWeight: fontWeight.bold
+  },
+  values: {
+      fontSize: fontSize.p, 
+      color: colors.black
+  },
+  hr: {
+      borderBottomColor: colors.borderGrey, 
+      borderWidth: 1
+  },
+  hrFaded: {
+    borderBottomColor: colors.borderGrey, 
+    borderWidth: 1,
+    opacity: 0.3,
+    marginHorizontal: margin.m5
   },
   buttonContainer: {
-    marginVertical: margin.m5,
-  },
-  headerBorder: {
-    borderBottomColor: colors.borderGrey,
-    borderBottomWidth: 1,
-  },
-  infoHeader: {
-    fontSize: fontSize.h3,
-    fontWeight: "bold",
-    padding: padding.p3,
-  },
-  infoName: {
-    fontWeight: "bold",
-    marginVertical: margin.m1,
-  },
-  infoText: {
-    flexShrink: 1,
-    padding: padding.p1,
-  },
-  data: {
-    flexShrink: 1,
-  },
-  textLink: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    backgroundColor: colors.background,
+    marginBottom: margin.m5,
   },
   buttonRow: {
     marginTop: margin.m5,
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  logout: {
-    marginVertical: margin.m5,
-    flexDirection: "row-reverse",
-  },
-  logoutText: {
-    paddingVertical: padding.p5,
-    fontWeight: "bold",
-  },
   flexedView: {
     flex: 1, 
     alignItems: "center",
     marginHorizontal: margin.m1,
+  },
+  logout: {
+    marginVertical: margin.m5,
+    flexDirection: "row-reverse",
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    padding: padding.p5,
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    height: 80
+  },
+  buttonText: {
+    marginLeft: margin.m3,
+    fontSize: fontSize.h3,
+    fontWeight: "bold",
+    justifyContent: "flex-start"
   },
 });
 

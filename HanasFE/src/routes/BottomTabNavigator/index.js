@@ -6,6 +6,7 @@ import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
+import ProfileClient from "@screens/ProfileClient";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
@@ -100,8 +101,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileClient"
+        component={ProfileClient}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
