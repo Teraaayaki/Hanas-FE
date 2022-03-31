@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Toast from "react-native-toast-message";
 
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import { userLogin } from "@redux/actions/authActions";
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
+import showToast from "@helpers/toast";
 
 const initialValues = {
   email: "",
@@ -39,26 +39,20 @@ export default function Login({ navigation }) {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.userLogin);
 
-  const showToast = () => {
-    Toast.show({
-      type: "error",
-      text1: "Login Error",
-      text2: error,
-      position: "bottom",
-      onHide: () => dispatch(userLogin()),
-    });
-  };
-
   const handleSubmit = ({ email, password }) => {
     dispatch(userLogin(navigation, email, password));
     if (error) {
-      showToast();
+      showToast("error", "Login Error", error, () =>
+        dispatch(userLogin(navigation))
+      );
     }
   };
 
   useEffect(() => {
     if (typeof error !== "undefined") {
-      showToast();
+      showToast("error", "Login Error", error, () =>
+        dispatch(userLogin(navigation))
+      );
     }
   }, [error]);
 

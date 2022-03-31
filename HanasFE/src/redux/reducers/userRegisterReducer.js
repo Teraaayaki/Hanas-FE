@@ -7,7 +7,7 @@ const initialState = {
   number: "",
   user: {},
   address: "",
-  error: " ",
+  error: undefined,
 };
 
 const userRegisterReducer = (state = initialState, action) => {

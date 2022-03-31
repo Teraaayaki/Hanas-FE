@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { verifyNumber } from "@redux/actions/registerActions";
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
 import Loading from "@components/Loading";
@@ -24,19 +23,27 @@ export default function RegisterOTP({ navigation }) {
   const pin3Ref = useRef(null);
   const pin4Ref = useRef(null);
   const dispatch = useDispatch();
+
   const { loading, success, number } = useSelector(
     (state) => state.userRegister
   );
 
-  const handleSubmit = () => {
-    dispatch(verifyNumber(9055, number, navigation));
+  const showToast = () => {
+    Toast.show({
+      type: "error",
+      text1: "Login Error",
+      text2: error,
+      position: "bottom",
+      onHide: () => dispatch(resetError()),
+    });
   };
 
-  useEffect(() => {
-    console.log(
-      "\nOTP Sucess State: " + success + "\nLoading State: " + loading
-    );
-  }, [success]);
+  const handleSubmit = () => {
+    console.log(`${pin1}${pin2}${pin3}${pin4}`);
+    // dispatch(verifyNumber(9055, number, navigation));
+  };
+
+  useEffect(() => {}, [success]);
 
   return (
     <SafeAreaView style={styles.body}>

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Toast from "react-native-toast-message";
 import { Formik } from "formik";
 import * as yup from "yup";
 
@@ -11,6 +10,7 @@ import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
 import styles from "./style";
 import { resetError } from "@redux/actions/registerActions";
+import showToast from "@helpers/toast";
 
 const numberSchema = yup.object().shape({
   number: yup
@@ -25,16 +25,6 @@ export default function RegisterNumber({ navigation }) {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.userRegister);
 
-  const showToast = () => {
-    Toast.show({
-      type: "error",
-      text1: "Login Error",
-      text2: error,
-      position: "bottom",
-      onHide: () => dispatch(resetError()),
-    });
-  };
-
   const handleSubmit = ({ number }) => {
     dispatch(registerNumber(number, navigation));
   };
@@ -42,7 +32,7 @@ export default function RegisterNumber({ navigation }) {
   useEffect(() => {
     console.log("Register Number Error is: ", error);
     if (typeof error !== "undefined") {
-      showToast();
+      showToast("error", "Invalid Number", error, () => dispatch(resetError()));
     }
   }, [error]);
 
