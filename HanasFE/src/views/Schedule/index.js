@@ -17,7 +17,7 @@ const Schedule = ({ }) => {
       backgroundColor = "#FF6D8F"
       contentBackgroundColor= {colors.background}
       contentContainerStyle={{height: "100%"}}
-      parallaxHeaderHeight={80}
+      parallaxHeaderHeight={70}
       renderForeground={() => (
         <Header title={"Schedule"} />
       )}
