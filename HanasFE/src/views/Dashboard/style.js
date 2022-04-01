@@ -21,11 +21,11 @@ export default StyleSheet.create({
     height: "auto",
   },
   textContainer: {
-    flex: 1,
     marginHorizontal: margin.m3,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: padding.p3,
+    backgroundColor: "transparent",
   },
   labelText: {
     fontSize: fontSize.label,
