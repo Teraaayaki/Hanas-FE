@@ -27,10 +27,10 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   const [errMessage, setErrMessage] = useState("");
   const [dateModal, setDateModal] = useState(false);
   const [userDetails, setUserDetails] = useState(details);
+  const dispatch = useDispatch();
   const { address, user, isWorker, number, loading, error } = useSelector(
     (state) => state.userRegister
   );
-  const dispatch = useDispatch();
 
   const changeDate = (e, dob) => {
     setDateModal(false);
@@ -43,7 +43,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   };
 
   const handleSubmit = () => {
-    if (address === "") {
+    if (!address) {
       setErrMessage("Please input your address");
     } else if (userDetails.sex === "") {
       setErrMessage("Please choose a sex");
@@ -62,7 +62,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   };
 
   useEffect(() => {
-    console.log("Address is: ", address === "");
+    console.log("Address is: ", !address);
     if (typeof error !== "undefined") {
       showToast("error", error, "Please fix input errors", () =>
         dispatch(resetError())
@@ -72,7 +72,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
 
   return (
     <SafeAreaView style={styles.body}>
-      {false ? (
+      {loading ? (
         <Loading title="Registering User..." />
       ) : (
         <>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ActivityIndicator,
   View,
   KeyboardAvoidingView,
   TextInput,
   Text,
   Image,
-  Alert,
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -17,6 +17,7 @@ import { userLogin } from "@redux/actions/authActions";
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
 import { showToast, ToastComponent } from "@helpers/toast";
+import { colors } from "@constants";
 
 const initialValues = {
   email: "",
@@ -37,7 +38,7 @@ const LoginSchema = yup.object().shape({
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.userLogin);
+  const { loading, error } = useSelector((state) => state.userLogin);
 
   const handleSubmit = ({ email, password }) => {
     dispatch(userLogin(navigation, email, password));
@@ -121,6 +122,11 @@ export default function Login({ navigation }) {
                 </>
               )}
             </Formik>
+            {loading && (
+              <View style={styles.spinner}>
+                <ActivityIndicator size="large" color={colors.secondary} />
+              </View>
+            )}
             <TextLink
               title="Don't have an account?"
               linkTitle="Register here"

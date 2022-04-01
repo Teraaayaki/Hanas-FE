@@ -16,7 +16,7 @@ import { colors } from "@constants";
 const numberSchema = yup.object().shape({
   number: yup
     .string()
-    .matches(/^[0-9]+$/, "Must be only digits")
+    .matches(/^(9)[0-9]+$/, "Please input a valid number +63 (PH) ")
     .min(10, "Must be exactly 10 digits")
     .max(10, "Must be exactly 10 digits")
     .required("Please input your number."),

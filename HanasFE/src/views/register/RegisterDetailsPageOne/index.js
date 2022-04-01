@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, SafeAreaView, ScrollView } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
 
@@ -8,6 +8,7 @@ import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 import styles from "./style";
 import { setUserDetails } from "@redux/actions/registerActions";
+import { showToast, ToastComponent } from "@helpers/toast";
 
 const details = {
   firstName: "",
@@ -48,12 +49,20 @@ const RegisterSchema = yup.object().shape({
 
 export default function RegisterDetailsPageOne({ navigation }) {
   const dispatch = useDispatch();
-
+  const { number } = useSelector((state) => state.userRegister);
   const handleSubmit = (values) => {
     console.log(values);
     console.log("SetUser Dispatch Called");
     dispatch(setUserDetails(values, navigation));
   };
+
+  useEffect(() => {
+    showToast(
+      "success",
+      `Successfully Verified +63${number}`,
+      "Please fill up registration form"
+    );
+  }, []);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -196,6 +205,7 @@ export default function RegisterDetailsPageOne({ navigation }) {
           </>
         )}
       </Formik>
+      <ToastComponent />
     </SafeAreaView>
   );
 }
