@@ -16,7 +16,7 @@ import TextLink from "@components/TextLink";
 import { userLogin } from "@redux/actions/authActions";
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
-import showToast from "@helpers/toast";
+import { showToast, ToastComponent } from "@helpers/toast";
 
 const initialValues = {
   email: "",
@@ -129,6 +129,7 @@ export default function Login({ navigation }) {
           </View>
         </View>
       </KeyboardAvoidingView>
+      <ToastComponent />
     </SafeAreaView>
   );
 }

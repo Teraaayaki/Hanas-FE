@@ -13,7 +13,7 @@ import TextLink from "@components/TextLink";
 import Loading from "@components/Loading";
 import styles from "./style";
 import { resetError, verifyNumber } from "@redux/actions/registerActions";
-import showToast from "@helpers/toast";
+import { showToast, ToastComponent } from "@helpers/toast";
 
 export default function RegisterOTP({ navigation }) {
   const [pin1, setPin1] = useState("");
@@ -176,6 +176,7 @@ export default function RegisterOTP({ navigation }) {
           </View>
         </>
       )}
+      <ToastComponent />
     </SafeAreaView>
   );
 }

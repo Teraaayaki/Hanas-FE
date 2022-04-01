@@ -10,7 +10,7 @@ import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
 import styles from "./style";
 import { resetError } from "@redux/actions/registerActions";
-import showToast from "@helpers/toast";
+import { showToast, ToastComponent } from "@helpers/toast";
 import { colors } from "@constants";
 
 const numberSchema = yup.object().shape({
@@ -27,7 +27,9 @@ export default function RegisterNumber({ navigation }) {
   const { loading, error } = useSelector((state) => state.userRegister);
 
   const handleSubmit = ({ number }) => {
-    dispatch(registerNumber(number, navigation));
+    if (typeof error === "undefined") {
+      dispatch(registerNumber(number, navigation));
+    }
   };
 
   useEffect(() => {
@@ -93,6 +95,7 @@ export default function RegisterNumber({ navigation }) {
           onPress={() => navigation.navigate("Login")}
         />
       </View>
+      <ToastComponent />
     </SafeAreaView>
   );
 }

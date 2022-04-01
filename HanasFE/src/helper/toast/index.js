@@ -1,6 +1,7 @@
+import React from "react";
 import Toast from "react-native-toast-message";
 
-export default (type, text1, text2, onHide) => {
+export const showToast = (type, text1, text2, onHide) => {
   Toast.show({
     type,
     text1,
@@ -8,4 +9,8 @@ export default (type, text1, text2, onHide) => {
     position: "bottom",
     onHide,
   });
+};
+
+export const ToastComponent = () => {
+  return <Toast />;
 };

@@ -15,8 +15,8 @@ import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 import Loading from "@components/Loading";
 import styles from "./style";
-import { registerUser } from "@redux/actions/registerActions";
-import showToast from "@helpers/toast";
+import { registerUser, resetError } from "@redux/actions/registerActions";
+import { showToast, ToastComponent } from "@helpers/toast";
 
 const details = {
   dob: new Date(2004, 11, 31),
@@ -62,6 +62,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   };
 
   useEffect(() => {
+    console.log("Address is: ", address === "");
     if (typeof error !== "undefined") {
       showToast("error", error, "Please fix input errors", () =>
         dispatch(resetError())
@@ -174,6 +175,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
           </ScrollView>
         </>
       )}
+      <ToastComponent />
     </SafeAreaView>
   );
 }
