@@ -63,36 +63,9 @@ const Profile = ({ navigation }) => {
       )}
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
-<<<<<<< HEAD
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#FF6D8F",
-            height: "100%",
-          }}
-        >
-          <Text
-            style={{
-              color: colors.black,
-              alignSelf: "center",
-              fontSize: fontSize.h1,
-              marginTop: 30,
-            }}
-          >
-            Soy Lebumfacil
-          </Text>
-          <Icon
-            color="green"
-            size={fontSize.h3}
-            name="verified"
-            style={{ marginTop: 42, marginLeft: 5 }}
-          ></Icon>
-=======
         <View style={styles.stickyHeaderContainer}>
             <Text style={styles.stickyName}>Soy Lebumfacil</Text>
             <Icon color="green" size={fontSize.h3} name="verified" style={styles.iconAdjusted}></Icon>
->>>>>>> beef5486d9f1cde7a46f89f67d60070a9a6d759a
         </View>
       )}
     >
