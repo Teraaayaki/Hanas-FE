@@ -9,7 +9,8 @@ import Login from "@screens/Login";
 import Settings from "@screens/Settings";
 import RegisterClientWorker from "@screens/register/RegisterClientWorker";
 import RegisterNumber from "@screens/register/RegisterNumber";
-import RegisterDetails from "@screens/register/RegisterDetails";
+import RegisterDetailsPageOne from "@screens/register/RegisterDetailsPageOne";
+import RegisterDetailsPageTwo from "@screens/register/RegisterDetailsPageTwo";
 import RegisterOTP from "@screens/register/RegisterOTP";
 import SetLocation from "@screens/SetLocation";
 import GetVerified from "@screens/GetVerified";
@@ -55,13 +56,20 @@ export default HanasStack = () => {
             component={RegisterClientWorker}
           />
           <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
-          <Stack.Screen name="RegisterDetails" component={RegisterDetails} />
+          <Stack.Screen
+            name="RegisterDetailsPageOne"
+            component={RegisterDetailsPageOne}
+          />
+          <Stack.Screen
+            name="RegisterDetailsPageTwo"
+            component={RegisterDetailsPageTwo}
+          />
           <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
           <Stack.Screen name="SetLocation" component={SetLocation} />
-          <Stack.Screen name="GetVerified" component={GetVerified} />
         </Stack.Group>
       ) : (
         <Stack.Group>
+          <Stack.Screen name="GetVerified" component={GetVerified} />
           <Stack.Screen name="Dashboard" component={Tabs} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Settings" component={Settings} />

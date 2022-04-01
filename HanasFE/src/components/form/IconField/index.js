@@ -1,7 +1,9 @@
 import React from "react";
 import { View, TextInput } from "react-native";
 import { Icon } from "react-native-elements";
+
 import styles from "./style";
+import { colors } from "@constants";
 
 export default ({
   iconName,
@@ -11,9 +13,19 @@ export default ({
   placeholder,
   value,
   onChangeText,
+  editable,
+  secureTextEntry,
+  error,
+  autoCapitalize,
 }) => {
   return (
-    <View style={styles.inputBox}>
+    <View
+      style={{
+        ...styles.inputBox,
+        borderBottomColor: error && colors.danger,
+        borderBottomWidth: error && 2,
+      }}
+    >
       <View style={styles.iconContainer}>
         <Icon
           name={iconName}
@@ -24,7 +36,10 @@ export default ({
       </View>
       <TextInput
         style={styles.textInput}
+        autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
+        editable={editable}
+        secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         placeholderTextColor={"#AAA"}
         value={value}
