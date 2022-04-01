@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Text } from "react-native";
 import { Icon } from "react-native-elements";
 
 import styles from "./style";
@@ -17,6 +17,7 @@ export default ({
   secureTextEntry,
   error,
   autoCapitalize,
+  mobileNum,
 }) => {
   return (
     <View
@@ -26,7 +27,7 @@ export default ({
         borderBottomWidth: error && 2,
       }}
     >
-      <View style={styles.iconContainer}>
+      <View style={[styles.iconContainer]}>
         <Icon
           name={iconName}
           type={iconType}
@@ -34,6 +35,21 @@ export default ({
           size={iconSize}
         />
       </View>
+      {mobileNum && (
+        <View
+          style={[
+            styles.pl4,
+            styles.pr5,
+            styles.my2,
+            styles.alignCenter,
+            styles.justifyContentCenter,
+            styles.borderRight,
+            styles.borderMuted20,
+          ]}
+        >
+          <Text style={[styles.h4, styles.textBlack]}>+63</Text>
+        </View>
+      )}
       <TextInput
         style={styles.textInput}
         autoCapitalize={autoCapitalize}
