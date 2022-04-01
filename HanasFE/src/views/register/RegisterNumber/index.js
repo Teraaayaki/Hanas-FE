@@ -68,11 +68,12 @@ export default function RegisterNumber({ navigation }) {
                 iconType="font-awesome-5"
                 iconSize={25}
                 keyboardType={"number-pad"}
-                placeholder={"+947xxxxxxx"}
+                placeholder={"947xxxxxxx"}
                 value={values.number}
                 onChangeText={handleChange("number")}
                 onBlur={handleBlur("number")}
                 error={errors.number && touched.number ? true : null}
+                mobileNum={true}
               />
               <View style={styles.errorContainer}>
                 {errors.number && touched.number && (
