@@ -28,15 +28,9 @@ const Profile = ({ navigation }) => {
   }, [success]);
   return (
     <ParallaxScrollView
-<<<<<<< HEAD
       backgroundColor="#FF6D8F"
       contentBackgroundColor="#FF6D8F"
-      contentContainerStyle={{ height: "100%" }}
-=======
-      backgroundColor = "#FF6D8F"
-      contentBackgroundColor= "#FF6D8F"
       contentContainerStyle={styles.h100}
->>>>>>> beef5486d9f1cde7a46f89f67d60070a9a6d759a
       parallaxHeaderHeight={180}
       renderForeground={() => (
         <LinearGradient
@@ -64,8 +58,13 @@ const Profile = ({ navigation }) => {
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View style={styles.stickyHeaderContainer}>
-            <Text style={styles.stickyName}>Soy Lebumfacil</Text>
-            <Icon color="green" size={fontSize.h3} name="verified" style={styles.iconAdjusted}></Icon>
+          <Text style={styles.stickyName}>Soy Lebumfacil</Text>
+          <Icon
+            color="green"
+            size={fontSize.h3}
+            name="verified"
+            style={styles.iconAdjusted}
+          ></Icon>
         </View>
       )}
     >
