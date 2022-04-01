@@ -98,7 +98,7 @@ const GetVerified = ({ navigation }) => {
             />
             <View style={styles.textLinkContainer}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("SetLocation")}
+                onPress={() => navigation.navigate("Dashboard")}
               >
                 <Text style={styles.textLink}>Later</Text>
               </TouchableOpacity>

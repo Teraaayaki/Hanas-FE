@@ -10,20 +10,26 @@ const button = StyleSheet.create({
 const colors = {
   primary: "#e69fb4",
   secondary: "#ff5e84",
+  success: "#8bd948",
   danger: "#DD5555",
   info: "#005484",
-  info2: "#1400FF",
+  info2: "#8488FF",
   white: "#FFFFFF",
   black: "#000000",
   light: "#F6F3E4",
   lightGrey: "#E8E8E8",
   grey: "#808080",
   dark: "#403F3C",
+  blue: "#005484",
   borderGrey: "#a1a1a1",
   placeholderText: "#AAA",
-  background: "#E5E5E5",
+  background: "#F5F5F5",
   lightYellow: "#F6F3E4",
   middlePink: "#FAA9B5",
+  muted75: "#444", //Black @ 75% transparency
+  muted50: "#888", //Black @ 50% transparency
+  muted25: "#BBB", //Black @ 25% transparency
+  muted20: "#CCC", //Black @ 20% transparency
 };
 
 const padding = {
@@ -52,7 +58,7 @@ const fontSize = {
   title: 25,
   h1: 20, //Final
   h2: 18, //Final
-  h3: 15, //Final
+  h3: 16, //Final
   h4: 14, //not Final - check Figma
   h5: 12, //Final
   p: 13, //not Final - check Figma
@@ -61,13 +67,12 @@ const fontSize = {
   textInput: 13,
   profileName: 20,
   services: 10,
-
 };
 
 const fontWeight = {
   bold: "bold",
-  regular: "regular",
-  italic: "italic",
+  regular: "400",
+  light: "100",
 };
 
 export { colors, button, fontSize, margin, padding, fontWeight };

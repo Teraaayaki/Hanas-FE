@@ -1,11 +1,20 @@
 import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
 import BrowseServices from "@screens/BrowseServices";
 import Profile from "@screens/Profile";
+import ProfileClient from "@screens/ProfileClient";
+import TransactionHistory from "@screens/transaction/TransactionHistory";
+import TransactionReport from "@screens/transaction/TransactionReport";
+import Reviews from "@screens/Reviews";
+import Messages from "@screens/messages/MessagesLobby";
+import Notification from "@screens/Notification";
+import BookingSummary from "@screens/transaction/BookingSummary";
+import Schedule from "@screens/Schedule";
+
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -39,7 +48,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Notification"
-        component={Dashboard}
+        component={Notification}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -57,7 +66,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Calendar"
-        component={Dashboard}
+        component={Schedule}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -75,7 +84,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={Dashboard}
+        component={Messages}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -92,8 +101,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileClient"
+        component={ProfileClient}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -115,7 +124,39 @@ const Tabs = () => {
       <Tab.Screen
         name="BrowseServices"
         component={BrowseServices}
-        options = {{
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="TransactionHistory"
+        component={TransactionHistory}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="TransactionReport"
+        component={TransactionReport}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="Reviews"
+        component={Reviews}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookingSummary"
+        component={BookingSummary}
+        options={{
           tabBarButton: () => null,
           tabBarVisible: false,
         }}

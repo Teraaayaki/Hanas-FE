@@ -17,9 +17,8 @@ const MyServices = ({ navigation }) => {
         <MyService
           navigation={navigation}
           ID="1"
-          name="Ayo Bike"
-          serviceType="Electrical Service"
-          ratePerHour="200.00"
+          name="Electrical"
+          ratePerHour={200}
           description="Ayo Bike everyday"
         />
       </View>
@@ -27,9 +26,8 @@ const MyServices = ({ navigation }) => {
         <MyService
           navigation={navigation}
           ID="2"
-          name="Hilot"
-          serviceType="Massage Service"
-          ratePerHour="200.00"
+          name="Massage"
+          ratePerHour={500.0}
           description="Service Type is a very very long lorem ipsum text that is
           completely not going to fit. This also does not have any typo
           whatsoever. This is not going to fit at all isn't it??? Make sure this
@@ -40,9 +38,8 @@ const MyServices = ({ navigation }) => {
         <MyService
           navigation={navigation}
           ID="3"
-          name="Septik Repair"
-          serviceType="Plumbing Service"
-          ratePerHour="200.00"
+          name="Plumbing"
+          ratePerHour={300.0}
           description="Service Type is a very very long lorem ipsum text that is
           completely not going to fit. This also does not have any typo
           whatsoever. This is not going to fit at all isn't it??? Make sure this

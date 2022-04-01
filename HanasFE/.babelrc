@@ -17,9 +17,10 @@
           "@constants": "./src/constants",
           "@components": "./src/components",
           "@icons": "./assets/resources/icons",
-          "@helpers": "./src/helper/axios",
+          "@axios": "./src/helper/axios",
           "@redux": "./src/redux",
-          "@hooks": "./src/hooks"
+          "@hooks": "./src/hooks",
+          "@helpers": "./src/helper"
         }
       }
     ]

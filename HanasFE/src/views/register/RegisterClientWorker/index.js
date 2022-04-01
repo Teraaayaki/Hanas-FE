@@ -1,11 +1,19 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, SafeAreaView } from "react-native";
+import { useDispatch } from "react-redux";
+
 import Button from "@components/Button";
 import TextLink from "@components/TextLink";
-import { SafeAreaView } from "react-navigation";
 import styles from "./style";
+import { worker } from "@redux/actions/registerActions";
 
 const Landing = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (isUserWorker) => {
+    dispatch(worker(isUserWorker, navigation));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -18,16 +26,10 @@ const Landing = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Text style={styles.text}>ARE YOU A?</Text>
           <View style={styles.pinkButtonContainer}>
-            <Button
-              onPress={() => navigation.navigate("RegisterNumber")}
-              title="CLIENT"
-            />
+            <Button onPress={() => handleSubmit(false)} title="CLIENT" />
           </View>
           <View style={styles.pinkButtonContainer}>
-            <Button
-              onPress={() => navigation.navigate("RegisterNumber")}
-              title="SKILLED WORKER"
-            />
+            <Button onPress={() => handleSubmit(true)} title="SKILLED WORKER" />
           </View>
 
           <TextLink

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://hanas-be-express-api.herokuapp.com/",
+  baseURL: process.env.HANAS_ENDPOINT,
 });
 
 export default instance;

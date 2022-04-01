@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
-import { colors, fontSize } from "@constants";
+import CircularImage from "@components/CircularImage";
+import { colors, fontSize, margin, padding } from "@constants";
 import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
@@ -19,57 +21,72 @@ const Profile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log("Navigating to landing page");
     if (!success) {
+      console.log("Navigating to landing page");
       navigation.navigate("Landing");
     }
   }, [success]);
-
   return (
-    <ScrollView
-      style={styles.container}
-      stickyHeaderHiddenOnScroll={true}
-      showsVerticalScrollIndicator={false}
-    >
-      <LinearGradient
-        style={styles.header}
-        colors={[colors.primary, colors.secondary]}
-      >
-        <View style={styles.headerText}>
-          <Text style={styles.text}>Your Profile</Text>
-        </View>
-        <View style={styles.headContainer}>
-          <Image style={styles.image} source={require("@images/mullet.jpg")} />
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>Soy Lebumfacil</Text>
-            <Text style={styles.verified}>
-              <Icon color="green" size={fontSize.h3} name="verified" /> Verified
-            </Text>
+    <ParallaxScrollView
+      backgroundColor="#FF6D8F"
+      contentBackgroundColor="#FF6D8F"
+      contentContainerStyle={styles.h100}
+      parallaxHeaderHeight={180}
+      renderForeground={() => (
+        <LinearGradient
+          style={styles.header}
+          colors={[colors.primary, colors.secondary]}
+        >
+          <View style={styles.headerText}>
+            <Text style={styles.text}>Your Profile</Text>
           </View>
-        </View>
-      </LinearGradient>
-      <View style={styles.profileDetails}>
-        <View style={styles.accountInfoContainer}>
-          <Text style={styles.infoHeader}>Account Info</Text>
-          <View style={styles.headerBorder}></View>
-          <View style={styles.accountInfo}>
-            <View>
-              <Text style={styles.infoName}>Address:</Text>
-              <Text style={styles.infoText}>
-                53 P. Rodrigo Duterte St. Bogo City, Cebu
+          <View style={styles.headContainer}>
+            <CircularImage
+              style={styles.image}
+              imageSource={require("@images/mullet.jpg")}
+            />
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>Soy Lebumfacil</Text>
+              <Text style={styles.verified}>
+                <Icon color="green" size={fontSize.h3} name="verified" />{" "}
+                Verified
               </Text>
             </View>
-            <View>
-              <Text style={styles.infoName}>Email:</Text>
-              <Text style={styles.infoText}>lebumfacilrenzo@yahoo.com</Text>
-            </View>
-            <View style={styles.data}>
-              <Text style={styles.infoName}>Mobile No:</Text>
-              <Text style={styles.infoText}>0953453443</Text>
-            </View>
           </View>
-          <View style={styles.headerBorder}></View>
-          <View style={styles.textLink}>
+        </LinearGradient>
+      )}
+      stickyHeaderHeight={70}
+      renderStickyHeader={() => (
+        <View style={styles.stickyHeaderContainer}>
+          <Text style={styles.stickyName}>Soy Lebumfacil</Text>
+          <Icon
+            color="green"
+            size={fontSize.h3}
+            name="verified"
+            style={styles.iconAdjusted}
+          ></Icon>
+        </View>
+      )}
+    >
+      <View style={styles.parallaxContentContainer}>
+        <View style={styles.profileDetailsContainer}>
+          <Text style={styles.headingText}>Account Info</Text>
+          <View style={styles.hr}></View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.label}>Address</Text>
+            <Text style={styles.values}>Tungkil, Minglanilla, Cebu</Text>
+          </View>
+          <View style={styles.hrFaded}></View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.values}>johndoe@gmail.com</Text>
+          </View>
+          <View style={styles.hrFaded}></View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.label}>Mobile Number</Text>
+            <Text style={styles.values}>09478619973</Text>
+          </View>
+          <View style={styles.profileInfoContainer}>
             <TextLinkPink
               title="Edit Account Info"
               onPress={() => navigation.navigate("EditAccount")}
@@ -83,32 +100,35 @@ const Profile = ({ navigation }) => {
 
         <View style={styles.buttonContainer}>
           <ButtonWhite
-            title="Services"
+            title="View services"
             iconName="shopping-cart"
-            onPress={() => navigation.navigate("MyServices")}
+            onPress={() => navigation.navigate("Services")}
           />
           <View style={styles.buttonRow}>
-            <ButtonWhite
-              title="Reviews"
-              iconName="description"
-              onPress={() => navigation.navigate("Reviews")}
-            />
-            <ButtonWhite
-              title="Transactions"
-              iconName="credit-card"
-              onPress={() => navigation.navigate("Transactions")}
-            />
+            <View style={styles.flexedView}>
+              <ButtonWhite
+                title="Reviews"
+                iconName="description"
+                onPress={() => navigation.navigate("Reviews")}
+              />
+            </View>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <ButtonWhite
+                title="Transactions"
+                iconName="credit-card"
+                onPress={() => navigation.navigate("TransactionHistory")}
+              />
+            </View>
           </View>
         </View>
-        <View style={styles.headerBorder}></View>
         <View style={styles.logout}>
           <TouchableOpacity onPress={handleSubmit}>
             <Text style={styles.logoutText}>LOGOUT</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.hr}></View>
       </View>
-    </ScrollView>
+    </ParallaxScrollView>
   );
 };
-
 export default Profile;

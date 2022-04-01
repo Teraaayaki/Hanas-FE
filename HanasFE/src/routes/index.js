@@ -9,21 +9,25 @@ import Login from "@screens/Login";
 import Settings from "@screens/Settings";
 import RegisterClientWorker from "@screens/register/RegisterClientWorker";
 import RegisterNumber from "@screens/register/RegisterNumber";
-import RegisterDetails from "@screens/register/RegisterDetails";
+import RegisterDetailsPageOne from "@screens/register/RegisterDetailsPageOne";
+import RegisterDetailsPageTwo from "@screens/register/RegisterDetailsPageTwo";
 import RegisterOTP from "@screens/register/RegisterOTP";
 import SetLocation from "@screens/SetLocation";
 import GetVerified from "@screens/GetVerified";
 import EditAccount from "@screens/EditAccount";
 import EditPassword from "@screens/EditPassword";
-import Transactions from "@screens/Transactions";
+import TransactionHistory from "@screens/transaction/TransactionHistory";
+import TransactionReport from "@screens/transaction/TransactionReport";
+import BookingSummary from "@screens/transaction/BookingSummary";
 import Reviews from "@screens/Reviews";
 import BrowseServices from "@screens/BrowseServices";
-// myServices Routes
 import MyServices from "@screens/services/MyServices";
 import AddEditService from "@screens/services/AddEditService";
 import ServicesNearYou from "@screens/ServicesNearYou";
+import Messages from "@screens/messages/MessagesLobby";
+import Chatroom from "@screens/messages/Chatroom";
+import Schedule from "@screens/Schedule";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
-import FullScreenImage from "@screens/FullScreenImage";
 
 import Tabs from "@routes/BottomTabNavigator";
 
@@ -52,26 +56,43 @@ export default HanasStack = () => {
             component={RegisterClientWorker}
           />
           <Stack.Screen name="RegisterNumber" component={RegisterNumber} />
-          <Stack.Screen name="RegisterDetails" component={RegisterDetails} />
+          <Stack.Screen
+            name="RegisterDetailsPageOne"
+            component={RegisterDetailsPageOne}
+          />
+          <Stack.Screen
+            name="RegisterDetailsPageTwo"
+            component={RegisterDetailsPageTwo}
+          />
           <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
-
           <Stack.Screen name="SetLocation" component={SetLocation} />
-          <Stack.Screen name="GetVerified" component={GetVerified} />
         </Stack.Group>
       ) : (
         <Stack.Group>
+          <Stack.Screen name="GetVerified" component={GetVerified} />
           <Stack.Screen name="Dashboard" component={Tabs} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
-          <Stack.Screen name="Transactions" component={Transactions} />
+          <Stack.Screen
+            name="TransactionHistory"
+            component={TransactionHistory}
+          />
+          <Stack.Screen
+            name="TransactionReport"
+            component={TransactionReport}
+          />
+          <Stack.Screen name="BookingSummary" component={BookingSummary} />
           <Stack.Screen name="Reviews" component={Reviews} />
           <Stack.Screen name="BrowseServices" component={BrowseServices} />
           <Stack.Screen name="ServicesNearYou" component={ServicesNearYou} />
-          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
           <Stack.Screen name="MyServices" component={MyServices} />
           <Stack.Screen name="AddEditService" component={AddEditService} />
+          <Stack.Screen name="SetLocation" component={SetLocation} />
+          <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="Chatroom" component={Chatroom} />
+          <Stack.Screen name="Schedule" component={Schedule} />
         </Stack.Group>
       )}
     </Stack.Navigator>

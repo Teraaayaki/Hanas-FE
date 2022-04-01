@@ -16,7 +16,7 @@ const Certificates = ({ navigation }) => {
       </View>
       <View style={styles.scrollViewHeight}>
         <ScrollView horizontal={true} style={[styles.scrollView]}>
-          <View style={styles.scrollContent}>
+          <View style={[styles.scrollContent, styles.CertificatesPadding]}>
             <TouchableOpacity
               style={styles.certificateIMGCard}
               onPress={navigation}
