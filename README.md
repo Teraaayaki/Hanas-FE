@@ -1,5 +1,11 @@
 # HANAS FE - Setup Enviroment(Quick Guide)
 
+### Environment Variables
+```
+MAPS_API_KEY=AIzaSyCyvd8BRYr-qZm7bNKEUWBpmAGj9RLwVlQ
+HANAS_ENDPOINT=https://hanas-be-express-api.herokuapp.com/
+```
+
 ### 1. Clone repository in your local
 
 ```

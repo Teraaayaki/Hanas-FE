@@ -9,18 +9,20 @@ export default StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.backgroundColor,
   },
+  titleContainer: {
+    flexDirection: "column-reverse",
+    flex: 1,
+  },
   title: {
     fontSize: fontSize.title,
     paddingBottom: padding.p5,
   },
   formContainer: {
     width: "80%",
-    // backgroundColor: "#CCF",
     marginTop: margin.m3,
   },
   labelContainer: {
     width: "100%",
-    // backgroundColor: "#FFB",
     marginBottom: margin.m3,
   },
   label: {
@@ -43,11 +45,26 @@ export default StyleSheet.create({
     paddingVertical: padding.p3,
     backgroundColor: colors.white,
     borderRadius: 5,
-    marginBottom: margin.m3,
   },
-  error:{
+  error: {
     color: colors.danger,
     fontWeight: "bold",
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
+  errorContainer: {
+    paddingTop: padding.p3,
+  },
+  buttonContainer: {
+    marginVertical: margin.m3,
+  },
+  touchable: {
+    margin: margin.m1,
+    padding: padding.p6,
+    alignSelf: "center",
+  },
+  touchableText: {
+    fontWeight: "bold",
+    color: colors.dark,
+    fontSize: fontSize.h3,
+  },
 });

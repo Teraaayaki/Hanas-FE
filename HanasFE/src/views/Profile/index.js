@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
@@ -11,7 +11,7 @@ import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
 
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.userLogin);
 
@@ -21,28 +21,35 @@ const Profile = ({navigation}) => {
   };
 
   useEffect(() => {
-    console.log("Navigating to landing page");
     if (!success) {
+      console.log("Navigating to landing page");
       navigation.navigate("Landing");
     }
   }, [success]);
-  return(
+  return (
     <ParallaxScrollView
-      backgroundColor = "#FF6D8F"
-      contentBackgroundColor= "#FF6D8F"
+      backgroundColor="#FF6D8F"
+      contentBackgroundColor="#FF6D8F"
       contentContainerStyle={styles.h100}
       parallaxHeaderHeight={180}
       renderForeground={() => (
-        <LinearGradient style={styles.header} colors={[colors.primary, colors.secondary]}>
+        <LinearGradient
+          style={styles.header}
+          colors={[colors.primary, colors.secondary]}
+        >
           <View style={styles.headerText}>
             <Text style={styles.text}>Your Profile</Text>
           </View>
           <View style={styles.headContainer}>
-            <CircularImage style={styles.image} imageSource={require("@images/mullet.jpg")} />
+            <CircularImage
+              style={styles.image}
+              imageSource={require("@images/mullet.jpg")}
+            />
             <View style={styles.nameContainer}>
               <Text style={styles.name}>Soy Lebumfacil</Text>
               <Text style={styles.verified}>
-                <Icon color="green" size={fontSize.h3} name="verified" /> Verified
+                <Icon color="green" size={fontSize.h3} name="verified" />{" "}
+                Verified
               </Text>
             </View>
           </View>
@@ -51,11 +58,15 @@ const Profile = ({navigation}) => {
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View style={styles.stickyHeaderContainer}>
-            <Text style={styles.stickyName}>Soy Lebumfacil</Text>
-            <Icon color="green" size={fontSize.h3} name="verified" style={styles.iconAdjusted}></Icon>
+          <Text style={styles.stickyName}>Soy Lebumfacil</Text>
+          <Icon
+            color="green"
+            size={fontSize.h3}
+            name="verified"
+            style={styles.iconAdjusted}
+          ></Icon>
         </View>
-           
-      )}  
+      )}
     >
       <View style={styles.parallaxContentContainer}>
         <View style={styles.profileDetailsContainer}>
@@ -88,11 +99,11 @@ const Profile = ({navigation}) => {
         </View>
 
         <View style={styles.buttonContainer}>
-              <ButtonWhite
-                title="View services"
-                iconName="shopping-cart"
-                onPress={() => navigation.navigate("Services")}
-              />
+          <ButtonWhite
+            title="View services"
+            iconName="shopping-cart"
+            onPress={() => navigation.navigate("Services")}
+          />
           <View style={styles.buttonRow}>
             <View style={styles.flexedView}>
               <ButtonWhite
@@ -101,7 +112,7 @@ const Profile = ({navigation}) => {
                 onPress={() => navigation.navigate("Reviews")}
               />
             </View>
-            <View style={{flex: 1, alignItems: "center"}}>
+            <View style={{ flex: 1, alignItems: "center" }}>
               <ButtonWhite
                 title="Transactions"
                 iconName="credit-card"
@@ -118,7 +129,6 @@ const Profile = ({navigation}) => {
         <View style={styles.hr}></View>
       </View>
     </ParallaxScrollView>
-      
-  )
-}
+  );
+};
 export default Profile;

@@ -46,6 +46,9 @@ export default StyleSheet.create({
     paddingVertical: padding.p3,
     marginBottom: 10,
   },
+  errorContainer: {
+    height: 30,
+  },
   iconContainer: {
     justifyContent: "center",
   },
@@ -53,5 +56,13 @@ export default StyleSheet.create({
     paddingLeft: padding.p4,
     flex: 10,
     fontSize: fontSize.textInput,
+  },
+  text: {
+    color: colors.danger,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  spinner: {
+    padding: padding.p1,
   },
 });

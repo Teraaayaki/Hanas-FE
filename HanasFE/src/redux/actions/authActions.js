@@ -1,20 +1,28 @@
-import { UserLoginActions } from "./types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "@helpers";
+import { UserLoginActions, RegisterActions } from "./types";
+import axios from "@axios";
+import { getItem, setItem, removeItem } from "@helpers/asyncStorage";
 
-export const userLogin = (email, password) => async (dispatch) => {
-  let token = await AsyncStorage.getItem("token");
+export const userLogin = (navigation, email, password) => async (dispatch) => {
+  let token = await getItem("token");
+  let isWorker = JSON.parse(await getItem("is_worker"));
+  dispatch({ type: UserLoginActions.USER_LOADING, payload: true });
 
   if (token) {
     console.log("Token Already Exists - userLoginAction");
     dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: true });
+
+    if (isWorker) {
+      navigation.navigate("GetVerified");
+    } else {
+      navigation.navigate("Dashboard");
+    }
   } else {
     console.log("No Token");
-    doUserLogin(email, password, dispatch);
+    doUserLogin(navigation, email, password, dispatch);
   }
 };
 
-const doUserLogin = async (email, password, dispatch) => {
+const doUserLogin = async (navigation, email, password, dispatch) => {
   if (!email && !password) {
     console.log("No email and pass provided");
     dispatch({ type: UserLoginActions.USER_LOGIN_FAIL });
@@ -27,13 +35,21 @@ const doUserLogin = async (email, password, dispatch) => {
       email,
       password,
     });
+
     console.log("Storing Token");
-    await AsyncStorage.setItem("token", data.token);
-    await AsyncStorage.setItem("user_id", data.user_id);
+    setItem("token", data.token);
+    setItem("user_id", data.user_id);
+    setItem("is_worker", JSON.stringify(data.is_worker));
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
       payload: true,
     });
+
+    if (data.is_worker) {
+      navigation.navigate("GetVerified");
+    } else {
+      navigation.navigate("Dashboard");
+    }
   } catch (err) {
     const { error } = err.response.data;
     console.log(error);
@@ -43,14 +59,17 @@ const doUserLogin = async (email, password, dispatch) => {
 
 export const userLogout = () => async (dispatch) => {
   console.log("Removing items");
-  await AsyncStorage.removeItem("user_id");
-  await AsyncStorage.removeItem("token");
-
+  removeItem("user_id");
+  removeItem("token");
+  removeItem("is_worker");
   console.log("Succesfully removed items");
   console.log("Dispatching Logout");
 
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
+  });
+  dispatch({
+    type: RegisterActions.REGISTER_LOGOUT,
   });
   console.log("Dispatched Logout");
   return;

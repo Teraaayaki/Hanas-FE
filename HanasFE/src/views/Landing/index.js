@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { useDispatch, useSelector } from "react-redux";
+
+import { resetError } from "@redux/actions/registerActions";
 import { userLogin } from "@redux/actions/authActions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Button from "@components/Button";
 import styles from "./style";
 
@@ -12,7 +13,11 @@ const Landing = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(userLogin());
+    dispatch(resetError());
+  }, []);
+
+  useEffect(() => {
+    dispatch(userLogin(navigation));
     if (success) {
       console.log("User Currently is LoggedIn");
     } else {

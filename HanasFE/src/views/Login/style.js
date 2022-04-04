@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, fontSize } from "@constants";
+import { colors, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //-------------Reusable Containers-----------------
@@ -72,12 +72,15 @@ export default StyleSheet.create({
   text: {
     color: colors.danger,
     fontWeight: "bold",
+    marginVertical: -5,
   },
   //-------------------Reusables-----------------------
+  spinner: {
+    paddingVertical: padding.p1,
+  },
 
   buttonContainer: {
     width: "100%",
     marginTop: 20,
   },
-  
 });
