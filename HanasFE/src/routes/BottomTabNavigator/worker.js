@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
 import MyServices from "@screens/services/MyServices";
+import AddEditService from "@screens/services/AddEditService";
 import Profile from "@screens/Profile";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
