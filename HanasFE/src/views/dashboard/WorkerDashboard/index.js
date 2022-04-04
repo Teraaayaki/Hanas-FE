@@ -5,7 +5,7 @@ import styles from "./style";
 import Header from "@components/Header";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 
-const workerDashboard = ({ navigation }) => {
+const WorkerDashboard = ({ navigation }) => {
   return (
     <View style={[styles.body]}>
       <TouchableOpacity onPressOut={() => setIsWorker(false)}>
@@ -18,4 +18,4 @@ const workerDashboard = ({ navigation }) => {
   );
 };
 
-export default workerDashboard;
+export default WorkerDashboard;

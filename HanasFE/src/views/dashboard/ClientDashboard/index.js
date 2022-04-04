@@ -15,7 +15,7 @@ import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { colors } from "@constants";
 
-const clientDashboard = ({ navigation }) => {
+const ClientDashboard = ({ navigation }) => {
   var [isPress, setIsPress] = useState(false);
   var touchProps = {
     activeOpacity: 0.2,
@@ -96,4 +96,4 @@ const clientDashboard = ({ navigation }) => {
   );
 };
 
-export default clientDashboard;
+export default ClientDashboard;
