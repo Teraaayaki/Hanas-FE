@@ -4,15 +4,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
 import Dashboard from "@screens/Dashboard";
-import BrowseServices from "@screens/BrowseServices";
+import MyServices from "@screens/services/MyServices";
 import Profile from "@screens/Profile";
-import ProfileClient from "@screens/ProfileClient";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
-import BookingSummary from "@screens/transaction/BookingSummary";
 import Schedule from "@screens/Schedule";
 
 const Tab = createBottomTabNavigator();
@@ -101,8 +99,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="ProfileClient"
-        component={ProfileClient}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: ({ focused, tintColor }) => {
             return (
@@ -122,8 +120,8 @@ const Tabs = () => {
       {/*ari i add ang mga screens nga mag require ani nga navigator */}
 
       <Tab.Screen
-        name="BrowseServices"
-        component={BrowseServices}
+        name="MyServices"
+        component={MyServices}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
@@ -154,8 +152,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="BookingSummary"
-        component={BookingSummary}
+        name="AddEditService"
+        component={AddEditService}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
