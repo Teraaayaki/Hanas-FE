@@ -9,7 +9,7 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
 
   if (token) {
     console.log("Token Already Exists - userLoginAction");
-    dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: true });
+    dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: isWorker });
 
     if (isWorker) {
       navigation.navigate("GetVerified");
@@ -42,7 +42,7 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
     setItem("is_worker", JSON.stringify(data.is_worker));
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
-      payload: true,
+      payload: data.is_worker,
     });
 
     if (data.is_worker) {
@@ -51,6 +51,7 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
       navigation.navigate("Dashboard");
     }
   } catch (err) {
+    console.log(err);
     const { error } = err.response.data;
     console.log(error);
     dispatch({ type: UserLoginActions.USER_LOGIN_FAIL, payload: error });
