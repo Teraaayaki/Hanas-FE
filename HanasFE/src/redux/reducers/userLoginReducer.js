@@ -4,6 +4,7 @@ const initialValues = {
   success: false,
   error: undefined,
   loading: false,
+  isWorker: undefined,
 };
 
 const userLoginReducer = (state = initialValues, action) => {
@@ -15,7 +16,8 @@ const userLoginReducer = (state = initialValues, action) => {
         ...state,
         loading: false,
         error: undefined,
-        success: action.payload,
+        success: true,
+        isWorker: action.payload,
       };
     case UserLoginActions.USER_LOGIN_FAIL:
       return { ...state, loading: false, error: action.payload };

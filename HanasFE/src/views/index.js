@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
   TouchableHighlight,
-  FlatList
+  FlatList,
 } from "react-native";
 
 import styles from "./style";
@@ -30,13 +30,13 @@ const Dashboard = ({ navigation }) => {
     onShowUnderlay: () => setIsPress(true),
   };
 
-  const clientDashboard = ({navigation}) => {
+  const clientDashboard = ({ navigation }) => {
     return (
       <View style={styles.container}>
-         <TouchableOpacity onPressOut={() => setIsWorker(true)}>
-            <LightHeader />
-          </TouchableOpacity>
-        <FlatList 
+        <TouchableOpacity onPressOut={() => setIsWorker(true)}>
+          <LightHeader />
+        </TouchableOpacity>
+        <FlatList
           style={styles.container}
           ListHeaderComponent={
             <View>
@@ -47,7 +47,10 @@ const Dashboard = ({ navigation }) => {
                 <HorizontalCarousel />
                 <View style={styles.textContainer}>
                   <Text style={styles.labelText}>Top Services</Text>
-                  <TouchableHighlight {...touchProps} onPress={() => navigation.navigate("BrowseServices")}>
+                  <TouchableHighlight
+                    {...touchProps}
+                    onPress={() => navigation.navigate("BrowseServices")}
+                  >
                     <Text style={styles.fadeText}>View more</Text>
                   </TouchableHighlight>
                 </View>
@@ -88,16 +91,13 @@ const Dashboard = ({ navigation }) => {
           }
           ListFooterComponent={
             <View>
-              
               <View style={styles.textContainer}>
                 <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
               </View>
-              <CardContainerFlatlist navigation={navigation}/>
+              <CardContainerFlatlist navigation={navigation} />
             </View>
-            
           }
-        >
-        </FlatList>
+        ></FlatList>
       </View>
     );
   };
@@ -118,7 +118,9 @@ const Dashboard = ({ navigation }) => {
   };
   //SKILLED WORKER DASHBOARD --- END ===============================================
 
-  return isWorker ? workerDashboard(navigation={navigation}) : clientDashboard(navigation={navigation});
+  return isWorker
+    ? workerDashboard((navigation = { navigation }))
+    : clientDashboard((navigation = { navigation }));
 };
 
 export default Dashboard;
