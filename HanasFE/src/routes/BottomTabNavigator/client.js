@@ -3,7 +3,7 @@ import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { colors } from "@constants";
-import Dashboard from "@screens/Dashboard";
+import ClientDashboard from "@screens/dashboard/ClientDashboard";
 import BrowseServices from "@screens/BrowseServices";
 import SetLocation from "@screens/SetLocation";
 import ProfileClient from "@screens/ProfileClient";
@@ -31,9 +31,9 @@ const Tabs = () => {
     >
       <Tab.Screen
         name="Home"
-        component={Dashboard}
+        component={ClientDashboard}
         options={{
-          tabBarIcon: ({ focused, tintColor }) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Image
                 source={require("@icons/Home.png")}
@@ -87,7 +87,7 @@ const Tabs = () => {
         name="Messages"
         component={Messages}
         options={{
-          tabBarIcon: ({ focused, tintColor }) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Image
                 source={require("@icons/SecuredLetter.png")}
@@ -105,7 +105,7 @@ const Tabs = () => {
         name="ProfileClient"
         component={ProfileClient}
         options={{
-          tabBarIcon: ({ focused, tintColor }) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Image
                 source={require("@icons/MaleUser.png")}
