@@ -31,7 +31,7 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 
   try {
     console.log("Axios Call");
-    let { data } = await axios.post("/api/client/login", {
+    let { data } = await axios.post("/api/auth/login", {
       email,
       password,
     });

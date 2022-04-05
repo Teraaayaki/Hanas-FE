@@ -28,7 +28,7 @@ export const registerNumber = (number, navigation) => async (dispatch) => {
 
   try {
     console.log("axios call");
-    let { data } = await axios.post("/api/client/verify-number", {
+    let { data } = await axios.post("/api/auth/verify-number", {
       number,
     });
 
@@ -56,7 +56,7 @@ export const verifyNumber = (otp, number, navigation) => async (dispatch) => {
   });
   console.log("verifying number: " + number + " and " + otp);
   try {
-    let { data } = await axios.post("/api/client/verify-number-otp", {
+    let { data } = await axios.post("/api/auth/verify-number-otp", {
       number,
       otp: parseInt(otp),
     });
@@ -118,7 +118,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
 
   try {
     console.log("Axios Call");
-    let { data } = await axios.post("/api/client/register", {
+    let { data } = await axios.post("/api/auth/register", {
       firstName,
       middleName,
       lastName,

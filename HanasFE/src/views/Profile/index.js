@@ -102,7 +102,7 @@ const Profile = ({ navigation }) => {
           <ButtonWhite
             title="View services"
             iconName="shopping-cart"
-            onPress={() => navigation.navigate("Services")}
+            onPress={() => navigation.navigate("MyServices")}
           />
           <View style={styles.buttonRow}>
             <View style={styles.flexedView}>
