@@ -3,29 +3,25 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
+
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
-import CircularImage from "@components/CircularImage";
-import { colors, fontSize, margin, padding } from "@constants";
 import styles from "./style";
-import { useDispatch, useSelector } from "react-redux";
+import CircularImage from "@components/CircularImage";
+import { colors, fontSize } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userDetails);
 
   const handleSubmit = () => {
     console.log("logging out");
     dispatch(userLogout());
   };
 
-  useEffect(() => {
-    if (!success) {
-      console.log("Navigating to landing page");
-      navigation.navigate("Landing");
-    }
-  }, [success]);
   return (
     <ParallaxScrollView
       backgroundColor="#FF6D8F"
@@ -46,7 +42,9 @@ const Profile = ({ navigation }) => {
               imageSource={require("@images/mullet.jpg")}
             />
             <View style={styles.nameContainer}>
-              <Text style={styles.name}>Soy Lebumfacil</Text>
+              <Text
+                style={styles.name}
+              >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
               <Text style={styles.verified}>
                 <Icon color="green" size={fontSize.h3} name="verified" />{" "}
                 Verified
@@ -58,7 +56,9 @@ const Profile = ({ navigation }) => {
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View style={styles.stickyHeaderContainer}>
-          <Text style={styles.stickyName}>Soy Lebumfacil</Text>
+          <Text
+            style={styles.stickyName}
+          >{`${user.first_name} ${user.last_name}`}</Text>
           <Icon
             color="green"
             size={fontSize.h3}
@@ -74,17 +74,17 @@ const Profile = ({ navigation }) => {
           <View style={styles.hr}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Address</Text>
-            <Text style={styles.values}>Tungkil, Minglanilla, Cebu</Text>
+            <Text style={styles.values}>{`${user.address}`}</Text>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Email</Text>
-            <Text style={styles.values}>johndoe@gmail.com</Text>
+            <Text style={styles.values}>{`${user.email}`}</Text>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Mobile Number</Text>
-            <Text style={styles.values}>09478619973</Text>
+            <Text style={styles.values}>{`+63${user.mobile_no}`}</Text>
           </View>
           <View style={styles.profileInfoContainer}>
             <TextLinkPink
@@ -102,7 +102,7 @@ const Profile = ({ navigation }) => {
           <ButtonWhite
             title="View services"
             iconName="shopping-cart"
-            onPress={() => navigation.navigate("Services")}
+            onPress={() => navigation.navigate("MyServices")}
           />
           <View style={styles.buttonRow}>
             <View style={styles.flexedView}>

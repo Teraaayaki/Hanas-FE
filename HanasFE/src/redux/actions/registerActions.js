@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { setItem } from "@helpers/asyncStorage";
 import axios from "@axios";
 
-import { RegisterActions, UserLoginActions } from "./types";
+import { RegisterActions, UserDetailActions, UserLoginActions } from "./types";
 
 export const resetError = () => (dispatch) => {
   dispatch({
@@ -28,7 +28,7 @@ export const registerNumber = (number, navigation) => async (dispatch) => {
 
   try {
     console.log("axios call");
-    let { data } = await axios.post("/api/client/verify-number", {
+    let { data } = await axios.post("/api/auth/verify-number", {
       number,
     });
 
@@ -56,7 +56,7 @@ export const verifyNumber = (otp, number, navigation) => async (dispatch) => {
   });
   console.log("verifying number: " + number + " and " + otp);
   try {
-    let { data } = await axios.post("/api/client/verify-number-otp", {
+    let { data } = await axios.post("/api/auth/verify-number-otp", {
       number,
       otp: parseInt(otp),
     });
@@ -112,13 +112,25 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     isWorker,
   } = user;
 
+  let userDetails = {
+    first_name: firstName,
+    middle_name: middleName,
+    last_name: lastName,
+    suffix,
+    email,
+    mobile_no: number,
+    address,
+    birthdate: dob,
+    sex,
+  };
+
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
 
   try {
     console.log("Axios Call");
-    let { data } = await axios.post("/api/client/register", {
+    let { data } = await axios.post("/api/auth/register", {
       firstName,
       middleName,
       lastName,
@@ -134,9 +146,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
 
     if (data) {
       setItem("token", data.token);
-      setItem("user_id", data.user_id);
       setItem("is_worker", JSON.stringify(data.is_worker));
-
       dispatch({
         type: UserLoginActions.USER_LOGIN_SUCCESS,
         payload: true,
@@ -144,10 +154,15 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       dispatch({
         type: RegisterActions.REGISTER_SUCCESS,
       });
+      dispatch({
+        type: UserDetailActions.USER_DETAILS_SUCCESS,
+        payload: userDetails,
+      });
 
       console.log("Navigate to another page");
       if (data.is_worker) {
-        navigation.navigate("GetVerified");
+        setItem("is_verified", JSON.stringify(false));
+        navigation.navigate("Dashboard");
       } else {
         navigation.navigate("Dashboard");
       }

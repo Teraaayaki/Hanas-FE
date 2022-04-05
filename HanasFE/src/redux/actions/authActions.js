@@ -1,4 +1,4 @@
-import { UserLoginActions, RegisterActions } from "./types";
+import { UserLoginActions, RegisterActions, UserDetailActions } from "./types";
 import axios from "@axios";
 import { getItem, setItem, removeItem } from "@helpers/asyncStorage";
 
@@ -9,12 +9,33 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
 
   if (token) {
     console.log("Token Already Exists - userLoginAction");
-    dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: isWorker });
 
-    if (isWorker) {
-      navigation.navigate("GetVerified");
-    } else {
-      navigation.navigate("Dashboard");
+    try {
+      let { data } = await axios.get("/api/worker/get-details", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (data) {
+        dispatch({
+          type: UserLoginActions.USER_LOGIN_SUCCESS,
+          payload: isWorker,
+        });
+        dispatch({
+          type: UserDetailActions.USER_DETAILS_SUCCESS,
+          payload: data.user,
+        });
+
+        if (isWorker) {
+          navigation.navigate("GetVerified");
+        } else {
+          navigation.navigate("Dashboard");
+        }
+      }
+    } catch (err) {
+      let { error } = err.response.data;
+      dispatch({
+        type: UserDetailActions.USER_DETAILS_FAIL,
+        payload: error,
+      });
     }
   } else {
     console.log("No Token");
@@ -31,22 +52,27 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 
   try {
     console.log("Axios Call");
-    let { data } = await axios.post("/api/client/login", {
+    let { data } = await axios.post("/api/auth/login", {
       email,
       password,
     });
 
     console.log("Storing Token");
     setItem("token", data.token);
-    setItem("user_id", data.user_id);
     setItem("is_worker", JSON.stringify(data.is_worker));
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
       payload: data.is_worker,
     });
 
+    dispatch({
+      type: UserDetailActions.USER_DETAILS_SUCCESS,
+      payload: data.user,
+    });
+
     if (data.is_worker) {
-      navigation.navigate("GetVerified");
+      setItem("is_verified", JSON.stringify(data.is_verified));
+      navigation.navigate("Dashboard");
     } else {
       navigation.navigate("Dashboard");
     }
@@ -60,11 +86,21 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 
 export const userLogout = () => async (dispatch) => {
   console.log("Removing items");
-  removeItem("user_id");
   removeItem("token");
   removeItem("is_worker");
   console.log("Succesfully removed items");
   console.log("Dispatching Logout");
+
+  const resetUserDetailValues = {
+    address: "",
+    birthdate: new Date(0, 0, 0),
+    email: "",
+    first_name: "",
+    last_name: "",
+    middle_name: "",
+    mobile_no: 0,
+    sex: "",
+  };
 
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
@@ -72,6 +108,11 @@ export const userLogout = () => async (dispatch) => {
   dispatch({
     type: RegisterActions.REGISTER_LOGOUT,
   });
+  dispatch({
+    type: UserDetailActions.USER_DETAILS_LOGOUT,
+    payload: resetUserDetailValues,
+  });
   console.log("Dispatched Logout");
+
   return;
 };
