@@ -1,4 +1,4 @@
-import { UserLoginActions, RegisterActions } from "./types";
+import { UserLoginActions, RegisterActions, UserDetailActions } from "./types";
 import axios from "@axios";
 import { getItem, setItem, removeItem } from "@helpers/asyncStorage";
 
@@ -9,12 +9,33 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
 
   if (token) {
     console.log("Token Already Exists - userLoginAction");
-    dispatch({ type: UserLoginActions.USER_LOGIN_SUCCESS, payload: isWorker });
 
-    if (isWorker) {
-      navigation.navigate("GetVerified");
-    } else {
-      navigation.navigate("Dashboard");
+    try {
+      let { data } = await axios.get("/api/worker/get-details", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (data) {
+        dispatch({
+          type: UserLoginActions.USER_LOGIN_SUCCESS,
+          payload: isWorker,
+        });
+        dispatch({
+          type: UserDetailActions.USER_DETAILS_SUCCESS,
+          payload: data.user,
+        });
+
+        if (isWorker) {
+          navigation.navigate("GetVerified");
+        } else {
+          navigation.navigate("Dashboard");
+        }
+      }
+    } catch (err) {
+      let { error } = err.response.data;
+      dispatch({
+        type: UserDetailActions.USER_DETAILS_FAIL,
+        payload: error,
+      });
     }
   } else {
     console.log("No Token");
@@ -44,6 +65,11 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
       payload: data.is_worker,
     });
 
+    dispatch({
+      type: UserDetailActions.USER_DETAILS_SUCCESS,
+      payload: user,
+    });
+
     if (data.is_worker) {
       setItem("is_verified", JSON.stringify(data.is_verified));
       navigation.navigate("Dashboard");
@@ -70,6 +96,9 @@ export const userLogout = () => async (dispatch) => {
   });
   dispatch({
     type: RegisterActions.REGISTER_LOGOUT,
+  });
+  dispatch({
+    type: UserDetailActions.USER_DETAILS_LOGOUT,
   });
   console.log("Dispatched Logout");
   return;

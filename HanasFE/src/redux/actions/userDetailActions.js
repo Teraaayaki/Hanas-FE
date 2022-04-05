@@ -2,19 +2,20 @@ import axios from "@helpers/axios";
 import { getItem } from "@helpers/asyncStorage";
 import { UserDetailActions } from "./types";
 
+// No use
+//prettier-ignore
 export const getUserDetails = () => async (dispatch) => {
   dispatch({ type: UserDetailActions.USER_DETAILS_LOADING });
   console.log("GetUserDetailsAction");
   try {
-    let token = getItem("token");
-    let { user } = axios.get("/api/worker/get-details", {
-      headers: `Bearer ${token}`,
+    let token = await getItem("token");
+    let { data } = await axios.get("/api/worker/get-details", {
+      headers: { "Authorization": `Bearer ${token}` },
     });
-    console.log(user);
-    if (user) {
+    if (data.user) {
       dispatch({
         type: UserDetailActions.USER_DETAILS_SUCCESS,
-        payload: user,
+        payload: data.user,
       });
     }
   } catch (err) {

@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { setItem } from "@helpers/asyncStorage";
 import axios from "@axios";
 
-import { RegisterActions, UserLoginActions } from "./types";
+import { RegisterActions, UserDetailActions, UserLoginActions } from "./types";
 
 export const resetError = () => (dispatch) => {
   dispatch({
@@ -112,6 +112,18 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     isWorker,
   } = user;
 
+  let userDetails = {
+    firstName,
+    middleName,
+    lastName,
+    suffix,
+    email,
+    number,
+    address,
+    dob,
+    sex,
+  };
+
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
@@ -141,6 +153,10 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       });
       dispatch({
         type: RegisterActions.REGISTER_SUCCESS,
+      });
+      dispatch({
+        type: UserDetailActions.USER_DETAILS_SUCCESS,
+        payload: userDetails,
       });
 
       console.log("Navigate to another page");

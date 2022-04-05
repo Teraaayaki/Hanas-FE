@@ -21,13 +21,15 @@ const Profile = ({ navigation }) => {
     console.log("logging out");
     dispatch(userLogout());
   };
-  console.log(user);
+
   useEffect(() => {
+    console.log(user);
     if (!success) {
       console.log("Navigating to landing page");
       navigation.navigate("Landing");
     }
   }, [success]);
+
   return (
     <ParallaxScrollView
       backgroundColor="#FF6D8F"
