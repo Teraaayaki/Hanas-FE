@@ -10,8 +10,9 @@ import styles from "./style";
 
 const Landing = ({ navigation }) => {
   const { success } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userDetails);
   const dispatch = useDispatch();
-
+  console.log(user);
   useEffect(() => {
     dispatch(resetError());
   }, []);

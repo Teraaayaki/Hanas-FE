@@ -67,7 +67,7 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 
     dispatch({
       type: UserDetailActions.USER_DETAILS_SUCCESS,
-      payload: user,
+      payload: data.user,
     });
 
     if (data.is_worker) {
@@ -91,6 +91,17 @@ export const userLogout = () => async (dispatch) => {
   console.log("Succesfully removed items");
   console.log("Dispatching Logout");
 
+  const resetUserDetailValues = {
+    address: "",
+    birthdate: new Date(0, 0, 0),
+    email: "",
+    first_name: "",
+    last_name: "",
+    middle_name: "",
+    mobile_no: 0,
+    sex: "",
+  };
+
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
   });
@@ -99,7 +110,9 @@ export const userLogout = () => async (dispatch) => {
   });
   dispatch({
     type: UserDetailActions.USER_DETAILS_LOGOUT,
+    payload: resetUserDetailValues,
   });
   console.log("Dispatched Logout");
+
   return;
 };

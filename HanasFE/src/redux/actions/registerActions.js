@@ -113,14 +113,14 @@ export const registerUser = (user, navigation) => async (dispatch) => {
   } = user;
 
   let userDetails = {
-    firstName,
-    middleName,
-    lastName,
+    first_name: firstName,
+    middle_name: middleName,
+    last_name: lastName,
     suffix,
     email,
-    number,
+    mobile_no: number,
     address,
-    dob,
+    birthdate: dob,
     sex,
   };
 

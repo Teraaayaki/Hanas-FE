@@ -9,7 +9,7 @@ import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import styles from "./style";
 import CircularImage from "@components/CircularImage";
-import { colors, fontSize, margin, padding } from "@constants";
+import { colors, fontSize } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 
 const Profile = ({ navigation }) => {
@@ -23,9 +23,7 @@ const Profile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log(user);
     if (!success) {
-      console.log("Navigating to landing page");
       navigation.navigate("Landing");
     }
   }, [success]);
@@ -50,7 +48,9 @@ const Profile = ({ navigation }) => {
               imageSource={require("@images/mullet.jpg")}
             />
             <View style={styles.nameContainer}>
-              <Text style={styles.name}>Soy Lebumfacil</Text>
+              <Text
+                style={styles.name}
+              >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
               <Text style={styles.verified}>
                 <Icon color="green" size={fontSize.h3} name="verified" />{" "}
                 Verified
@@ -62,7 +62,9 @@ const Profile = ({ navigation }) => {
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View style={styles.stickyHeaderContainer}>
-          <Text style={styles.stickyName}>Soy Lebumfacil</Text>
+          <Text
+            style={styles.stickyName}
+          >{`${user.first_name} ${user.last_name}`}</Text>
           <Icon
             color="green"
             size={fontSize.h3}
@@ -78,17 +80,17 @@ const Profile = ({ navigation }) => {
           <View style={styles.hr}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Address</Text>
-            <Text style={styles.values}>Tungkil, Minglanilla, Cebu</Text>
+            <Text style={styles.values}>{`${user.address}`}</Text>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Email</Text>
-            <Text style={styles.values}>johndoe@gmail.com</Text>
+            <Text style={styles.values}>{`${user.email}`}</Text>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Mobile Number</Text>
-            <Text style={styles.values}>09478619973</Text>
+            <Text style={styles.values}>{`+63${user.mobile_no}`}</Text>
           </View>
           <View style={styles.profileInfoContainer}>
             <TextLinkPink
