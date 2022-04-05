@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Flatlist } from "react-native";
 import { LogBox } from "react-native";
 import styles from "./styles";
 import Header from "@components/Header";
