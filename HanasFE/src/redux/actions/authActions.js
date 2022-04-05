@@ -11,7 +11,7 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
     console.log("Token Already Exists - userLoginAction");
 
     try {
-      let { data } = await axios.get("/api/worker/get-details", {
+      let { data } = await axios.get("/api/auth/get-details", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (data) {
