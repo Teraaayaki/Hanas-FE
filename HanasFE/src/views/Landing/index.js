@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetError } from "@redux/actions/registerActions";
 import { userLogin } from "@redux/actions/authActions";
 import Button from "@components/Button";
+import Loading from "@components/Loading";
 import styles from "./style";
 
 const Landing = ({ navigation }) => {
-  const { success } = useSelector((state) => state.userLogin);
-  const { user } = useSelector((state) => state.userDetails);
+  const { success, loading } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
-  console.log(user);
+
   useEffect(() => {
     dispatch(resetError());
   }, []);
@@ -28,37 +28,41 @@ const Landing = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={require("@images/hanasLogoSquared.png")}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.pinkButtonContainer}>
-            <Button
-              onPress={() => navigation.navigate("RegisterClientWorker")}
-              title="REGISTER"
+      {loading ? (
+        <Loading title="Fetching User Data" />
+      ) : (
+        <View style={styles.content}>
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              source={require("@images/hanasLogoSquared.png")}
             />
           </View>
-          <View style={styles.pinkButtonContainer}>
-            <Button
-              onPress={() => navigation.navigate("Login")}
-              title="LOGIN"
-            />
+          <View style={styles.buttonContainer}>
+            <View style={styles.pinkButtonContainer}>
+              <Button
+                onPress={() => navigation.navigate("RegisterClientWorker")}
+                title="REGISTER"
+              />
+            </View>
+            <View style={styles.pinkButtonContainer}>
+              <Button
+                onPress={() => navigation.navigate("Login")}
+                title="LOGIN"
+              />
+            </View>
           </View>
-        </View>
 
-        <View style={styles.textContainer}>
-          <Text
-            style={styles.text}
-            onPress={() => navigation.navigate("Dashboard")}
-          >
-            Skip for now
-          </Text>
+          <View style={styles.textContainer}>
+            <Text
+              style={styles.text}
+              onPress={() => navigation.navigate("Dashboard")}
+            >
+              Skip for now
+            </Text>
+          </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };

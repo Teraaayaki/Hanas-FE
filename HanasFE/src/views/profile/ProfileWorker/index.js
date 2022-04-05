@@ -22,12 +22,6 @@ const Profile = ({ navigation }) => {
     dispatch(userLogout());
   };
 
-  useEffect(() => {
-    if (!success) {
-      navigation.navigate("Landing");
-    }
-  }, [success]);
-
   return (
     <ParallaxScrollView
       backgroundColor="#FF6D8F"

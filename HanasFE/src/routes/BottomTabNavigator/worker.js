@@ -6,7 +6,7 @@ import { colors } from "@constants";
 import WorkerDashboard from "@screens/dashboard/WorkerDashboard";
 import MyServices from "@screens/services/MyServices";
 import AddEditService from "@screens/services/AddEditService";
-import Profile from "@screens/Profile";
+import Profile from "@screens/profile/ProfileWorker";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";

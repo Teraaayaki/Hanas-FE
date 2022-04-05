@@ -6,7 +6,7 @@ import { colors } from "@constants";
 import ClientDashboard from "@screens/dashboard/ClientDashboard";
 import BrowseServices from "@screens/BrowseServices";
 import SetLocation from "@screens/SetLocation";
-import ProfileClient from "@screens/ProfileClient";
+import ProfileClient from "@screens/profile/ProfileClient";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
