@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import CircularImage from "@components/CircularImage";
-import {
-  FlatList,
-  Fragment,
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  TouchableHighlight,
-} from "react-native";
+import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 
 import styles from "./styles";
@@ -21,49 +12,15 @@ import Overview from "@components/dashboardCards/Overview";
 import Achievements from "@components/dashboardCards/Achievements";
 import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
 
-const SkilledWorkerDashboardFlatlist = ({}) => {
+const SkilledWorkerDashboardFlatlist = ({
+  ServicesDATA,
+  OverviewDATA,
+  AchievementsDATA,
+  ConvenienceFeeDATA,
+}) => {
   const [hideCard, setHideCard] = useState(false);
 
   const renderFlatlist = ({ hideCard }) => {
-    const DATA = [
-      {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "First Item",
-        name: "Hosea Barriga",
-        timeStart: "10:00 AM",
-        timeEnd: "8:30 PM",
-        image: require("@images/service1.png"),
-        address: "Danao City",
-      },
-      {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        title: "Second Item",
-        name: "Soy Lebumfacil",
-        timeStart: "11:00 AM",
-        timeEnd: "1:30 PM",
-        image: require("@images/service2.png"),
-        address: "Bogo City",
-      },
-      {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        title: "Third Item",
-        name: "James Karl Sia",
-        timeStart: "8:00 AM",
-        timeEnd: "1:00 PM",
-        image: require("@images/service3.png"),
-        address: "Talamban",
-      },
-      {
-        id: "58694a0f-3da1-471f-bd96-145571e29d78",
-        title: "Fourth Item",
-        name: "Mary Therese Sun Alegre",
-        timeStart: "7:30 AM",
-        timeEnd: "2:30 PM",
-        image: require("@images/service4.png"),
-        address: "Lapu-lapu City",
-      },
-    ];
-
     const renderCard = ({ item }) => {
       return (
         <PinkSidedCardItem
@@ -190,7 +147,7 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
 
     return (
       <FlatList
-        data={DATA}
+        data={ServicesDATA}
         renderItem={renderCard}
         keyExtractor={(item) => item.id}
         extraData={[hideCard]}
@@ -204,9 +161,9 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
         }
         ListFooterComponent={
           <View style={[styles.flex1, styles.mb5, styles.pb5]}>
-            <Overview />
-            <Achievements />
-            <ConvenienceFee />
+            <Overview OverviewDATA={OverviewDATA} />
+            <Achievements AchievementsDATA={AchievementsDATA} />
+            <ConvenienceFee ConvenienceFeeDATA={ConvenienceFeeDATA} />
           </View>
         }
       />
@@ -215,7 +172,13 @@ const SkilledWorkerDashboardFlatlist = ({}) => {
 
   return (
     <View style={[styles.mt3, styles.w100]}>
-      {renderFlatlist({ hideCard })}
+      {renderFlatlist({
+        hideCard,
+        ServicesDATA,
+        OverviewDATA,
+        AchievementsDATA,
+        ConvenienceFeeDATA,
+      })}
     </View>
   );
 };
