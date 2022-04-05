@@ -56,27 +56,27 @@ const ClientDashboard = ({ navigation }) => {
                 <View style={styles.horizontalContainer}>
                   <CircularImage
                     imageSource={require("@images/service1.png")}
-                    onPress={() => navigation.navigate("ServicesNearYou")}
+                    onPress={() => navigation.navigate("ProfileView")}
                   />
                   <CircularImage
                     imageSource={require("@images/service2.png")}
-                    onPress={() => navigation.navigate("ServicesNearYou")}
+                    onPress={() => navigation.navigate("ProfileView")}
                   />
                   <CircularImage
                     imageSource={require("@images/service3.png")}
-                    onPress={() => navigation.navigate("ServicesNearYou")}
+                    onPress={() => navigation.navigate("ProfileView")}
                   />
                   <CircularImage
                     imageSource={require("@images/service4.png")}
-                    onPress={() => navigation.navigate("ServicesNearYou")}
+                    onPress={() => navigation.navigate("ProfileView")}
                   />
                   <CircularImage
                     imageSource={require("@images/service5.png")}
-                    onPress={() => navigation.navigate("ServicesNearYou")}
+                    onPress={() => navigation.navigate("ProfileView")}
                   />
                   <CircularImage
                     imageSource={require("@images/service6.png")}
-                    onPress={() => navigation.navigate("ServicesNearYou")}
+                    onPress={() => navigation.navigate("ProfileView")}
                   />
                 </View>
               </ScrollView>

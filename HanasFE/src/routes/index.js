@@ -14,6 +14,7 @@ import GetVerified from "@screens/GetVerified";
 import EditAccount from "@screens/EditAccount";
 import EditPassword from "@screens/EditPassword";
 import Chatroom from "@screens/messages/Chatroom";
+import ProfileView from "@screens/profile/ProfileView";
 
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
@@ -55,6 +56,7 @@ export default HanasStack = () => {
           />
           <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
           <Stack.Screen name="SetLocation" component={SetLocation} />
+          <Stack.Screen name="ProfileView" component={ProfileView} />
         </Stack.Group>
       ) : isWorker ? (
         <Stack.Group>
