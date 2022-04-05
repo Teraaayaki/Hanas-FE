@@ -38,7 +38,6 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 
     console.log("Storing Token");
     setItem("token", data.token);
-    setItem("user_id", data.user_id);
     setItem("is_worker", JSON.stringify(data.is_worker));
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
@@ -60,7 +59,6 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 
 export const userLogout = () => async (dispatch) => {
   console.log("Removing items");
-  removeItem("user_id");
   removeItem("token");
   removeItem("is_worker");
   console.log("Succesfully removed items");

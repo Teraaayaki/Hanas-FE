@@ -134,7 +134,6 @@ export const registerUser = (user, navigation) => async (dispatch) => {
 
     if (data) {
       setItem("token", data.token);
-      setItem("user_id", data.user_id);
       setItem("is_worker", JSON.stringify(data.is_worker));
 
       dispatch({
