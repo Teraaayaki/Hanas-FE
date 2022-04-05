@@ -100,7 +100,7 @@ const ProfileClient = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("MyServices")}
+            onPress={() => navigation.navigate("BookSkilledWorker")}
           >
             <Icon type="material" name="bookmark" color={colors.secondary} />
             <View style={styles.adjustedButton}>
