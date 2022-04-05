@@ -9,14 +9,12 @@ import styles from "./style";
 
 const BookSkilledWorker = ({ navigation }) => {
   const DATA = {
-    id: "1",
-    date: "date1",
-    serviceType: "Electrical",
-    clientName: "Soy Lebumfacil",
-    address: "Bogo City, Cebu",
-    timeStart: "11:00 AM",
-    timeEnd: "10:00 PM",
-    bookStatus: "pending",
+    serviceType: "Electrical Service",
+    workerName: "Mary Therese Sun S. Alegre",
+    workerAddress: "Minglanilla, Cebu",
+    personalName: "Hosea M. Barriga",
+    personalAddress: "Danao, Cebu",
+    hourlyRate: "200.00",
   };
 
   const renderHeader = () => {
@@ -48,7 +46,7 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.bold]}>Type of Service:</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.textRight]}>Electrical Service</Text>
+            <Text style={[styles.textRight]}>{DATA.serviceType}</Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -56,9 +54,7 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.p]}>Skilled Worker Name</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>
-              Mary Therese Sun S. Alegre
-            </Text>
+            <Text style={[styles.p, styles.textRight]}>{DATA.workerName}</Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -66,7 +62,9 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.p]}>Address</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>Minglanilla, Cebu</Text>
+            <Text style={[styles.p, styles.textRight]}>
+              {DATA.workerAddress}
+            </Text>
           </View>
         </View>
       </View>
@@ -95,7 +93,9 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.p]}>Name</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>Hosea M. Barriga</Text>
+            <Text style={[styles.p, styles.textRight]}>
+              {DATA.personalName}
+            </Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -103,7 +103,9 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.p]}>Address</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>Danao, Cebu</Text>
+            <Text style={[styles.p, styles.textRight]}>
+              {DATA.personalAddress}
+            </Text>
           </View>
         </View>
       </View>
@@ -123,7 +125,7 @@ const BookSkilledWorker = ({ navigation }) => {
         >
           <Text style={[styles.bold, styles.h3]}>Hourly Rate:</Text>
           <Text style={[styles.h3, styles.textRight, styles.bold]}>
-            PHP 200.00
+            PHP {DATA.hourlyRate}
           </Text>
         </View>
       </View>
