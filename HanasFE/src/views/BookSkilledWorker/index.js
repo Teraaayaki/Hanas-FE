@@ -178,7 +178,10 @@ const BookSkilledWorker = ({ navigation }) => {
         </View>
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
-            <Button title="Submit Request" />
+            <Button
+              title="Submit Request"
+              onPress={() => navigation.navigate("Home")}
+            />
           </View>
         </View>
       </ScrollView>
