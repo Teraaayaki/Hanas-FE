@@ -13,6 +13,7 @@ import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
 import Schedule from "@screens/Schedule";
+import BookingRequests from "@screens/BookingRequests";
 
 const Tab = createBottomTabNavigator();
 
@@ -120,6 +121,14 @@ const Tabs = () => {
 
       {/*ari i add ang mga screens nga mag require ani nga navigator */}
 
+      <Tab.Screen
+        name="BookingRequests"
+        component={BookingRequests}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
       <Tab.Screen
         name="MyServices"
         component={MyServices}
