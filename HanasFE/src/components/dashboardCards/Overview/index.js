@@ -6,24 +6,20 @@ import PinkSidedCard from "@components/card/PinkSidedCard";
 import TextToggle from "@components/TextToggle";
 import { Icon } from "react-native-elements";
 
-const Overview = () => {
-  const renderContent = () => {
-    const [toggle, setToggle] = useState({
-      weekly: true,
-      monthly: false,
-      yearly: false,
-    });
+const Overview = ({ OverviewDATA }) => {
+  const renderContent = ({ OverviewDATA }) => {
+    const [toggle, setToggle] = useState(0);
 
     const handleWeeklyToggle = () => {
-      return setToggle({ weekly: true, monthly: false, yearly: false });
+      return setToggle(0);
     };
 
     const handleMonthlyToggle = () => {
-      return setToggle({ weekly: false, monthly: true, yearly: false });
+      return setToggle(1);
     };
 
     const handleYearlyToggle = () => {
-      return setToggle({ weekly: false, monthly: false, yearly: true });
+      return setToggle(2);
     };
 
     return (
@@ -49,17 +45,17 @@ const Overview = () => {
         >
           <TextToggle
             title="Weekly"
-            active={toggle.weekly}
+            active={toggle == 0 ? true : false}
             onPress={handleWeeklyToggle}
           />
           <TextToggle
             title="Monthly"
-            active={toggle.monthly}
+            active={toggle == 1 ? true : false}
             onPress={handleMonthlyToggle}
           />
           <TextToggle
             title="Yearly"
-            active={toggle.yearly}
+            active={toggle == 2 ? true : false}
             onPress={handleYearlyToggle}
           />
         </View>
@@ -74,7 +70,9 @@ const Overview = () => {
             ]}
           >
             <Text style={[styles.h2, styles.textMuted50]}>Average Earned:</Text>
-            <Text style={[styles.h3]}>PHP 499.75</Text>
+            <Text style={[styles.h3]}>
+              PHP {OverviewDATA[toggle].AverageEarned}
+            </Text>
           </View>
           <View
             style={[
@@ -85,7 +83,9 @@ const Overview = () => {
             ]}
           >
             <Text style={[styles.h2, styles.textMuted50]}>Highest Single:</Text>
-            <Text style={[styles.h3]}>PHP 800.00</Text>
+            <Text style={[styles.h3]}>
+              PHP {OverviewDATA[toggle].HighestSingle}
+            </Text>
           </View>
         </View>
       </View>
@@ -95,7 +95,7 @@ const Overview = () => {
     <PinkSidedCard
       title={"Overview"}
       hideCardBtn={true}
-      content={renderContent()}
+      content={renderContent({ OverviewDATA })}
     />
   );
 };

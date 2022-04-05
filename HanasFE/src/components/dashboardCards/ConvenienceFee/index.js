@@ -7,9 +7,9 @@ import { Icon } from "react-native-elements";
 import { colors } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const ConvenienceFee = () => {
+const ConvenienceFee = ({ ConvenienceFeeDATA }) => {
   const renderContent = () => {
-    const [error, setError] = useState(true);
+    const [error, setError] = useState(false);
     return (
       <View style={[styles.flex1]}>
         <View
@@ -24,7 +24,7 @@ const ConvenienceFee = () => {
             Remaining Balance:{" "}
           </Text>
           <Text style={[styles.mt2, styles.textRight, { fontSize: 22 }]}>
-            PHP 345.00
+            PHP {ConvenienceFeeDATA.remainingBalance}
           </Text>
         </View>
         <View style={[]}>
@@ -64,7 +64,9 @@ const ConvenienceFee = () => {
                 size={22}
                 style={[styles.mb5, styles.pb5]}
               />
-              <Text style={[styles.ml3, styles.h3]}>7/12/22</Text>
+              <Text style={[styles.ml3, styles.h3]}>
+                {ConvenienceFeeDATA.dueDate}
+              </Text>
             </View>
             <View
               style={[
@@ -78,7 +80,7 @@ const ConvenienceFee = () => {
               <Text
                 style={[styles.ml3, styles.pb1, styles.h3, styles.textMuted50]}
               >
-                Brgy. Lourdes Bogo City, Cebu
+                {ConvenienceFeeDATA.address}
               </Text>
             </View>
           </View>
