@@ -3,23 +3,25 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
+
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
+import styles from "./style";
 import CircularImage from "@components/CircularImage";
 import { colors, fontSize, margin, padding } from "@constants";
-import styles from "./style";
-import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "@redux/actions/authActions";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userDetails);
 
   const handleSubmit = () => {
     console.log("logging out");
     dispatch(userLogout());
   };
-
+  console.log(user);
   useEffect(() => {
     if (!success) {
       console.log("Navigating to landing page");

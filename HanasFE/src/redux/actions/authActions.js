@@ -45,7 +45,7 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
     });
 
     if (data.is_worker) {
-      setItem("is_verified", data.is_verified);
+      setItem("is_verified", JSON.stringify(data.is_verified));
       navigation.navigate("Dashboard");
     } else {
       navigation.navigate("Dashboard");

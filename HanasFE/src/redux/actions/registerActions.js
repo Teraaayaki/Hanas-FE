@@ -135,7 +135,6 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     if (data) {
       setItem("token", data.token);
       setItem("is_worker", JSON.stringify(data.is_worker));
-
       dispatch({
         type: UserLoginActions.USER_LOGIN_SUCCESS,
         payload: true,
@@ -146,7 +145,8 @@ export const registerUser = (user, navigation) => async (dispatch) => {
 
       console.log("Navigate to another page");
       if (data.is_worker) {
-        navigation.navigate("GetVerified");
+        setItem("is_verified", JSON.stringify(false));
+        navigation.navigate("Dashboard");
       } else {
         navigation.navigate("Dashboard");
       }
