@@ -144,7 +144,7 @@ const ProfileView = ({ navigation }) => {
                 <View style={styles.hr}></View>
               </View>
               <View style={styles.flexedEvenly}>
-                <TouchableOpacity style={styles.whiteButton}>
+                <TouchableOpacity style={styles.whiteButton} onPress={() => navigation.navigate("Favorites")}>
                   <Text style={styles.buttonText}>ADD TO FAVORITES</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

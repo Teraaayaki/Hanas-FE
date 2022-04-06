@@ -17,6 +17,7 @@ import Schedule from "@screens/Schedule";
 import ServicesNearYou from "@screens/ServicesNearYou";
 import BookSkilledWorker from "@screens/BookSkilledWorker";
 import ProfileView from "@screens/profile/ProfileView";
+import Favorites from "@screens/Favorites";
 
 const Tab = createBottomTabNavigator();
 
@@ -191,6 +192,14 @@ const Tabs = () => {
       <Tab.Screen
         name="ProfileView"
         component={ProfileView}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
