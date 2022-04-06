@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
@@ -9,20 +9,17 @@ import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
 
-
-
-
 const BookSkilledWorker = ({ navigation }) => {
   const [date_start, setStartDate] = useState(new Date());
   const [date_end, setEndDate] = useState(new Date());
   const [dateStartModal, setStartDateModal] = useState(false);
   const [dateEndModal, setEndDateModal] = useState(false);
 
-  const changeStartDate = (e,dob) => {
+  const changeStartDate = (e, dob) => {
     setStartDateModal(false);
     dob && setStartDate(dob);
   };
-  const changeEndDate = (e,dob) => {
+  const changeEndDate = (e, dob) => {
     setEndDateModal(false);
     dob && setEndDate(dob);
   };
@@ -131,8 +128,6 @@ const BookSkilledWorker = ({ navigation }) => {
   };
 
   const renderHourlyRateInfoBox = () => {
-    
-
     return (
       <View style={[styles.flex1, styles.px5, styles.pb5, styles.pt3]}>
         <View
@@ -194,18 +189,18 @@ const BookSkilledWorker = ({ navigation }) => {
               iconType="font-awesome"
               iconColor={colors.secondary}
               iconSize={24}
+              editable={false}
               value={dayjs(date_start).format("MMMM D, YYYY hh:mm A")}
               placeholder="Set date and time"
-              
             />
           </TouchableOpacity>
           {dateStartModal && (
-              <DateTimePicker
-                onChange={changeStartDate}
-                value={date_start}
-                minimumDate={new Date(1950, 0, 1)}
-              />
-            )}
+            <DateTimePicker
+              onChange={changeStartDate}
+              value={date_start}
+              minimumDate={new Date(1950, 0, 1)}
+            />
+          )}
         </View>
         <View
           style={[
@@ -227,18 +222,18 @@ const BookSkilledWorker = ({ navigation }) => {
               iconType="font-awesome"
               iconColor={colors.secondary}
               iconSize={24}
+              editable={false}
               value={dayjs(date_end).format("MMMM D, YYYY hh:mm A")}
               placeholder="Set date and time"
-              
             />
           </TouchableOpacity>
           {dateEndModal && (
-              <DateTimePicker
-                onChange={changeEndDate}
-                value={date_end}
-                minimumDate={new Date(1950, 0, 1)}
-              />
-            )}
+            <DateTimePicker
+              onChange={changeEndDate}
+              value={date_end}
+              minimumDate={new Date(1950, 0, 1)}
+            />
+          )}
         </View>
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
