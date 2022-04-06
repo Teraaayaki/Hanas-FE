@@ -1,8 +1,16 @@
-import { UserLoginActions, RegisterActions, UserDetailActions } from "./types";
 import axios from "@axios";
 import { getItem, setItem, removeItem } from "@helpers/asyncStorage";
+import {
+  UserLoginActions,
+  RegisterActions,
+  UserDetailActions,
+  ServiceActions,
+} from "./types";
+import { servicesInitialValues } from "../reducers/servicesReducer";
+import { userDetailsInitialValues } from "../reducers/userDetailsReducer";
 
 export const userLogin = (navigation, email, password) => async (dispatch) => {
+  // removeItem("token");
   let token = await getItem("token");
   let isWorker = JSON.parse(await getItem("is_worker"));
   dispatch({ type: UserLoginActions.USER_LOADING, payload: true });
@@ -91,17 +99,6 @@ export const userLogout = () => async (dispatch) => {
   console.log("Succesfully removed items");
   console.log("Dispatching Logout");
 
-  const resetUserDetailValues = {
-    address: "",
-    birthdate: new Date(0, 0, 0),
-    email: "",
-    first_name: "",
-    last_name: "",
-    middle_name: "",
-    mobile_no: 0,
-    sex: "",
-  };
-
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
   });
@@ -110,7 +107,11 @@ export const userLogout = () => async (dispatch) => {
   });
   dispatch({
     type: UserDetailActions.USER_DETAILS_LOGOUT,
-    payload: resetUserDetailValues,
+    payload: userDetailsInitialValues,
+  });
+  dispatch({
+    type: ServiceActions.SERVICE_LOGOUT,
+    payload: servicesInitialValues,
   });
   console.log("Dispatched Logout");
 

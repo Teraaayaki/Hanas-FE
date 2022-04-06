@@ -14,7 +14,6 @@ import { userLogout } from "@redux/actions/authActions";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { success } = useSelector((state) => state.userLogin);
   const { user } = useSelector((state) => state.userDetails);
 
   const handleSubmit = () => {
