@@ -15,6 +15,7 @@ import Notification from "@screens/Notification";
 import BookingSummary from "@screens/transaction/BookingSummary";
 import Schedule from "@screens/Schedule";
 import ServicesNearYou from "@screens/ServicesNearYou";
+import BookSkilledWorker from "@screens/BookSkilledWorker";
 import ProfileView from "@screens/profile/ProfileView";
 
 const Tab = createBottomTabNavigator();
@@ -174,6 +175,14 @@ const Tabs = () => {
       <Tab.Screen
         name="BookingSummary"
         component={BookingSummary}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookSkilledWorker"
+        component={BookSkilledWorker}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,

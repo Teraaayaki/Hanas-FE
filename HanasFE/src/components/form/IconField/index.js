@@ -9,6 +9,7 @@ export default ({
   iconName,
   iconType,
   iconSize,
+  iconColor,
   keyboardType,
   placeholder,
   value,
@@ -33,6 +34,7 @@ export default ({
           type={iconType}
           style={styles.icon}
           size={iconSize}
+          color={iconColor}
         />
       </View>
       {mobileNum && (
