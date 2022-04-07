@@ -35,7 +35,7 @@ export const getMyServices = () => async (dispatch) => {
   });
 
   try {
-    let { data } = await axios.get("/api/worker/", {
+    let { data } = await axios.get("/api/worker/get-my-services", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

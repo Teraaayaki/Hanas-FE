@@ -5,7 +5,6 @@ import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import dayjs from "dayjs";
 
 import axios from "@helpers/axios";
 import { colors } from "@constants";
@@ -18,11 +17,6 @@ import { getItem } from "@helpers/asyncStorage";
 import { addServiceWorker } from "@redux/actions/workerServiceActions";
 import Loading from "@components/Loading";
 
-var utc = require("dayjs/plugin/utc");
-var timezone = require("dayjs/plugin/timezone");
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
 // ======================================
 // HOW TO USE GUIDE:
 // ======================================
@@ -31,17 +25,6 @@ dayjs.extend(timezone);
 // Edit Service: modType = false
 
 // { modTypeParam } sets the value of {modType} betweeen true and false.
-const options = {
-  title: "Select Image",
-  type: "library",
-  options: {
-    maxHeight: 1000,
-    minHeight: 1500,
-    mediaType: "photo",
-    selectionLimit: 0,
-    includeBase64: false,
-  },
-};
 
 const AddEditService = ({ route, navigation }) => {
   const { modType, editName, editRatePerHour, editDescription } = route.params;
