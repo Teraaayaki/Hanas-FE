@@ -5,7 +5,6 @@ import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import { launchImageLibrary } from "react-native-image-picker";
 
 import axios from "@helpers/axios";
 import { colors } from "@constants";
@@ -14,7 +13,7 @@ import Button from "@components/Button";
 import AttachImage from "@components/AttachImage";
 import DropdownList from "@components/modal/DropdownList";
 import { getServiceType } from "@redux/actions/serviceActions";
-
+import { getItem } from "@helpers/asyncStorage";
 // ======================================
 // HOW TO USE GUIDE:
 // ======================================
@@ -39,13 +38,22 @@ const AddEditService = ({ route, navigation }) => {
   const { modType, editName, editRatePerHour, editDescription } = route.params;
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingCertificate, setUploadingCertificate] = useState(false);
+
   const [service, setService] = useState("Electrical");
-  const [ratePerHourValue, setRatePerHourValue] = useState(0);
+  const [ratePerHourValue, setRatePerHourValue] = useState("");
   const [description, setDescription] = useState("");
+  const [sampleWorkImg, setSampleWorkImg] = useState([]);
+  const [sampleWorkImgUrl, setSampleWorkImgUrl] = useState([]);
+  const [certificateImg, setCertificateImg] = useState([]);
+  const [certificateImgUrl, setCertificateImgUrl] = useState([]);
 
   const dispatch = useDispatch();
   const { error, serviceType } = useSelector((state) => state.services);
+
+  // Upload sample work image
   const pickImage = async () => {
+    let token = await getItem("token");
     setUploadingImage(true);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -75,18 +83,130 @@ const AddEditService = ({ route, navigation }) => {
             body: formData,
             headers: {
               "content-type": "multipart/form-data",
+              authorization: `Bearer ${token}`,
             },
           }
         );
         if (response.ok) {
           let { publicUrl } = await response.json();
           console.log(publicUrl);
+          setSampleWorkImgUrl([...sampleWorkImgUrl, publicUrl]);
+          setSampleWorkImg([...sampleWorkImg, filename]);
           setUploadingImage(false);
+        } else {
         }
       }
     } else {
       setUploadingImage(false);
     }
+  };
+
+  // Remove sample work image
+  const handleRemoveSampleWorkImg = async (imgName) => {
+    console.log("deleting " + imgName);
+    let token = await getItem("token");
+    setUploadingImage(true);
+    try {
+      let { data } = await axios.post(
+        "/api/worker/delete-image-service",
+        { fileName: imgName },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (data) {
+        setUploadingImage(false);
+        setSampleWorkImg(sampleWorkImg.filter((img) => img !== imgName));
+        setSampleWorkImgUrl(sampleWorkImgUrl.filter((img) => img !== imgName));
+      }
+    } catch (err) {
+      console.log(err);
+      setUploadingImage(false);
+    }
+  };
+
+  // Upload certificate
+  const pickCertificate = async () => {
+    let token = await getItem("token");
+    setUploadingCertificate(true);
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.5,
+    });
+
+    if (!result.cancelled) {
+      let localUri = result.uri;
+      let filename = localUri.split("/").pop();
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+
+      const formData = new FormData();
+      formData.append("certificate", {
+        uri: result.uri,
+        type: type,
+        name: filename,
+      });
+      if (result) {
+        console.log("uploading work certificate");
+        let response = await fetch(
+          `${process.env.HANAS_ENDPOINT}api/worker/upload-image-certificate`,
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              "content-type": "multipart/form-data",
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          let { publicUrl } = await response.json();
+          console.log(publicUrl);
+          setCertificateImg([...certificateImg, filename]);
+          setCertificateImgUrl([...certificateImgUrl, publicUrl]);
+          setUploadingCertificate(false);
+        } else {
+        }
+      }
+    } else {
+      setUploadingCertificate(false);
+    }
+  };
+
+  // Remove Certificate
+  const handleRemoveCertificate = async (imgName) => {
+    console.log("deleting " + imgName);
+    let token = await getItem("token");
+    setUploadingCertificate(true);
+    try {
+      let { data } = await axios.post(
+        "/api/worker/delete-image-certificate",
+        { fileName: imgName },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (data) {
+        setUploadingCertificate(false);
+        setCertificateImg(certificateImg.filter((img) => img !== imgName));
+        setCertificateImgUrl(certificateImg.filter((img) => img !== imgName));
+      }
+    } catch (err) {
+      console.log(err);
+      setUploadingCertificate(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    console.log(service, description, ratePerHourValue);
+    console.log(sampleWorkImgUrl);
+    console.log(certificateImgUrl);
   };
 
   useEffect(() => {
@@ -103,7 +223,8 @@ const AddEditService = ({ route, navigation }) => {
 
   useEffect(() => {
     console.log("Error (Add/Edit Service): ", error);
-    if (!serviceType) {
+
+    if (serviceType.length === 0) {
       dispatch(getServiceType());
     }
   }, [serviceType]);
@@ -180,7 +301,8 @@ const AddEditService = ({ route, navigation }) => {
             ]}
             keyboardType="number-pad"
             placeholder={"2000.00"}
-            defaultValue={ratePerHourValue.toString() + ".00"}
+            value={ratePerHourValue}
+            onChangeText={(e) => setRatePerHourValue(e)}
           />
           <Text style={[styles.hp, styles.mx3, styles.textCenter]}>
             Philippine Peso (PHP)
@@ -199,24 +321,32 @@ const AddEditService = ({ route, navigation }) => {
                 styles.rounded,
               ]}
             >
-              Add or Drop Files Here
+              Click Here to Add Photos
             </Text>
           </TouchableOpacity>
         </View>
+
         {uploadingImage ? (
           <ActivityIndicator size="large" color={colors.secondary} />
         ) : null}
-        {/* Uploaded Sample Works List --- Start */}
-        <AttachImage title={"102621_electricalimage1"} />
-        <AttachImage title={"102621_electricalimage2"} />
-        <AttachImage title={"102621_electricalimage3"} />
-        <AttachImage title={"102621_electricalimage4"} />
-        <AttachImage title={"102621_electricalimage5"} />
-        <AttachImage title={"102621_electricalimage6"} />
-        {/* Uploaded Sample Works List --- End */}
+        {sampleWorkImg.length === 0 ? (
+          <Text style={[styles.textCenter, styles.bold, styles.textSecondary]}>
+            No images uploaded...
+          </Text>
+        ) : (
+          sampleWorkImg.map((imgName) => {
+            return (
+              <AttachImage
+                title={imgName}
+                key={imgName}
+                onRemove={() => handleRemoveSampleWorkImg(imgName)}
+              />
+            );
+          })
+        )}
 
         <Text style={[styles.h3, styles.bold, styles.mt5]}>Certificates</Text>
-        <TouchableOpacity style={[styles.my2]}>
+        <TouchableOpacity style={[styles.my2]} onPress={pickCertificate}>
           <Text
             style={[
               styles.bgWhite,
@@ -227,20 +357,32 @@ const AddEditService = ({ route, navigation }) => {
               styles.rounded,
             ]}
           >
-            Add or Drop Files Here
+            Click Here to Add Photos
           </Text>
         </TouchableOpacity>
-        {/* Uploaded Sample Works List --- Start */}
-        <AttachImage title={"102621_electricalimage1"} />
-        <AttachImage title={"102621_electricalimage2"} />
-        <AttachImage title={"102621_electricalimage3"} />
-        {/* Uploaded Sample Works List --- End */}
+
+        {uploadingCertificate ? (
+          <ActivityIndicator size="large" color={colors.secondary} />
+        ) : null}
+        {certificateImg.length === 0 ? (
+          <Text style={[styles.textCenter, styles.bold, styles.textSecondary]}>
+            No images uploaded...
+          </Text>
+        ) : (
+          certificateImg.map((imgName) => {
+            return (
+              <AttachImage
+                title={imgName}
+                key={imgName}
+                onRemove={() => handleRemoveCertificate(imgName)}
+              />
+            );
+          })
+        )}
+
         <View style={[styles.my5, styles.pt5]}></View>
         <View style={[styles.mx5, styles.px5]}>
-          <Button
-            title={"Submit"}
-            onPress={() => navigation.navigate("MyServices")}
-          />
+          <Button title={"Submit"} onPress={handleSubmit} />
         </View>
         <View style={[styles.my5]}></View>
       </View>
