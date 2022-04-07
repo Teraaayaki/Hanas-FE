@@ -15,6 +15,8 @@ import AttachImage from "@components/AttachImage";
 import DropdownList from "@components/modal/DropdownList";
 import { getServiceType } from "@redux/actions/workerServiceActions";
 import { getItem } from "@helpers/asyncStorage";
+import { addServiceWorker } from "@redux/actions/workerServiceActions";
+import Loading from "@components/Loading";
 
 var utc = require("dayjs/plugin/utc");
 var timezone = require("dayjs/plugin/timezone");
@@ -46,6 +48,7 @@ const AddEditService = ({ route, navigation }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingCertificate, setUploadingCertificate] = useState(false);
+  const [errMessage, setErrMessage] = useState(false);
 
   const [service, setService] = useState("Electrical");
   const [ratePerHourValue, setRatePerHourValue] = useState("");
@@ -56,7 +59,9 @@ const AddEditService = ({ route, navigation }) => {
   const [certificateImgUrl, setCertificateImgUrl] = useState([]);
 
   const dispatch = useDispatch();
-  const { error, serviceType } = useSelector((state) => state.workerServices);
+  const { error, loading, serviceType } = useSelector(
+    (state) => state.workerServices
+  );
 
   // Upload sample work image
   const pickImage = async () => {
@@ -202,7 +207,9 @@ const AddEditService = ({ route, navigation }) => {
       if (data) {
         setUploadingCertificate(false);
         setCertificateImg(certificateImg.filter((img) => img !== imgName));
-        setCertificateImgUrl(certificateImg.filter((img) => img !== imgName));
+        setCertificateImgUrl(
+          certificateImgUrl.filter((img) => img !== imgName)
+        );
       }
     } catch (err) {
       console.log(err);
@@ -217,14 +224,23 @@ const AddEditService = ({ route, navigation }) => {
     // let date = new Date();
     // let localDate = date.toLocaleString();
     // console.log(dayjs(localDate).format());
-    const serviceDetails = {
-      service,
-      description,
-      ratePerHourValue,
-      sampleWorkImgUrl,
-      certificateImgUrl,
-      lastUpdate: new Date(),
-    };
+    if (description !== "" || ratePerHourValue !== "") {
+      console.log("Dispatched Action in Addservice");
+      const serviceDetails = {
+        service,
+        description,
+        ratePerHourValue: parseInt(ratePerHourValue),
+        sampleWorkImgUrl,
+        certificateImgUrl,
+        lastUpdated: new Date(),
+      };
+      dispatch(addServiceWorker(serviceDetails, navigation));
+    } else {
+      setErrMessage(true);
+      setTimeout(() => {
+        setErrMessage(false);
+      }, 3000);
+    }
   };
 
   useEffect(() => {
@@ -249,161 +265,204 @@ const AddEditService = ({ route, navigation }) => {
 
   return (
     <ScrollView style={[styles.body]}>
-      <DropdownList
-        title={"Services List"}
-        modalVisible={dropdownVisible}
-        setModalVisible={setDropdownVisible}
-        services={serviceType}
-        setService={setService}
-      />
-      <Header title={modType ? "Add Service" : "Edit Service"} />
-      <View
-        style={[styles.flex1, styles.mx5, styles.my5, styles.pb5, styles.px4]}
-      >
-        <View style={[styles.flex1, styles.flexRow]}>
-          <Text style={[styles.h2, styles.my2, styles.w50]}>
-            Choose a Service
-          </Text>
-          <View style={[styles.w50, styles.pl4]}>
-            <TouchableOpacity onPress={() => setDropdownVisible(true)}>
-              <View
-                style={[
-                  styles.bgWhite,
-                  styles.rounded,
-                  styles.border,
-                  styles.borderMuted50,
-                  styles.px5,
-                  styles.justifyContentCenter,
-                  styles.alignCenter,
-                  styles.h100,
-                  styles.flexRow,
-                ]}
-              >
-                <Text style={[styles.flex1]}>
-                  {modType ? service : editName}
-                </Text>
-                <Icon
-                  name="chevron-down-outline"
-                  type="ionicon"
-                  color={"#BBB"}
-                  size={30}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text style={[styles.h4, styles.w100, styles.textJustify, styles.mt5]}>
-          Help your clients get to know more about what you do by providing a
-          description on your expertise and the service you offer.
-        </Text>
-        <Text style={[styles.h3, styles.bold, styles.mt5]}>Description</Text>
-        <TextInput
-          style={[styles.bgWhite, styles.mt2, styles.px4, styles.py2]}
-          multiline={true}
-          numberOfLines={3}
-          placeholder={"Say something..."}
-          value={description}
-          onChangeText={(e) => setDescription(e)}
-        />
-        <Text style={[styles.h3, styles.bold, styles.mt5]}>Rate per Hour</Text>
-        <View
-          style={[styles.flex1, styles.flexRow, styles.my3, styles.alignCenter]}
-        >
-          <TextInput
-            style={[
-              styles.bgWhite,
-              styles.px4,
-              styles.py2,
-              styles.w33,
-              styles.textRight,
-            ]}
-            keyboardType="number-pad"
-            placeholder={"2000.00"}
-            value={ratePerHourValue}
-            onChangeText={(e) => setRatePerHourValue(e)}
+      {loading ? (
+        <Loading title="Adding New Service..." />
+      ) : (
+        <>
+          <DropdownList
+            title={"Services List"}
+            modalVisible={dropdownVisible}
+            setModalVisible={setDropdownVisible}
+            services={serviceType}
+            setService={setService}
           />
-          <Text style={[styles.hp, styles.mx3, styles.textCenter]}>
-            Philippine Peso (PHP)
-          </Text>
-        </View>
-        <View>
-          <Text style={[styles.h3, styles.bold, styles.mt5]}>Sample Works</Text>
-          <TouchableOpacity style={[styles.my2]} onPress={pickImage}>
-            <Text
-              style={[
-                styles.bgWhite,
-                styles.h3,
-                styles.my2,
-                styles.p5,
-                styles.textCenter,
-                styles.rounded,
-              ]}
-            >
-              Click Here to Add Photos
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {uploadingImage ? (
-          <ActivityIndicator size="large" color={colors.secondary} />
-        ) : null}
-        {sampleWorkImg.length === 0 ? (
-          <Text style={[styles.textCenter, styles.bold, styles.textSecondary]}>
-            No images uploaded...
-          </Text>
-        ) : (
-          sampleWorkImg.map((imgName) => {
-            return (
-              <AttachImage
-                title={imgName}
-                key={imgName}
-                onRemove={() => handleRemoveSampleWorkImg(imgName)}
-              />
-            );
-          })
-        )}
-
-        <Text style={[styles.h3, styles.bold, styles.mt5]}>Certificates</Text>
-        <TouchableOpacity style={[styles.my2]} onPress={pickCertificate}>
-          <Text
+          <Header title={modType ? "Add Service" : "Edit Service"} />
+          <View
             style={[
-              styles.bgWhite,
-              styles.h3,
-              styles.my2,
-              styles.p5,
-              styles.textCenter,
-              styles.rounded,
+              styles.flex1,
+              styles.mx5,
+              styles.my5,
+              styles.pb5,
+              styles.px4,
             ]}
           >
-            Click Here to Add Photos
-          </Text>
-        </TouchableOpacity>
-
-        {uploadingCertificate ? (
-          <ActivityIndicator size="large" color={colors.secondary} />
-        ) : null}
-        {certificateImg.length === 0 ? (
-          <Text style={[styles.textCenter, styles.bold, styles.textSecondary]}>
-            No images uploaded...
-          </Text>
-        ) : (
-          certificateImg.map((imgName) => {
-            return (
-              <AttachImage
-                title={imgName}
-                key={imgName}
-                onRemove={() => handleRemoveCertificate(imgName)}
+            <View style={[styles.flex1, styles.flexRow]}>
+              <Text style={[styles.h2, styles.my2, styles.w50]}>
+                Choose a Service
+              </Text>
+              <View style={[styles.w50, styles.pl4]}>
+                <TouchableOpacity onPress={() => setDropdownVisible(true)}>
+                  <View
+                    style={[
+                      styles.bgWhite,
+                      styles.rounded,
+                      styles.border,
+                      styles.borderMuted50,
+                      styles.px5,
+                      styles.justifyContentCenter,
+                      styles.alignCenter,
+                      styles.h100,
+                      styles.flexRow,
+                    ]}
+                  >
+                    <Text style={[styles.flex1]}>
+                      {modType ? service : editName}
+                    </Text>
+                    <Icon
+                      name="chevron-down-outline"
+                      type="ionicon"
+                      color={"#BBB"}
+                      size={30}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <Text
+              style={[styles.h4, styles.w100, styles.textJustify, styles.mt5]}
+            >
+              Help your clients get to know more about what you do by providing
+              a description on your expertise and the service you offer.
+            </Text>
+            <Text style={[styles.h3, styles.bold, styles.mt5]}>
+              Description
+            </Text>
+            <TextInput
+              style={[styles.bgWhite, styles.mt2, styles.px4, styles.py2]}
+              multiline={true}
+              numberOfLines={3}
+              placeholder={"Say something..."}
+              value={description}
+              onChangeText={(e) => setDescription(e)}
+            />
+            <Text style={[styles.h3, styles.bold, styles.mt5]}>
+              Rate per Hour
+            </Text>
+            <View
+              style={[
+                styles.flex1,
+                styles.flexRow,
+                styles.my3,
+                styles.alignCenter,
+              ]}
+            >
+              <TextInput
+                style={[
+                  styles.bgWhite,
+                  styles.px4,
+                  styles.py2,
+                  styles.w33,
+                  styles.textRight,
+                ]}
+                keyboardType="number-pad"
+                placeholder={"2000.00"}
+                value={ratePerHourValue}
+                onChangeText={(e) => setRatePerHourValue(e)}
               />
-            );
-          })
-        )}
+              <Text style={[styles.hp, styles.mx3, styles.textCenter]}>
+                Philippine Peso (PHP)
+              </Text>
+            </View>
+            <View>
+              <Text style={[styles.h3, styles.bold, styles.mt5]}>
+                Sample Works
+              </Text>
+              {!uploadingImage && (
+                <TouchableOpacity style={[styles.my2]} onPress={pickImage}>
+                  <Text
+                    style={[
+                      styles.bgWhite,
+                      styles.h3,
+                      styles.my2,
+                      styles.p5,
+                      styles.textCenter,
+                      styles.rounded,
+                    ]}
+                  >
+                    Click Here to Add Photos
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
 
-        <View style={[styles.my5, styles.pt5]}></View>
-        <View style={[styles.mx5, styles.px5]}>
-          <Button title={"Submit"} onPress={handleSubmit} />
-        </View>
-        <View style={[styles.my5]}></View>
-      </View>
+            {uploadingImage ? (
+              <ActivityIndicator size="large" color={colors.secondary} />
+            ) : null}
+            {sampleWorkImg.length === 0 ? (
+              <Text
+                style={[styles.textCenter, styles.bold, styles.textSecondary]}
+              >
+                No images uploaded...
+              </Text>
+            ) : (
+              sampleWorkImg.map((imgName) => {
+                return (
+                  <AttachImage
+                    title={imgName}
+                    key={imgName}
+                    onRemove={() => handleRemoveSampleWorkImg(imgName)}
+                  />
+                );
+              })
+            )}
+
+            <Text style={[styles.h3, styles.bold, styles.mt5]}>
+              Certificates
+            </Text>
+            {!uploadingCertificate && (
+              <TouchableOpacity style={[styles.my2]} onPress={pickCertificate}>
+                <Text
+                  style={[
+                    styles.bgWhite,
+                    styles.h3,
+                    styles.my2,
+                    styles.p5,
+                    styles.textCenter,
+                    styles.rounded,
+                  ]}
+                >
+                  Click Here to Add Photos
+                </Text>
+              </TouchableOpacity>
+            )}
+
+            {uploadingCertificate ? (
+              <ActivityIndicator size="large" color={colors.secondary} />
+            ) : null}
+            {certificateImg.length === 0 ? (
+              <Text
+                style={[styles.textCenter, styles.bold, styles.textSecondary]}
+              >
+                No images uploaded...
+              </Text>
+            ) : (
+              certificateImg.map((imgName) => {
+                return (
+                  <AttachImage
+                    title={imgName}
+                    key={imgName}
+                    onRemove={() => handleRemoveCertificate(imgName)}
+                  />
+                );
+              })
+            )}
+
+            <View style={[styles.my3, styles.pt5]}>
+              {errMessage && (
+                <Text
+                  style={[styles.textCenter, styles.textDanger, styles.bold]}
+                >
+                  Error Incomplete Data
+                </Text>
+              )}
+            </View>
+            <View style={[styles.mx5, styles.px5]}>
+              <Button title={"Submit"} onPress={handleSubmit} />
+            </View>
+            <View style={[styles.my5]}></View>
+          </View>
+        </>
+      )}
     </ScrollView>
   );
 };

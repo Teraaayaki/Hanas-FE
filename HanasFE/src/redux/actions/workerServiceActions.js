@@ -27,7 +27,36 @@ export const getServiceType = () => async (dispatch) => {
   }
 };
 
-export const AddServiceWorker =
+export const getMyServices = () => async (dispatch) => {
+  let token = await getItem("token");
+
+  dispatch({
+    type: WorkerServiceActions.WORKER_SERVICE_LOADING,
+  });
+
+  try {
+    let { data } = await axios.get("/api/worker/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (data) {
+      dispatch({
+        type: WorkerServiceActions.WORKER_MY_SERVICES,
+        payload: data.my_services,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    let { error } = err.response.data ? err : err.response.data;
+    dispatch({
+      type: WorkerServiceActions.WORKER_SERVICE_FAIL,
+      payload: error,
+    });
+  }
+};
+
+export const addServiceWorker =
   (serviceDetails, navigation) => async (dispatch) => {
     let token = await getItem("token");
 
