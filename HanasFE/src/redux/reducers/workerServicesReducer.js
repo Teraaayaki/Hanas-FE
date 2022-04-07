@@ -1,23 +1,23 @@
-import { ServiceActions } from "../actions/types";
+import { WorkerServiceActions } from "../actions/types";
 
-export const servicesInitialValues = {
+export const workerServicesInitialValues = {
   serviceType: [],
   loading: false,
   success: false,
   error: undefined,
 };
 
-const workerServicesReducer = (state = servicesInitialValues, action) => {
+const workerServicesReducer = (state = workerServicesInitialValues, action) => {
   switch (action.type) {
-    case ServiceActions.SERVICE_LOADING:
+    case WorkerServiceActions.WORKER_SERVICE_LOADING:
       return { ...state, loading: true };
-    case ServiceActions.SERVICE_TYPE:
+    case WorkerServiceActions.WORKER_SERVICE_TYPE:
       return { ...state, serviceType: action.payload };
-    case ServiceActions.SERVICE_SUCCESS:
+    case WorkerServiceActions.WORKER_SERVICE_SUCCESS:
       return { ...state, loading: false, success: true };
-    case ServiceActions.SERVICE_FAIL:
+    case WorkerServiceActions.WORKER_SERVICE_FAIL:
       return { ...state, loading: false, error: action.payload };
-    case ServiceActions.SERVICE_LOGOUT:
+    case WorkerServiceActions.WORKER_SERVICE_LOGOUT:
       return { ...state, state: action.payload };
     default:
       return state;

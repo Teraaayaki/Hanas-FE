@@ -4,9 +4,9 @@ import {
   UserLoginActions,
   RegisterActions,
   UserDetailActions,
-  ServiceActions,
+  WorkerServiceActions,
 } from "./types";
-import { servicesInitialValues } from "../reducers/servicesReducer";
+import { workerServicesInitialValues } from "../reducers/workerServicesReducer";
 import { userDetailsInitialValues } from "../reducers/userDetailsReducer";
 
 export const userLogin = (navigation, email, password) => async (dispatch) => {
@@ -110,8 +110,8 @@ export const userLogout = () => async (dispatch) => {
     payload: userDetailsInitialValues,
   });
   dispatch({
-    type: ServiceActions.SERVICE_LOGOUT,
-    payload: servicesInitialValues,
+    type: WorkerServiceActions.WORKER_SERVICE_LOGOUT,
+    payload: workerServicesInitialValues,
   });
   console.log("Dispatched Logout");
 
