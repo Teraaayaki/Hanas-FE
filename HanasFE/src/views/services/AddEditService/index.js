@@ -5,6 +5,7 @@ import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
+import dayjs from "dayjs";
 
 import axios from "@helpers/axios";
 import { colors } from "@constants";
@@ -12,8 +13,14 @@ import Header from "@components/Header";
 import Button from "@components/Button";
 import AttachImage from "@components/AttachImage";
 import DropdownList from "@components/modal/DropdownList";
-import { getServiceType } from "@redux/actions/serviceActions";
+import { getServiceType } from "@redux/actions/workerServiceActions";
 import { getItem } from "@helpers/asyncStorage";
+
+var utc = require("dayjs/plugin/utc");
+var timezone = require("dayjs/plugin/timezone");
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 // ======================================
 // HOW TO USE GUIDE:
 // ======================================
@@ -49,7 +56,7 @@ const AddEditService = ({ route, navigation }) => {
   const [certificateImgUrl, setCertificateImgUrl] = useState([]);
 
   const dispatch = useDispatch();
-  const { error, serviceType } = useSelector((state) => state.services);
+  const { error, serviceType } = useSelector((state) => state.workerServices);
 
   // Upload sample work image
   const pickImage = async () => {
@@ -204,9 +211,20 @@ const AddEditService = ({ route, navigation }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(service, description, ratePerHourValue);
-    console.log(sampleWorkImgUrl);
-    console.log(certificateImgUrl);
+    // console.log(service, description, ratePerHourValue);
+    // console.log(sampleWorkImgUrl);
+    // console.log(certificateImgUrl);
+    // let date = new Date();
+    // let localDate = date.toLocaleString();
+    // console.log(dayjs(localDate).format());
+    const serviceDetails = {
+      service,
+      description,
+      ratePerHourValue,
+      sampleWorkImgUrl,
+      certificateImgUrl,
+      lastUpdate: new Date(),
+    };
   };
 
   useEffect(() => {
