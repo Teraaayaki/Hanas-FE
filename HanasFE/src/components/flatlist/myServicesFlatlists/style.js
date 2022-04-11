@@ -3,21 +3,27 @@ import { colors, margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
-  //NewVer-----------------------------
-  sampleWorksHeight: {
+  //MyServices 2.0 styles-----------------------------
+  HorizontalFlatlistHeight: {
     height: 140,
   },
-  sampleWorksImage: {
+  sampleWorksIMGWidth: {
     width: 220,
-    height: 140,
+  },
+  certificatesIMGWidth: {
+    width: 190,
+  },
+  horizontalItemMargin: {
+    marginHorizontal: 10,
+  },
+  text12: {
+    fontSize: 12,
+  },
+  text10: {
+    fontSize: 10,
   },
 
-  //OldVer-----------------------------
-  serviceContainer: {
-    width: "100%",
-    // backgroundColor: "#DFF",
-    paddingBottom: padding.p10,
-  },
+  //MyServices 1.0 styles-----------------------------
   infoCard: {
     borderColor: "#BBB",
     borderWidth: 1,
@@ -26,34 +32,11 @@ export default StyleSheet.create({
     minHeight: 140,
     padding: padding.p3,
   },
-  infoColumn: {
-    flex: 8,
-    // backgroundColor: "#CFC",
-  },
-  infoContainer: {
-    flex: 1,
-    // backgroundColor: "#FFC",
-    marginTop: margin.m4,
-    height: 180,
-  },
+
   addButton: {
     flex: 1,
     borderWidth: 1,
     borderColor: "#CCC",
-  },
-  SWpadding: {
-    paddingRight: 38,
-  },
-  CertificatesPadding: {
-    paddingRight: 61,
-  },
-  certificateIMGCard: {
-    borderRadius: 10,
-    flex: 1,
-    aspectRatio: 1.6,
-    backgroundColor: colors.black,
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   //Unique===================================================================
@@ -221,7 +204,10 @@ export default StyleSheet.create({
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textSecondary: { color: colors.secondary },
+  textMuted75: { color: colors.muted75 },
   textMuted50: { color: colors.muted50 },
+  textMuted25: { color: colors.muted25 },
+  textMuted20: { color: colors.muted20 },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,
