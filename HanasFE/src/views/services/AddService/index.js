@@ -231,6 +231,15 @@ const AddService = ({ navigation }) => {
   useEffect(() => {
     console.log("Error (Add Service): ", error);
     console.log("Success (Add Service): ", success);
+    if (success) {
+      setService("Electrical");
+      setRatePerHourValue("");
+      setDescription("");
+      setSampleWorkImg([]);
+      setSampleWorkImgUrl([]);
+      setCertificateImg([]);
+      setCertificateImgUrl([]);
+    }
   }, [error, success]);
 
   return (
