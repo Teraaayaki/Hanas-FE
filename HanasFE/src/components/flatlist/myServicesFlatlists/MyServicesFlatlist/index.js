@@ -13,7 +13,7 @@ const MyServicesFlatlist = ({ navigation, DATA }) => {
       <View style={styles.listContainer}>
         <MyService
           navigation={navigation}
-          ID={item.ID}
+          ID={item.id}
           name={item.name}
           ratePerHour={item.ratePerHour}
           description={item.description}

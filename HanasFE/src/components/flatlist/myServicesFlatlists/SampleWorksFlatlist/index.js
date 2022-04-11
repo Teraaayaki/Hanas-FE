@@ -6,39 +6,33 @@ import styles from "../style";
 const SampleWorksFlatlist = ({ DATA, onPressImage }) => {
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={onPressImage}>
-        <View
-          style={[
-            styles.bgWhite,
-            styles.rounded,
-            styles.p3,
-            styles.m3,
-            styles.sampleWorksImage,
-          ]}
-        >
-          <Text>{item.ID}</Text>
-          {/* <Image style={[styles.sampleWorksImage]} source={item.image} /> */}
-        </View>
-      </TouchableOpacity>
+      <View
+        style={[
+          styles.bgWhite,
+          styles.rounded,
+          styles.mx3,
+          styles.sampleWorksImage,
+        ]}
+      >
+        <Image
+          style={[styles.w100, styles.h100, styles.rounded]}
+          source={item.image}
+        />
+      </View>
     );
   };
 
   return (
     <View
-      style={[
-        styles.temp6,
-        styles.sampleWorksHeight,
-        styles.p3,
-        styles.w100,
-        styles.my3,
-      ]}
+      style={[styles.temp1, styles.my5, styles.w100, styles.sampleWorksHeight]}
     >
       <FlatList
-        horizontal={true}
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.ID}
-        contentContainerStyle={[styles.px5]}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={[styles.px5, styles.w100, styles.temp6]}
+        horizontal
+        showsHorizontalScrollIndicator={true}
       />
     </View>
   );

@@ -5,7 +5,7 @@ export default StyleSheet.create({
   //Unique===================================================================
   //NewVer-----------------------------
   sampleWorksHeight: {
-    height: "30%",
+    height: 140,
   },
   sampleWorksImage: {
     width: 220,

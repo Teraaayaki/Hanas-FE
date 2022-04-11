@@ -11,60 +11,60 @@ import SampleWorksFlatlist from "@components/flatlist/myServicesFlatlists/Sample
 const MyServices = ({ navigation }) => {
   const DATA = [
     {
-      ID: "100",
+      id: "100",
       name: "Electrical",
       ratePerHour: 200,
       sampleWorksList: [
-        { ID: "0", image: require("@images/mullet.jpg") },
-        { ID: "1", image: require("@images/maps.jpg") },
-        { ID: "2", image: require("@images/mullet.jpg") },
-        { ID: "3", image: require("@images/maps.jpg") },
+        { id: "0", image: require("@images/mullet.jpg") },
+        { id: "1", image: require("@images/maps.jpg") },
+        { id: "2", image: require("@images/mullet.jpg") },
+        { id: "3", image: require("@images/maps.jpg") },
       ],
       certificatesList: [
-        { ID: "4", image: require("@images/mullet.jpg") },
-        { ID: "5", image: require("@images/maps.jpg") },
-        { ID: "6", image: require("@images/mullet.jpg") },
-        { ID: "7", image: require("@images/maps.jpg") },
-        { ID: "8", image: require("@images/mullet.jpg") },
+        { id: "4", image: require("@images/mullet.jpg") },
+        { id: "5", image: require("@images/maps.jpg") },
+        { id: "6", image: require("@images/mullet.jpg") },
+        { id: "7", image: require("@images/maps.jpg") },
+        { id: "8", image: require("@images/mullet.jpg") },
       ],
       description: "Ayo Bike everyday",
     },
     {
-      ID: "200",
+      id: "200",
       name: "Massage",
       ratePerHour: 500.0,
       sampleWorksList: [
-        { ID: "9", image: require("@images/mullet.jpg") },
-        { ID: "10", image: require("@images/maps.jpg") },
-        { ID: "11", image: require("@images/mullet.jpg") },
-        { ID: "12", image: require("@images/maps.jpg") },
+        { id: "9", image: require("@images/mullet.jpg") },
+        { id: "10", image: require("@images/maps.jpg") },
+        { id: "11", image: require("@images/mullet.jpg") },
+        { id: "12", image: require("@images/maps.jpg") },
       ],
       certificatesList: [
-        { ID: "13", image: require("@images/mullet.jpg") },
-        { ID: "14", image: require("@images/maps.jpg") },
-        { ID: "15", image: require("@images/mullet.jpg") },
-        { ID: "16", image: require("@images/maps.jpg") },
-        { ID: "17", image: require("@images/mullet.jpg") },
+        { id: "13", image: require("@images/mullet.jpg") },
+        { id: "14", image: require("@images/maps.jpg") },
+        { id: "15", image: require("@images/mullet.jpg") },
+        { id: "16", image: require("@images/maps.jpg") },
+        { id: "17", image: require("@images/mullet.jpg") },
       ],
       description:
         "Service Type is a very very long lorem ipsum text that is completely not going to fit. This also does not have any typo whatsoever. This is not going to fit at all isn't it??? Make sure this fits or this will break!",
     },
     {
-      ID: "300",
+      id: "300",
       name: "Plumbing",
       ratePerHour: 300.0,
       sampleWorksList: [
-        { ID: "18", image: require("@images/mullet.jpg") },
-        { ID: "19", image: require("@images/maps.jpg") },
-        { ID: "20", image: require("@images/mullet.jpg") },
-        { ID: "21", image: require("@images/maps.jpg") },
+        { id: "18", image: require("@images/mullet.jpg") },
+        { id: "19", image: require("@images/maps.jpg") },
+        { id: "20", image: require("@images/mullet.jpg") },
+        { id: "21", image: require("@images/maps.jpg") },
       ],
       certificatesList: [
-        { ID: "22", image: require("@images/mullet.jpg") },
-        { ID: "23", image: require("@images/maps.jpg") },
-        { ID: "24", image: require("@images/mullet.jpg") },
-        { ID: "25", image: require("@images/maps.jpg") },
-        { ID: "26", image: require("@images/mullet.jpg") },
+        { id: "22", image: require("@images/mullet.jpg") },
+        { id: "23", image: require("@images/maps.jpg") },
+        { id: "24", image: require("@images/mullet.jpg") },
+        { id: "25", image: require("@images/maps.jpg") },
+        { id: "26", image: require("@images/mullet.jpg") },
       ],
       description:
         "Service Type is a very very long lorem ipsum text that is completely not going to fit. This also does not have any typo  whatsoever. This is not going to fit at all isn't it??? Make sure this fits or this will break! Service Type is a very very long lorem ipsum text that is completely not going to fit. This also does not have any typo whatsoever. This is not going to fit at all isn't it??? Make sure thisfits or this will break! ",
@@ -72,17 +72,20 @@ const MyServices = ({ navigation }) => {
   ];
 
   const DATA2 = [
-    { ID: "0" },
-    { ID: "1" },
-    { ID: "2" },
-    { ID: "3" },
-    { ID: "4" },
-    { ID: "5" },
+    { id: "0" },
+    { id: "1" },
+    { id: "2" },
+    { id: "3" },
+    { id: "4" },
+    { id: "5" },
   ];
   return (
     <View style={[styles.temp5, styles.flex1]}>
       {/* <MyServicesFlatlist navigation={navigation} DATA={DATA} /> */}
-      <SampleWorksFlatlist DATA={DATA2} onPressImage={() => {}} />
+      <SampleWorksFlatlist
+        DATA={DATA[0].sampleWorksList}
+        onPressImage={() => {}}
+      />
     </View>
   );
 };
