@@ -126,6 +126,7 @@ export default StyleSheet.create({
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textSecondary: { color: colors.secondary },
+  textDanger: { color: colors.danger },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,

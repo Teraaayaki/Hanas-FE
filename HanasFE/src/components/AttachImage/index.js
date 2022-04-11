@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 //Containers are invisible
 //Cards are visible
 
-const AttachImage = ({ title }) => {
+const AttachImage = ({ title, onRemove }) => {
   return (
     <View
       style={[
@@ -26,7 +26,7 @@ const AttachImage = ({ title }) => {
         style={[styles.rotate130deg]}
       />
       <Text style={[styles.p, styles.textCenter]}>{title}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onRemove}>
         <Icon
           name="close-circle-outline"
           type="ionicon"

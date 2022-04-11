@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, ScrollView } from "react-native";
 import styles from "./style";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "@components/Header";
 import MyService from "@components/myService/MyService";
 import AddServiceCard from "@components/myService/AddServiceCard";
-
+import { getMyServices } from "@redux/actions/workerServiceActions";
 //Containers are invisible
 //Cards are visible
 
 const MyServices = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { myServices, error, loading } = useSelector(
+    (state) => state.workerServices
+  );
+
+  useEffect(() => {
+    dispatch(getMyServices());
+  }, []);
+
+  useEffect(() => {
+    console.log(myServices);
+  }, [myServices]);
+
   return (
     <ScrollView style={styles.body}>
       <Header title="Services" />
