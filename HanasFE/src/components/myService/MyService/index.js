@@ -27,6 +27,7 @@ const MyService = ({
       editDescription: description,
     });
   const FullScreenImageRoute = () => navigation.navigate("FullScreenImage");
+
   return (
     <View style={(styles.serviceContainer, styles.mb5)}>
       <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
