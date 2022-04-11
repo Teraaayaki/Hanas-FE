@@ -9,7 +9,9 @@ const Certificates = ({ navigation }) => {
   return (
     <View style={[styles.infoContainer, styles.mt5]}>
       <View style={[styles.flexRowContainer, styles.alignCenter, styles.mb2]}>
-        <Text style={[styles.p, styles.grey, styles.bold]}>Certificates</Text>
+        <Text style={[styles.p, styles.grey, styles.bold, styles.mx4]}>
+          Certificates
+        </Text>
         <TouchableOpacity
           style={[styles.flexRowContainer, styles.alignCenter, styles.p3]}
         ></TouchableOpacity>

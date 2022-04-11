@@ -9,7 +9,7 @@ import styles from "../styles";
 
 const InfoCard = ({ serviceType, ratePerHour, description }) => {
   return (
-    <View style={[styles.infoCard, styles.mt5, styles.p5]}>
+    <View style={[styles.infoCard, styles.mt5, styles.mx4, styles.p5]}>
       <View style={[styles.flexRowContainer, styles.f1]}>
         <View style={[styles.flexRowContainer, styles.f1s]}>
           <View style={[styles.infoColumn, styles.f1]}>

@@ -71,7 +71,25 @@ export default StyleSheet.create({
     height: "100%",
     width: "100%",
   },
-  //Reusables====================================
+  //Reusables================================================================
+  temp1: {
+    backgroundColor: "#CFF",
+  },
+  temp2: {
+    backgroundColor: "#FFC",
+  },
+  temp3: {
+    backgroundColor: "#FCF",
+  },
+  temp4: {
+    backgroundColor: "#FCC",
+  },
+  temp5: {
+    backgroundColor: "#CFC",
+  },
+  temp6: {
+    backgroundColor: "#CCF",
+  },
   //   flexGrow: {
   //     flexGrow: "true",
   //   },
