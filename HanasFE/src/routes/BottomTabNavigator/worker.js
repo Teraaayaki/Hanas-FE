@@ -12,7 +12,7 @@ import TransactionReport from "@screens/transaction/TransactionReport";
 import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
-import Schedule from "@screens/Schedule";
+import WorkerSchedule from "@screens/schedules/WorkerSchedule";
 import BookingRequests from "@screens/BookingRequests";
 import Achievements from "@screens/Achievements";
 
@@ -67,7 +67,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Calendar"
-        component={Schedule}
+        component={WorkerSchedule}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
