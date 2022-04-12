@@ -6,39 +6,49 @@ import styles from "../style";
 const SampleWorksFlatlist = ({ DATA, onPressImage }) => {
   const renderItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={onPressImage}>
+      <TouchableOpacity
+        style={[styles.horizontalItemMargin]}
+        onPressImage={onPressImage}
+      >
         <View
           style={[
             styles.bgWhite,
             styles.rounded,
-            styles.p3,
-            styles.m3,
-            styles.sampleWorksImage,
+            styles.h100,
+            styles.sampleWorksIMGWidth,
+            styles.border,
+            styles.borderMuted20,
           ]}
         >
-          <Text>{item.ID}</Text>
-          {/* <Image style={[styles.sampleWorksImage]} source={item.image} /> */}
+          <Image
+            style={[styles.w100, styles.h100, styles.rounded]}
+            source={item.image}
+          />
         </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <View
-      style={[
-        styles.temp6,
-        styles.sampleWorksHeight,
-        styles.p3,
-        styles.w100,
-        styles.my3,
-      ]}
-    >
+    <View style={[styles.mt4, styles.w100]}>
+      <Text
+        style={[
+          styles.h3,
+          styles.textMuted50,
+          styles.bold,
+          styles.mx4,
+          styles.mb3,
+        ]}
+      >
+        Sample Works
+      </Text>
       <FlatList
-        horizontal={true}
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.ID}
-        contentContainerStyle={[styles.px5]}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[styles.px2, styles.HorizontalFlatlistHeight]}
       />
     </View>
   );
