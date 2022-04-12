@@ -14,7 +14,7 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
   let token = await getItem("token");
   let isWorker = JSON.parse(await getItem("is_worker"));
   dispatch({ type: UserLoginActions.USER_LOADING, payload: true });
-
+  console.log(token);
   if (token) {
     console.log("Token Already Exists - userLoginAction");
 

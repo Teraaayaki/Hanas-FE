@@ -42,4 +42,11 @@ export default StyleSheet.create({
     color: colors.muted50,
     fontSize: fontSize.h5,
   },
+  hallowContainer: {
+    flexDirection: "row",
+    marginTop: "1%",
+  },
+  serviceName: {
+    fontWeight: "900",
+  },
 });
