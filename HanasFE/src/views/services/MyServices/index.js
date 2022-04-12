@@ -21,7 +21,7 @@ const MyServices = ({ navigation }) => {
     if (success) {
       showToast(
         "success",
-        "Succesfully Added Service",
+        "Successfully Completed Request",
         "Please review your services",
         () => {
           dispatch(resetError());
