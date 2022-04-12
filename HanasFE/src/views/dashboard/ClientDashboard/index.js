@@ -9,34 +9,32 @@ import {
   TouchableHighlight,
   FlatList,
 } from "react-native";
-import useSWR from 'swr'
-
+import useSWR from "swr";
 
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { colors } from "@constants";
 import axios from "@axios";
-import {getItem} from "@helpers/asyncStorage";
+import { getItem } from "@helpers/asyncStorage";
 
 const fetcher = async (url) => {
   let token = await getItem("token");
-  let {data} = await axios.get(
-    `http://192.168.0.107:8000/${url}`, 
-    {
-      headers: {
-        "authorization": `Bearer ${token}`
-      }
-    }
-  );
+  let { data } = await axios.get(url, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
 
   return data;
-}
-
+};
 
 const ClientDashboard = ({ navigation }) => {
-  const {data, error} = useSWR('/api/client/get-top-rated-workers', fetcher)
-  
+  const { data, error } = useSWR(
+    `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
+    fetcher
+  );
+
   var [isPress, setIsPress] = useState(false);
   var touchProps = {
     activeOpacity: 0.2,
@@ -47,8 +45,8 @@ const ClientDashboard = ({ navigation }) => {
   };
 
   useEffect(() => {
-   console.log("SWR", data, error);
-  }, []); 
+    console.log("SWR", data, error);
+  }, []);
 
   return (
     <View style={styles.container}>
