@@ -1,8 +1,9 @@
 import * as React from "react";
+import { AppState } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import Geocoder from "react-native-geocoding";
-// import Toast from "react-native-toast-message";
+import {SWRConfig} from "swr";
 
 import HanasStack from "@routes";
 import store from "./src/redux";
@@ -12,11 +13,19 @@ Geocoder.init(MAPS_API_KEY);
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <HanasStack />
-      </NavigationContainer>
-      {/* <Toast /> */}
-    </Provider>
+      <SWRConfig
+        value={{
+          fetcher: (...args) => fetch(...args).then(res => res.json()),
+          suspense: true,
+
+        }}
+      >
+        <Provider store={store}>
+          <NavigationContainer>
+            <HanasStack />
+          </NavigationContainer>
+        </Provider>
+      </SWRConfig>
+        
   );
 }

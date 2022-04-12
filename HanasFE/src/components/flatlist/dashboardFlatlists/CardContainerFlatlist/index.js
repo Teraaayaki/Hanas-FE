@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
+
 import { colors, fontWeight, fontSize, margin } from "@constants";
 import CardContainer from "@components/CardContainer";
 import styles from "./style";
