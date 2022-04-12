@@ -107,11 +107,7 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
           Service {DATA.length + 1}
         </Text>
         <View style={[styles.infoCard, styles.mt5, styles.p10]}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("AddEditService", { modType: true })
-            }
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("AddService")}>
             <View
               style={[
                 styles.addButton,
