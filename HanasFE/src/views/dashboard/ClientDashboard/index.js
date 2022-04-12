@@ -144,7 +144,7 @@ const ClientDashboard = ({ navigation }) => {
             <View style={styles.textContainer}>
               <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
             </View>
-            <CardContainerFlatlist navigation={navigation} data={data}/>
+            <CardContainerFlatlist navigation={navigation} data={data.user}/>
           </View>
         }
       ></FlatList>

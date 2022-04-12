@@ -43,7 +43,7 @@ const CardContainerFlatlist = ({ navigation, data }) => {
     <FlatList
       data={data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       extraData={selectedId}
       contentContainerStyle={{
         flexGrow: 1,
