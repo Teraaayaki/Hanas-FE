@@ -2,6 +2,12 @@ import { WorkerServiceActions } from "./types";
 import { getItem } from "@helpers/asyncStorage";
 import axios from "@helpers/axios";
 
+export const resetError = () => async (dispatch) => {
+  dispatch({
+    type: WorkerServiceActions.WORKER_SERVICE_FAIL,
+  });
+};
+
 export const getServiceType = () => async (dispatch) => {
   let token = await getItem("token");
   dispatch({ type: WorkerServiceActions.WORKER_SERVICE_LOADING });
@@ -92,3 +98,39 @@ export const addServiceWorker =
       });
     }
   };
+
+export const editService = (serviceDetails, navigation) => async (dispatch) => {
+  let token = await getItem("token");
+
+  dispatch({
+    type: WorkerServiceActions.WORKER_SERVICE_LOADING,
+  });
+
+  try {
+    let { data } = await axios.post(
+      "/api/worker/edit-service",
+      {
+        ...serviceDetails,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (data.success) {
+      // navigate
+      dispatch({
+        type: WorkerServiceActions.WORKER_SERVICE_SUCCESS,
+      });
+      navigation.navigate("MyServices");
+    }
+  } catch (err) {
+    console.log(err);
+    let { error } = err.response.data ? err : err.response.data;
+    dispatch({
+      type: WorkerServiceActions.WORKER_SERVICE_FAIL,
+      payload: error,
+    });
+  }
+};
