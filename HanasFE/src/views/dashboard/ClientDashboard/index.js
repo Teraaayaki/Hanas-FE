@@ -22,21 +22,21 @@ import {getItem} from "@helpers/asyncStorage";
 const fetcher = async (url) => {
   let token = await getItem("token");
   let {data} = await axios.get(
-    url, 
+    `http://192.168.0.107:8000/${url}`, 
     {
       headers: {
         "authorization": `Bearer ${token}`
       }
     }
   );
-  console.log(url);
+
   return data;
 }
 
 
 const ClientDashboard = ({ navigation }) => {
   const {data, error} = useSWR('/api/client/get-top-rated-workers', fetcher)
-
+  
   var [isPress, setIsPress] = useState(false);
   var touchProps = {
     activeOpacity: 0.2,
