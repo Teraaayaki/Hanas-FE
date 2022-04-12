@@ -1,5 +1,7 @@
-import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import dayjs from "dayjs";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
@@ -8,6 +10,19 @@ import { colors } from "@constants";
 import styles from "./style";
 
 const BookSkilledWorker = ({ navigation }) => {
+  const [date_start, setStartDate] = useState(new Date());
+  const [date_end, setEndDate] = useState(new Date());
+  const [dateStartModal, setStartDateModal] = useState(false);
+  const [dateEndModal, setEndDateModal] = useState(false);
+
+  const changeStartDate = (e, dob) => {
+    setStartDateModal(false);
+    dob && setStartDate(dob);
+  };
+  const changeEndDate = (e, dob) => {
+    setEndDateModal(false);
+    dob && setEndDate(dob);
+  };
   const DATA = {
     serviceType: "Electrical Service",
     workerName: "Mary Therese Sun S. Alegre",
@@ -166,15 +181,59 @@ const BookSkilledWorker = ({ navigation }) => {
           ]}
         >
           <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            When do you need the Service?
+            Start of Service
           </Text>
-          <IconField
-            iconName="calendar"
-            iconType="font-awesome"
-            iconColor={colors.secondary}
-            iconSize={24}
-            placeholder="Set date and time"
-          />
+          <TouchableOpacity onPress={() => setStartDateModal(true)}>
+            <IconField
+              iconName="calendar"
+              iconType="font-awesome"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(date_start).format("MMMM D, YYYY hh:mm A")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
+          {dateStartModal && (
+            <DateTimePicker
+              onChange={changeStartDate}
+              value={date_start}
+              minimumDate={new Date(1950, 0, 1)}
+            />
+          )}
+        </View>
+        <View
+          style={[
+            styles.bgLightGrey,
+            styles.m3,
+            styles.p3,
+            styles.flex1,
+            styles.rounded,
+            styles.border,
+            styles.borderMuted25,
+          ]}
+        >
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>
+            End of Service
+          </Text>
+          <TouchableOpacity onPress={() => setEndDateModal(true)}>
+            <IconField
+              iconName="calendar"
+              iconType="font-awesome"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(date_end).format("MMMM D, YYYY hh:mm A")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
+          {dateEndModal && (
+            <DateTimePicker
+              onChange={changeEndDate}
+              value={date_end}
+              minimumDate={new Date(1950, 0, 1)}
+            />
+          )}
         </View>
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>

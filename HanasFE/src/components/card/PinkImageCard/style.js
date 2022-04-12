@@ -1,9 +1,14 @@
 import { StyleSheet } from "react-native";
-import { colors, fontSize, margin, padding } from "@constants";
+import { colors, margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
-
+  pinkCard: {
+    backgroundColor: "#FFA7BB",
+  },
+  imageHeight: {
+    height: 120,
+  },
   //Unique===================================================================
   //Reusables================================================================
   temp1: {
@@ -15,6 +20,15 @@ export default StyleSheet.create({
   temp3: {
     backgroundColor: "#FCF",
   },
+  temp4: {
+    backgroundColor: "#FCC",
+  },
+  temp5: {
+    backgroundColor: "#CFC",
+  },
+  temp6: {
+    backgroundColor: "#CCF",
+  },
 
   body: {
     width: "100%",
@@ -25,6 +39,26 @@ export default StyleSheet.create({
   rounded: {
     borderRadius: 10,
   },
+  rounded100: {
+    borderRadius: 100,
+  },
+  roundedLeft100: {
+    borderTopStartRadius: 100,
+    borderBottomStartRadius: 100,
+  },
+  roundedRight100: {
+    borderTopEndRadius: 100,
+    borderBottomEndRadius: 100,
+  },
+  roundedRight20: {
+    borderTopEndRadius: 10,
+    borderBottomEndRadius: 10,
+  },
+
+  absolute: {
+    position: "absolute",
+  },
+
   square: {
     aspectRatio: 1,
   },
@@ -39,8 +73,17 @@ export default StyleSheet.create({
   alignCenter: {
     alignItems: "center",
   },
+  alignBottom: {
+    alignItems: "flex-end",
+  },
   justifyContentCenter: {
     justifyContent: "center",
+  },
+  justifyContentSpaceEvenly: {
+    justifyContent: "space-evenly",
+  },
+  justifyContentSpaceBetween: {
+    justifyContent: "space-between",
   },
   //Height---------------------------------------
   h100: {
@@ -62,6 +105,9 @@ export default StyleSheet.create({
     height: "66%",
   },
   //Width----------------------------------------
+  mw100: {
+    maxWidth: "100%",
+  },
   w100: {
     width: "100%",
   },
@@ -111,21 +157,48 @@ export default StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+  underline: {
+    textDecorationLine: "underline",
+  },
   //Color ==================================================
   //Background Color-----------------------------
   bgWhite: { backgroundColor: "#FFF" },
   bgDark: { backgroundColor: colors.dark },
   bgLight: { backgroundColor: colors.light },
+  bgLightGrey: { backgroundColor: colors.lightGrey },
   bgGrey: { backgroundColor: colors.grey },
+  bgPrimary: { backgroundColor: colors.primary },
+  bgSecondary: { backgroundColor: colors.secondary },
+  bgSuccess: { backgroundColor: "#abe6a1" },
+  bgMuted50: { backgroundColor: colors.muted50 },
+  bgMuted25: { backgroundColor: colors.muted25 },
+  bgMuted20: { backgroundColor: colors.muted20 },
+  bgBG: { backgroundColor: colors.background },
   // Border Color -------------------------------
   border: {
     borderWidth: 1,
   },
+  borderTop: {
+    borderTopWidth: 1,
+  },
+  borderBottom: {
+    borderBottomWidth: 1,
+  },
+  borderLeft: {
+    borderLeftWidth: 1,
+  },
+  borderRight: {
+    borderRightWidth: 1,
+  },
+
+  borderPrimary: { borderColor: colors.primary },
+  borderSecondary: { borderColor: colors.secondary },
   borderMuted50: { borderColor: colors.muted50 },
   borderMuted25: { borderColor: colors.muted25 },
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textSecondary: { color: colors.secondary },
+  textMuted50: { color: colors.muted50 },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,

@@ -18,15 +18,34 @@ import styles from "./styles";
 // Toggling the Dropdown List Modal between Vsible and not Visible through an onPress Event:
 // onPress={()=>setDropDownVisible(!dropdownVisible)}
 
-const DropdownList = (props, { title }) => {
+const DropdownList = ({
+  modalVisible,
+  setModalVisible,
+  title,
+  services,
+  setService,
+}) => {
+  const renderServiceType = () => {
+    return services.map((service) => {
+      return (
+        <DropdownItem
+          key={service.service_id}
+          title={service.service_type}
+          setModalVisible={setModalVisible}
+          setService={setService}
+        />
+      );
+    });
+  };
+
   return (
     <View>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={props.modalVisible}
+        visible={modalVisible}
         onRequestClose={() => {
-          props.setModalVisible(false);
+          setModalVisible(false);
         }}
       >
         <View
@@ -58,65 +77,10 @@ const DropdownList = (props, { title }) => {
                   styles.px5,
                 ]}
               >
-                {props.title}
+                {title}
               </Text>
               <ScrollView style={[styles.temp1, styles.dropdownItem]}>
-                <DropdownItem
-                  title={"Item 1"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 2"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
-                <DropdownItem
-                  title={"Item 3"}
-                  setModalVisible={props.setModalVisible}
-                />
+                {renderServiceType()}
               </ScrollView>
               <View style={styles.py3}></View>
             </View>
