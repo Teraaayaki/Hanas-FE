@@ -20,8 +20,9 @@ const AddService = ({ navigation }) => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingCertificate, setUploadingCertificate] = useState(false);
   const [errMessage, setErrMessage] = useState(false);
+  const [filteredServices, setFilteredServices] = useState([]);
 
-  const [service, setService] = useState("Electrical");
+  const [service, setService] = useState("Choose Service");
   const [ratePerHourValue, setRatePerHourValue] = useState("");
   const [description, setDescription] = useState("");
   const [sampleWorkImg, setSampleWorkImg] = useState([]);
@@ -30,9 +31,22 @@ const AddService = ({ navigation }) => {
   const [certificateImgUrl, setCertificateImgUrl] = useState([]);
 
   const dispatch = useDispatch();
-  const { error, success, loading, serviceType } = useSelector(
+  const { error, success, loading, serviceType, myServices } = useSelector(
     (state) => state.workerServices
   );
+
+  const filterServices = () => {
+    let filteredMyServices = myServices.map(
+      (myService) => myService.serviceNameData[0].service_type
+    );
+    let filteredService = serviceType.filter((service) => {
+      if (!filteredMyServices.includes(service.service_type)) {
+        return service.service_type;
+      }
+    });
+    console.log(filteredService);
+    setFilteredServices(filteredService);
+  };
 
   // Upload sample work image
   const pickImage = async () => {
@@ -189,6 +203,14 @@ const AddService = ({ navigation }) => {
   };
 
   const handleSubmit = async () => {
+    if (service === "Service Name") {
+      setErrMessage(true);
+      setTimeout(() => {
+        setErrMessage(false);
+      }, 3000);
+      return;
+    }
+
     if (uploadingImage || uploadingCertificate) {
       setErrMessage(true);
       setTimeout(() => {
@@ -229,6 +251,7 @@ const AddService = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    filterServices();
     console.log("Error (Add Service): ", error);
     console.log("Success (Add Service): ", success);
     if (success) {
@@ -248,7 +271,7 @@ const AddService = ({ navigation }) => {
         title={"Services List"}
         modalVisible={dropdownVisible}
         setModalVisible={setDropdownVisible}
-        services={serviceType}
+        services={filteredServices}
         setService={setService}
       />
       <Header title={"Add Service"} />

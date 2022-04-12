@@ -1,6 +1,10 @@
 import React from "react";
 import Toast from "react-native-toast-message";
 
+// type (success,error,info)
+// text1 header
+// text2 paragraph
+// onHide callback function
 export const showToast = (type, text1, text2, onHide) => {
   Toast.show({
     type,
