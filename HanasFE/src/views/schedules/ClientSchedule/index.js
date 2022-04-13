@@ -4,7 +4,7 @@ import { LogBox } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Header from "@components/Header";
-import ScheduleFlatlist from "@components/flatlist/ScheduleFlatlist";
+import ClientScheduleFlatlist from "@components/flatlist/scheduleFlatlists/ClientScheduleFlatlist";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { colors, fontSize } from "@constants";
 import styles from "./style";
@@ -19,31 +19,31 @@ const ClientSchedule = ({ navigation }) => {
       id: "1",
       date: "date1",
       serviceType: "Electrical",
-      clientName: "Soy Lebumfacil",
+      workerName: "Soy Lebumfacil",
       address: "Bogo City, Cebu",
       timeStart: "11:00 AM",
       timeEnd: "10:00 PM",
-      done: false,
+      bookStatus: "Accepted",
     },
     {
       id: "2",
       date: "date1",
       serviceType: "Mechanical",
-      clientName: "James Karl Sia",
+      workerName: "James Karl Sia",
       address: "Talamban, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "2:00 PM",
-      done: false,
+      bookStatus: "Cancelled",
     },
     {
       id: "3",
       date: "date2",
       serviceType: "Electrical",
-      clientName: "Mary Therese Sun Alegre",
+      workerName: "Mary Therese Sun Alegre",
       address: "Lapu-lapu City, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "1:00 PM",
-      done: false,
+      bookStatus: "Ongoing",
     },
     {
       id: "4",
@@ -53,21 +53,21 @@ const ClientSchedule = ({ navigation }) => {
       id: "5",
       date: "date4",
       serviceType: "Electrical",
-      clientName: "Soy Lebumfacil",
+      workerName: "Soy Lebumfacil",
       address: "Bogo City, Cebu",
       timeStart: "5:00 PM",
       timeEnd: "8:00 PM",
-      done: true,
+      bookStatus: "Finished",
     },
     {
       id: "6",
       date: "date4",
       serviceType: "Mechanical",
-      clientName: "Hosea Barriga",
+      workerName: "Hosea Barriga",
       address: "Danao City, Cebu",
       timeStart: "12:00 AM",
       timeEnd: "3:00 PM",
-      done: true,
+      bookStatus: "Cancelled",
     },
     {
       id: "7",
@@ -111,7 +111,7 @@ const ClientSchedule = ({ navigation }) => {
     >
       <View style={[styles.body]}>
         <View style={[styles.mx3, styles.flex1]}>
-          <ScheduleFlatlist DATA={DATA} />
+          <ClientScheduleFlatlist DATA={DATA} />
           <View
             style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
           >
