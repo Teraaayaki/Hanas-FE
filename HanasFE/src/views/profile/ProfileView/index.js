@@ -31,7 +31,9 @@ const ProfileView = ({ navigation, route }) => {
   return (
     <>
       {loading ? (
-        <Loading title="Fetching Worker Data" />
+        <View style={styles.loadingContainer}>
+          <Loading title="Fetching Worker Data" />
+        </View>
       ) : (
         success && (
           <>
