@@ -6,13 +6,11 @@ import CircularImage from "@components/CircularImage";
 import styles from "./style";
 
 const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
-  const [selectedId, setSelectedId] = useState(null);
-
   const renderItem = ({ item }) => {
     let items = { ...item, serviceName };
     return <Item item={items} />;
   };
-  console.log("ReviewsFlatlist data ", data);
+
   return (
     <FlatList
       data={data}
@@ -27,7 +25,6 @@ const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
 
 const Item = ({ item }) => (
   <TouchableOpacity style={[styles.item]}>
-    {console.log("Item ", item)}
     <View style={{ flex: 1, flexDirection: "row" }}>
       <CircularImage style={{ borderRadius: 50 }} />
       <View style={styles.container}>

@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { margin } from "../../constants";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -20,7 +19,7 @@ export default StyleSheet.create({
   renderedContainer: {
     borderRadius: 5,
     height: 200,
-    width: "100%"
+    width: "100%",
   },
   carouselContainer: {
     flex: 1,

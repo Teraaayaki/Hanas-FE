@@ -164,13 +164,18 @@ const ProfileView = ({ navigation, route }) => {
                           {profileData.myServicesData[0].sample_works.length})
                         </Text>
                       </View>
+                      <SampleWorks
+                        DATA={profileData.myServicesData[0].sample_works}
+                      />
                       <View style={{ marginTop: margin.m5 }}>
                         <Text style={styles.labelText}>
                           Certificates (
                           {profileData.myServicesData[0].certificates.length})
                         </Text>
                       </View>
-
+                      <Certificates
+                        DATA={profileData.myServicesData[0].certificates}
+                      />
                       <View style={styles.flexedBetween}>
                         <Text style={styles.labelText}>
                           Feedback (
