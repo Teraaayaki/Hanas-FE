@@ -154,7 +154,7 @@ const ProfileView = ({ navigation, route }) => {
                         <TouchableOpacity
                           style={styles.pinkButton}
                           onPress={() =>
-                            navigation.navigate("BookSkilledWorker")
+                            navigation.navigate("BookSkilledWorker", {serviceName}) 
                           }
                         >
                           <Text style={styles.buttonText}>BOOK</Text>

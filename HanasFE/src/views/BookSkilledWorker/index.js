@@ -8,12 +8,23 @@ import IconField from "@components/form/IconField";
 import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
+import { useSelector } from "react-redux";
 
-const BookSkilledWorker = ({ navigation }) => {
+const BookSkilledWorker = ({ navigation, route}) => {
+  const {serviceName} = route.params;
   const [date_start, setStartDate] = useState(new Date());
   const [date_end, setEndDate] = useState(new Date());
   const [dateStartModal, setStartDateModal] = useState(false);
   const [dateEndModal, setEndDateModal] = useState(false);
+
+  const {  profileData } = useSelector(
+    (state) => state.clientWorkerView
+  );
+  console.log(profileData);
+
+  const { user } = useSelector(
+    (state) => state.userDetails
+  );
 
   const changeStartDate = (e, dob) => {
     setStartDateModal(false);
@@ -61,7 +72,7 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.bold]}>Type of Service:</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.textRight]}>{DATA.serviceType}</Text>
+            <Text style={[styles.textRight]}>{serviceName} Services</Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -69,7 +80,7 @@ const BookSkilledWorker = ({ navigation }) => {
             <Text style={[styles.p]}>Skilled Worker Name</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>{DATA.workerName}</Text>
+            <Text style={[styles.p, styles.textRight]}>{`${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`} </Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -78,7 +89,7 @@ const BookSkilledWorker = ({ navigation }) => {
           </View>
           <View style={[styles.flex1]}>
             <Text style={[styles.p, styles.textRight]}>
-              {DATA.workerAddress}
+              {profileData.address}
             </Text>
           </View>
         </View>
@@ -109,7 +120,7 @@ const BookSkilledWorker = ({ navigation }) => {
           </View>
           <View style={[styles.flex1]}>
             <Text style={[styles.p, styles.textRight]}>
-              {DATA.personalName}
+              {`${user.first_name} ${user.middle_name} ${user.last_name}`}
             </Text>
           </View>
         </View>
@@ -119,7 +130,7 @@ const BookSkilledWorker = ({ navigation }) => {
           </View>
           <View style={[styles.flex1]}>
             <Text style={[styles.p, styles.textRight]}>
-              {DATA.personalAddress}
+              {user.address}
             </Text>
           </View>
         </View>
@@ -140,7 +151,7 @@ const BookSkilledWorker = ({ navigation }) => {
         >
           <Text style={[styles.bold, styles.h3]}>Hourly Rate:</Text>
           <Text style={[styles.h3, styles.textRight, styles.bold]}>
-            PHP {DATA.hourlyRate}
+            PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
       </View>
