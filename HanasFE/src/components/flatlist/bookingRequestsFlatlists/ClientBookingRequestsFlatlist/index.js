@@ -9,9 +9,9 @@ import {
 import ContainedIcon from "@components/icons/ContainedIcon";
 import styles from "./style";
 import { colors } from "@constants";
-import { padding } from "../../../constants";
+import { padding } from "@constants";
 
-const BookingRequestsFlatlist = ({ navigation, DATA }) => {
+const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   let date = "_";
 
   const renderCard = ({ item }) => {
@@ -66,18 +66,13 @@ const BookingRequestsFlatlist = ({ navigation, DATA }) => {
             </Text>
           </View>
         </View>
-        {item.bookStatus == "pending" ? (
-          <View
-            style={[styles.mx5, styles.h100, styles.justifyContentSpaceBetween]}
-          >
-            <ContainedIcon check success pressable onPress={() => {}} />
+        <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
+          {item.bookStatus == "pending" ? (
             <ContainedIcon xMark danger pressable onPress={() => {}} />
-          </View>
-        ) : (
-          <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-            <ContainedIcon xMark disabled />
-          </View>
-        )}
+          ) : (
+            <ContainedIcon xMark disabled pressable onPress={() => {}} />
+          )}
+        </View>
       </View>
     );
   };
@@ -116,4 +111,4 @@ const BookingRequestsFlatlist = ({ navigation, DATA }) => {
   );
 };
 
-export default BookingRequestsFlatlist;
+export default ClientBookingRequestsFlatlist;

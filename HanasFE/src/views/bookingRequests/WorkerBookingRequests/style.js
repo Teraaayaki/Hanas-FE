@@ -3,9 +3,7 @@ import { colors, margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
-  completion: {
-    position: "absolute",
-  },
+
   //Unique===================================================================
   //Reusables================================================================
   temp1: {

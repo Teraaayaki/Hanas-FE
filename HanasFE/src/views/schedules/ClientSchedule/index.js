@@ -123,7 +123,7 @@ const ClientSchedule = ({ navigation }) => {
           >
             <View style={[styles.flex1]} />
             <TouchableOpacity
-              onPress={() => navigation.navigate("BookingRequests")}
+              onPress={() => navigation.navigate("ClientBookingRequests")}
             >
               <Text
                 style={[

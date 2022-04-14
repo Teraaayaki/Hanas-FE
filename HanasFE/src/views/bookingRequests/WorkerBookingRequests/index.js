@@ -1,10 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import styles from "./styles";
+import styles from "./style";
 import Header from "@components/Header";
-import BookingRequestsFlatlist from "@components/flatlist/BookingRequestsFlatlist";
+import WorkerBookingRequestsFlatlist from "@components/flatlist/bookingRequestsFlatlists/WorkerBookingRequestsFlatlist";
 
-const BookingRequests = ({ navigation }) => {
+const WorkerBookingRequests = ({ navigation }) => {
   let BRcount = 3;
 
   const DATA = [
@@ -74,10 +74,10 @@ const BookingRequests = ({ navigation }) => {
     <View style={[styles.body]}>
       <Header title={"Booking Requests(" + BRcount + ")"} />
       <View style={[styles.mx3, styles.flex1]}>
-        <BookingRequestsFlatlist DATA={DATA} />
+        <WorkerBookingRequestsFlatlist DATA={DATA} />
       </View>
     </View>
   );
 };
 
-export default BookingRequests;
+export default WorkerBookingRequests;
