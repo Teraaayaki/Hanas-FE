@@ -19,7 +19,7 @@ import styles from "./style";
 import CircularImage from "@components/CircularImage";
 import ButtonHallowGray from "@components/ButtonHallowGray";
 import SampleWorks from "@components/SampleWorks";
-import ReviewsFlatlist from "@components/flatlist/ReviewsFlatlist";
+import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileReviewFlatlist";
 import { colors, fontSize, margin, padding, fontWeight } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 
@@ -175,9 +175,9 @@ const ProfileView = ({ navigation, route}) => {
           </View>
         </ParallaxScrollView>
       }
-      ListFooterComponentStyle={{ marginTop: "-35%" }}
-      ListFooterComponent={<ReviewsFlatlist navigation={navigation} />}
-    ></FlatList>
+      // ListFooterComponentStyle={{ marginTop: "-35%" }}
+      ListFooterComponent={<WorkerProfileReviewFlatlist navigation={navigation} />}
+    />
   );
 };
 export default ProfileView;
