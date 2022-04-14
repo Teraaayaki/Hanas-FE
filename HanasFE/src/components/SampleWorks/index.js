@@ -4,11 +4,10 @@ import { View, Image, Dimensions } from "react-native";
 
 import styles from "./style";
 
-const SampleWorks = () => {
+const SampleWorks = ({ DATA }) => {
   const [index, setIndex] = useState(0);
-  const { width: viewportWidth, height: viewportHeight } =
-    Dimensions.get("window");
 
+  console.log(DATA);
   const images = {
     activeIndex: index,
     carouselItems: [
@@ -24,28 +23,29 @@ const SampleWorks = () => {
     ],
   };
 
-  const renderItems = ({ item, index }) => {
-    return (
-      <View style={styles.renderedContainer}>
-        <Image source={item.image} style={styles.image} />
-      </View>
-    );
-  };
+  // const renderItems = ({ item, index }) => {
+  //   return (
+  //     <View style={styles.renderedContainer}>
+  //       <Image source={item.image} style={styles.image} />
+  //     </View>
+  //   );
+  // };
 
   return (
-    <View style={styles.carouselContainer}>
-      <Carousel
-        layout={"tinder"}
-        // ref={ref => carousel = ref}
-        data={images.carouselItems}
-        sliderWidth={320}
-        itemWidth={310}
-        renderItem={renderItems}
-        onSnapToItem={(index) => setIndex({ index })}
-        hasParallaxImages={true}
-        overScrollMode={"always"}
-      />
-    </View>
+    <></>
+    // <View style={styles.carouselContainer}>
+    //   <Carousel
+    //     layout={"tinder"}
+    //     // ref={ref => carousel = ref}
+    //     data={images.carouselItems}
+    //     sliderWidth={320}
+    //     itemWidth={310}
+    //     renderItem={renderItems}
+    //     onSnapToItem={(index) => setIndex({ index })}
+    //     hasParallaxImages={true}
+    //     overScrollMode={"always"}
+    //   />
+    // </View>
   );
 };
 

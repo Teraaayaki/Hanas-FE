@@ -4,48 +4,35 @@ import { View, Image, Dimensions } from "react-native";
 
 import styles from "./style";
 
-const Certificates = () => {
-  const [index, setIndex] = useState(0);
-  const { width: viewportWidth, height: viewportHeight } =
-    Dimensions.get("window");
-
-  const images = {
-    activeIndex: index,
-    carouselItems: [
-      {
-        image: require("@images/dashboard1.png"),
-      },
-      {
-        image: require("@images/dashboard1.png"),
-      },
-      {
-        image: require("@images/dashboard1.png"),
-      },
-    ],
-  };
-
-  const renderItems = ({ item, index }) => {
-    return (
-      <View style={styles.renderedContainer}>
-        <Image source={item.image} style={styles.image} />
-      </View>
-    );
-  };
+const Certificates = ({ DATA }) => {
+  // const renderItems = (item) => {
+  //   console.log(item);
+  //   return (
+  //     <View style={styles.renderedContainer}>
+  //       <Image
+  //         source={{
+  //           uri: item,
+  //         }}
+  //         style={styles.image}
+  //       />
+  //     </View>
+  //   );
+  // };
 
   return (
-    <View style={styles.carouselContainer}>
-      <Carousel
-        layout={"tinder"}
-        // ref={ref => carousel = ref}
-        data={images.carouselItems}
-        sliderWidth={320}
-        itemWidth={310}
-        renderItem={renderItems}
-        onSnapToItem={(index) => setIndex({ index })}
-        hasParallaxImages={true}
-        overScrollMode={"always"}
-      />
-    </View>
+    // <View style={styles.carouselContainer}>
+    //   <Carousel
+    //     layout={"tinder"}
+    //     data={DATA}
+    //     sliderWidth={320}
+    //     itemWidth={310}
+    //     renderItem={renderItems}
+    //     onSnapToItem={(index) => setIndex({ index })}
+    //     hasParallaxImages={true}
+    //     overScrollMode={"always"}
+    //   />
+    // </View>
+    <></>
   );
 };
 

@@ -45,7 +45,7 @@ const ClientDashboard = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log("SWR", data, error);
+    // console.log("SWR", data, error);
   }, []);
 
   return (
