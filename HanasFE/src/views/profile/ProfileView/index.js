@@ -55,7 +55,7 @@ const ProfileView = ({ navigation, route }) => {
                         <View style={styles.flexedContainer}>
                           <View style={styles.nameContainer}>
                             <Text style={styles.name}>
-                              {`${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`}{" "}
+                              {`${profileData.first_name} ${profileData.family_name}`}{" "}
                               <Icon
                                 color="green"
                                 size={fontSize.h3}
