@@ -18,7 +18,7 @@ import { fetchData } from "@redux/actions/clientWorkerViewActions";
 const ProfileView = ({ navigation, route }) => {
   const { worker_id, service_id, serviceName } = route.params;
   const dispatch = useDispatch();
-  const { loading, profileData, error, success } = useSelector(
+  const { loading, profileData, success } = useSelector(
     (state) => state.clientWorkerView
   );
 
