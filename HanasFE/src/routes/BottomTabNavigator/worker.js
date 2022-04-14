@@ -15,6 +15,7 @@ import Notification from "@screens/Notification";
 import WorkerSchedule from "@screens/schedules/WorkerSchedule";
 import BookingRequests from "@screens/BookingRequests";
 import Achievements from "@screens/Achievements";
+import EditService from "@screens/services/EditService";
 
 const Tab = createBottomTabNavigator();
 
@@ -165,6 +166,14 @@ const Tabs = () => {
       <Tab.Screen
         name="AddService"
         component={AddService}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="EditService"
+        component={EditService}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,

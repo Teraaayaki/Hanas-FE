@@ -24,16 +24,13 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
               styles.flexGrow,
             ]}
           >
-            {item.name} Service
+            {item.serviceNameData[0].service_type} Service
           </Text>
           <TouchableOpacity
             style={styles.ml3}
             onPressOut={() =>
-              navigation.navigate("AddEditService", {
-                modType: false,
-                editName: item.name,
-                editRatePerHour: item.ratePerHour,
-                editDescription: item.description,
+              navigation.navigate("EditService", {
+                service_id: item._id,
               })
             }
           >
@@ -69,7 +66,7 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
           <Text style={[styles.text10, styles.textMuted50, styles.mb1]}>
             Rate Per Hour
           </Text>
-          <Text style={styles.text12}>{item.ratePerHour} PHP</Text>
+          <Text style={styles.text12}>{item.hourly_rate} PHP</Text>
         </View>
         <View style={[styles.flex5, styles.mt3]}>
           <Text style={[styles.text10, styles.textMuted50, styles.mb1]}>
@@ -88,12 +85,9 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
       <View style={[styles.mb5, styles.mt4]}>
         {renderItemHeader({ item, index })}
         {renderItemInfoCard({ item })}
-        <SampleWorksFlatlist
-          DATA={item.sampleWorksList}
-          onPressImage={() => {}}
-        />
+        <SampleWorksFlatlist DATA={item.sample_works} onPressImage={() => {}} />
         <CertificatesFlatlist
-          DATA={item.certificatesList}
+          DATA={item.certificates}
           onPressImage={() => {}}
         />
       </View>
@@ -138,6 +132,7 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
     <FlatList
       data={DATA}
       renderItem={renderItem}
+      keyExtractor={(item) => item._id}
       ListHeaderComponent={ListHeaderComponent}
       ListFooterComponent={renderListFooterComponent}
     />

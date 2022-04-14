@@ -22,7 +22,9 @@ const SampleWorksFlatlist = ({ DATA, onPressImage }) => {
         >
           <Image
             style={[styles.w100, styles.h100, styles.rounded]}
-            source={item.image}
+            source={{
+              uri: item,
+            }}
           />
         </View>
       </TouchableOpacity>
@@ -45,7 +47,7 @@ const SampleWorksFlatlist = ({ DATA, onPressImage }) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={[styles.px2, styles.HorizontalFlatlistHeight]}
