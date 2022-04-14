@@ -6,6 +6,8 @@ import { colors } from "@constants";
 import CircularImage from "@components/CircularImage";
 import styles from "./style";
 
+
+
 const WorkerProfileReviewFlatlist = ({ data, navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -33,10 +35,10 @@ const Item = ({ item }) => (
         <Text
           style={styles.name}
           numberOfLines={1}
-        >{`${item.clientNameData[0].name}`}</Text>
+        >{item.name}</Text>
         <View style={styles.hallowContainer}>
           <Text style={styles.serviceName}>
-            {item.myServicesData[0].serviceNameData[0].service_type} Services
+            {item.service} Services
           </Text>
         </View>
         <View style={styles.viewButtonContainerFlex}>

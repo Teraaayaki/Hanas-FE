@@ -23,6 +23,18 @@ import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileRevie
 import { colors, fontSize, margin, padding, fontWeight } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    profile_pic: "@images/profile1.png",
+    name: "James Sia",
+    rate: "3",
+    service: "Electrical",
+    comment: "Good job on this one brodie",
+    date: "09 - 26 - 21 | 08:00:12"
+  },
+];
+
 const ProfileView = ({ navigation, route}) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.userLogin);
@@ -164,19 +176,13 @@ const ProfileView = ({ navigation, route}) => {
               <SampleWorks />
               <View style={styles.flexedBetween}>
                 <Text style={styles.labelText}>Feedback (64)</Text>
-                <TouchableHighlight
-                  {...touchProps}
-                  onPress={() => navigation.navigate("Reviews")}
-                >
-                  <Text style={styles.fadeText}>View more</Text>
-                </TouchableHighlight>
               </View>
             </View>
           </View>
         </ParallaxScrollView>
       }
-      // ListFooterComponentStyle={{ marginTop: "-35%" }}
-      ListFooterComponent={<WorkerProfileReviewFlatlist navigation={navigation} />}
+      ListFooterComponentStyle={{ marginTop: "-35%" }}
+      ListFooterComponent={<WorkerProfileReviewFlatlist navigation={navigation} data={DATA}/>}
     />
   );
 };
