@@ -111,7 +111,9 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
           style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
         >
           <View style={[styles.flex4, styles.pl3]}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ProfileView")}
+            >
               <Text
                 style={[
                   styles.mx1,

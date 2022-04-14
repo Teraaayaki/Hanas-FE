@@ -10,6 +10,7 @@ import ContainedIcon from "@components/icons/ContainedIcon";
 import styles from "./style";
 import { colors } from "@constants";
 import { padding } from "@constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   let date = "_";
@@ -30,11 +31,25 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.my1]}>
             <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
-              Client Name
+              Worker Name
             </Text>
-            <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.clientName}
-            </Text>
+            <View style={[styles.flex1, styles.mx1]}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ProfileView")}
+              >
+                <Text
+                  style={[
+                    styles.flex1,
+                    styles.p,
+                    styles.textInfo,
+                    styles.underline,
+                    styles.bold,
+                  ]}
+                >
+                  {item.workerName}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.my1]}>
             <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>

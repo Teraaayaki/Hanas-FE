@@ -75,7 +75,7 @@ const ClientBookingRequests = ({ navigation }) => {
     <View style={[styles.body]}>
       <Header title={"Booking Requests(" + BRcount + ")"} />
       <View style={[styles.mx3, styles.flex1]}>
-        <ClientBookingRequestsFlatlist DATA={DATA} />
+        <ClientBookingRequestsFlatlist navigation={navigation} DATA={DATA} />
       </View>
     </View>
   );

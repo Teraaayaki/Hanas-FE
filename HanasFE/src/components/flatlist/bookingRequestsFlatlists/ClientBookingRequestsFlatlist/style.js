@@ -135,6 +135,9 @@ export default StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+  underline: {
+    textDecorationLine: "underline",
+  },
   //Color ==================================================
   //Background Color-----------------------------
   bgWhite: { backgroundColor: "#FFF" },
@@ -160,7 +163,9 @@ export default StyleSheet.create({
   borderMuted25: { borderColor: colors.muted25 },
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
+  textBlack: { color: "#000" },
   textSecondary: { color: colors.secondary },
+  textInfo: { color: colors.info },
   textMuted50: { color: colors.muted50 },
   textMuted75: { color: colors.muted75 },
   //Size ----------------------------------------
