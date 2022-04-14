@@ -43,7 +43,7 @@ const ClientSchedule = ({ navigation }) => {
       address: "Lapu-lapu City, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "1:00 PM",
-      bookStatus: "Ongoing",
+      bookStatus: "Accepted",
     },
     {
       id: "4",
@@ -57,7 +57,7 @@ const ClientSchedule = ({ navigation }) => {
       address: "Bogo City, Cebu",
       timeStart: "5:00 PM",
       timeEnd: "8:00 PM",
-      bookStatus: "Finished",
+      bookStatus: "Ongoing",
     },
     {
       id: "6",
@@ -72,6 +72,12 @@ const ClientSchedule = ({ navigation }) => {
     {
       id: "7",
       date: "date5",
+      serviceType: "Mechanical",
+      workerName: "Hosea Barriga",
+      address: "Danao City, Cebu",
+      timeStart: "12:00 AM",
+      timeEnd: "3:00 PM",
+      bookStatus: "Finished",
     },
     {
       id: "8",

@@ -20,22 +20,21 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
         return (
           <Icon name="checkmark-circle-outline" type="ionicon" size={18} />
         );
-      } else if (item.bookStatus == "Accepted") {
-        return (
-          <Icon name="calendar-clock" type="material-community" size={18} />
-        );
-      } else if (item.bookStatus == "Cancelled") {
+      }
+      if (item.bookStatus == "Cancelled") {
         return <Icon name="x-circle" type="feather" size={18} />;
       }
+      return <Icon name="calendar-clock" type="material-community" size={18} />;
     };
     const topBorderStyle = ({ item }) => {
       switch (item.bookStatus) {
         case "Finished":
+        case "Ongoing":
           return styles.borderSuccess;
         case "Accepted":
-          return styles.borderWarning;
+          return styles.borderPrimary;
         case "Cancelled":
-          return styles.borderDanger;
+          return styles.borderMuted50;
         default:
           return styles.borderMuted50;
       }
@@ -64,29 +63,19 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderBottomButton = ({ item }) => {
-    if (item.bookStatus == "Finished" || item.bookStatus == "Cancelled") {
-      return (
-        <TouchableOpacity>
-          <View
-            style={[
-              styles.w100,
-              styles.border,
-              styles.borderMuted50,
-              styles.bgLightGrey,
-              styles.flexRow,
-              styles.justifyContentCenter,
-              styles.alignCenter,
-              styles.py5,
-              styles.rounded5,
-            ]}
-          >
-            <Text style={[styles.h5]}>Delete</Text>
-          </View>
-        </TouchableOpacity>
-      );
-    }
-    if (item.bookStatus == "Accepted") {
+    const message = ({ item }) => {
+      if (item.bookStatus == "Finished" || item.bookStatus == "Cancelled") {
+        return <Text style={[styles.h5]}>Delete</Text>;
+      }
+      return <Text style={[styles.h5]}>Cancel</Text>;
+    };
+    if (
+      item.bookStatus == "Finished" ||
+      item.bookStatus == "Cancelled" ||
+      item.bookStatus == "Accepted"
+    ) {
       //Missing Condition: This button must only appear when Current Date is more than 3 days away from Booked Date & Time Start
+      // item.bookStatus == "Finished" || item.bookStatus == "Cancelled" || (item.bookStatus == "Accepted" && currentDate > BookedDate + 3Days)
       return (
         <TouchableOpacity>
           <View
@@ -102,7 +91,7 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
               styles.rounded5,
             ]}
           >
-            <Text style={[styles.h5]}>Cancel</Text>
+            {message({ item })}
           </View>
         </TouchableOpacity>
       );
@@ -110,6 +99,12 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderCard = ({ item }) => {
+    const scheduleIconColorStyle = ({ item }) => {
+      if (item.bookStatus == "Finished" || item.bookStatus == "Cancelled") {
+        return colors.muted75;
+      }
+      return colors.secondary;
+    };
     if (item.bookStatus != "Declined") {
       return (
         <View
@@ -147,7 +142,7 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
               <Icon
                 name="calendar-clock"
                 type="material-community"
-                color={colors.secondary}
+                color={scheduleIconColorStyle({ item })}
               />
               <Text
                 style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
@@ -185,22 +180,42 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderItem = ({ item }) => {
+    const renderPinkSidedCard = ({ item }) => {
+      if (item.serviceType) {
+        switch (item.bookStatus) {
+          case "Finished":
+            return (
+              <PinkSidedCardItem
+                content={renderCard({ item })}
+                disabled
+                success
+              />
+            );
+          case "Cancelled":
+            return (
+              <PinkSidedCardItem content={renderCard({ item })} disabled />
+            );
+          case "Ongoing":
+            return <PinkSidedCardItem content={renderCard({ item })} success />;
+          default:
+            return <PinkSidedCardItem content={renderCard({ item })} />;
+        }
+      }
+      return (
+        <PinkSidedCardItem
+          disabled
+          content={
+            <Text style={[styles.textCenter, styles.h2, styles.textMuted75]}>
+              NONE
+            </Text>
+          }
+        />
+      );
+    };
     return (
       <View>
         {renderTitle({ item })}
-
-        {item.serviceType ? (
-          <PinkSidedCardItem content={renderCard({ item })} />
-        ) : (
-          <PinkSidedCardItem
-            disabled
-            content={
-              <Text style={[styles.textCenter, styles.h2, styles.textMuted75]}>
-                NONE
-              </Text>
-            }
-          />
-        )}
+        {renderPinkSidedCard({ item })}
       </View>
     );
   };

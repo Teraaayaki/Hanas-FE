@@ -65,7 +65,7 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
           </View>
         </View>
         <View style={[styles.mx5]}>
-          {item.done ? (
+          {item.bookStatus == "Finished" ? (
             <ContainedIcon check disabled />
           ) : (
             <ContainedIcon check success pressable />

@@ -167,6 +167,7 @@ export default StyleSheet.create({
   borderSuccess: { borderColor: colors.success },
   borderWarning: { borderColor: colors.warning },
   borderDanger: { borderColor: colors.danger },
+  borderInfo: { borderColor: colors.info },
   borderMuted50: { borderColor: colors.muted50 },
   borderMuted25: { borderColor: colors.muted25 },
   borderMuted20: { borderColor: colors.muted20 },

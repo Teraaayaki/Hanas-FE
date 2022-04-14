@@ -23,7 +23,7 @@ const WorkerSchedule = ({ navigation }) => {
       address: "Bogo City, Cebu",
       timeStart: "11:00 AM",
       timeEnd: "10:00 PM",
-      done: false,
+      bookStatus: "Accepted",
     },
     {
       id: "2",
@@ -33,7 +33,7 @@ const WorkerSchedule = ({ navigation }) => {
       address: "Talamban, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "2:00 PM",
-      done: false,
+      bookStatus: "Cancelled",
     },
     {
       id: "3",
@@ -43,7 +43,7 @@ const WorkerSchedule = ({ navigation }) => {
       address: "Lapu-lapu City, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "1:00 PM",
-      done: false,
+      bookStatus: "Accepted",
     },
     {
       id: "4",
@@ -57,7 +57,7 @@ const WorkerSchedule = ({ navigation }) => {
       address: "Bogo City, Cebu",
       timeStart: "5:00 PM",
       timeEnd: "8:00 PM",
-      done: true,
+      bookStatus: "Ongoing",
     },
     {
       id: "6",
@@ -67,11 +67,17 @@ const WorkerSchedule = ({ navigation }) => {
       address: "Danao City, Cebu",
       timeStart: "12:00 AM",
       timeEnd: "3:00 PM",
-      done: true,
+      bookStatus: "Cancelled",
     },
     {
       id: "7",
       date: "date5",
+      serviceType: "Mechanical",
+      clientName: "Hosea Barriga",
+      address: "Danao City, Cebu",
+      timeStart: "12:00 AM",
+      timeEnd: "3:00 PM",
+      bookStatus: "Finished",
     },
     {
       id: "8",
