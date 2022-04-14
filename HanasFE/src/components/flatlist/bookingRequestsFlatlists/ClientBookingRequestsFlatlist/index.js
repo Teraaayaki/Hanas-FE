@@ -15,81 +15,71 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   let date = "_";
 
-  const renderContent = ({ item }) => {
-    return (
-      <View
-        style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
-      >
-        <View style={[styles.flex1, styles.pl3]}>
-          <View style={[styles.flex1, styles.flexRow, styles.mb2]}>
-            <Text style={[styles.flex1, styles.mx1, styles.h3, styles.bold]}>
-              Type of Service:
-            </Text>
-            <Text style={[styles.flex1, styles.mx1, styles.h3]}>
-              {item.serviceType}
-            </Text>
-          </View>
-          <View style={[styles.flex1, styles.flexRow, styles.my1]}>
-            <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
-              Worker Name
-            </Text>
-            <View style={[styles.flex1, styles.mx1]}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("ProfileView")}
+  const renderContentv2 = ({ item }) => {
+    const scheduleIconColorStyle = ({ item }) => {
+      if (item.bookStatus == "Declined") {
+        return colors.muted75;
+      }
+      return colors.secondary;
+    };
+    if (item.bookStatus == "Pending" || item.bookStatus == "Declined") {
+      return (
+        <View
+          style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
+        >
+          <View style={[styles.flex4, styles.pl3]}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ProfileView")}
+            >
+              <Text
+                style={[
+                  styles.mx1,
+                  styles.h3,
+                  styles.textInfo,
+                  styles.bold,
+                  styles.underline,
+                  styles.mb2,
+                ]}
               >
-                <Text
-                  style={[
-                    styles.flex1,
-                    styles.p,
-                    styles.textInfo,
-                    styles.underline,
-                    styles.bold,
-                  ]}
-                >
-                  {item.workerName}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={[styles.flex1, styles.flexRow, styles.my1]}>
-            <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
-              Address
+                {item.workerName}
+              </Text>
+            </TouchableOpacity>
+            <Text style={[styles.flex1, styles.mx1, styles.p, styles.my1]}>
+              {item.serviceType} Service
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.p]}>
               {item.address}
             </Text>
-          </View>
-          <View
-            style={[
-              styles.flex1,
-              styles.flexRow,
-              styles.mt2,
-              styles.alignCenter,
-            ]}
-          >
-            <Icon
-              name="calendar-clock"
-              type="material-community"
-              color={
-                item.bookStatus == "pending" ? colors.secondary : colors.muted75
-              }
-            />
-            <Text
-              style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
+            <View
+              style={[
+                styles.flex1,
+                styles.flexRow,
+                styles.mt3,
+                styles.alignCenter,
+              ]}
             >
-              {item.timeStart} - {item.timeEnd}
-            </Text>
+              <Icon
+                name="calendar-clock"
+                type="material-community"
+                color={scheduleIconColorStyle({ item })}
+              />
+              <Text
+                style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
+              >
+                {item.timeStart} - {item.timeEnd}
+              </Text>
+            </View>
+          </View>
+          <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
+            {item.bookStatus == "Pending" ? (
+              <ContainedIcon xMark danger pressable onPress={() => {}} />
+            ) : (
+              <ContainedIcon xMark disabled pressable onPress={() => {}} />
+            )}
           </View>
         </View>
-        <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-          {item.bookStatus == "Pending" ? (
-            <ContainedIcon xMark danger pressable onPress={() => {}} />
-          ) : (
-            <ContainedIcon xMark disabled pressable onPress={() => {}} />
-          )}
-        </View>
-      </View>
-    );
+      );
+    }
   };
 
   const renderTitle = ({ item }) => {
@@ -105,9 +95,9 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
   const renderCard = ({ item }) => {
     if (item.bookStatus == "Pending") {
-      return <PinkSidedCardItem content={renderContent({ item })} />;
+      return <PinkSidedCardItem content={renderContentv2({ item })} />;
     } else if (item.bookStatus == "Declined") {
-      return <PinkSidedCardItem disabled content={renderContent({ item })} />;
+      return <PinkSidedCardItem disabled content={renderContentv2({ item })} />;
     }
     return (
       <PinkSidedCardItem
