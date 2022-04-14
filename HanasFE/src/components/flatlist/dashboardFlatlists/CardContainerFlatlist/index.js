@@ -35,7 +35,7 @@ const CardContainerFlatlist = ({ navigation, data }) => {
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate("ProfileView")}
+        onPress={() => navigation.navigate("ProfileView" , {worker_id: item._id, service_id: item.myServicesData[0]._id})}
         onPressServices={() => navigation.navigate("ServicesNearYou")}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}

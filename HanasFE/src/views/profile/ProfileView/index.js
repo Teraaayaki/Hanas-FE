@@ -23,10 +23,11 @@ import ReviewsFlatlist from "@components/flatlist/ReviewsFlatlist";
 import { colors, fontSize, margin, padding, fontWeight } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 
-const ProfileView = ({ navigation }) => {
+const ProfileView = ({ navigation, route}) => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state.userLogin);
   const { user } = useSelector((state) => state.userDetails);
+  const { worker_id, service_id} = route.params;
   var [isPress, setIsPress] = useState(false);
 
   const handleSubmit = () => {
@@ -44,6 +45,9 @@ const ProfileView = ({ navigation }) => {
 
   const renderItem = () => {};
 
+  useEffect ( () => {
+    console.log(worker_id, service_id);
+  }, [worker_id, service_id]);
   return (
     <FlatList
       ListHeaderComponent={
