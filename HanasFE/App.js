@@ -9,6 +9,7 @@ import HanasStack from "@routes";
 import store from "./src/redux";
 import { MAPS_API_KEY } from "@env";
 import { Suspense } from "react";
+import Loading from "@components/Loading";
 
 Geocoder.init(MAPS_API_KEY);
 
@@ -20,7 +21,7 @@ export default function App() {
         suspense: true,
       }}
     >
-      <Suspense>
+      <Suspense fallback={<Loading title="Loading" />}>
         <Provider store={store}>
           <NavigationContainer>
             <HanasStack />

@@ -18,9 +18,6 @@ import { colors } from "@constants";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
-
-
-
 const fetcher = async (url) => {
   let token = await getItem("token");
   let { data } = await axios.get(url, {
@@ -31,36 +28,6 @@ const fetcher = async (url) => {
 
   return data;
 };
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "Hosea Barriga",
-    profession: "Electrical Services",
-    rating: "4.5",
-    jobs: "1000",
-    image: require("@images/profile1.png"),
-    rate: "100",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1",
-    name: "Soy Lebumfacil",
-    profession: "Electrical Services",
-    rating: "4.0",
-    jobs: "699",
-    image: require("@images/profile2.png"),
-    rate: "99",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2",
-    name: "Soy Lebumfacil",
-    profession: "Electrical Services",
-    rating: "4.0",
-    jobs: "699",
-    image: require("@images/profile2.png"),
-    rate: "99",
-  },
-];
 
 const ClientDashboard = ({ navigation }) => {
   const { data, error } = useSWR(
@@ -144,7 +111,7 @@ const ClientDashboard = ({ navigation }) => {
             <View style={styles.textContainer}>
               <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
             </View>
-            <CardContainerFlatlist navigation={navigation} data={data}/>
+            <CardContainerFlatlist navigation={navigation} data={data.user} />
           </View>
         }
       ></FlatList>
