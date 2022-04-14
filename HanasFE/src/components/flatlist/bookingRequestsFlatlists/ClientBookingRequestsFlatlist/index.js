@@ -14,7 +14,7 @@ import { padding } from "@constants";
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   let date = "_";
 
-  const renderCard = ({ item }) => {
+  const renderContent = ({ item }) => {
     return (
       <View
         style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
@@ -67,7 +67,7 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
           </View>
         </View>
         <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-          {item.bookStatus == "pending" ? (
+          {item.bookStatus == "Pending" ? (
             <ContainedIcon xMark danger pressable onPress={() => {}} />
           ) : (
             <ContainedIcon xMark disabled pressable onPress={() => {}} />
@@ -88,15 +88,30 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
     }
   };
 
+  const renderCard = ({ item }) => {
+    if (item.bookStatus == "Pending") {
+      return <PinkSidedCardItem content={renderContent({ item })} />;
+    } else if (item.bookStatus == "Declined") {
+      return <PinkSidedCardItem disabled content={renderContent({ item })} />;
+    }
+    return (
+      <PinkSidedCardItem
+        disabled
+        content={
+          <Text style={[styles.px4, styles.textJustify]}>
+            <Text style={[styles.bold]}>Error:</Text> This Card is accessing
+            Data that is not a Booking Request.
+          </Text>
+        }
+      />
+    );
+  };
+
   const renderItem = ({ item }) => {
     return (
       <View>
         {renderTitle({ item })}
-        {item.bookStatus == "pending" ? (
-          <PinkSidedCardItem content={renderCard({ item })} />
-        ) : (
-          <PinkSidedCardItem disabled content={renderCard({ item })} />
-        )}
+        {renderCard({ item })}
       </View>
     );
   };

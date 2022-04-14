@@ -97,7 +97,7 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
     return (
       <View>
         {renderTitle({ item })}
-        {item.bookStatus == "pending" ? (
+        {item.bookStatus == "Pending" ? (
           <PinkSidedCardItem content={renderCard({ item })} />
         ) : (
           <PinkSidedCardItem disabled content={renderCard({ item })} />
