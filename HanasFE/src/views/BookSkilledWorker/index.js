@@ -9,40 +9,57 @@ import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
 import { useSelector } from "react-redux";
+import { Time } from "react-native-gifted-chat";
 
 const BookSkilledWorker = ({ navigation, route}) => {
   const {serviceName} = route.params;
-  const [date_start, setStartDate] = useState(new Date());
-  const [date_end, setEndDate] = useState(new Date());
-  const [dateStartModal, setStartDateModal] = useState(false);
-  const [dateEndModal, setEndDateModal] = useState(false);
+
+  //DATE
+  const [dateTimeStart, setDateTimeStart] = useState(new Date());
+  const [dateTimeEnd, setDateTimeEnd] = useState(new Date());
+
+  const [dateStartModal, setDateTimeStartModal] = useState(false);
+  const [dateEndModal, setDateTimeEndModal] = useState(false);
+
+  //TIME
+  const [timeStart, setTimeStart] = useState(new Date());
+  const [timeEnd, setTimeEnd] = useState(new Date());
+
+  const [timeStartModal, setTimeStartModal] = useState(false);
+  const [timeEndModal, setTimeEndModal] = useState(false);
 
   const {  profileData } = useSelector(
     (state) => state.clientWorkerView
   );
-  console.log(profileData);
+
 
   const { user } = useSelector(
     (state) => state.userDetails
   );
-
+  
+  console.log(dateTimeStart, dateTimeEnd, timeStart, timeEnd);
+  //DATE
   const changeStartDate = (e, dob) => {
-    setStartDateModal(false);
-    dob && setStartDate(dob);
+    setDateTimeStartModal(false);
+    dob && setDateTimeStart(dob);
   };
   const changeEndDate = (e, dob) => {
-    setEndDateModal(false);
-    dob && setEndDate(dob);
-  };
-  const DATA = {
-    serviceType: "Electrical Service",
-    workerName: "Mary Therese Sun S. Alegre",
-    workerAddress: "Minglanilla, Cebu",
-    personalName: "Hosea M. Barriga",
-    personalAddress: "Danao, Cebu",
-    hourlyRate: "200.00",
+    setDateTimeEndModal(false);
+    dob && setDateTimeEnd(dob);
   };
 
+  //TIME
+  const changeStartTime = (e, dob) => {
+    setTimeStartModal(false);
+    dob && setTimeStart(dob);
+  }
+
+  const changeEndTime = (e, dob) => {
+    setTimeEndModal(false);
+    dob && setTimeEnd(dob);
+  }
+
+  
   const renderHeader = () => {
     return (
       <View style={[styles.borderBottom, styles.borderMuted25, styles.px2]}>
@@ -194,25 +211,60 @@ const BookSkilledWorker = ({ navigation, route}) => {
           <Text style={[styles.h3, styles.bold, styles.mb4]}>
             Start of Service
           </Text>
-          <TouchableOpacity onPress={() => setStartDateModal(true)}>
+          <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
             <IconField
               iconName="calendar"
               iconType="font-awesome"
               iconColor={colors.secondary}
               iconSize={24}
               editable={false}
-              value={dayjs(date_start).format("MMMM D, YYYY hh:mm A")}
+              value={dayjs(dateTimeStart).format("MMMM D, YYYY hh:mm A")}
               placeholder="Set date and time"
             />
           </TouchableOpacity>
           {dateStartModal && (
             <DateTimePicker
               onChange={changeStartDate}
-              value={date_start}
+              value={dateTimeStart}
               minimumDate={new Date(1950, 0, 1)}
             />
           )}
         </View>
+        
+        <View
+          style={[
+            styles.bgLightGrey,
+            styles.m3,
+            styles.p3,
+            styles.flex1,
+            styles.rounded,
+            styles.border,
+            styles.borderMuted25,
+          ]}
+        >
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>
+            Start Time
+          </Text>
+          <TouchableOpacity onPress={() => setTimeStartModal(true)}>
+            <IconField
+              iconName="schedule"
+              iconType="material"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(timeStart).format("hh:mm:ss")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
+          {timeStartModal && (
+            <DateTimePicker
+              mode="time"
+              onChange={changeStartTime}
+              value={timeStart}
+            />
+          )}
+        </View>
+
         <View
           style={[
             styles.bgLightGrey,
@@ -227,25 +279,61 @@ const BookSkilledWorker = ({ navigation, route}) => {
           <Text style={[styles.h3, styles.bold, styles.mb4]}>
             End of Service
           </Text>
-          <TouchableOpacity onPress={() => setEndDateModal(true)}>
+          <TouchableOpacity onPress={() => setDateTimeEndModal(true)}>
             <IconField
               iconName="calendar"
               iconType="font-awesome"
               iconColor={colors.secondary}
               iconSize={24}
               editable={false}
-              value={dayjs(date_end).format("MMMM D, YYYY hh:mm A")}
+              value={dayjs(dateTimeEnd).format("MMMM D, YYYY hh:mm A")}
               placeholder="Set date and time"
             />
           </TouchableOpacity>
           {dateEndModal && (
             <DateTimePicker
               onChange={changeEndDate}
-              value={date_end}
+              value={dateTimeEnd}
               minimumDate={new Date(1950, 0, 1)}
             />
           )}
         </View>
+        
+        <View
+          style={[
+            styles.bgLightGrey,
+            styles.m3,
+            styles.p3,
+            styles.flex1,
+            styles.rounded,
+            styles.border,
+            styles.borderMuted25,
+          ]}
+        >
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>
+            End Time
+          </Text>
+          <TouchableOpacity onPress={() => setTimeEndModal(true)}>
+            <IconField
+              iconName="schedule"
+              iconType="material"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(timeEnd).format("hh:mm:ss")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
+          {timeEndModal && (
+            <DateTimePicker
+              mode="time"
+              onChange={changeEndTime}
+              value={timeEnd}
+            />
+          )}
+        </View>
+
+
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
             <Button
