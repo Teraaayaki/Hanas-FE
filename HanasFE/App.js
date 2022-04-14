@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ActivityIndicator, Text } from "react-native";
+import { AppState, Text, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import Geocoder from "react-native-geocoding";
@@ -21,7 +21,13 @@ export default function App() {
         suspense: true,
       }}
     >
-      <Suspense fallback={<Loading title="Loading" />}>
+      <Suspense
+        fallback={
+          <View style={styles.suspenseLoadContainer}>
+            <Loading title="Please wait..." />
+          </View>
+        }
+      >
         <Provider store={store}>
           <NavigationContainer>
             <HanasStack />
@@ -31,3 +37,11 @@ export default function App() {
     </SWRConfig>
   );
 }
+
+const styles = StyleSheet.create({
+  suspenseLoadContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+});
