@@ -1,58 +1,48 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
+import React, { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 import styles from "./style";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "@components/Header";
-import MyService from "@components/myService/MyService";
-import AddServiceCard from "@components/myService/AddServiceCard";
-
-//Containers are invisible
-//Cards are visible
+import MyServicesFlatlist from "@components/flatlist/myServicesFlatlists/MyServicesFlatlist";
+import { getMyServices, resetError } from "@redux/actions/workerServiceActions";
+import { showToast, ToastComponent } from "@helpers/toast";
 
 const MyServices = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { success, loading, myServices } = useSelector(
+    (state) => state.workerServices
+  );
+
+  useEffect(() => {
+    dispatch(getMyServices());
+    console.log(myServices);
+
+    if (success) {
+      showToast(
+        "success",
+        "Successfully Completed Request",
+        "Please review your services",
+        () => {
+          dispatch(resetError());
+        }
+      );
+    }
+  }, [success]);
+
   return (
-    <ScrollView style={styles.body}>
-      <Header title="Services" />
-      <View style={styles.listContainer}>
-        <MyService
-          navigation={navigation}
-          ID="1"
-          name="Electrical"
-          ratePerHour={200}
-          description="Ayo Bike everyday"
-        />
-      </View>
-      <View style={styles.listContainer}>
-        <MyService
-          navigation={navigation}
-          ID="2"
-          name="Massage"
-          ratePerHour={500.0}
-          description="Service Type is a very very long lorem ipsum text that is
-          completely not going to fit. This also does not have any typo
-          whatsoever. This is not going to fit at all isn't it??? Make sure this
-          fits or this will break!"
-        />
-      </View>
-      <View style={styles.listContainer}>
-        <MyService
-          navigation={navigation}
-          ID="3"
-          name="Plumbing"
-          ratePerHour={300.0}
-          description="Service Type is a very very long lorem ipsum text that is
-          completely not going to fit. This also does not have any typo
-          whatsoever. This is not going to fit at all isn't it??? Make sure this
-          fits or this will break!
-          Service Type is a very very long lorem ipsum text that is
-          completely not going to fit. This also does not have any typo
-          whatsoever. This is not going to fit at all isn't it??? Make sure this
-          fits or this will break!
-          "
-        />
-      </View>
-      <AddServiceCard navigation={navigation} ID="4" />
-    </ScrollView>
+    <View style={[styles.flex1]}>
+      <MyServicesFlatlist
+        navigation={navigation}
+        DATA={myServices}
+        ListHeaderComponent={
+          <View style={[styles.mb5]}>
+            <Header title="Services" />
+          </View>
+        }
+      />
+      <ToastComponent />
+    </View>
   );
 };
 

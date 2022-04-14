@@ -65,9 +65,8 @@ const WorkerDashboard = ({ navigation }) => {
   ];
   //Achievements----------------------------------------
   const AchievementsDATA = {
-    goal: "30,000",
-    completion: "14,000.00",
-    percentage: 47,
+    goal: 30000,
+    completion: 14000,
   };
   //Convenience Fee-------------------------------------
   const ConvenienceFeeDATA = {
@@ -78,11 +77,10 @@ const WorkerDashboard = ({ navigation }) => {
 
   return (
     <View style={[styles.body]}>
-      <TouchableOpacity onPressOut={() => setIsWorker(false)}>
-        <Header title={"Dashboard"} />
-      </TouchableOpacity>
+      <Header title={"Dashboard"} />
       <View style={[styles.flex1, styles.w100, styles.px3]}>
         <SkilledWorkerDashboardFlatlist
+          navigation={navigation}
           ServicesDATA={ServicesDATA}
           OverviewDATA={OverviewDATA}
           AchievementsDATA={AchievementsDATA}

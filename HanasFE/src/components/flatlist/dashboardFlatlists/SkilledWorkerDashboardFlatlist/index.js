@@ -13,6 +13,7 @@ import Achievements from "@components/dashboardCards/Achievements";
 import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
 
 const SkilledWorkerDashboardFlatlist = ({
+  navigation,
   ServicesDATA,
   OverviewDATA,
   AchievementsDATA,
@@ -162,7 +163,10 @@ const SkilledWorkerDashboardFlatlist = ({
         ListFooterComponent={
           <View style={[styles.flex1, styles.mb5, styles.pb5]}>
             <Overview OverviewDATA={OverviewDATA} />
-            <Achievements AchievementsDATA={AchievementsDATA} />
+            <Achievements
+              navigation={navigation}
+              AchievementsDATA={AchievementsDATA}
+            />
             <ConvenienceFee ConvenienceFeeDATA={ConvenienceFeeDATA} />
           </View>
         }

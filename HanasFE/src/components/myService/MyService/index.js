@@ -5,7 +5,7 @@ import { colors } from "@constants";
 
 import Certificates from "../Certificates";
 import InfoCard from "../InfoCard";
-import SampleWorks from "../SampleWorks";
+import SampleWorksFlatlist from "@components/flatlist/myServicesFlatlists/SampleWorksFlatlist";
 import styles from "../styles";
 
 //Containers are invisible
@@ -18,6 +18,8 @@ const MyService = ({
   serviceType,
   ratePerHour,
   description,
+  sampleWorksListDATA,
+  certificatesListDATA,
 }) => {
   const AddEditServiceRoute = () =>
     navigation.navigate("AddEditService", {
@@ -27,43 +29,46 @@ const MyService = ({
       editDescription: description,
     });
   const FullScreenImageRoute = () => navigation.navigate("FullScreenImage");
+
   return (
-    <View style={(styles.serviceContainer, styles.mb5)}>
-      <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
-      {/* Header --- START*/}
-      <View style={[styles.flexRowContainer, styles.alignCenter, styles.mt2]}>
-        <Text
-          style={[
-            styles.h1,
-            styles.black,
-            styles.bold,
-            styles.mb1,
-            styles.flexGrow,
-          ]}
-        >
-          {name} Service
-        </Text>
-        <TouchableOpacity style={styles.ml3} onPressOut={AddEditServiceRoute}>
-          <View style={[styles.infoColumn, styles.alignCenter]}>
-            <View
-              style={[
-                styles.borderSecondary,
-                styles.rounded,
-                styles.h100,
-                styles.square,
-                styles.alignCenter,
-                styles.justifyContentCenter,
-              ]}
-            >
-              <Icon
-                name="pen"
-                type="font-awesome-5"
-                color={colors.secondary}
-                size={16}
-              />
+    <View style={[styles.serviceContainer, styles.mb5]}>
+      <View style={[styles.mx4]}>
+        <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
+        {/* Header --- START*/}
+        <View style={[styles.flexRowContainer, styles.alignCenter, styles.mt2]}>
+          <Text
+            style={[
+              styles.h1,
+              styles.black,
+              styles.bold,
+              styles.mb1,
+              styles.flexGrow,
+            ]}
+          >
+            {name} Service
+          </Text>
+          <TouchableOpacity style={styles.ml3} onPressOut={AddEditServiceRoute}>
+            <View style={[styles.infoColumn, styles.alignCenter]}>
+              <View
+                style={[
+                  styles.borderSecondary,
+                  styles.rounded,
+                  styles.h100,
+                  styles.square,
+                  styles.alignCenter,
+                  styles.justifyContentCenter,
+                ]}
+              >
+                <Icon
+                  name="pen"
+                  type="font-awesome-5"
+                  color={colors.secondary}
+                  size={16}
+                />
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </View>
       {/* Header --- END */}
       <InfoCard
@@ -71,7 +76,10 @@ const MyService = ({
         ratePerHour={ratePerHour}
         description={description}
       />
-      <SampleWorks navigation={FullScreenImageRoute} />
+      {/* <SampleWorksFlatlist
+        navigation={FullScreenImageRoute}
+        DATA={sampleWorksListDATA}
+      /> */}
       <Certificates navigation={FullScreenImageRoute} />
     </View>
   );

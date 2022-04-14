@@ -1,17 +1,21 @@
 import { UserDetailActions } from "../actions/types";
 
-const initialValues = {
-  address: "",
-  birthdate: new Date(0, 0, 0),
-  email: "",
-  first_name: "",
-  last_name: "",
-  middle_name: "",
-  mobile_no: 0,
-  sex: "",
+// address: "",
+// birthdate: new Date(0, 0, 0),
+// email: "",
+// first_name: "",
+// last_name: "",
+// middle_name: "",
+// mobile_no: 0,
+// sex: "",
+
+export const userDetailsInitialValues = {
+  loading: false,
+  user: {},
+  error: undefined,
 };
 
-export const userDetailReducer = (state = initialValues, action) => {
+const userDetailReducer = (state = userDetailsInitialValues, action) => {
   switch (action.type) {
     case UserDetailActions.USER_DETAILS_LOADING:
       return { ...state, loading: true };
@@ -20,8 +24,10 @@ export const userDetailReducer = (state = initialValues, action) => {
     case UserDetailActions.USER_DETAILS_FAIL:
       return { ...state, loading: false, error: action.payload };
     case UserDetailActions.USER_DETAILS_LOGOUT:
-      return { ...state, user: action.payload };
+      return { ...state, state: action.payload };
     default:
       return state;
   }
 };
+
+export default userDetailReducer;

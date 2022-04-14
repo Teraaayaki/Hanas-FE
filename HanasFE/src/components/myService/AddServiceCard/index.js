@@ -12,11 +12,7 @@ const AddServiceCard = ({ navigation, ID }) => {
     <View style={styles.m5}>
       <Text style={[styles.p, styles.grey, styles.bold]}>Service {ID}</Text>
       <View style={[styles.infoCard, styles.mt5, styles.p10]}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("AddEditService", { modType: true })
-          }
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("AddService")}>
           <View
             style={[
               styles.addButton,
