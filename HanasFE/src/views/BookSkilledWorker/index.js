@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
@@ -13,6 +14,10 @@ import { ToastComponent, showToast } from "@helpers/toast";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
+
+  //TAB VIEW
+  const layout = useWindowDimensions();
+  const [index, setIndex] = useState(0);
 
   // COMPUTATION
   const [totalHours, setTotalHours] = useState(0);
@@ -287,9 +292,26 @@ const BookSkilledWorker = ({ navigation, route }) => {
     );
   };
 
-  return (
+  const diff = (start, end) => {
+    start = start.split(":");
+    end = end.split(":");
+    var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+    var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+    var diff = endDate.getTime() - startDate.getTime();
+    var hours = Math.floor(diff / 1000 / 60 / 60);
+    diff -= hours * 1000 * 60 * 60;
+    var minutes = Math.floor(diff / 1000 / 60);
+
+    // If using time pickers with 24 hours format, add the below line get exact hours
+    if (hours < 0)
+       hours = hours + 24;
+
+    return (hours <= 9 ? "0" : "") + hours + ":" + (minutes <= 9 ? "0" : "") + minutes;
+  }
+
+  //FIRST TAB
+  const FirstRoute = () => (
     <View style={[styles.body]}>
-      <Header title={"Book Skilled Worker"} />
       <ScrollView style={[styles.h100, styles.w100]}>
         <View style={[styles.m3, styles.pt3, styles.flex1]}>
           <View
@@ -301,7 +323,118 @@ const BookSkilledWorker = ({ navigation, route }) => {
               styles.borderMuted25,
             ]}
           >
-            {renderHeader()}
+             {renderHeader()}
+            <View style={[styles.px5]}>
+              {renderServiceInfoBox()}
+              {renderPersonalInfoBox()}
+              {renderHourlyRateInfoBox()}
+              {renderTotalPayment()}
+            </View>
+          </View>
+        </View>
+        <View
+          style={[
+            styles.bgLightGrey,
+            styles.m3,
+            styles.p3,
+            styles.flex1,
+            styles.rounded,
+            styles.border,
+            styles.borderMuted25,
+          ]}
+        >
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>
+            Start of Service
+          </Text>
+          <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
+            <IconField
+              iconName="calendar"
+              iconType="font-awesome"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(dateTimeStart).format("MMMM D, YYYY")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
+          {dateStartModal && (
+            <DateTimePicker
+              onChange={changeStartDate}
+              value={dateTimeStart}
+              minimumDate={new Date()}
+            />
+          )}
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>Start Time</Text>
+          <TouchableOpacity onPress={() => setTimeStartModal(true)}>
+            <IconField
+              iconName="schedule"
+              iconType="material"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(timeStart).format("hh:mm:ss A")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
+          {timeStartModal && (
+            <DateTimePicker
+              mode="time"
+              onChange={changeStartTime}
+              value={timeStart}
+              minimumDate={new Date()}
+            />
+          )}
+
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>End Time</Text>
+            <TouchableOpacity onPress={() => setTimeEndModal(true)}>
+              <IconField
+                iconName="schedule"
+                iconType="material"
+                iconColor={colors.secondary}
+                iconSize={24}
+                editable={false}
+                value={dayjs(timeEnd).format("hh:mm:ss A")}
+                placeholder="Set date and time"
+              />
+            </TouchableOpacity>
+          {timeEndModal && (
+            <DateTimePicker
+              mode="time"
+              onChange={changeEndTime}
+              value={timeEnd}
+              minimumDate={new Date()}
+            />
+          )}
+            
+        </View>
+
+        
+
+        <View style={[styles.py3, styles.px5, styles.m5]}>
+          <View style={[styles.px5, styles.mx5]}>
+            <Button title="Submit Request" onPress={handleSubmit} />
+          </View>
+        </View>
+      </ScrollView>
+      <ToastComponent />
+    </View>
+  );
+  
+  //SECOND TAB
+  const SecondRoute = () => (
+    <View style={[styles.body]}>
+      <ScrollView style={[styles.h100, styles.w100]}>
+        <View style={[styles.m3, styles.pt3, styles.flex1]}>
+          <View
+            style={[
+              styles.flex1,
+              styles.bgWhite,
+              styles.rounded,
+              styles.border,
+              styles.borderMuted25,
+            ]}
+          >
+             {renderHeader()}
             <View style={[styles.px5]}>
               {renderServiceInfoBox()}
               {renderPersonalInfoBox()}
@@ -426,6 +559,46 @@ const BookSkilledWorker = ({ navigation, route }) => {
       </ScrollView>
       <ToastComponent />
     </View>
+  );
+
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      indicatorStyle={{ backgroundColor: 'black' }}
+      style={{ backgroundColor: colors.secondary, color: colors.darkGrey}}
+    />
+  );
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  });
+
+ 
+  const [routes] = useState([
+    { key: 'first', title: 'Single Day' },
+    { key: 'second', title: 'Multiple Day' },
+  ]);
+
+  useEffect(() => {
+    let newStartTime = dayjs(timeStart).format("HH:mm:ss");
+    let newEndTime = dayjs(timeEnd).format("HH:mm:ss")
+    let timeDifference = diff(newStartTime, newEndTime);
+    console.log(timeDifference);
+  }, [timeEnd]);
+
+  return (
+    <View style={{flex: 1, flexDirection: "column"}}>
+      <Header title={"Book Skilled Worker"} />
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+        renderTabBar={renderTabBar}
+      />
+    </View>
+   
   );
 };
 
