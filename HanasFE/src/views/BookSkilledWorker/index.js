@@ -7,10 +7,11 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
-import { colors } from "@constants";
+import { colors, fontWeight} from "@constants";
 import styles from "./style";
 import { useSelector } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
+import { Tab } from "react-native-elements";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
@@ -561,14 +562,24 @@ const BookSkilledWorker = ({ navigation, route }) => {
     </View>
   );
 
-  const renderTabBar = props => (
-    <TabBar
-      {...props}
-      indicatorStyle={{ backgroundColor: 'black' }}
-      style={{ backgroundColor: colors.secondary, color: colors.darkGrey}}
-    />
-  );
-
+  const renderTabBar = props => {
+    const _renderLabel = ({ route, focused }) => { 
+      if (focused) { 
+        return <Text style={styles.single}> {route.title.toUpperCase()} </Text>; 
+      } else {
+        return <Text style={styles.multiple}> {route.title.toUpperCase()} </Text>; 
+      }
+    }
+    return (
+      <TabBar
+        {...props}
+        indicatorStyle={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: colors.secondary}}
+        renderLabel={_renderLabel}
+      />
+    );
+  }
+    
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
@@ -576,7 +587,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
  
   const [routes] = useState([
-    { key: 'first', title: 'Single Day' },
+    { key: 'first' , title: `Single Day`},
     { key: 'second', title: 'Multiple Day' },
   ]);
 
