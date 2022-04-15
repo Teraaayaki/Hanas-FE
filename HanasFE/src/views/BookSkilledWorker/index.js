@@ -32,7 +32,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const { user } = useSelector((state) => state.userDetails);
 
-  // console.log(dateTimeStart, dateTimeEnd, timeStart, timeEnd);
+  // console.log("Current ", dateTimeStart, dateTimeEnd, timeStart, timeEnd);
 
   const errorToast = (mess) => {
     showToast("error", mess, "Please try again");
@@ -63,16 +63,16 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const changeEndTime = (e, dob) => {
     if (dateTimeStart.getDate() === dateTimeEnd.getDate()) {
-      console.log(timeStart, timeEnd);
-      if (timeStart > timeEnd) {
-        console.log(true);
-
-        // errorToast("Time end must be greater than time start");
-        // let newDateEnd = timeEnd.setTime(timeStart.getTime() + 1);
-        // setDateTimeEnd(new Date(newDateEnd));
-        // setDateTimeEndModal(false);
+      if (timeStart >= dob) {
+        console.log("timeStart is greater than or equal to timeEnd");
+        errorToast("Time end must be greater than time start");
+        let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+        setTimeEnd(newTimeEnd);
+        setTimeEndModal(false);
+      } else {
+        setTimeEnd(dob);
+        setTimeEndModal(false);
       }
-      setTimeEndModal(false);
     } else {
       setTimeEndModal(false);
       dob && setTimeEnd(dob);
@@ -80,13 +80,18 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const handleSubmit = () => {
-    console.log(timeStart);
-    console.log(timeStart.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
     if (dateTimeStart > dateTimeEnd) {
       errorToast("Date end must not be lesser than date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
       setDateTimeEnd(new Date(newDateEnd));
       setDateTimeEndModal(false);
+    }
+
+    if (timeStart >= timeEnd) {
+      console.log("timeStart is greater than or equal to timeEnd");
+      errorToast("Time end must be greater than time start");
+      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+      setTimeEnd(newTimeEnd);
     }
   };
 
