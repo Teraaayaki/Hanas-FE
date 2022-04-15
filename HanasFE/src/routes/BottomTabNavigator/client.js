@@ -13,7 +13,8 @@ import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
 import BookingSummary from "@screens/transaction/BookingSummary";
-import Schedule from "@screens/Schedule";
+import ClientSchedule from "@screens/schedules/ClientSchedule";
+import BookingRequests from "@screens/BookingRequests";
 import ServicesNearYou from "@screens/ServicesNearYou";
 import BookSkilledWorker from "@screens/BookSkilledWorker";
 import ProfileView from "@screens/profile/ProfileView";
@@ -70,7 +71,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Calendar"
-        component={Schedule}
+        component={ClientSchedule}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -125,6 +126,14 @@ const Tabs = () => {
 
       {/*ari i add ang mga screens nga mag require ani nga navigator */}
       <Tab.Screen
+        name="BookingRequests"
+        component={BookingRequests}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
         name="ServicesNearYou"
         component={ServicesNearYou}
         options={{
@@ -132,7 +141,6 @@ const Tabs = () => {
           tabBarVisible: false,
         }}
       />
-
       <Tab.Screen
         name="SetLocation"
         component={SetLocation}

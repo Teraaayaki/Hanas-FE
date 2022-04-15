@@ -7,11 +7,11 @@ import {
   PinkSidedCardItem,
 } from "@components/card/PinkSidedCardList";
 import ContainedIcon from "@components/icons/ContainedIcon";
-import styles from "./styles";
+import styles from "./style";
 import { colors } from "@constants";
-import { padding } from "../../../constants";
+import { padding } from "@constants";
 
-const ScheduleFlatlist = ({ navigation, DATA }) => {
+const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
   let date = "_";
 
   const renderCard = ({ item }) => {
@@ -65,7 +65,7 @@ const ScheduleFlatlist = ({ navigation, DATA }) => {
           </View>
         </View>
         <View style={[styles.mx5]}>
-          {item.done ? (
+          {item.bookStatus == "Finished" ? (
             <ContainedIcon check disabled />
           ) : (
             <ContainedIcon check success pressable />
@@ -117,4 +117,4 @@ const ScheduleFlatlist = ({ navigation, DATA }) => {
   );
 };
 
-export default ScheduleFlatlist;
+export default WorkerScheduleFlatlist;
