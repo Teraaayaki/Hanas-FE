@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  KeyboardAvoidingView,
-  Image,
-  TextInput,
-} from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
 import React from "react";
 import styles from "./style";
 import IconField from "@components/form/IconField";

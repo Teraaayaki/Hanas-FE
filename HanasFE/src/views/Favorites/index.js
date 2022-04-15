@@ -6,15 +6,15 @@ import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardC
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 
-const Favorites = ({navigation}) => {
+const Favorites = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Favorites" />
-        <View style={styles.textContainer}>
-          <TypeOfService title={"Electrical Services"} />
-          <DropdownPicker />
-        </View>
-        <CardContainerFlatlist navigation={navigation}/>
+      <View style={styles.textContainer}>
+        <TypeOfService title={"Electrical Services"} />
+        <DropdownPicker />
+      </View>
+      <CardContainerFlatlist navigation={navigation} />
     </View>
   );
 };
