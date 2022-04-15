@@ -13,7 +13,7 @@ const clientWorkerViewReducer = (
 ) => {
   switch (action.type) {
     case ClientWorkerViewActions.CLIENT_WORKER_LOADING:
-      return { ...state, loading: true };
+      return { ...state, loading: true, success: false };
     case ClientWorkerViewActions.CLIENT_WORKER_SUCCESS:
       return { ...state, loading: false, success: true };
     case ClientWorkerViewActions.CLIENT_WORKER_FAIL:

@@ -9,10 +9,9 @@ import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
 import { useSelector } from "react-redux";
-import { Time } from "react-native-gifted-chat";
 
-const BookSkilledWorker = ({ navigation, route}) => {
-  const {serviceName} = route.params;
+const BookSkilledWorker = ({ navigation, route }) => {
+  const { serviceName } = route.params;
 
   //DATE
   const [dateTimeStart, setDateTimeStart] = useState(new Date());
@@ -28,15 +27,10 @@ const BookSkilledWorker = ({ navigation, route}) => {
   const [timeStartModal, setTimeStartModal] = useState(false);
   const [timeEndModal, setTimeEndModal] = useState(false);
 
-  const {  profileData } = useSelector(
-    (state) => state.clientWorkerView
-  );
+  const { profileData } = useSelector((state) => state.clientWorkerView);
 
+  const { user } = useSelector((state) => state.userDetails);
 
-  const { user } = useSelector(
-    (state) => state.userDetails
-  );
-  
   console.log(dateTimeStart, dateTimeEnd, timeStart, timeEnd);
   //DATE
   const changeStartDate = (e, dob) => {
@@ -52,14 +46,13 @@ const BookSkilledWorker = ({ navigation, route}) => {
   const changeStartTime = (e, dob) => {
     setTimeStartModal(false);
     dob && setTimeStart(dob);
-  }
+  };
 
   const changeEndTime = (e, dob) => {
     setTimeEndModal(false);
     dob && setTimeEnd(dob);
-  }
+  };
 
-  
   const renderHeader = () => {
     return (
       <View style={[styles.borderBottom, styles.borderMuted25, styles.px2]}>
@@ -97,7 +90,9 @@ const BookSkilledWorker = ({ navigation, route}) => {
             <Text style={[styles.p]}>Skilled Worker Name</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>{`${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`} </Text>
+            <Text style={[styles.p, styles.textRight]}>
+              {`${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`}{" "}
+            </Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -146,9 +141,7 @@ const BookSkilledWorker = ({ navigation, route}) => {
             <Text style={[styles.p]}>Address</Text>
           </View>
           <View style={[styles.flex1]}>
-            <Text style={[styles.p, styles.textRight]}>
-              {user.address}
-            </Text>
+            <Text style={[styles.p, styles.textRight]}>{user.address}</Text>
           </View>
         </View>
       </View>
@@ -230,7 +223,7 @@ const BookSkilledWorker = ({ navigation, route}) => {
             />
           )}
         </View>
-        
+
         <View
           style={[
             styles.bgLightGrey,
@@ -242,9 +235,7 @@ const BookSkilledWorker = ({ navigation, route}) => {
             styles.borderMuted25,
           ]}
         >
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            Start Time
-          </Text>
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>Start Time</Text>
           <TouchableOpacity onPress={() => setTimeStartModal(true)}>
             <IconField
               iconName="schedule"
@@ -298,7 +289,7 @@ const BookSkilledWorker = ({ navigation, route}) => {
             />
           )}
         </View>
-        
+
         <View
           style={[
             styles.bgLightGrey,
@@ -310,9 +301,7 @@ const BookSkilledWorker = ({ navigation, route}) => {
             styles.borderMuted25,
           ]}
         >
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            End Time
-          </Text>
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>End Time</Text>
           <TouchableOpacity onPress={() => setTimeEndModal(true)}>
             <IconField
               iconName="schedule"
@@ -332,7 +321,6 @@ const BookSkilledWorker = ({ navigation, route}) => {
             />
           )}
         </View>
-
 
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
