@@ -152,8 +152,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
     return (
       <View style={[styles.flex1, styles.px5, styles.pb5, styles.pt3,styles.borderBottom,styles.borderMuted25,]}>
         <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
-          <Text style={styles.h4}>Hourly Rate:</Text>
-          <Text style={[styles.h4, styles.textRight]}>
+          <Text style={styles.h4, styles.bold}>Hourly Rate:</Text>
+          <Text style={[styles.h4, styles.textRight, styles.bold]}>
             PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
