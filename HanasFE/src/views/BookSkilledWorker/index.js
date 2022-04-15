@@ -158,8 +158,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
           </View>
         </View>
         <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
-          <Text style={styles.h4, styles.bold}>Hourly Rate:</Text>
-          <Text style={[styles.h4, styles.textRight, styles.bold]}>
+          <Text style={styles.h4}>Hourly Rate:</Text>
+          <Text style={[styles.h4, styles.textRight]}>
             PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
@@ -170,17 +170,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
           </Text>
         </View>
         <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
-          <Text style={styles.h4}>Subtotal:</Text>
-          <Text style={[styles.h4, styles.textRight]}>
+          <Text style={styles.h4, styles.bold}>Subtotal:</Text>
+          <Text style={[styles.h4, styles.textRight, styles.bold]}>
             PHP {profileData.myServicesData[0].hourly_rate} 
           </Text>
         </View>
-        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
-          <Text style={styles.h3}>Convenience Fee (5%):</Text>
-          <Text style={[styles.h4, styles.textRight]}>
-            PHP {profileData.myServicesData[0].hourly_rate} 
-          </Text>
-        </View>
+        
       </View>
     );
   };
@@ -188,6 +183,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const renderTotalPayment = () => {
     return(
       <View style={[styles.flex1, styles.px5, styles.pb5, styles.pt3]}>
+        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
+          <Text style={styles.h3}>Convenience Fee (5%):</Text>
+          <Text style={[styles.h4, styles.textRight]}>
+            PHP {profileData.myServicesData[0].hourly_rate} 
+          </Text>
+        </View>
         <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
           <Text style={[styles.bold, styles.h3]}>Total Cost:</Text>
           <Text style={[styles.h3, styles.textRight, styles.bold]}>
