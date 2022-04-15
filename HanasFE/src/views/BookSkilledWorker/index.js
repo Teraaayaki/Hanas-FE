@@ -262,7 +262,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               iconColor={colors.secondary}
               iconSize={24}
               editable={false}
-              value={dayjs(timeStart).format("hh:mm:ss")}
+              value={dayjs(timeStart).format("hh:mm:ss A")}
               placeholder="Set date and time"
             />
           </TouchableOpacity>
@@ -315,7 +315,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               iconColor={colors.secondary}
               iconSize={24}
               editable={false}
-              value={dayjs(timeEnd).format("hh:mm:ss")}
+              value={dayjs(timeEnd).format("hh:mm:ss A")}
               placeholder="Set date and time"
             />
           </TouchableOpacity>
