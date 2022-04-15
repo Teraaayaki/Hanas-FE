@@ -85,8 +85,13 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
       <View style={[styles.mb5, styles.mt4]}>
         {renderItemHeader({ item, index })}
         {renderItemInfoCard({ item })}
-        <SampleWorksFlatlist DATA={item.sample_works} onPressImage={() => {}} />
+        <SampleWorksFlatlist
+          navigation={navigation}
+          DATA={item.sample_works}
+          onPressImage={() => {}}
+        />
         <CertificatesFlatlist
+          navigation={navigation}
           DATA={item.certificates}
           onPressImage={() => {}}
         />
