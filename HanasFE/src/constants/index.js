@@ -11,6 +11,7 @@ const colors = {
   primary: "#e69fb4",
   secondary: "#ff5e84",
   success: "#8bd948",
+  warning: "#f5b800",
   danger: "#DD5555",
   info: "#005484",
   info2: "#8488FF",

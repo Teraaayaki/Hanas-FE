@@ -18,6 +18,8 @@ const ContainedIcon = ({
   customSize, //default: 38
   pressable, //Applies TouchableOpacity to Icon
   onPress, //Pressable Action
+  borderThin, //borderWidth: 1
+  circle, //borderRounded: 100
 }) => {
   const iconName = ({ check, xMark, customIconName }) => {
     if (check) {
@@ -48,6 +50,20 @@ const ContainedIcon = ({
     return customColor;
   };
 
+  const borderWidthStyle = ({ borderThin }) => {
+    if (borderThin) {
+      return styles.border;
+    }
+    return styles.border2;
+  };
+
+  const roundedStyle = ({ circle }) => {
+    if (circle) {
+      return styles.rounded100;
+    }
+    return styles.rounded;
+  };
+
   const iconSize = ({ customSize }) => {
     if (customSize) {
       return customSize;
@@ -59,8 +75,8 @@ const ContainedIcon = ({
     return (
       <View
         style={[
-          styles.border2,
-          styles.rounded,
+          borderWidthStyle({ borderThin }),
+          roundedStyle({ circle }),
           styles.square,
           styles.p1,
           styles.justifyContentCenter,

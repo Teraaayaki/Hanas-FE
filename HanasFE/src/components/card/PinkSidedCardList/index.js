@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { View, Text } from "react-native";
-import { Icon } from "react-native-elements";
+import { colors, Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import styles from "./styles";
@@ -94,7 +94,14 @@ const PinkSidedCardHeader = ({
 // {hideCard} the Hide Card state.
 // {content} contains what is rendered inside the PinkSidedCard.
 
-const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
+const PinkSidedCardItem = ({
+  navigation,
+  success,
+  danger,
+  disabled,
+  hideCard,
+  content,
+}) => {
   const renderCard = ({ content, disabled, hideCard }) => {
     if (!hideCard) {
       return (
@@ -108,7 +115,7 @@ const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
             styles.mt3,
           ]}
         >
-          {PinkSideBorder(disabled)}
+          {PinkSideBorder(success, danger, disabled)}
           {ContentSide(disabled, content)}
         </View>
       );
@@ -116,24 +123,22 @@ const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
     return <Fragment></Fragment>;
   };
 
-  const PinkSideBorder = (disabled) => {
-    if (disabled) {
-      return (
-        <View
-          style={[
-            styles.pl3,
-            styles.bgGrey,
-            styles.roundedTopLeft,
-            styles.roundedBottomLeft,
-          ]}
-        ></View>
-      );
-    }
+  const PinkSideBorder = (success, danger, disabled) => {
+    const colorStyle = (success, danger, disabled) => {
+      if (success) {
+        return styles.bgSuccess;
+      } else if (danger) {
+        return styles.bgDanger;
+      } else if (disabled) {
+        return styles.bgGrey;
+      }
+      return styles.bgPrimary;
+    };
     return (
       <View
         style={[
           styles.pl3,
-          styles.bgPrimary,
+          colorStyle(success, danger, disabled),
           styles.roundedTopLeft,
           styles.roundedBottomLeft,
         ]}
@@ -186,7 +191,7 @@ const PinkSidedCardItem = ({ navigation, disabled, hideCard, content }) => {
   // PINK SIDED CARD RENDER ------------------------------------------------
   return (
     <View style={[styles.w100]}>
-      {renderCard({ content, disabled, hideCard })}
+      {renderCard({ content, success, danger, disabled, hideCard })}
     </View>
   );
 };
