@@ -32,8 +32,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const { user } = useSelector((state) => state.userDetails);
 
-  // console.log("Current ", dateTimeStart, dateTimeEnd, timeStart, timeEnd);
-
   const errorToast = (mess) => {
     showToast("error", mess, "Please try again");
   };
