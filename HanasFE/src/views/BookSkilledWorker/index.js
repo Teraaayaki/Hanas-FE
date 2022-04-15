@@ -9,6 +9,7 @@ import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
 import { useSelector } from "react-redux";
+import style from "./style";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
@@ -79,7 +80,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       >
         <View style={[styles.flex1, styles.flexRow, styles.mb5]}>
           <View style={[styles.flex1]}>
-            <Text style={[styles.bold]}>Type of Service:</Text>
+            <Text style={[styles.bold,  styles.h3]}>Type of Service:</Text>
           </View>
           <View style={[styles.flex1]}>
             <Text style={[styles.textRight]}>{serviceName} Services</Text>
@@ -123,7 +124,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       >
         <View style={[styles.flex1, styles.flexRow, styles.mb5]}>
           <View style={[styles.flex1]}>
-            <Text style={[styles.bold]}>Personal Information:</Text>
+            <Text style={[styles.bold,  styles.h3]}>Personal Information:</Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -151,6 +152,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const renderHourlyRateInfoBox = () => {
     return (
       <View style={[styles.flex1, styles.px5, styles.pb5, styles.pt3,styles.borderBottom,styles.borderMuted25,]}>
+        <View style={[styles.flex1, styles.flexRow, styles.mb5]}>
+          <View style={[styles.flex1]}>
+            <Text style={[styles.bold, styles.h3]}>Booking Information:</Text>
+          </View>
+        </View>
         <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
           <Text style={styles.h4, styles.bold}>Hourly Rate:</Text>
           <Text style={[styles.h4, styles.textRight, styles.bold]}>
