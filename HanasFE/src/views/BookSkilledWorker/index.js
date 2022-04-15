@@ -59,7 +59,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         <Text
           style={[styles.h2, styles.px5, styles.bold, styles.pt3, styles.pb4]}
         >
-          Request Informaton
+          Request Information
         </Text>
       </View>
     );
