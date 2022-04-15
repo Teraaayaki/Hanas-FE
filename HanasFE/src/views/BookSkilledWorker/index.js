@@ -9,7 +9,7 @@ import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
 import { useSelector } from "react-redux";
-import style from "./style";
+import { ToastComponent, showToast } from "@helpers/toast";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
@@ -32,15 +32,27 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const { user } = useSelector((state) => state.userDetails);
 
-  console.log(dateTimeStart, dateTimeEnd, timeStart, timeEnd);
+  // console.log(dateTimeStart, dateTimeEnd, timeStart, timeEnd);
+
+  const errorToast = (mess) => {
+    showToast("error", mess, "Please try again");
+  };
+
   //DATE
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
   };
   const changeEndDate = (e, dob) => {
-    setDateTimeEndModal(false);
-    dob && setDateTimeEnd(dob);
+    if (dateTimeStart > dob) {
+      errorToast("Date end must not be lesser than date start");
+      let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
+      setDateTimeEnd(new Date(newDateEnd));
+      setDateTimeEndModal(false);
+    } else {
+      setDateTimeEndModal(false);
+      dob && setDateTimeEnd(dob);
+    }
   };
 
   //TIME
@@ -50,8 +62,32 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const changeEndTime = (e, dob) => {
-    setTimeEndModal(false);
-    dob && setTimeEnd(dob);
+    if (dateTimeStart.getDate() === dateTimeEnd.getDate()) {
+      console.log(timeStart, timeEnd);
+      if (timeStart > timeEnd) {
+        console.log(true);
+
+        // errorToast("Time end must be greater than time start");
+        // let newDateEnd = timeEnd.setTime(timeStart.getTime() + 1);
+        // setDateTimeEnd(new Date(newDateEnd));
+        // setDateTimeEndModal(false);
+      }
+      setTimeEndModal(false);
+    } else {
+      setTimeEndModal(false);
+      dob && setTimeEnd(dob);
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log(timeStart);
+    console.log(timeStart.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+    if (dateTimeStart > dateTimeEnd) {
+      errorToast("Date end must not be lesser than date start");
+      let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
+      setDateTimeEnd(new Date(newDateEnd));
+      setDateTimeEndModal(false);
+    }
   };
 
   const renderHeader = () => {
@@ -80,7 +116,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       >
         <View style={[styles.flex1, styles.flexRow, styles.mb5]}>
           <View style={[styles.flex1]}>
-            <Text style={[styles.bold,  styles.h3]}>Type of Service:</Text>
+            <Text style={[styles.bold, styles.h3]}>Type of Service:</Text>
           </View>
           <View style={[styles.flex1]}>
             <Text style={[styles.textRight]}>{serviceName} Services</Text>
@@ -124,7 +160,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       >
         <View style={[styles.flex1, styles.flexRow, styles.mb5]}>
           <View style={[styles.flex1]}>
-            <Text style={[styles.bold,  styles.h3]}>Personal Information:</Text>
+            <Text style={[styles.bold, styles.h3]}>Personal Information:</Text>
           </View>
         </View>
         <View style={[styles.flex1, styles.flexRow, styles.mb3]}>
@@ -151,53 +187,96 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const renderHourlyRateInfoBox = () => {
     return (
-      <View style={[styles.flex1, styles.px5, styles.pb5, styles.pt3,styles.borderBottom,styles.borderMuted25,]}>
+      <View
+        style={[
+          styles.flex1,
+          styles.px5,
+          styles.pb5,
+          styles.pt3,
+          styles.borderBottom,
+          styles.borderMuted25,
+        ]}
+      >
         <View style={[styles.flex1, styles.flexRow, styles.mb5]}>
           <View style={[styles.flex1]}>
             <Text style={[styles.bold, styles.h3]}>Booking Information:</Text>
           </View>
         </View>
-        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
+        <View
+          style={[
+            styles.flex1,
+            styles.flexRow,
+            styles.justifyContentSpaceBetween,
+            styles.alignCenter,
+          ]}
+        >
           <Text style={styles.h4}>Hourly Rate:</Text>
           <Text style={[styles.h4, styles.textRight]}>
             PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
-        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
+        <View
+          style={[
+            styles.flex1,
+            styles.flexRow,
+            styles.justifyContentSpaceBetween,
+            styles.alignCenter,
+          ]}
+        >
           <Text style={styles.h4}>Total Hours:</Text>
           <Text style={[styles.h4, styles.textRight]}>
             {profileData.myServicesData[0].hourly_rate} hr(s)
           </Text>
         </View>
-        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
-          <Text style={styles.h4, styles.bold}>Subtotal:</Text>
+        <View
+          style={[
+            styles.flex1,
+            styles.flexRow,
+            styles.justifyContentSpaceBetween,
+            styles.alignCenter,
+          ]}
+        >
+          <Text style={[styles.h4, styles.bold]}>Subtotal:</Text>
           <Text style={[styles.h4, styles.textRight, styles.bold]}>
-            PHP {profileData.myServicesData[0].hourly_rate} 
+            PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
-        
       </View>
     );
   };
 
   const renderTotalPayment = () => {
-    return(
+    return (
       <View style={[styles.flex1, styles.px5, styles.pb5, styles.pt3]}>
-        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
+        <View
+          style={[
+            styles.flex1,
+            styles.flexRow,
+            styles.justifyContentSpaceBetween,
+            styles.alignCenter,
+          ]}
+        >
           <Text style={styles.h3}>Convenience Fee (5%):</Text>
           <Text style={[styles.h4, styles.textRight]}>
-            PHP {profileData.myServicesData[0].hourly_rate} 
+            PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
-        <View style={[ styles.flex1, styles.flexRow, styles.justifyContentSpaceBetween, styles.alignCenter]}>
+        <View
+          style={[
+            styles.flex1,
+            styles.flexRow,
+            styles.justifyContentSpaceBetween,
+            styles.alignCenter,
+          ]}
+        >
           <Text style={[styles.bold, styles.h3]}>Total Cost:</Text>
           <Text style={[styles.h3, styles.textRight, styles.bold]}>
-            PHP {profileData.myServicesData[0].hourly_rate} 
+            PHP {profileData.myServicesData[0].hourly_rate}
           </Text>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   return (
     <View style={[styles.body]}>
@@ -251,7 +330,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             <DateTimePicker
               onChange={changeStartDate}
               value={dateTimeStart}
-              minimumDate={new Date(1950, 0, 1)}
+              minimumDate={new Date()}
             />
           )}
           <Text style={[styles.h3, styles.bold, styles.mb4]}>Start Time</Text>
@@ -271,6 +350,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               mode="time"
               onChange={changeStartTime}
               value={timeStart}
+              minimumDate={new Date()}
             />
           )}
         </View>
@@ -304,7 +384,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             <DateTimePicker
               onChange={changeEndDate}
               value={dateTimeEnd}
-              minimumDate={new Date(1950, 0, 1)}
+              minimumDate={new Date()}
             />
           )}
           <Text style={[styles.h3, styles.bold, styles.mb4]}>End Time</Text>
@@ -324,19 +404,18 @@ const BookSkilledWorker = ({ navigation, route }) => {
               mode="time"
               onChange={changeEndTime}
               value={timeEnd}
+              minimumDate={new Date()}
             />
           )}
         </View>
 
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
-            <Button
-              title="Submit Request"
-              onPress={() => navigation.navigate("Home")}
-            />
+            <Button title="Submit Request" onPress={handleSubmit} />
           </View>
         </View>
       </ScrollView>
+      <ToastComponent />
     </View>
   );
 };
