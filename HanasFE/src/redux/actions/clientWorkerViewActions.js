@@ -1,4 +1,4 @@
-import { ClientWorkerViewActions } from "./types";
+import { ClientWorkerViewActions} from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 

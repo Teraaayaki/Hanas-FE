@@ -4,6 +4,7 @@ import userRegisterReducer from "./userRegisterReducer";
 import userDetailReducer from "./userDetailsReducer";
 import workerServicesReducer from "./workerServicesReducer";
 import clientWorkerViewReducer from "./clientWorkerViewReducer";
+import clientBookingReducer from "./clientBookingReducer";
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   userDetails: userDetailReducer,
   workerServices: workerServicesReducer,
   clientWorkerView: clientWorkerViewReducer,
+  clientBooking: clientBookingReducer,
 });

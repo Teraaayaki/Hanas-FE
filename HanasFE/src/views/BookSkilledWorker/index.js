@@ -14,6 +14,12 @@ import { ToastComponent, showToast } from "@helpers/toast";
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
 
+  // COMPUTATION
+  const [totalHours, setTotalHours] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [convenienceFee, setConvenienceFee] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
+  
   //DATE
   const [dateTimeStart, setDateTimeStart] = useState(new Date());
   const [dateTimeEnd, setDateTimeEnd] = useState(new Date());
@@ -228,7 +234,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         >
           <Text style={styles.h4}>Total Hours:</Text>
           <Text style={[styles.h4, styles.textRight]}>
-            {profileData.myServicesData[0].hourly_rate} hr(s)
+            {totalHours} hr(s)
           </Text>
         </View>
         <View
@@ -241,7 +247,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         >
           <Text style={[styles.h4, styles.bold]}>Subtotal:</Text>
           <Text style={[styles.h4, styles.textRight, styles.bold]}>
-            PHP {profileData.myServicesData[0].hourly_rate}
+            PHP {subTotal}
           </Text>
         </View>
       </View>
@@ -261,7 +267,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         >
           <Text style={styles.h3}>Convenience Fee (5%):</Text>
           <Text style={[styles.h4, styles.textRight]}>
-            PHP {profileData.myServicesData[0].hourly_rate}
+            PHP {convenienceFee}
           </Text>
         </View>
         <View
@@ -274,7 +280,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         >
           <Text style={[styles.bold, styles.h3]}>Total Cost:</Text>
           <Text style={[styles.h3, styles.textRight, styles.bold]}>
-            PHP {profileData.myServicesData[0].hourly_rate}
+            PHP {totalCost}
           </Text>
         </View>
       </View>
