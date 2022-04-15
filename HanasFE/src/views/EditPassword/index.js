@@ -18,7 +18,18 @@ const EditPassword = () => {
     >
       <KeyboardAvoidingView style={[styles.w66]}>
         <ScrollView>
-          <View style={[styles.mb5, styles.pb5]}>
+          <Text
+            style={[
+              styles.textCenter,
+              styles.h1,
+              styles.bold,
+              styles.mb5,
+              styles.pb5,
+            ]}
+          >
+            Edit Password
+          </Text>
+          <View style={[styles.my5, styles.py5]}>
             <Text style={[styles.bold, styles.mb3]}>Old Password</Text>
             <IconField
               iconName="lock"
