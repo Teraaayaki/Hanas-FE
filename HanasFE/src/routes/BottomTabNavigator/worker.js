@@ -13,7 +13,7 @@ import Reviews from "@screens/Reviews";
 import Messages from "@screens/messages/MessagesLobby";
 import Notification from "@screens/Notification";
 import WorkerSchedule from "@screens/schedules/WorkerSchedule";
-import BookingRequests from "@screens/BookingRequests";
+import WorkerBookingRequests from "@screens/bookingRequests/WorkerBookingRequests";
 import Achievements from "@screens/Achievements";
 import EditService from "@screens/services/EditService";
 
@@ -124,8 +124,8 @@ const Tabs = () => {
       {/*ari i add ang mga screens nga mag require ani nga navigator */}
 
       <Tab.Screen
-        name="BookingRequests"
-        component={BookingRequests}
+        name="WorkerBookingRequests"
+        component={WorkerBookingRequests}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,

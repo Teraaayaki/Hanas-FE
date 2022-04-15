@@ -1,10 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import styles from "./styles";
+import styles from "./style";
 import Header from "@components/Header";
-import BookingRequestsFlatlist from "@components/flatlist/BookingRequestsFlatlist";
+import WorkerBookingRequestsFlatlist from "@components/flatlist/bookingRequestsFlatlists/WorkerBookingRequestsFlatlist";
 
-const BookingRequests = ({ navigation }) => {
+const WorkerBookingRequests = ({ navigation }) => {
   let BRcount = 3;
 
   const DATA = [
@@ -16,7 +16,7 @@ const BookingRequests = ({ navigation }) => {
       address: "Bogo City, Cebu",
       timeStart: "11:00 AM",
       timeEnd: "10:00 PM",
-      bookStatus: "pending",
+      bookStatus: "Pending",
     },
     {
       id: "2",
@@ -26,7 +26,7 @@ const BookingRequests = ({ navigation }) => {
       address: "Talamban, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "2:00 PM",
-      bookStatus: "pending",
+      bookStatus: "Pending",
     },
     {
       id: "3",
@@ -36,7 +36,7 @@ const BookingRequests = ({ navigation }) => {
       address: "Lapu-lapu City, Cebu",
       timeStart: "10:00 AM",
       timeEnd: "1:00 PM",
-      bookStatus: "declined",
+      bookStatus: "Declined",
     },
     {
       id: "4",
@@ -46,7 +46,7 @@ const BookingRequests = ({ navigation }) => {
       address: "Bogo City, Cebu",
       timeStart: "5:00 PM",
       timeEnd: "8:00 PM",
-      bookStatus: "pending",
+      bookStatus: "Pending",
     },
     {
       id: "5",
@@ -56,7 +56,7 @@ const BookingRequests = ({ navigation }) => {
       address: "Danao City, Cebu",
       timeStart: "12:00 AM",
       timeEnd: "3:00 PM",
-      bookStatus: "declined",
+      bookStatus: "Declined",
     },
     {
       id: "6",
@@ -66,7 +66,7 @@ const BookingRequests = ({ navigation }) => {
       address: "Danao City, Cebu",
       timeStart: "12:00 AM",
       timeEnd: "3:00 PM",
-      bookStatus: "declined",
+      bookStatus: "Declined",
     },
   ];
 
@@ -74,10 +74,10 @@ const BookingRequests = ({ navigation }) => {
     <View style={[styles.body]}>
       <Header title={"Booking Requests(" + BRcount + ")"} />
       <View style={[styles.mx3, styles.flex1]}>
-        <BookingRequestsFlatlist DATA={DATA} />
+        <WorkerBookingRequestsFlatlist DATA={DATA} />
       </View>
     </View>
   );
 };
 
-export default BookingRequests;
+export default WorkerBookingRequests;

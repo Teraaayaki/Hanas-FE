@@ -117,13 +117,13 @@ const ClientSchedule = ({ navigation }) => {
     >
       <View style={[styles.body]}>
         <View style={[styles.mx3, styles.flex1]}>
-          <ClientScheduleFlatlist DATA={DATA} />
+          <ClientScheduleFlatlist navigation={navigation} DATA={DATA} />
           <View
             style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
           >
             <View style={[styles.flex1]} />
             <TouchableOpacity
-              onPress={() => navigation.navigate("BookingRequests")}
+              onPress={() => navigation.navigate("ClientBookingRequests")}
             >
               <Text
                 style={[
