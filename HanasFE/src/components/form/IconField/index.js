@@ -17,6 +17,7 @@ export default ({
   editable,
   secureTextEntry,
   error,
+  autoComplete,
   autoCapitalize,
   mobileNum,
 }) => {
@@ -54,6 +55,7 @@ export default ({
       )}
       <TextInput
         style={styles.textInput}
+        autoComplete={autoComplete}
         autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
         editable={editable}
