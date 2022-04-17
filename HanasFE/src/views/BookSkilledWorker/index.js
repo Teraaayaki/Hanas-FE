@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+
 import {
+  ActivityIndicator,
   View,
   Text,
   ScrollView,
@@ -9,18 +11,22 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
 import { colors } from "@constants";
 import styles from "./style";
-import { useSelector } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
+import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
-
+  const { profileData } = useSelector((state) => state.clientWorkerView);
+  const { user } = useSelector((state) => state.userDetails);
+  const { loading } = useSelector((state) => state.clientBooking);
+  const dispatch = useDispatch();
   //TAB VIEW
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
@@ -45,12 +51,25 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const [timeStartModal, setTimeStartModal] = useState(false);
   const [timeEndModal, setTimeEndModal] = useState(false);
 
-  const { profileData } = useSelector((state) => state.clientWorkerView);
-
-  const { user } = useSelector((state) => state.userDetails);
-
   const errorToast = (mess) => {
+    console.log("Showing Toast");
     showToast("error", mess, "Please try again");
+  };
+
+  const diff = (start, end) => {
+    start = start.split(":");
+    end = end.split(":");
+    let startDate = new Date(0, 0, 0, start[0], start[1], 0);
+    let endDate = new Date(0, 0, 0, end[0], end[1], 0);
+    let diff = endDate.getTime() - startDate.getTime();
+    let hours = Math.floor(diff / 1000 / 60 / 60);
+    diff -= hours * 1000 * 60 * 60;
+    let minutes = Math.floor(diff / 1000 / 60);
+
+    // If using time pickers with 24 hours format, add the below line get exact hours
+    if (hours < 0) hours = hours + 24;
+
+    return parseFloat(`${hours}.${minutes}`);
   };
 
   //DATE
@@ -59,13 +78,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
     dob && setDateTimeStart(dob);
   };
   const changeEndDate = (e, dob) => {
-    if (dateTimeStart > dob) {
-      errorToast("Date end must not be lesser than date start");
+    setDateTimeEndModal(false);
+
+    if (dateTimeStart.getDate() >= dob.getDate()) {
+      errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
       setDateTimeEnd(new Date(newDateEnd));
-      setDateTimeEndModal(false);
     } else {
-      setDateTimeEndModal(false);
       dob && setDateTimeEnd(dob);
     }
   };
@@ -79,42 +98,102 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const changeEndTime = (e, dob) => {
     setTimeEndModal(false);
-    let timeStartFormatted = dayjs(timeStart).format("hh:mm A");
-    let timeEndFormatted = dayjs(dob).format("hh:mm A");
+    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
+    let timeEndFormatted = dayjs(dob).format("HH:mm");
 
     if (timeStartFormatted >= timeEndFormatted) {
-      console.log("timeStart is greater than or equal to timeEnd");
       errorToast("Time end must be greater than time start");
       let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
       setTimeEnd(newTimeEnd);
     } else {
       dob && setTimeEnd(dob);
     }
+    // Calculations
+    let newStartTime = dayjs(timeStart).format("HH:mm:ss");
+    let newEndTime = dayjs(dob).format("HH:mm:ss");
+    let timeDifference = diff(newStartTime, newEndTime);
+    let subTotalValue =
+      profileData.myServicesData[0].hourly_rate * timeDifference;
+    let convenienceFeeValue = subTotalValue * 0.05;
+
+    setTotalHours(timeDifference.toFixed(2));
+    setSubTotal(subTotalValue.toFixed(2));
+    setConvenienceFee(convenienceFeeValue.toFixed(2));
+    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+  };
+
+  const setTotalHoursRendered = (e) => {
+    let subTotalValue = profileData.myServicesData[0].hourly_rate * parseInt(e);
+    let convenienceFeeValue = subTotalValue * 0.05;
+
+    setTotalHours(e);
+    setSubTotal(subTotalValue.toFixed(2));
+    setConvenienceFee(convenienceFeeValue.toFixed(2));
+    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
   };
 
   const handleSubmitSingleDay = () => {
-    console.log(timeStart, timeEnd);
-    if (timeStart >= timeEnd) {
+    if (!totalCost) {
+      console.log("error missings data");
+      errorToast("Please input some data");
+      return;
+    }
+
+    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
+    let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
+    if (timeStartFormatted >= timeEndFormatted) {
       console.log("timeStart is greater than or equal to timeEnd");
       errorToast("Time end must be greater than time start");
       let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
       setTimeEnd(newTimeEnd);
+    } else {
+      const data = {
+        service_availed: profileData.myServicesData[0]._id,
+        worker: profileData._id,
+        client: user.id,
+        book_type: "Single",
+        booked_dateTimeStart: new Date(
+          dateTimeStart.getDate() + timeStart.getTime()
+        ),
+        booked_dateTimeEnd: new Date(
+          dateTimeStart.getDate() + timeEnd.getTime()
+        ),
+        total_cost: totalCost,
+        total_hours: totalHours,
+        book_status: "Pending",
+        conv_fee: convenienceFee,
+      };
+      console.log("dispatched booking");
+      dispatch(bookSkilledWorker(data, navigation));
     }
   };
 
   const handleSubmitMultipleDay = () => {
-    if (dateTimeStart > dateTimeEnd) {
-      errorToast("Date end must not be lesser than date start");
+    if (!totalCost) {
+      console.log("error missings data");
+      errorToast("Please input some data");
+      return;
+    }
+
+    if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
+      errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
       setDateTimeEnd(new Date(newDateEnd));
       setDateTimeEndModal(false);
-    }
-
-    if (timeStart >= timeEnd) {
-      console.log("timeStart is greater than or equal to timeEnd");
-      errorToast("Time end must be greater than time start");
-      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-      setTimeEnd(newTimeEnd);
+    } else {
+      const data = {
+        service_availed: profileData.myServicesData[0]._id,
+        worker: profileData._id,
+        client: user.id,
+        book_type: "Multiple",
+        booked_dateTimeStart: dateTimeStart,
+        booked_dateTimeEnd: dateTimeEnd,
+        total_cost: totalCost,
+        total_hours: totalHours,
+        book_status: "Pending",
+        conv_fee: convenienceFee,
+      };
+      dispatch(bookSkilledWorker(data, navigation));
     }
   };
 
@@ -304,28 +383,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
     );
   };
 
-  const diff = (start, end) => {
-    start = start.split(":");
-    end = end.split(":");
-    var startDate = new Date(0, 0, 0, start[0], start[1], 0);
-    var endDate = new Date(0, 0, 0, end[0], end[1], 0);
-    var diff = endDate.getTime() - startDate.getTime();
-    var hours = Math.floor(diff / 1000 / 60 / 60);
-    diff -= hours * 1000 * 60 * 60;
-    var minutes = Math.floor(diff / 1000 / 60);
-
-    // If using time pickers with 24 hours format, add the below line get exact hours
-    if (hours < 0) hours = hours + 24;
-
-    return (
-      (hours <= 9 ? "0" : "") +
-      hours +
-      ":" +
-      (minutes <= 9 ? "0" : "") +
-      minutes
-    );
-  };
-
   //FIRST TAB
   const FirstRoute = () => (
     <View style={[styles.body]}>
@@ -426,11 +483,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
+            {loading && (
+              <ActivityIndicator size="large" color={colors.secondary} />
+            )}
             <Button title="Submit Request" onPress={handleSubmitSingleDay} />
           </View>
         </View>
       </ScrollView>
-      <ToastComponent />
     </View>
   );
 
@@ -523,18 +582,20 @@ const BookSkilledWorker = ({ navigation, route }) => {
             iconSize={24}
             keyboardType="number-pad"
             value={totalHours}
-            onChangeText={(e) => setTotalHours(e)}
+            onChangeText={(e) => setTotalHoursRendered(e)}
             placeholder="Enter a number"
           />
         </View>
 
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
+            {loading && (
+              <ActivityIndicator size="large" color={colors.secondary} />
+            )}
             <Button title="Submit Request" onPress={handleSubmitMultipleDay} />
           </View>
         </View>
       </ScrollView>
-      <ToastComponent />
     </View>
   );
 
@@ -571,14 +632,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
   useEffect(() => {
     let date = new Date();
     setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
-  }, []);
 
-  useEffect(() => {
-    let newStartTime = dayjs(timeStart).format("HH:mm:ss");
-    let newEndTime = dayjs(timeEnd).format("HH:mm:ss");
-    let timeDifference = diff(newStartTime, newEndTime);
-    console.log(timeDifference);
-  }, [timeEnd]);
+    let newDateEnd = date.setDate(date.getDate() + 1);
+    setDateTimeEnd(new Date(newDateEnd));
+  }, []);
 
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
