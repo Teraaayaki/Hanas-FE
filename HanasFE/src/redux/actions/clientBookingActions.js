@@ -14,6 +14,7 @@ export const bookSkilledWorker = (DATA, navigation) => async (dispatch) => {
       { headers: { authorization: `Bearer ${token}` } }
     );
     if (data) {
+      console.log(data.booking_details);
       dispatch({ type: ClientBookingActions.CLIENT_BOOKING_SUCCESS });
     }
   } catch (err) {
