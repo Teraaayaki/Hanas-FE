@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity, useWindowDimensions } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
-import { colors, fontWeight} from "@constants";
+import { colors } from "@constants";
 import styles from "./style";
 import { useSelector } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
-import { Tab } from "react-native-elements";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
@@ -20,12 +25,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
-  // COMPUTATION
-  const [totalHours, setTotalHours] = useState(0);
+  // COMPUTATION VALUES
+  const [totalHours, setTotalHours] = useState("");
   const [subTotal, setSubTotal] = useState(0);
   const [convenienceFee, setConvenienceFee] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
-  
+
   //DATE
   const [dateTimeStart, setDateTimeStart] = useState(new Date());
   const [dateTimeEnd, setDateTimeEnd] = useState(new Date());
@@ -67,29 +72,37 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   //TIME
   const changeStartTime = (e, dob) => {
+    console.log(dob);
     setTimeStartModal(false);
     dob && setTimeStart(dob);
   };
 
   const changeEndTime = (e, dob) => {
-    if (dateTimeStart.getDate() === dateTimeEnd.getDate()) {
-      if (timeStart >= dob) {
-        console.log("timeStart is greater than or equal to timeEnd");
-        errorToast("Time end must be greater than time start");
-        let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-        setTimeEnd(newTimeEnd);
-        setTimeEndModal(false);
-      } else {
-        setTimeEnd(dob);
-        setTimeEndModal(false);
-      }
+    setTimeEndModal(false);
+    let timeStartFormatted = dayjs(timeStart).format("hh:mm A");
+    let timeEndFormatted = dayjs(dob).format("hh:mm A");
+
+    if (timeStartFormatted >= timeEndFormatted) {
+      console.log("timeStart is greater than or equal to timeEnd");
+      errorToast("Time end must be greater than time start");
+      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+      setTimeEnd(newTimeEnd);
     } else {
-      setTimeEndModal(false);
       dob && setTimeEnd(dob);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmitSingleDay = () => {
+    console.log(timeStart, timeEnd);
+    if (timeStart >= timeEnd) {
+      console.log("timeStart is greater than or equal to timeEnd");
+      errorToast("Time end must be greater than time start");
+      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+      setTimeEnd(newTimeEnd);
+    }
+  };
+
+  const handleSubmitMultipleDay = () => {
     if (dateTimeStart > dateTimeEnd) {
       errorToast("Date end must not be lesser than date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
@@ -239,9 +252,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
           ]}
         >
           <Text style={styles.h4}>Total Hours:</Text>
-          <Text style={[styles.h4, styles.textRight]}>
-            {totalHours} hr(s)
-          </Text>
+          <Text style={[styles.h4, styles.textRight]}>{totalHours} hr(s)</Text>
         </View>
         <View
           style={[
@@ -304,11 +315,16 @@ const BookSkilledWorker = ({ navigation, route }) => {
     var minutes = Math.floor(diff / 1000 / 60);
 
     // If using time pickers with 24 hours format, add the below line get exact hours
-    if (hours < 0)
-       hours = hours + 24;
+    if (hours < 0) hours = hours + 24;
 
-    return (hours <= 9 ? "0" : "") + hours + ":" + (minutes <= 9 ? "0" : "") + minutes;
-  }
+    return (
+      (hours <= 9 ? "0" : "") +
+      hours +
+      ":" +
+      (minutes <= 9 ? "0" : "") +
+      minutes
+    );
+  };
 
   //FIRST TAB
   const FirstRoute = () => (
@@ -324,7 +340,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               styles.borderMuted25,
             ]}
           >
-             {renderHeader()}
+            {renderHeader()}
             <View style={[styles.px5]}>
               {renderServiceInfoBox()}
               {renderPersonalInfoBox()}
@@ -345,7 +361,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
           ]}
         >
           <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            Start of Service
+            Day of Service
           </Text>
           <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
             <IconField
@@ -373,7 +389,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               iconColor={colors.secondary}
               iconSize={24}
               editable={false}
-              value={dayjs(timeStart).format("hh:mm:ss A")}
+              value={dayjs(timeStart).format("hh:mm A")}
               placeholder="Set date and time"
             />
           </TouchableOpacity>
@@ -387,17 +403,17 @@ const BookSkilledWorker = ({ navigation, route }) => {
           )}
 
           <Text style={[styles.h3, styles.bold, styles.mb4]}>End Time</Text>
-            <TouchableOpacity onPress={() => setTimeEndModal(true)}>
-              <IconField
-                iconName="schedule"
-                iconType="material"
-                iconColor={colors.secondary}
-                iconSize={24}
-                editable={false}
-                value={dayjs(timeEnd).format("hh:mm:ss A")}
-                placeholder="Set date and time"
-              />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => setTimeEndModal(true)}>
+            <IconField
+              iconName="schedule"
+              iconType="material"
+              iconColor={colors.secondary}
+              iconSize={24}
+              editable={false}
+              value={dayjs(timeEnd).format("hh:mm A")}
+              placeholder="Set date and time"
+            />
+          </TouchableOpacity>
           {timeEndModal && (
             <DateTimePicker
               mode="time"
@@ -406,21 +422,18 @@ const BookSkilledWorker = ({ navigation, route }) => {
               minimumDate={new Date()}
             />
           )}
-            
         </View>
-
-        
 
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
-            <Button title="Submit Request" onPress={handleSubmit} />
+            <Button title="Submit Request" onPress={handleSubmitSingleDay} />
           </View>
         </View>
       </ScrollView>
       <ToastComponent />
     </View>
   );
-  
+
   //SECOND TAB
   const SecondRoute = () => (
     <View style={[styles.body]}>
@@ -435,7 +448,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               styles.borderMuted25,
             ]}
           >
-             {renderHeader()}
+            {renderHeader()}
             <View style={[styles.px5]}>
               {renderServiceInfoBox()}
               {renderPersonalInfoBox()}
@@ -476,39 +489,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
               minimumDate={new Date()}
             />
           )}
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>Start Time</Text>
-          <TouchableOpacity onPress={() => setTimeStartModal(true)}>
-            <IconField
-              iconName="schedule"
-              iconType="material"
-              iconColor={colors.secondary}
-              iconSize={24}
-              editable={false}
-              value={dayjs(timeStart).format("hh:mm:ss A")}
-              placeholder="Set date and time"
-            />
-          </TouchableOpacity>
-          {timeStartModal && (
-            <DateTimePicker
-              mode="time"
-              onChange={changeStartTime}
-              value={timeStart}
-              minimumDate={new Date()}
-            />
-          )}
-        </View>
 
-        <View
-          style={[
-            styles.bgLightGrey,
-            styles.m3,
-            styles.p3,
-            styles.flex1,
-            styles.rounded,
-            styles.border,
-            styles.borderMuted25,
-          ]}
-        >
           <Text style={[styles.h3, styles.bold, styles.mb4]}>
             End of Service
           </Text>
@@ -530,31 +511,26 @@ const BookSkilledWorker = ({ navigation, route }) => {
               minimumDate={new Date()}
             />
           )}
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>End Time</Text>
-          <TouchableOpacity onPress={() => setTimeEndModal(true)}>
-            <IconField
-              iconName="schedule"
-              iconType="material"
-              iconColor={colors.secondary}
-              iconSize={24}
-              editable={false}
-              value={dayjs(timeEnd).format("hh:mm:ss A")}
-              placeholder="Set date and time"
-            />
-          </TouchableOpacity>
-          {timeEndModal && (
-            <DateTimePicker
-              mode="time"
-              onChange={changeEndTime}
-              value={timeEnd}
-              minimumDate={new Date()}
-            />
-          )}
+
+          <Text style={[styles.h3, styles.bold, styles.mb4]}>
+            Hours to rendered
+          </Text>
+
+          <IconField
+            iconName="schedule"
+            iconType="material"
+            iconColor={colors.secondary}
+            iconSize={24}
+            keyboardType="number-pad"
+            value={totalHours}
+            onChangeText={(e) => setTotalHours(e)}
+            placeholder="Enter a number"
+          />
         </View>
 
         <View style={[styles.py3, styles.px5, styles.m5]}>
           <View style={[styles.px5, styles.mx5]}>
-            <Button title="Submit Request" onPress={handleSubmit} />
+            <Button title="Submit Request" onPress={handleSubmitMultipleDay} />
           </View>
         </View>
       </ScrollView>
@@ -562,44 +538,50 @@ const BookSkilledWorker = ({ navigation, route }) => {
     </View>
   );
 
-  const renderTabBar = props => {
-    const _renderLabel = ({ route, focused }) => { 
-      if (focused) { 
-        return <Text style={styles.single}> {route.title.toUpperCase()} </Text>; 
+  const renderTabBar = (props) => {
+    const _renderLabel = ({ route, focused }) => {
+      if (focused) {
+        return <Text style={styles.single}> {route.title.toUpperCase()} </Text>;
       } else {
-        return <Text style={styles.multiple}> {route.title.toUpperCase()} </Text>; 
+        return (
+          <Text style={styles.multiple}> {route.title.toUpperCase()} </Text>
+        );
       }
-    }
+    };
     return (
       <TabBar
         {...props}
-        indicatorStyle={{ backgroundColor: 'white' }}
-        style={{ backgroundColor: colors.secondary}}
+        indicatorStyle={{ backgroundColor: "white" }}
+        style={{ backgroundColor: colors.secondary }}
         renderLabel={_renderLabel}
       />
     );
-  }
-    
+  };
+
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
   });
 
- 
   const [routes] = useState([
-    { key: 'first' , title: `Single Day`},
-    { key: 'second', title: 'Multiple Day' },
+    { key: "first", title: `Single Day` },
+    { key: "second", title: "Multiple Day" },
   ]);
 
   useEffect(() => {
+    let date = new Date();
+    setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
+  }, []);
+
+  useEffect(() => {
     let newStartTime = dayjs(timeStart).format("HH:mm:ss");
-    let newEndTime = dayjs(timeEnd).format("HH:mm:ss")
+    let newEndTime = dayjs(timeEnd).format("HH:mm:ss");
     let timeDifference = diff(newStartTime, newEndTime);
     console.log(timeDifference);
   }, [timeEnd]);
 
   return (
-    <View style={{flex: 1, flexDirection: "column"}}>
+    <View style={{ flex: 1, flexDirection: "column" }}>
       <Header title={"Book Skilled Worker"} />
       <TabView
         navigationState={{ index, routes }}
@@ -608,8 +590,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
       />
+      <ToastComponent />
     </View>
-   
   );
 };
 
