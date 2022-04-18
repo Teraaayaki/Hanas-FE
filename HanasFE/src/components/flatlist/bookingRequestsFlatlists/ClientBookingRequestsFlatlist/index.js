@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import {
   PinkSidedCardHeader,
@@ -11,6 +13,8 @@ import styles from "./style";
 import { colors } from "@constants";
 import { padding } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
+dayjs.extend(utc);
 
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   let date = "_";
@@ -41,14 +45,34 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
                   styles.mb2,
                 ]}
               >
-                {item.workerName}
+                {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
               </Text>
             </TouchableOpacity>
-            <Text style={[styles.flex1, styles.mx1, styles.p, styles.my1]}>
-              {item.serviceType} Service
+            <Text
+              style={[
+                styles.flex1,
+                styles.mx1,
+                styles.p,
+                styles.my1,
+                styles.bold,
+              ]}
+            >
+              {item.workerServiceData[0].serviceNameData[0].service_type}{" "}
+              Service
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.address}
+              {item.workerData[0].address}
+            </Text>
+            <Text
+              style={[
+                styles.flex1,
+                styles.mx1,
+                styles.p,
+                styles.my1,
+                styles.bold,
+              ]}
+            >
+              {item.book_type} Day
             </Text>
             <View
               style={[
@@ -63,11 +87,32 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
                 type="material-community"
                 color={scheduleIconColorStyle({ item })}
               />
-              <Text
-                style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
-              >
-                {item.timeStart} - {item.timeEnd}
-              </Text>
+              {item.book_type === "Single" ? (
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.bold,
+                    styles.p,
+                    styles.textMuted75,
+                  ]}
+                >
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -{" "}
+                  {dayjs(item.booked_dateTimeStart).format("h:m A")} -{" "}
+                  {dayjs(item.booked_dateTimeEnd).format("h:m A")}
+                </Text>
+              ) : (
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.bold,
+                    styles.p,
+                    styles.textMuted75,
+                  ]}
+                >
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -
+                  {dayjs(item.booked_dateTimeEnd).format("MMM D, YYYY")}
+                </Text>
+              )}
             </View>
           </View>
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
@@ -83,14 +128,16 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (item.date != date) {
-      date = item.date;
-      return (
-        <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={item.date} />
-        </View>
-      );
-    }
+    // if (item.date != date) {
+    //   date = item.date;
+    return (
+      <View style={[styles.flex1, styles.mt2]}>
+        <PinkSidedCardHeader
+          title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
+        />
+      </View>
+    );
+    // }
   };
 
   const renderCard = ({ item }) => {
@@ -125,7 +172,7 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
     <FlatList
       data={DATA}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
     />
   );

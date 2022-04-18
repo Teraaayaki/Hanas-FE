@@ -77,9 +77,9 @@ const ClientBookingRequests = ({ navigation }) => {
       <Header
         title={
           "Booking Requests(" +
-          bookingData
-            .filter((bookingData) => bookingData.book_status === "Pending")
-            .length() +
+          bookingData.filter(
+            (bookingData) => bookingData.book_status === "Pending"
+          ).length +
           ")"
         }
       />
