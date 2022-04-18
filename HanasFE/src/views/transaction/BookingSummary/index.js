@@ -8,38 +8,10 @@ import ReceiptAndSummary from "@components/ReceiptAndSummary";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { resetLoading } from "@redux/actions/clientBookingActions";
 
-// const bookingDataInitialValues = {
-//   total_hours: 0,
-//   conv_fee: 0,
-//   total_cost: 0,
-//   booked_dateTimeStart: "",
-//   booked_dateTimeEnd: "",
-//   workerServiceData: [
-//     {
-//       hourly_rate: 0,
-//       serviceNameData: [
-//         {
-//           service_type: "",
-//         },
-//       ],
-//     },
-//   ],
-//   workerData: [
-//     {
-//       first_name: "",
-//       family_name: "",
-//       address: "",
-//       createdAt: "",
-//     },
-//   ],
-// };
-
 const BookingSummary = ({ route }) => {
-  const { booking_id } = route.params;
-  const { bookingData, success } = useSelector((state) => state.clientBooking);
-  // const [bookingDATA, setBookingData] = useState(bookingDataInitialValues);
+  const { booking_data } = route.params;
+  const { success } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
-  let bookDetails = bookingData.find((booking) => booking_id === booking._id);
 
   useEffect(() => {
     if (success) {
@@ -55,24 +27,24 @@ const BookingSummary = ({ route }) => {
   return (
     <>
       <View style={styles.container}>
-        {console.log("viewData", bookDetails)}
+        {console.log("viewData", booking_data)}
         <Header title="Booking Summary" />
         <ScrollView>
           <ReceiptAndSummary
             summaryTitle={"Booking"}
             payment_method={"CASH"}
             date_paid={"N/A"}
-            rate={bookDetails.workerServiceData[0].hourly_rate}
-            hours_rendered={bookDetails.total_hours}
-            convenience_fee={bookDetails.conv_fee}
+            rate={booking_data.workerServiceData[0].hourly_rate}
+            hours_rendered={booking_data.total_hours}
+            convenience_fee={booking_data.conv_fee}
             discount={"N/A"}
-            total={bookDetails.total_cost}
-            service_type={`${bookDetails.workerServiceData[0].serviceNameData[0].service_type} Services`}
-            name={`${bookDetails.workerData[0].first_name} ${bookDetails.workerData[0].family_name}`}
-            address={bookDetails.workerData[0].address}
-            booked_date={bookDetails.workerData[0].createdAt}
-            time_start={bookDetails.booked_dateTimeStart}
-            time_end={bookDetails.booked_dateTimeEnd}
+            total={booking_data.total_cost}
+            service_type={`${booking_data.workerServiceData[0].serviceNameData[0].service_type} Services`}
+            name={`${booking_data.workerData[0].first_name} ${booking_data.workerData[0].family_name}`}
+            address={booking_data.workerData[0].address}
+            booked_date={booking_data.workerData[0].createdAt}
+            time_start={booking_data.booked_dateTimeStart}
+            time_end={booking_data.booked_dateTimeEnd}
           />
         </ScrollView>
       </View>

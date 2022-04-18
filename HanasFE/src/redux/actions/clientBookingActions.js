@@ -40,7 +40,7 @@ export const bookSkilledWorker = (DATA, navigation) => async (dispatch) => {
       { headers: { authorization: `Bearer ${token}` } }
     );
     if (data) {
-      let { booking_id } = data;
+      let { booking_data } = data;
       let response = await axios.get("/api/client/get-bookings", {
         headers: { authorization: `Bearer ${token}` },
       });
@@ -53,7 +53,7 @@ export const bookSkilledWorker = (DATA, navigation) => async (dispatch) => {
           payload: response.data.bookings,
         });
 
-        navigation.navigate("BookingSummary", { booking_id });
+        navigation.navigate("BookingSummary", { booking_data });
       }
     }
   } catch (err) {
