@@ -32,7 +32,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const [index, setIndex] = useState(0);
 
   // COMPUTATION VALUES
-  const [totalHours, setTotalHours] = useState("");
+  const [totalSingleHours, setTotalSingleHours] = useState("");
+  const [totalMultipleHours, setTotalMultipleHours] = useState("");
   const [subTotal, setSubTotal] = useState(0);
   const [convenienceFee, setConvenienceFee] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
@@ -107,7 +108,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       profileData.myServicesData[0].hourly_rate * timeDifference;
     let convenienceFeeValue = subTotalValue * 0.05;
 
-    setTotalHours(timeDifference.toFixed(2));
+    setTotalSingleHours(timeDifference.toFixed(2));
     setSubTotal(subTotalValue.toFixed(2));
     setConvenienceFee(convenienceFeeValue.toFixed(2));
     setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
@@ -129,14 +130,14 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let subTotalValue = profileData.myServicesData[0].hourly_rate * parseInt(e);
     let convenienceFeeValue = subTotalValue * 0.05;
 
-    setTotalHours(e);
+    setTotalMultipleHours(e);
     setSubTotal(subTotalValue.toFixed(2));
     setConvenienceFee(convenienceFeeValue.toFixed(2));
     setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
   };
 
   const handleSubmitSingleDay = () => {
-    if (!totalCost) {
+    if (!totalSingleHours) {
       console.log("error missings data");
       errorToast("Please input some data");
       return;
@@ -162,7 +163,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
           dateTimeStart.getDate() + timeEnd.getTime()
         ),
         total_cost: totalCost,
-        total_hours: totalHours,
+        total_hours: totalSingleHours,
         book_status: "Pending",
         conv_fee: convenienceFee,
       };
@@ -172,7 +173,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const handleSubmitMultipleDay = () => {
-    if (!totalCost) {
+    if (!totalMultipleHours) {
       console.log("error missings data");
       errorToast("Please input some data");
       return;
@@ -192,7 +193,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         booked_dateTimeStart: dateTimeStart,
         booked_dateTimeEnd: dateTimeEnd,
         total_cost: totalCost,
-        total_hours: totalHours,
+        total_hours: totalMultipleHours,
         book_status: "Pending",
         conv_fee: convenienceFee,
       };
@@ -295,7 +296,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
     );
   };
 
-  const renderHourlyRateInfoBox = () => {
+  const renderHourlyRateInfoBox = (service_mode) => {
     return (
       <View
         style={[
@@ -334,7 +335,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
           ]}
         >
           <Text style={styles.h4}>Total Hours:</Text>
-          <Text style={[styles.h4, styles.textRight]}>{totalHours} hr(s)</Text>
+          <Text style={[styles.h4, styles.textRight]}>
+            {service_mode === "Single" ? totalSingleHours : totalMultipleHours}
+            hr(s)
+          </Text>
         </View>
         <View
           style={[
@@ -404,7 +408,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             <View style={[styles.px5]}>
               {renderServiceInfoBox()}
               {renderPersonalInfoBox()}
-              {renderHourlyRateInfoBox()}
+              {renderHourlyRateInfoBox("Single")}
               {renderTotalPayment()}
             </View>
           </View>
@@ -514,7 +518,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             <View style={[styles.px5]}>
               {renderServiceInfoBox()}
               {renderPersonalInfoBox()}
-              {renderHourlyRateInfoBox()}
+              {renderHourlyRateInfoBox("Multiple")}
               {renderTotalPayment()}
             </View>
           </View>
@@ -584,7 +588,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             iconColor={colors.secondary}
             iconSize={24}
             keyboardType="number-pad"
-            value={totalHours}
+            value={totalMultipleHours}
             onChangeText={(e) => setTotalHoursRendered(e)}
             placeholder="Enter a number"
           />
