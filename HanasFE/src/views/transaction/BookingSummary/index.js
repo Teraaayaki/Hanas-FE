@@ -7,12 +7,14 @@ import Header from "@components/Header";
 import ReceiptAndSummary from "@components/ReceiptAndSummary";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { resetLoading } from "@redux/actions/clientBookingActions";
+import dayjs from "dayjs";
 
 const BookingSummary = ({ route }) => {
   const { booking_data } = route.params;
   const { success } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
+  console.log(booking_data);
   useEffect(() => {
     if (success) {
       showToast(
@@ -30,7 +32,7 @@ const BookingSummary = ({ route }) => {
         {console.log("viewData", booking_data)}
         <Header title="Booking Summary" />
         <ScrollView>
-          <ReceiptAndSummary
+          <ReceiptAndSummary  
             summaryTitle={"Booking"}
             payment_method={"CASH"}
             date_paid={"N/A"}
@@ -38,13 +40,14 @@ const BookingSummary = ({ route }) => {
             hours_rendered={booking_data.total_hours}
             convenience_fee={booking_data.conv_fee}
             discount={"N/A"}
+            status={booking_data.book_status}
             total={booking_data.total_cost}
             service_type={`${booking_data.workerServiceData[0].serviceNameData[0].service_type} Services`}
             name={`${booking_data.workerData[0].first_name} ${booking_data.workerData[0].family_name}`}
             address={booking_data.workerData[0].address}
-            booked_date={booking_data.workerData[0].createdAt}
-            time_start={booking_data.booked_dateTimeStart}
-            time_end={booking_data.booked_dateTimeEnd}
+            booked_date={dayjs(booking_data.workerData[0].createdAt).format("MMMM D, YYYY  h:m A (dddd)")}
+            time_start={dayjs(booking_data.booked_dateTimeStart).format("MMMM D, YYYY h:m A (dddd)")}
+            time_end={dayjs(booking_data.booked_dateTimeEnd).format("MMMM D, YYYY h:m A (dddd)")}
           />
         </ScrollView>
       </View>
