@@ -17,7 +17,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 dayjs.extend(utc);
 
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
-  let date = "_";
+  let date = new Date("1990");
 
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
@@ -128,16 +128,19 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    // if (item.date != date) {
-    //   date = item.date;
-    return (
-      <View style={[styles.flex1, styles.mt2]}>
-        <PinkSidedCardHeader
-          title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
-        />
-      </View>
-    );
-    // }
+    if (
+      dayjs(item.booked_dateTimeStart).format("MDYY") !=
+      dayjs(date).format("MDYY")
+    ) {
+      date = item.booked_dateTimeStart;
+      return (
+        <View style={[styles.flex1, styles.mt2]}>
+          <PinkSidedCardHeader
+            title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
+          />
+        </View>
+      );
+    }
   };
 
   const renderCard = ({ item }) => {
