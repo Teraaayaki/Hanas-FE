@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 
@@ -115,7 +115,7 @@ const ProfileClient = ({ navigation }) => {
               <ButtonWhite
                 title="Requests"
                 iconName="description"
-                onPress={() => navigation.navigate("Reviews")}
+                onPress={() => navigation.navigate("ClientBookingRequests")}
               />
             </View>
             <View style={{ flex: 1, alignItems: "center" }}>

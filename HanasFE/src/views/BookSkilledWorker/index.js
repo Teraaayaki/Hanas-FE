@@ -98,16 +98,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const changeEndTime = (e, dob) => {
     setTimeEndModal(false);
-    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
-    let timeEndFormatted = dayjs(dob).format("HH:mm");
 
-    if (timeStartFormatted >= timeEndFormatted) {
-      errorToast("Time end must be greater than time start");
-      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-      setTimeEnd(newTimeEnd);
-    } else {
-      dob && setTimeEnd(dob);
-    }
     // Calculations
     let newStartTime = dayjs(timeStart).format("HH:mm:ss");
     let newEndTime = dayjs(dob).format("HH:mm:ss");
@@ -120,6 +111,18 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setSubTotal(subTotalValue.toFixed(2));
     setConvenienceFee(convenienceFeeValue.toFixed(2));
     setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+
+    // Validations
+    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
+    let timeEndFormatted = dayjs(dob).format("HH:mm");
+
+    if (timeStartFormatted >= timeEndFormatted) {
+      errorToast("Time end must be greater than time start");
+      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+      setTimeEnd(newTimeEnd);
+    } else {
+      dob && setTimeEnd(dob);
+    }
   };
 
   const setTotalHoursRendered = (e) => {
