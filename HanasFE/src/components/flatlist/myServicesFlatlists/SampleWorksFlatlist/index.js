@@ -5,7 +5,12 @@ import { Icon } from "react-native-elements";
 import { colors } from "@constants";
 import styles from "../style";
 
-const SampleWorksFlatlist = ({ navigation, DATA, onPressImage }) => {
+const SampleWorksFlatlist = ({
+  navigation,
+  DATA,
+  service_id,
+  onPressImage,
+}) => {
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -46,7 +51,7 @@ const SampleWorksFlatlist = ({ navigation, DATA, onPressImage }) => {
     );
   };
 
-  const renderEmptyList = ({ DATA, navitation }) => {
+  const renderEmptyList = () => {
     return (
       <View
         style={[
@@ -60,7 +65,7 @@ const SampleWorksFlatlist = ({ navigation, DATA, onPressImage }) => {
           style={[styles.horizontalItemMargin]}
           onPressOut={() =>
             navigation.navigate("EditService", {
-              service_id: DATA.my_service,
+              service_id: service_id,
             })
           }
         >
@@ -111,9 +116,7 @@ const SampleWorksFlatlist = ({ navigation, DATA, onPressImage }) => {
       >
         Sample Works
       </Text>
-      {DATA.length > 0
-        ? renderFlatlist(DATA)
-        : renderEmptyList(DATA, navigation)}
+      {DATA.length > 0 ? renderFlatlist(DATA) : renderEmptyList(navigation)}
     </View>
   );
 };

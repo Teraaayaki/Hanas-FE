@@ -5,7 +5,12 @@ import { Icon } from "react-native-elements";
 import { colors } from "@constants";
 import styles from "../style";
 
-const CertificatesFlatlist = ({ navigation, DATA, onPressImage }) => {
+const CertificatesFlatlist = ({
+  navigation,
+  DATA,
+  service_id,
+  onPressImage,
+}) => {
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -45,7 +50,7 @@ const CertificatesFlatlist = ({ navigation, DATA, onPressImage }) => {
     );
   };
 
-  const renderEmptyList = ({ navigation }) => {
+  const renderEmptyList = () => {
     return (
       <View
         style={[
@@ -57,9 +62,9 @@ const CertificatesFlatlist = ({ navigation, DATA, onPressImage }) => {
       >
         <TouchableOpacity
           style={[styles.horizontalItemMargin]}
-          onPressImage={() =>
+          onPressOut={() =>
             navigation.navigate("EditService", {
-              service_id: DATA.my_service,
+              service_id: service_id,
             })
           }
         >
