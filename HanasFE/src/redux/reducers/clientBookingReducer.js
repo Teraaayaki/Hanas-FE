@@ -7,17 +7,19 @@ export const clientBookingInitialValues = {
   error: undefined,
 };
 
-const clientBookingReducer = (
-  state = clientBookingInitialValues,
-  action
-) => {
+const clientBookingReducer = (state = clientBookingInitialValues, action) => {
   switch (action.type) {
     case ClientBookingActions.CLIENT_BOOKING_LOADING:
       return { ...state, loading: true, success: false };
     case ClientBookingActions.CLIENT_BOOKING_SUCCESS:
       return { ...state, loading: false, success: true };
     case ClientBookingActions.CLIENT_BOOKING_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
     case ClientBookingActions.CLIENT_BOOKING_DETAILS:
       return { ...state, loading: false, bookingData: action.payload };
     default:

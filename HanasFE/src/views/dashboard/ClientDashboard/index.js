@@ -10,6 +10,7 @@ import {
   FlatList,
 } from "react-native";
 import useSWR from "swr";
+import { useDispatch } from "react-redux";
 
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
@@ -17,6 +18,7 @@ import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardC
 import { colors } from "@constants";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
+import { getBooking } from "@redux/actions/clientBookingActions";
 
 const fetcher = async (url) => {
   let token = await getItem("token");
@@ -34,6 +36,7 @@ const ClientDashboard = ({ navigation }) => {
     `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
     fetcher
   );
+  const dispatch = useDispatch();
 
   var [isPress, setIsPress] = useState(false);
   var touchProps = {
@@ -45,7 +48,7 @@ const ClientDashboard = ({ navigation }) => {
   };
 
   useEffect(() => {
-    // console.log("SWR", data, error);
+    dispatch(getBooking());
   }, []);
 
   return (

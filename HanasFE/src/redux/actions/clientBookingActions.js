@@ -2,6 +2,10 @@ import { ClientBookingActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
+export const resetLoading = () => async (dispatch) => {
+  dispatch({ type: ClientBookingActions.CLIENT_BOOKING_FAIL });
+};
+
 export const getBooking = () => async (dispatch) => {
   let token = await getItem("token");
 
