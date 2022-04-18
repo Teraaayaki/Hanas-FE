@@ -37,7 +37,7 @@ const CertificatesFlatlist = ({
     );
   };
 
-  const renderFlatlist = ({ DATA }) => {
+  const renderFlatlist = () => {
     return (
       <FlatList
         data={DATA}
@@ -115,7 +115,7 @@ const CertificatesFlatlist = ({
       >
         Certificates
       </Text>
-      {DATA.length > 0 ? renderFlatlist(DATA) : renderEmptyList(navigation)}
+      {DATA.length > 0 ? renderFlatlist() : renderEmptyList(navigation)}
     </View>
   );
 };

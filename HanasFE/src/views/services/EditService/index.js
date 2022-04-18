@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, ActivityIndicator } from "react-native";
+import React, { Component, useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  BackHandler,
+} from "react-native";
 import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
@@ -15,6 +21,8 @@ import { getItem } from "@helpers/asyncStorage";
 import { editService } from "@redux/actions/workerServiceActions";
 
 const EditService = ({ route, navigation }) => {
+  const [showVerifyGuide, setShowVerifyGuide] = useState(false);
+
   const { service_id } = route.params;
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingCertificate, setUploadingCertificate] = useState(false);
@@ -28,7 +36,13 @@ const EditService = ({ route, navigation }) => {
   const [certificateImg, setCertificateImg] = useState([]);
   const [certificateImgUrl, setCertificateImgUrl] = useState([]);
 
-  const [showVerifyGuide, setShowVerifyGuide] = useState(false);
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => true
+    );
+    return () => backHandler.remove();
+  }, []);
 
   const dispatch = useDispatch();
 

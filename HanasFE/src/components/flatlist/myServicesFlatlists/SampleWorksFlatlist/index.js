@@ -12,6 +12,7 @@ const SampleWorksFlatlist = ({
   onPressImage,
 }) => {
   const renderItem = ({ item }) => {
+    console.log("X: " + item);
     return (
       <TouchableOpacity
         style={[styles.horizontalItemMargin]}
@@ -38,7 +39,8 @@ const SampleWorksFlatlist = ({
     );
   };
 
-  const renderFlatlist = ({ DATA }) => {
+  const renderFlatlist = () => {
+    console.log(DATA.length);
     return (
       <FlatList
         data={DATA}
@@ -116,7 +118,7 @@ const SampleWorksFlatlist = ({
       >
         Sample Works
       </Text>
-      {DATA.length > 0 ? renderFlatlist(DATA) : renderEmptyList(navigation)}
+      {DATA.length > 0 ? renderFlatlist() : renderEmptyList(navigation)}
     </View>
   );
 };
