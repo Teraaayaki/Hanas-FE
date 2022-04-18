@@ -80,7 +80,9 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
-
+    if (!dob) {
+      return;
+    }
     if (dateTimeStart.getDate() >= dob.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
@@ -93,36 +95,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
   //TIME
   const changeStartTime = (e, dob) => {
     setTimeStartModal(false);
-
-    // Validations
-    let timeStartFormatted = dayjs(dob).format("HH:mm");
-    let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
-    let newTimeStart;
-
-    if (timeStartFormatted >= timeEndFormatted) {
-      errorToast("Time end must be greater than time start");
-      newTimeStart = new Date(timeEnd.getTime() - 1000 * 60 * 60);
-      setTimeStart(newTimeStart);
-    } else {
-      dob && setTimeStart(dob);
-    }
-
-    // Calculations
-    let newStartTime =
-      timeStartFormatted >= timeEndFormatted
-        ? dayjs(newTimeStart).format("HH:mm:ss")
-        : dayjs(dob).format("HH:mm:ss");
-    let newEndTime = dayjs(timeEnd).format("HH:mm:ss");
-
-    let timeDifference = diff(newStartTime, newEndTime);
-    let subTotalValue =
-      profileData.myServicesData[0].hourly_rate * timeDifference;
-    let convenienceFeeValue = subTotalValue * 0.05;
-
-    setTotalSingleHours(timeDifference.toFixed(2));
-    setSubTotal(subTotalValue.toFixed(2));
-    setConvenienceFee(convenienceFeeValue.toFixed(2));
-    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+    dob && setTimeStart(dob);
   };
 
   const changeEndTime = (e, dob) => {
@@ -133,12 +106,15 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let timeEndFormatted = dayjs(dob).format("HH:mm");
     let newTimeEnd;
 
-    if (timeStartFormatted >= timeEndFormatted) {
+    if (!dob) {
+      newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+      setTimeEnd(newTimeEnd);
+    } else if (timeStartFormatted >= timeEndFormatted) {
       errorToast("Time end must be greater than time start");
       newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
       setTimeEnd(newTimeEnd);
     } else {
-      dob && setTimeEnd(dob);
+      setTimeEnd(dob);
     }
 
     // Calculations

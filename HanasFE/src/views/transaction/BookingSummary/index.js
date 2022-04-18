@@ -47,9 +47,8 @@ const BookingSummary = ({ route }) => {
             time_end={booking_data.booked_dateTimeEnd}
           />
         </ScrollView>
+        <ToastComponent />
       </View>
-
-      <ToastComponent />
     </>
   );
 };

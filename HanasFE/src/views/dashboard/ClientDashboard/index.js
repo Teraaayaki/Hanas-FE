@@ -48,6 +48,7 @@ const ClientDashboard = ({ navigation }) => {
   };
 
   useEffect(() => {
+    console.log("Booking Data Populated");
     dispatch(getBooking());
   }, []);
 

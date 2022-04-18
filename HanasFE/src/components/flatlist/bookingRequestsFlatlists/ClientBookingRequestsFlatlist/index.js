@@ -17,12 +17,12 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
-      if (item.bookStatus == "Declined") {
+      if (item.book_status == "Declined") {
         return colors.muted75;
       }
       return colors.secondary;
     };
-    if (item.bookStatus == "Pending" || item.bookStatus == "Declined") {
+    if (item.book_status == "Pending" || item.book_status == "Declined") {
       return (
         <View
           style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
@@ -71,7 +71,7 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
             </View>
           </View>
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-            {item.bookStatus == "Pending" ? (
+            {item.book_status == "Pending" ? (
               <ContainedIcon xMark danger pressable onPress={() => {}} />
             ) : (
               <ContainedIcon xMark disabled pressable onPress={() => {}} />
@@ -94,9 +94,9 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderCard = ({ item }) => {
-    if (item.bookStatus == "Pending") {
+    if (item.book_status == "Pending") {
       return <PinkSidedCardItem content={renderContentv2({ item })} />;
-    } else if (item.bookStatus == "Declined") {
+    } else if (item.book_status == "Declined") {
       return <PinkSidedCardItem disabled content={renderContentv2({ item })} />;
     }
     return (
