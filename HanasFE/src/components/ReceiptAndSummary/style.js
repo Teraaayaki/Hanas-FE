@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   receiptContainer: {
     flex: 1,
+    elevation: 5,
     backgroundColor: colors.white,
     marginHorizontal: margin.m5,
     marginVertical: "10%",
@@ -22,7 +23,7 @@ export default StyleSheet.create({
   boxContainer: {
     flex: 3,
     borderRadius: 12,
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: colors.borderGray,
     marginTop: margin.m3,
   },
