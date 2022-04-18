@@ -92,9 +92,37 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   //TIME
   const changeStartTime = (e, dob) => {
-    console.log(dob);
     setTimeStartModal(false);
-    dob && setTimeStart(dob);
+
+    // Validations
+    let timeStartFormatted = dayjs(dob).format("HH:mm");
+    let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
+    let newTimeStart;
+
+    if (timeStartFormatted >= timeEndFormatted) {
+      errorToast("Time end must be greater than time start");
+      newTimeStart = new Date(timeEnd.getTime() - 1000 * 60 * 60);
+      setTimeStart(newTimeStart);
+    } else {
+      dob && setTimeStart(dob);
+    }
+
+    // Calculations
+    let newStartTime =
+      timeStartFormatted >= timeEndFormatted
+        ? dayjs(newTimeStart).format("HH:mm:ss")
+        : dayjs(dob).format("HH:mm:ss");
+    let newEndTime = dayjs(timeEnd).format("HH:mm:ss");
+
+    let timeDifference = diff(newStartTime, newEndTime);
+    let subTotalValue =
+      profileData.myServicesData[0].hourly_rate * timeDifference;
+    let convenienceFeeValue = subTotalValue * 0.05;
+
+    setTotalSingleHours(timeDifference.toFixed(2));
+    setSubTotal(subTotalValue.toFixed(2));
+    setConvenienceFee(convenienceFeeValue.toFixed(2));
+    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
   };
 
   const changeEndTime = (e, dob) => {
