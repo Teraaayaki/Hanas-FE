@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { View, Text } from 'react-native';
 import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import Header from '@components/Header';
@@ -20,12 +20,10 @@ import io from 'socket.io-client';
 
 const Chatroom = ({ navigation, route }) => {
   const socket = useRef();
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userDetails);
   const senderName = `${user.first_name} ${user.middle_name} ${user.last_name}`;
 
   const [messages, setMessages] = useState(route.params.messages);
-  const [inverted, setInverted] = useState(false);
 
   useEffect(() => {
     socket.current = io(
@@ -41,13 +39,10 @@ const Chatroom = ({ navigation, route }) => {
 
   useEffect(() => {
     socket.current.on('message', (newMessage) => {
+      console.log('receievd message');
       if (newMessage[0].user._id === route.params.receiverID) {
         setMessages(GiftedChat.append(messages, newMessage));
       }
-    });
-
-    socket.current.on('updatedConversation', (data) => {
-      dispatch(getUserConversations());
     });
 
     return () => {
