@@ -20,6 +20,10 @@ import AttachImage from "@components/AttachImage";
 import { getItem } from "@helpers/asyncStorage";
 import { editService } from "@redux/actions/workerServiceActions";
 
+let sampleImgUri = "https://storage.googleapis.com/hanas/sample-work-images/";
+let certificateImgUri =
+  "https://storage.googleapis.com/hanas/service-certificates/";
+
 const EditService = ({ route, navigation }) => {
   const [showVerifyGuide, setShowVerifyGuide] = useState(false);
   const [handleBackHandler, setHandleBackHandler] = useState(false);
@@ -144,8 +148,15 @@ const EditService = ({ route, navigation }) => {
       if (data) {
         setHandleBackHandler(true);
         setUploadingImage(false);
-        setSampleWorkImg(sampleWorkImg.filter((img) => img !== imgName));
-        setSampleWorkImgUrl(sampleWorkImgUrl.filter((img) => img !== imgName));
+        console.log(imgName);
+        let filteredImg = sampleWorkImg.filter((img) => img !== imgName);
+        let filteredImgUrl = sampleWorkImgUrl.filter(
+          (img) => img !== `${sampleImgUri}${imgName}`
+        );
+        console.log(filteredImg);
+        console.log(filteredImgUrl);
+        setSampleWorkImg([...filteredImg]);
+        setSampleWorkImgUrl([...filteredImgUrl]);
       }
     } catch (err) {
       console.log(err);
@@ -222,10 +233,14 @@ const EditService = ({ route, navigation }) => {
       if (data) {
         setHandleBackHandler(true);
         setUploadingCertificate(false);
-        setCertificateImg(certificateImg.filter((img) => img !== imgName));
-        setCertificateImgUrl(
-          certificateImgUrl.filter((img) => img !== imgName)
+        let filteredCertificate = certificateImg.filter(
+          (img) => img !== imgName
         );
+        let filteredCertificateUrl = certificateImgUrl.filter(
+          (img) => img !== `${certificateImgUri}${imgName}`
+        );
+        setCertificateImg([...filteredCertificate]);
+        setCertificateImgUrl([...filteredCertificateUrl]);
       }
     } catch (err) {
       console.log(err);
