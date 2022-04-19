@@ -16,8 +16,6 @@ const MyServices = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getMyServices());
-    console.log(myServices);
-
     if (success) {
       showToast(
         "success",

@@ -6,7 +6,7 @@ import {colors} from "@constants";
 import {margin, padding, fontSize, fontWeight} from "@constants";
 
 
-const ReceiptAndSummary = ({summaryTitle, payment_method, date_paid, rate, hours_rendered, convenience_fee, discount, total, service_type, name, address, booked_date, time_start, time_end}) => {
+const ReceiptAndSummary = ({summaryTitle, payment_method, date_paid, rate, hours_rendered, convenience_fee, status, discount, total, service_type, name, address, booked_date, time_start, time_end}) => {
   return (
     <View style={styles.receiptContainer}>
         <Text style={styles.receiptTitle} >{summaryTitle} Summary</Text>
@@ -47,6 +47,13 @@ const ReceiptAndSummary = ({summaryTitle, payment_method, date_paid, rate, hours
             </View>
 
             <Text style={styles.serviceHeader} >Service Details</Text>
+            <View style={styles.serviceContainer}>
+                <View style={styles.valuesContainer}>
+                    <Text style={styles.boldHeadings}>Service Status</Text>
+                    <Text style={styles.h3}>{status}</Text>
+                </View>
+                
+            </View>
             <View style={styles.serviceContainer}>
                 <View style={styles.valuesContainer}>
                     <Text style={styles.smallHeadings}>Service Type</Text>

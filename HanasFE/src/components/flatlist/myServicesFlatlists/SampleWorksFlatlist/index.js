@@ -118,7 +118,18 @@ const SampleWorksFlatlist = ({
       >
         Sample Works
       </Text>
+<<<<<<< HEAD
       {DATA.length > 0 ? renderFlatlist() : renderEmptyList(navigation)}
+=======
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[styles.px2, styles.HorizontalFlatlistHeight]}
+      />
+>>>>>>> 8e418540e5012bed7c9ec01a16eb5154febb2f4c
     </View>
   );
 };

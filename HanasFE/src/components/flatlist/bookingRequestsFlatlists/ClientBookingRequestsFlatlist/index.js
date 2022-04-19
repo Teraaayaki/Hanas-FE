@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import {
   PinkSidedCardHeader,
@@ -12,17 +14,19 @@ import { colors } from "@constants";
 import { padding } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+dayjs.extend(utc);
+
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
-  let date = "_";
+  let date = new Date("1990");
 
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
-      if (item.bookStatus == "Declined") {
+      if (item.book_status == "Declined") {
         return colors.muted75;
       }
       return colors.secondary;
     };
-    if (item.bookStatus == "Pending" || item.bookStatus == "Declined") {
+    if (item.book_status == "Pending" || item.book_status == "Declined") {
       return (
         <View
           style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
@@ -41,14 +45,34 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
                   styles.mb2,
                 ]}
               >
-                {item.workerName}
+                {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
               </Text>
             </TouchableOpacity>
-            <Text style={[styles.flex1, styles.mx1, styles.p, styles.my1]}>
-              {item.serviceType} Service
+            <Text
+              style={[
+                styles.flex1,
+                styles.mx1,
+                styles.p,
+                styles.my1,
+                styles.bold,
+              ]}
+            >
+              {item.workerServiceData[0].serviceNameData[0].service_type}{" "}
+              Service
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.address}
+              {item.workerData[0].address}
+            </Text>
+            <Text
+              style={[
+                styles.flex1,
+                styles.mx1,
+                styles.p,
+                styles.my1,
+                styles.bold,
+              ]}
+            >
+              {item.book_type} Day
             </Text>
             <View
               style={[
@@ -63,15 +87,36 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
                 type="material-community"
                 color={scheduleIconColorStyle({ item })}
               />
-              <Text
-                style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
-              >
-                {item.timeStart} - {item.timeEnd}
-              </Text>
+              {item.book_type === "Single" ? (
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.bold,
+                    styles.p,
+                    styles.textMuted75,
+                  ]}
+                >
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -{" "}
+                  {dayjs(item.booked_dateTimeStart).format("h:m A")} -{" "}
+                  {dayjs(item.booked_dateTimeEnd).format("h:m A")}
+                </Text>
+              ) : (
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.bold,
+                    styles.p,
+                    styles.textMuted75,
+                  ]}
+                >
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -
+                  {dayjs(item.booked_dateTimeEnd).format("MMM D, YYYY")}
+                </Text>
+              )}
             </View>
           </View>
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-            {item.bookStatus == "Pending" ? (
+            {item.book_status == "Pending" ? (
               <ContainedIcon xMark danger pressable onPress={() => {}} />
             ) : (
               <ContainedIcon xMark disabled pressable onPress={() => {}} />
@@ -83,20 +128,25 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (item.date != date) {
-      date = item.date;
+    if (
+      dayjs(item.booked_dateTimeStart).format("MDYY") !=
+      dayjs(date).format("MDYY")
+    ) {
+      date = item.booked_dateTimeStart;
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={item.date} />
+          <PinkSidedCardHeader
+            title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
+          />
         </View>
       );
     }
   };
 
   const renderCard = ({ item }) => {
-    if (item.bookStatus == "Pending") {
+    if (item.book_status == "Pending") {
       return <PinkSidedCardItem content={renderContentv2({ item })} />;
-    } else if (item.bookStatus == "Declined") {
+    } else if (item.book_status == "Declined") {
       return <PinkSidedCardItem disabled content={renderContentv2({ item })} />;
     }
     return (
@@ -125,7 +175,7 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
     <FlatList
       data={DATA}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
     />
   );

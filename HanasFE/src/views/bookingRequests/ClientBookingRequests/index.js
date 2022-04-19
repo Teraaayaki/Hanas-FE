@@ -1,5 +1,6 @@
 import React from "react";
 import { View } from "react-native";
+import { useSelector } from "react-redux";
 
 import styles from "./style";
 import Header from "@components/Header";
@@ -7,7 +8,7 @@ import ClientBookingRequestsFlatlist from "@components/flatlist/bookingRequestsF
 
 const ClientBookingRequests = ({ navigation }) => {
   let BRcount = 3;
-
+  const { bookingData } = useSelector((state) => state.clientBooking);
   const DATA = [
     {
       id: "1",
@@ -73,9 +74,20 @@ const ClientBookingRequests = ({ navigation }) => {
 
   return (
     <View style={[styles.body]}>
-      <Header title={"Booking Requests(" + BRcount + ")"} />
+      <Header
+        title={
+          "Booking Requests(" +
+          bookingData.filter(
+            (bookingData) => bookingData.book_status === "Pending"
+          ).length +
+          ")"
+        }
+      />
       <View style={[styles.mx3, styles.flex1]}>
-        <ClientBookingRequestsFlatlist navigation={navigation} DATA={DATA} />
+        <ClientBookingRequestsFlatlist
+          navigation={navigation}
+          DATA={bookingData}
+        />
       </View>
     </View>
   );

@@ -5,6 +5,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  loadingContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   header: {
     // flex: 1,
     paddingTop: StatusBar.currentHeight,

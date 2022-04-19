@@ -4,30 +4,11 @@ import { View, Image, Dimensions } from "react-native";
 
 import styles from "./style";
 
-const SampleWorks = () => {
-  const [index, setIndex] = useState(0);
-  const { width: viewportWidth, height: viewportHeight } =
-    Dimensions.get("window");
-
-  const images = {
-    activeIndex: index,
-    carouselItems: [
-      {
-        image: require("@images/dashboard1.png"),
-      },
-      {
-        image: require("@images/dashboard1.png"),
-      },
-      {
-        image: require("@images/dashboard1.png"),
-      },
-    ],
-  };
-
-  const renderItems = ({ item, index }) => {
+const SampleWorks = ({ DATA }) => {
+  const renderItems = ({ item }) => {
     return (
       <View style={styles.renderedContainer}>
-        <Image source={item.image} style={styles.image} />
+        <Image source={{ uri: item }} style={styles.image} />
       </View>
     );
   };
@@ -36,8 +17,7 @@ const SampleWorks = () => {
     <View style={styles.carouselContainer}>
       <Carousel
         layout={"tinder"}
-        // ref={ref => carousel = ref}
-        data={images.carouselItems}
+        data={DATA}
         sliderWidth={320}
         itemWidth={310}
         renderItem={renderItems}
