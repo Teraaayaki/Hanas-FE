@@ -34,8 +34,16 @@ export default StyleSheet.create({
     fontSize: fontSize.h5,
     color: colors.borderGrey,
   },
+  pinkText: {
+    color: colors.dark, 
+    fontSize: fontSize.h5, 
+    alignSelf: "center"
+  },
   btnPress: {
     borderRadius: 10,
     padding: 5,
   },
+  adjustedTop: {
+    marginTop: margin.m5,
+  }
 });

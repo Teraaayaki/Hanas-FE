@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
-import { colors } from "@constants";
+import { colors, fontWeight } from "@constants";
 import styles from "./style";
 import { ToastComponent, showToast } from "@helpers/toast";
 import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
@@ -421,6 +421,27 @@ const BookSkilledWorker = ({ navigation, route }) => {
             </View>
           </View>
         </View>
+        <View style={[
+            styles.bgLightGrey,
+            styles.m3,
+            styles.p3,
+            styles.flex1,
+            styles.rounded,
+            styles.border,
+            styles.borderMuted25,
+          ]}>
+          <Text style={styles.bold}>Note:</Text>
+          <View style={styles.flexStartContainer}> 
+            <Text style={styles.success_notif}></Text>
+            <Text> - green indicates that the skilled worker has no other resposibility on this date.</Text>
+          </View>
+          <View style={styles.flexStartContainer}> 
+            <Text style={styles.fail_notif}></Text>
+            <Text style={{textAlign: "justify"}}> - red indicates that the skilled worker has an exisiting job on this date.</Text>
+          </View>
+          
+          
+        </View>
         <View
           style={[
             styles.bgLightGrey,
@@ -432,9 +453,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
             styles.borderMuted25,
           ]}
         >
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            Day of Service
-          </Text>
+          <View style={styles.flexBetweenContainer}>
+            <Text style={[styles.h3, styles.bold, styles.mb4]}>
+              Day of Service
+            </Text>
+            <Text style={styles.success_notif}></Text>
+          </View>
+          
           <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
             <IconField
               iconName="calendar"
@@ -531,6 +556,25 @@ const BookSkilledWorker = ({ navigation, route }) => {
             </View>
           </View>
         </View>
+        <View style={[
+            styles.bgLightGrey,
+            styles.m3,
+            styles.p3,
+            styles.flex1,
+            styles.rounded,
+            styles.border,
+            styles.borderMuted25,
+          ]}>
+          <Text style={styles.bold}>Note:</Text>
+          <View style={styles.flexStartContainer}> 
+            <Text style={styles.success_notif}></Text>
+            <Text> - green indicates that the skilled worker has no other resposibility on this date.</Text>
+          </View>
+          <View style={styles.flexStartContainer}> 
+            <Text style={styles.fail_notif}></Text>
+            <Text style={{textAlign: "justify"}}> - red indicates that the skilled worker has an exisiting job on this date.</Text>
+          </View>
+        </View>
         <View
           style={[
             styles.bgLightGrey,
@@ -542,9 +586,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
             styles.borderMuted25,
           ]}
         >
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            Start of Service
-          </Text>
+          <View style={styles.flexBetweenContainer}>
+            <Text style={[styles.h3, styles.bold, styles.mb4]}>
+              Start of Service
+            </Text>
+            <Text style={styles.success_notif}></Text>
+          </View>
+          
           <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
             <IconField
               iconName="calendar"
@@ -563,10 +611,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
               minimumDate={new Date()}
             />
           )}
-
-          <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            End of Service
-          </Text>
+          <View style={styles.flexBetweenContainer}>
+            <Text style={[styles.h3, styles.bold, styles.mb4]}>
+              End of Service
+            </Text>
+            <Text style={styles.fail_notif}></Text>
+          </View>
+          
           <TouchableOpacity onPress={() => setDateTimeEndModal(true)}>
             <IconField
               iconName="calendar"
@@ -587,7 +638,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
           )}
 
           <Text style={[styles.h3, styles.bold, styles.mb4]}>
-            Hours to rendered
+            Hours to be rendered
           </Text>
 
           <IconField

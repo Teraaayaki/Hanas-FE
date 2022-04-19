@@ -449,5 +449,33 @@ export default StyleSheet.create({
     letterSpacing: 1.5, 
     minWidth: 100, 
     textAlign: 'center' 
-  }
+  },
+  flexStartContainer: {
+    flexDirection: "row", 
+    justifyContent: "flex-start"
+  },
+  flexBetweenContainer: {
+    flexDirection: "row", 
+    justifyContent: "space-between"
+  },
+  success_notif: {
+    backgroundColor: colors.success,
+    marginTop: margin.m2,
+    borderColor: colors.black,
+    borderRadius: 12,
+    width: 10,
+    height: 10,
+    fontWeight: fontWeight.bold,
+    fontSize: fontSize.h5,
+  },
+  fail_notif: {
+    backgroundColor: colors.danger,
+    marginTop: margin.m2,
+    borderColor: colors.black,
+    borderRadius: 12,
+    width: 10,
+    height: 10,
+    fontWeight: fontWeight.bold,
+    fontSize: fontSize.h5,
+  },
 });

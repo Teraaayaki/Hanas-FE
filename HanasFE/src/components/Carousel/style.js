@@ -16,6 +16,7 @@ export default StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: "cover",
+    borderRadius: 15,
   },
   renderedContainer: {
     borderRadius: 5,
