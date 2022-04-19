@@ -112,6 +112,7 @@ const EditService = ({ route, navigation }) => {
           }
         );
         if (response.ok) {
+          setHandleBackHandler(true);
           let { publicUrl } = await response.json();
           console.log(publicUrl);
           setSampleWorkImgUrl([...sampleWorkImgUrl, publicUrl]);
@@ -189,6 +190,7 @@ const EditService = ({ route, navigation }) => {
           }
         );
         if (response.ok) {
+          setHandleBackHandler(true);
           let { publicUrl } = await response.json();
           console.log(publicUrl);
           setCertificateImg([...certificateImg, filename]);
