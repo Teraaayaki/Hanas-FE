@@ -16,7 +16,8 @@ import BookingSummary from "@screens/transaction/BookingSummary";
 import ClientSchedule from "@screens/schedules/ClientSchedule";
 import ClientBookingRequests from "@screens/bookingRequests/ClientBookingRequests";
 import ServicesNearYou from "@screens/ServicesNearYou";
-import BookSkilledWorker from "@screens/BookSkilledWorker";
+import BookSkilledWorker from "@screens/skilledWorkerBooking/BookSkilledWorker";
+import BookSkilledWorkerMultipleDays from "@screens/skilledWorkerBooking/BookSkilledWorkerMultipleDays";
 import ProfileView from "@screens/profile/ProfileView";
 import Favorites from "@screens/Favorites";
 
@@ -192,6 +193,14 @@ const Tabs = () => {
       <Tab.Screen
         name="BookSkilledWorker"
         component={BookSkilledWorker}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookSkilledWorkerMultipleDays"
+        component={BookSkilledWorkerMultipleDays}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
