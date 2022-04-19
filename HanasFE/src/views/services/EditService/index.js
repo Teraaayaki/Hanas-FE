@@ -22,6 +22,8 @@ import { editService } from "@redux/actions/workerServiceActions";
 
 const EditService = ({ route, navigation }) => {
   const [showVerifyGuide, setShowVerifyGuide] = useState(false);
+  const [handleBackHandler, setHandleBackHandler] = useState(false);
+  const [backErrorMsg, setBackErrorMsg] = useState(false);
 
   const { service_id } = route.params;
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -39,10 +41,12 @@ const EditService = ({ route, navigation }) => {
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      () => true
+      () => {
+        handleBackHandler, setBackErrorMsg(handleBackHandler);
+      }
     );
     return () => backHandler.remove();
-  }, []);
+  }, [handleBackHandler]);
 
   const dispatch = useDispatch();
 
@@ -95,7 +99,6 @@ const EditService = ({ route, navigation }) => {
         name: filename,
       });
       if (result) {
-        console.log("uploading sample work picture");
         let response = await fetch(
           `${process.env.HANAS_ENDPOINT}api/worker/upload-image-service`,
           {
@@ -137,6 +140,7 @@ const EditService = ({ route, navigation }) => {
         }
       );
       if (data) {
+        setHandleBackHandler(true);
         setUploadingImage(false);
         setSampleWorkImg(sampleWorkImg.filter((img) => img !== imgName));
         setSampleWorkImgUrl(sampleWorkImgUrl.filter((img) => img !== imgName));
@@ -213,6 +217,7 @@ const EditService = ({ route, navigation }) => {
         }
       );
       if (data) {
+        setHandleBackHandler(true);
         setUploadingCertificate(false);
         setCertificateImg(certificateImg.filter((img) => img !== imgName));
         setCertificateImgUrl(
@@ -235,6 +240,7 @@ const EditService = ({ route, navigation }) => {
     }
 
     if (description !== "" && ratePerHourValue !== "") {
+      setHandleBackHandler(false);
       console.log("Dispatched Action in Addservice");
       const serviceDetails = {
         service_id,
@@ -435,6 +441,18 @@ const EditService = ({ route, navigation }) => {
           <ActivityIndicator size="large" color={colors.secondary} />
         ) : null}
         <View style={[styles.mx5, styles.px5]}>
+          {backErrorMsg && (
+            <Text
+              style={[
+                styles.textDanger,
+                styles.bold,
+                styles.mb3,
+                styles.textCenter,
+              ]}
+            >
+              Please submit changes.
+            </Text>
+          )}
           <Button title={"Submit"} onPress={handleSubmit} />
         </View>
         <View style={[styles.my5]}></View>

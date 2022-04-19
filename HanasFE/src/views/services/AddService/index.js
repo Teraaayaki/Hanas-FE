@@ -22,6 +22,8 @@ import { getItem } from "@helpers/asyncStorage";
 import { addServiceWorker } from "@redux/actions/workerServiceActions";
 
 const AddService = ({ navigation }) => {
+  const [showVerifyGuide, setShowVerifyGuide] = useState(false);
+
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingCertificate, setUploadingCertificate] = useState(false);
@@ -35,8 +37,6 @@ const AddService = ({ navigation }) => {
   const [sampleWorkImgUrl, setSampleWorkImgUrl] = useState([]);
   const [certificateImg, setCertificateImg] = useState([]);
   const [certificateImgUrl, setCertificateImgUrl] = useState([]);
-
-  const [showVerifyGuide, setShowVerifyGuide] = useState(false);
 
   const dispatch = useDispatch();
   const { error, success, loading, serviceType, myServices } = useSelector(
