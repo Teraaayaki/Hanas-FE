@@ -54,9 +54,8 @@ const ClientDashboard = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPressOut={() => setIsWorker(true)}>
-        <LightHeader />
-      </TouchableOpacity>
+      <LightHeader />
+
       <FlatList
         style={styles.container}
         ListHeaderComponent={
