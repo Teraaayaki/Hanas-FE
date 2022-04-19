@@ -5,52 +5,29 @@ import { colors, fontWeight, fontSize, margin } from "@constants";
 import CardContainer from "@components/CardContainer";
 import styles from "./style";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "Hosea Barriga",
-    profession: "Electrical Services",
-    rating: "4.5",
-    jobs: "1000",
-    image: require("@images/profile1.png"),
-    rate: "100",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1",
-    name: "Soy Lebumfacil",
-    profession: "Electrical Services",
-    rating: "4.0",
-    jobs: "699",
-    image: require("@images/profile2.png"),
-    rate: "99",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2",
-    name: "Soy Lebumfacil",
-    profession: "Electrical Services",
-    rating: "4.0",
-    jobs: "699",
-    image: require("@images/profile2.png"),
-    rate: "99",
-  },
-];
-
-const Item = ({ item, onPress, onPressServices, backgroundColor, textColor, notif }) => (
-    <CardContainer
-            name={item.name}
-            profession={item.profession}
-            rating={item.rating}
-            jobs={item.jobs}
-            image={item.image}
-            rate={item.rate}
-            onPress={onPress}
-            onPressServices={onPressServices}
-          />
+const Item = ({
+  item,
+  onPress,
+  onPressServices,
+  backgroundColor,
+  textColor,
+  notif,
+}) => (
+  <CardContainer
+    name={item.name}
+    profession={item.myServicesData[0].serviceNameData[0].service_type}
+    rating={item.myServicesData[0].feedbackData[0].rateAvg}
+    jobs={1000}
+    image={item.image}
+    rate={item.myServicesData[0].hourly_rate}
+    onPress={onPress}
+    onPressServices={onPressServices}
+  />
 );
 
-const CardContainerFlatlist = ({ navigation }) => {
+const CardContainerFlatlist = ({ navigation, data }) => {
   const [selectedId, setSelectedId] = useState(null);
-  const renderItem = ({ item}) => {
+  const renderItem = ({ item }) => {
     const backgroundColor =
       item.id === selectedId ? colors.borderGrey : colors.background;
     const color = item.id === selectedId ? "white" : "black";
@@ -58,7 +35,7 @@ const CardContainerFlatlist = ({ navigation }) => {
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate("ProfileView")}
+        onPress={() => navigation.navigate("ProfileView" , {worker_id: item._id, service_id: item.myServicesData[0]._id, serviceName: item.myServicesData[0].serviceNameData[0].service_type})}
         onPressServices={() => navigation.navigate("ServicesNearYou")}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
@@ -68,9 +45,9 @@ const CardContainerFlatlist = ({ navigation }) => {
 
   return (
     <FlatList
-      data={DATA}
+      data={data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       extraData={selectedId}
       contentContainerStyle={{
         flexGrow: 1,

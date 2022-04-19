@@ -41,12 +41,14 @@ export const getMyServices = () => async (dispatch) => {
   });
 
   try {
+    console.log("Fetching my services");
     let { data } = await axios.get("/api/worker/get-my-services", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     if (data) {
+      console.log("Fetched my services");
       dispatch({
         type: WorkerServiceActions.WORKER_MY_SERVICES,
         payload: data.my_services,

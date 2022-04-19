@@ -47,7 +47,7 @@ const SampleWorksFlatlist = ({ DATA, onPressImage }) => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item._id}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={[styles.px2, styles.HorizontalFlatlistHeight]}

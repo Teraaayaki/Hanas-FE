@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, margin, fontSize, padding } from "@constants";
+import { colors, margin, fontSize, padding, fontWeight } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
@@ -434,4 +434,20 @@ export default StyleSheet.create({
     marginRight: margin.m5,
   },
   //==========================================================================
+  single : { 
+    color: colors.white,
+    fontSize: 15, 
+    fontWeight: fontWeight.bold, 
+    letterSpacing: 1.5, 
+    minWidth: 100, 
+    textAlign: 'center' 
+  },
+  multiple : {
+    color: colors.black,
+    fontSize: 15, 
+    fontWeight: fontWeight.bold, 
+    letterSpacing: 1.5, 
+    minWidth: 100, 
+    textAlign: 'center' 
+  }
 });

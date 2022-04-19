@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
@@ -9,13 +9,35 @@ import {
   TouchableHighlight,
   FlatList,
 } from "react-native";
+import useSWR from "swr";
+import { useDispatch } from "react-redux";
 
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { colors } from "@constants";
+import axios from "@axios";
+import { getItem } from "@helpers/asyncStorage";
+import { getBooking } from "@redux/actions/clientBookingActions";
+
+const fetcher = async (url) => {
+  let token = await getItem("token");
+  let { data } = await axios.get(url, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+};
 
 const ClientDashboard = ({ navigation }) => {
+  const { data, error } = useSWR(
+    `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
+    fetcher
+  );
+  const dispatch = useDispatch();
+
   var [isPress, setIsPress] = useState(false);
   var touchProps = {
     activeOpacity: 0.2,
@@ -25,11 +47,15 @@ const ClientDashboard = ({ navigation }) => {
     onShowUnderlay: () => setIsPress(true),
   };
 
+  useEffect(() => {
+    console.log("Booking Data Populated");
+    dispatch(getBooking());
+  }, []);
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPressOut={() => setIsWorker(true)}>
-        <LightHeader />
-      </TouchableOpacity>
+      <LightHeader />
+
       <FlatList
         style={styles.container}
         ListHeaderComponent={
@@ -88,7 +114,7 @@ const ClientDashboard = ({ navigation }) => {
             <View style={styles.textContainer}>
               <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
             </View>
-            <CardContainerFlatlist navigation={navigation} />
+            <CardContainerFlatlist navigation={navigation} data={data.user} />
           </View>
         }
       ></FlatList>

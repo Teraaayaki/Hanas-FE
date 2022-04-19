@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { resetError } from "@redux/actions/registerActions";
 import { getServiceType } from "@redux/actions/workerServiceActions";
+import { getBooking } from "@redux/actions/clientBookingActions";
 import { userLogin } from "@redux/actions/authActions";
 import Button from "@components/Button";
 import Loading from "@components/Loading";
@@ -13,6 +14,7 @@ import styles from "./style";
 const Landing = ({ navigation }) => {
   const { success, loading } = useSelector((state) => state.userLogin);
   const { serviceType } = useSelector((state) => state.workerServices);
+  const { bookingData } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,6 +22,9 @@ const Landing = ({ navigation }) => {
 
     if (serviceType.length === 0) {
       dispatch(getServiceType());
+    }
+    if (bookingData.length === 0) {
+      dispatch(getBooking());
     }
   }, []);
 
