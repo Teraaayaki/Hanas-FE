@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -42,7 +42,8 @@ const EditService = ({ route, navigation }) => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       () => {
-        handleBackHandler, setBackErrorMsg(handleBackHandler);
+        setBackErrorMsg(handleBackHandler);
+        return handleBackHandler;
       }
     );
     return () => backHandler.remove();

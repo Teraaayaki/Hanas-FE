@@ -1,11 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-  BackHandler,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, ActivityIndicator } from "react-native";
 import { Icon } from "react-native-elements";
 import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
