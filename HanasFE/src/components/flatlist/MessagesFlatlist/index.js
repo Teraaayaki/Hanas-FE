@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 
+import { SocketContext } from '../../../context/socketContext';
 import CircularImage from '@components/CircularImage';
 import { getUserConversations } from '@redux/actions/conversationAction';
 import styles from './style';
@@ -21,14 +22,26 @@ const Item = ({ image, name, latestMessage, onPress }) => (
 );
 
 const MessagesFlatlist = ({ navigation }) => {
+  const { socket } = useContext(SocketContext);
   const { conversations } = useSelector((state) => state.userConversations);
   const { user } = useSelector((state) => state.userDetails);
   const [DATA, setDATA] = useState(null);
+  const [fetchData, setFetchData] = useState(false);
   const [doneFetching, setDoneFetching] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserConversations()).then(() => setDoneFetching(true));
+    dispatch(getUserConversations()).then(() => {
+      setDoneFetching(true);
+      setFetchData(false);
+    });
+  }, [fetchData]);
+
+  useEffect(() => {
+    socket.current.on('conversationUpdate', () => {
+      setFetchData(true);
+    });
   }, []);
 
   useEffect(() => {

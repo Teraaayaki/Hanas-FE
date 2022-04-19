@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { View, Text } from 'react-native';
 import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+import { NavigationContainer } from '@react-navigation/native';
+
+import { SocketContext } from '../../../context/socketContext';
 import Header from '@components/Header';
 import { colors, fontSize } from '@constants';
 import styles from './styles';
-import { NavigationContainer } from '@react-navigation/native';
 import {
   getUserConversations,
   storeNewMessage
 } from '@redux/actions/conversationAction';
-import io from 'socket.io-client';
 
 // Params:
 // receiverID
@@ -19,27 +20,22 @@ import io from 'socket.io-client';
 // messages
 
 const Chatroom = ({ navigation, route }) => {
-  const socket = useRef();
+  const { socket } = useContext(SocketContext);
   const { user } = useSelector((state) => state.userDetails);
   const senderName = `${user.first_name} ${user.middle_name} ${user.last_name}`;
 
   const [messages, setMessages] = useState(route.params.messages);
 
   useEffect(() => {
-    socket.current = io(
-      `http://${process.env.LOCAL_IP_ADDRESS}:8000/api/socket`
-    );
-
-    socket.current.emit('connected', user.id);
+    socket.current.emit('connectToChatroom', user.id);
 
     return () => {
-      socket.current.disconnect();
+      socket.current.emit('disconnectToChatroom', user.id);
     };
   }, []);
 
   useEffect(() => {
     socket.current.on('message', (newMessage) => {
-      console.log('receievd message');
       if (newMessage[0].user._id === route.params.receiverID) {
         setMessages(GiftedChat.append(messages, newMessage));
       }
