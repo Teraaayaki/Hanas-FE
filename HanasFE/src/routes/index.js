@@ -15,6 +15,8 @@ import EditAccount from "@screens/EditAccount";
 import EditPassword from "@screens/EditPassword";
 import Chatroom from "@screens/messages/Chatroom";
 import ProfileView from "@screens/profile/ProfileView";
+import AddService from "@screens/services/AddService";
+import EditService from "@screens/services/EditService";
 
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
@@ -65,6 +67,8 @@ export default HanasStack = () => {
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
           <Stack.Screen name="Chatroom" component={Chatroom} />
+          <Stack.Screen name="AddService" component={AddService} />
+          <Stack.Screen name="EditService" component={EditService} />
         </Stack.Group>
       ) : (
         <Stack.Group>

@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "@constants";
 import WorkerDashboard from "@screens/dashboard/WorkerDashboard";
 import MyServices from "@screens/services/MyServices";
-import AddService from "@screens/services/AddService";
 import Profile from "@screens/profile/ProfileWorker";
 import TransactionHistory from "@screens/transaction/TransactionHistory";
 import TransactionReport from "@screens/transaction/TransactionReport";
@@ -15,7 +14,6 @@ import Notification from "@screens/Notification";
 import WorkerSchedule from "@screens/schedules/WorkerSchedule";
 import WorkerBookingRequests from "@screens/bookingRequests/WorkerBookingRequests";
 import Achievements from "@screens/Achievements";
-import EditService from "@screens/services/EditService";
 
 const Tab = createBottomTabNavigator();
 
@@ -158,22 +156,6 @@ const Tabs = () => {
       <Tab.Screen
         name="Reviews"
         component={Reviews}
-        options={{
-          tabBarButton: () => null,
-          tabBarVisible: false,
-        }}
-      />
-      <Tab.Screen
-        name="AddService"
-        component={AddService}
-        options={{
-          tabBarButton: () => null,
-          tabBarVisible: false,
-        }}
-      />
-      <Tab.Screen
-        name="EditService"
-        component={EditService}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
