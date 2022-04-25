@@ -44,9 +44,9 @@ const BookingSummary = ({ route }) => {
             service_type={`${booking_data.workerServiceData[0].serviceNameData[0].service_type} Services`}
             name={`${booking_data.workerData[0].first_name} ${booking_data.workerData[0].family_name}`}
             address={booking_data.workerData[0].address}
-            booked_date={dayjs(booking_data.workerData[0].createdAt).format("MMMM D, YYYY  h:m A (dddd)")}
-            time_start={dayjs(booking_data.booked_dateTimeStart).format("MMMM D, YYYY h:m A (dddd)")}
-            time_end={dayjs(booking_data.booked_dateTimeEnd).format("MMMM D, YYYY h:m A (dddd)")}
+            booked_date={dayjs(booking_data.booked_dateTimeStart).format("MMMM D, YYYY (dddd)")}
+            time_start={dayjs(booking_data.booked_dateTimeStart).format("h:m A")}
+            time_end={dayjs(booking_data.booked_dateTimeEnd).format("h:m A")}
           />
         </ScrollView>
         <ToastComponent />

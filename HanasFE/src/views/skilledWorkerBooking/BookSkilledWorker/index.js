@@ -83,32 +83,16 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
-    console.log("I AM DOB TO BE SET", dob);
-    let returnedDate = bookingDataArray.find(
-      (bookDate) => dayjs(dob).format("l") === dayjs(bookDate).format("l")
-    );
-    // ? console.log("I AM DOB" ,dob) : console.log("I AM DOB FORMATTED", dayjs(dob).format("l")
 
-    console.log(dayjs(returnedDate).format("l"));
-    console.log("DOB", dayjs(dob).format("l"));
-    dayjs(returnedDate).format("l") === dayjs(dob).format("l")
-      ? setSingleDayStatus(false)
-      : setSingleDayStatus(true);
+    // let returnedDate = bookingDataArray.find(
+    //   (bookDate) => dayjs(dob).format("l") === dayjs(bookDate).format("l")
+    // );
+    // returnedDate ?
+    // dayjs(returnedDate).format("l") === dayjs(dob).format("l")
+    //   ? setSingleDayStatus(false)
+    //   : setSingleDayStatus(true) : setSingleDayStatus(true);
 
-    // console.log(singleDayStatus);
-  };
-  const changeEndDate = (e, dob) => {
-    setDateTimeEndModal(false);
-    if (!dob) {
-      return;
-    }
-    if (dateTimeStart.getDate() >= dob.getDate()) {
-      errorToast("Date end must not be lesser than or equal to date start");
-      let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
-      setDateTimeEnd(new Date(newDateEnd));
-    } else {
-      dob && setDateTimeEnd(dob);
-    }
+
   };
 
   //TIME
@@ -136,12 +120,19 @@ const BookSkilledWorker = ({ navigation, route }) => {
       setTimeEnd(dob);
     }
 
+    let returnedEndTime = bookingDataArray.find(
+      (bookDate) => dayjs(timeEnd).format("h:m") === dayjs(bookdate.booked_dateTimeEnd).format("h:m")
+    );
+
+    returnedEndTime ? setSingleDayStatus(false) : setSingleDayStatus(true);
+
     // Calculations
     let newStartTime = dayjs(timeStart).format("HH:mm:ss");
     let newEndTime =
       timeStartFormatted >= timeEndFormatted
         ? dayjs(newTimeEnd).format("HH:mm:ss")
         : dayjs(dob).format("HH:mm:ss");
+
     let timeDifference = diff(newStartTime, newEndTime);
     let subTotalValue =
       profileData.myServicesData[0].hourly_rate * timeDifference;
@@ -171,36 +162,43 @@ const BookSkilledWorker = ({ navigation, route }) => {
     const timeFormatEnd = dayjs(timeEnd).format("HH:mm:ssZ").toString();
     const newDateTimeStart = new Date(dateFormatStart + timeFormatStart);
     const newDateTimeEnd = new Date(dateFormatStart + timeFormatEnd);
-    console.log("SUBMIT DATE", newDateTimeStart);
 
-    if (!totalSingleHours) {
-      console.log("error missings data");
-      errorToast("Please input some data");
-      return;
+    
+    if(singleDayStatus === true){
+
+      if (!totalSingleHours) {
+        console.log("error missings data");
+        errorToast("Please input some data");
+        return;
+      }
+  
+      let timeStartFormatted = dayjs(timeStart).format("HH:mm");
+      let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
+      if (timeStartFormatted >= timeEndFormatted) {
+        console.log("timeStart is greater than or equal to timeEnd");
+        errorToast("Time end must be greater than time start");
+        let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+        setTimeEnd(newTimeEnd);
+      } else {
+        const data = {
+          service_availed: profileData.myServicesData[0]._id,
+          worker: profileData._id,
+          client: user.id,
+          book_type: "Single",
+          booked_dateTimeStart: newDateTimeStart,
+          booked_dateTimeEnd: newDateTimeEnd,
+          total_cost: totalCost,
+          total_hours: totalSingleHours,
+          book_status: "Pending",
+          conv_fee: convenienceFee,
+        };
+        dispatch(bookSkilledWorker(data, navigation));
+      }
+    }else{
+      
     }
 
-    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
-    let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
-    if (timeStartFormatted >= timeEndFormatted) {
-      console.log("timeStart is greater than or equal to timeEnd");
-      errorToast("Time end must be greater than time start");
-      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-      setTimeEnd(newTimeEnd);
-    } else {
-      const data = {
-        service_availed: profileData.myServicesData[0]._id,
-        worker: profileData._id,
-        client: user.id,
-        book_type: "Single",
-        booked_dateTimeStart: newDateTimeStart,
-        booked_dateTimeEnd: newDateTimeEnd,
-        total_cost: totalCost,
-        total_hours: totalSingleHours,
-        book_status: "Pending",
-        conv_fee: convenienceFee,
-      };
-      dispatch(bookSkilledWorker(data, navigation));
-    }
+    
   };
 
   const renderHeader = () => {
@@ -400,10 +398,19 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setDateTimeEnd(new Date(newDateEnd));
 
     let temp = profileData.myServicesData[0].bookingsData.map(
-      (bookingData) => bookingData.booked_dateTimeStart
+      (bookingData) => bookingData
     );
-    // console.log(temp);
+      
+
     setBookingDataArray([...temp]);
+    
+    let returnedDate = temp.find(
+      (bookDate) => dayjs(dateTimeStart).format("l") === dayjs(bookDate.booked_dateTimeStart).format("l")
+    );
+    
+    
+    returnedDate ? setSingleDayStatus(false) : setSingleDayStatus(true);
+
   }, []);
 
   return (
