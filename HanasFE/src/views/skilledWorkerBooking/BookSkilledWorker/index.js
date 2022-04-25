@@ -12,7 +12,12 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useDispatch, useSelector } from "react-redux";
-import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import {
+  ALERT_TYPE,
+  Dialog,
+  Root,
+  Toast,
+} from "react-native-alert-notification";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
@@ -34,11 +39,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   // DATE STATUS
   const [singleDayStatus, setSingleDayStatus] = useState(false);
-  const [multipleDayEndStatus, setMultipleDayEndStatus ] = useState(false);
-
-  //TAB VIEW
-  const layout = useWindowDimensions();
-  const [index, setIndex] = useState(0);
 
   // COMPUTATION VALUES
   const [totalSingleHours, setTotalSingleHours] = useState("");
@@ -50,14 +50,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
   //DATE
   const [dateTimeStart, setDateTimeStart] = useState(new Date());
   const [dateTimeEnd, setDateTimeEnd] = useState(new Date());
-
   const [dateStartModal, setDateTimeStartModal] = useState(false);
-  const [dateEndModal, setDateTimeEndModal] = useState(false);
 
   //TIME
   const [timeStart, setTimeStart] = useState(new Date());
   const [timeEnd, setTimeEnd] = useState(new Date());
-
   const [timeStartModal, setTimeStartModal] = useState(false);
   const [timeEndModal, setTimeEndModal] = useState(false);
 
@@ -86,16 +83,19 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
-    console.log("I AM DOB TO BE SET" ,dob);
-    let returnedDate = bookingDataArray.find(bookDate =>  dayjs(dob).format("l") === dayjs(bookDate).format("l"));
+    console.log("I AM DOB TO BE SET", dob);
+    let returnedDate = bookingDataArray.find(
+      (bookDate) => dayjs(dob).format("l") === dayjs(bookDate).format("l")
+    );
     // ? console.log("I AM DOB" ,dob) : console.log("I AM DOB FORMATTED", dayjs(dob).format("l")
-    
+
     console.log(dayjs(returnedDate).format("l"));
-    console.log("DOB" , dayjs(dob).format("l"));
-    dayjs(returnedDate).format("l") === dayjs(dob).format("l") ? setSingleDayStatus(false) : setSingleDayStatus(true);
-    
+    console.log("DOB", dayjs(dob).format("l"));
+    dayjs(returnedDate).format("l") === dayjs(dob).format("l")
+      ? setSingleDayStatus(false)
+      : setSingleDayStatus(true);
+
     // console.log(singleDayStatus);
-    
   };
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
@@ -164,11 +164,15 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const handleSubmitSingleDay = () => {
-    const dateFormatStart = dayjs(dateTimeStart).format("YYYY-MM-DDT");
-    const timeFormatStart =  dayjs(timeStart).format("HH:mm:ssZ[Z]");
-    // const newFormat = dateFormatStart + timeFormatStart;
-    // console.log(newFormat);
-    console.log("I AM NEW DATE" , dayjs(dateFormatStart).toISOString());
+    const dateFormatStart = dayjs(dateTimeStart)
+      .format("YYYY-MM-DDT")
+      .toString();
+    const timeFormatStart = dayjs(timeStart).format("HH:mm:ssZ").toString();
+    const timeFormatEnd = dayjs(timeEnd).format("HH:mm:ssZ").toString();
+    const newDateTimeStart = new Date(dateFormatStart + timeFormatStart);
+    const newDateTimeEnd = new Date(dateFormatStart + timeFormatEnd);
+    console.log("SUBMIT DATE", newDateTimeStart);
+
     if (!totalSingleHours) {
       console.log("error missings data");
       errorToast("Please input some data");
@@ -188,10 +192,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
         worker: profileData._id,
         client: user.id,
         book_type: "Single",
-        booked_dateTimeStart: dateFormatStart + timeFormatStart,
-        booked_dateTimeEnd: new Date(
-          dateTimeStart.getDate() + timeEnd.getTime()
-        ),
+        booked_dateTimeStart: newDateTimeStart,
+        booked_dateTimeEnd: newDateTimeEnd,
         total_cost: totalCost,
         total_hours: totalSingleHours,
         book_status: "Pending",
@@ -199,37 +201,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       };
       dispatch(bookSkilledWorker(data, navigation));
     }
-    
   };
-
-  // const handleSubmitMultipleDay = () => {
-  //   if (!totalMultipleHours) {
-  //     console.log("error missings data");
-  //     errorToast("Please input some data");
-  //     return;
-  //   }
-
-  //   if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
-  //     errorToast("Date end must not be lesser than or equal to date start");
-  //     let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
-  //     setDateTimeEnd(new Date(newDateEnd));
-  //     setDateTimeEndModal(false);
-  //   } else {
-  //     const data = {
-  //       service_availed: profileData.myServicesData[0]._id,
-  //       worker: profileData._id,
-  //       client: user.id,
-  //       book_type: "Multiple",
-  //       booked_dateTimeStart: dateTimeStart,
-  //       booked_dateTimeEnd: dateTimeEnd,
-  //       total_cost: totalCost,
-  //       total_hours: totalMultipleHours,
-  //       book_status: "Pending",
-  //       conv_fee: convenienceFee,
-  //     };
-  //     dispatch(bookSkilledWorker(data, navigation));
-  //   }
-  // };
 
   const renderHeader = () => {
     return (
@@ -427,17 +399,18 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let newDateEnd = date.setDate(date.getDate() + 1);
     setDateTimeEnd(new Date(newDateEnd));
 
-    let temp = profileData.myServicesData[0].bookingsData.map(bookingData => bookingData.booked_dateTimeStart);
+    let temp = profileData.myServicesData[0].bookingsData.map(
+      (bookingData) => bookingData.booked_dateTimeStart
+    );
     // console.log(temp);
     setBookingDataArray([...temp]);
-    
   }, []);
-  
+
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <Header title={"Book Skilled Worker (Single Day)"} />
-        <View style={[styles.body]}>
-          <ScrollView style={[styles.h100, styles.w100]}>
+      <View style={[styles.body]}>
+        <ScrollView style={[styles.h100, styles.w100]}>
           <View style={[styles.m3, styles.pt3, styles.flex1]}>
             <View
               style={[
@@ -457,7 +430,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
               </View>
             </View>
           </View>
-          <View style={[
+          <View
+            style={[
               styles.bgLightGrey,
               styles.m3,
               styles.p3,
@@ -465,18 +439,25 @@ const BookSkilledWorker = ({ navigation, route }) => {
               styles.rounded,
               styles.border,
               styles.borderMuted25,
-            ]}>
+            ]}
+          >
             <Text style={styles.bold}>Note:</Text>
-            <View style={styles.flexStartContainer}> 
+            <View style={styles.flexStartContainer}>
               <Text style={styles.success_notif}></Text>
-              <Text> - green indicates that the skilled worker has no other resposibility on this date.</Text>
+              <Text>
+                {" "}
+                - green indicates that the skilled worker has no other
+                resposibility on this date.
+              </Text>
             </View>
-            <View style={styles.flexStartContainer}> 
+            <View style={styles.flexStartContainer}>
               <Text style={styles.fail_notif}></Text>
-              <Text style={{textAlign: "justify"}}> - red indicates that the skilled worker has an exisiting job on this date.</Text>
+              <Text style={{ textAlign: "justify" }}>
+                {" "}
+                - red indicates that the skilled worker has an exisiting job on
+                this date.
+              </Text>
             </View>
-            
-            
           </View>
           <View
             style={[
@@ -494,9 +475,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
                 Day of Service
               </Text>
               {/* {bookingDataArray.length == 0 &&  */}
-              <Text style={ singleDayStatus ?  styles.success_notif: styles.fail_notif } ></Text>
+              <Text
+                style={
+                  singleDayStatus ? styles.success_notif : styles.fail_notif
+                }
+              ></Text>
             </View>
-            
+
             <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
               <IconField
                 iconName="calendar"
@@ -560,13 +545,20 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
           <View style={[styles.py3, styles.px5, styles.m5]}>
             <View style={[styles.px5, styles.mx5, styles.my3]}>
-              <Button title="Book for Multiple Days" onPress={() => navigation.navigate("BookSkilledWorkerMultipleDays", {serviceName})} />
+              <Button
+                title="Book for Multiple Days"
+                onPress={() =>
+                  navigation.navigate("BookSkilledWorkerMultipleDays", {
+                    serviceName,
+                  })
+                }
+              />
             </View>
             <View style={[styles.px5, styles.mx5]}>
               {loading && (
                 <ActivityIndicator size="large" color={colors.secondary} />
               )}
-              
+
               <Button title="Submit Request" onPress={handleSubmitSingleDay} />
             </View>
           </View>

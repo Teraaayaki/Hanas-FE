@@ -23,8 +23,6 @@ const ProfileView = ({ navigation, route }) => {
   );
 
   useEffect(() => {
-    console.log("Triggered [worker_id, service_id]");
-    console.log(profileData.family_name);
     dispatch(fetchData(worker_id, service_id));
   }, [worker_id, service_id]);
 
@@ -154,7 +152,9 @@ const ProfileView = ({ navigation, route }) => {
                         <TouchableOpacity
                           style={styles.pinkButton}
                           onPress={() =>
-                            navigation.navigate("BookSkilledWorker", {serviceName}) 
+                            navigation.navigate("BookSkilledWorker", {
+                              serviceName,
+                            })
                           }
                         >
                           <Text style={styles.buttonText}>BOOK</Text>
