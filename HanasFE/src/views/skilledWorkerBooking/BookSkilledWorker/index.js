@@ -38,7 +38,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const [bookingDataArray, setBookingDataArray] = useState([]);
 
   // DATE STATUS
-  const [singleDayStatus, setSingleDayStatus] = useState(false);
+  const [singleDayStatus, setSingleDayStatus] = useState(true);
 
   // COMPUTATION VALUES
   const [totalSingleHours, setTotalSingleHours] = useState("");
@@ -84,25 +84,75 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
 
-    // let returnedDate = bookingDataArray.find(
-    //   (bookDate) => dayjs(dob).format("l") === dayjs(bookDate).format("l")
-    // );
-    // returnedDate ?
-    // dayjs(returnedDate).format("l") === dayjs(dob).format("l")
-    //   ? setSingleDayStatus(false)
-    //   : setSingleDayStatus(true) : setSingleDayStatus(true);
+    let returnedDate = bookingDataArray.map((bookDate) => {
+      if (
+        dayjs(dob).format("MMDDYY") ===
+        dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
+      ) {
+        if (
+          dayjs(timeStart).format("H") >=
+            dayjs(bookDate.booked_dateTimeStart).format("H") &&
+          dayjs(timeStart).format("H") <=
+            dayjs(bookDate.booked_dateTimeEnd).format("H")
+        ) {
+          return true;
+        }
+      }
+    });
 
-
+    returnedDate.includes(true)
+      ? setSingleDayStatus(false)
+      : setSingleDayStatus(true);
   };
 
   //TIME
   const changeStartTime = (e, dob) => {
     setTimeStartModal(false);
     dob && setTimeStart(dob);
+
+    let returnedDate = bookingDataArray.map((bookDate) => {
+      if (
+        dayjs(dateTimeStart).format("MMDDYY") ===
+        dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
+      ) {
+        if (
+          dayjs(dob).format("H") >=
+            dayjs(bookDate.booked_dateTimeStart).format("H") &&
+          dayjs(dob).format("H") <=
+            dayjs(bookDate.booked_dateTimeEnd).format("H")
+        ) {
+          return true;
+        }
+      }
+    });
+
+    returnedDate.includes(true)
+      ? setSingleDayStatus(false)
+      : setSingleDayStatus(true);
   };
 
   const changeEndTime = (e, dob) => {
     setTimeEndModal(false);
+
+    let returnedDate = bookingDataArray.map((bookDate) => {
+      if (
+        dayjs(dateTimeStart).format("MMDDYY") ===
+        dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
+      ) {
+        if (
+          dayjs(dob).format("H") >=
+            dayjs(bookDate.booked_dateTimeStart).format("H") &&
+          dayjs(dob).format("H") <=
+            dayjs(bookDate.booked_dateTimeEnd).format("H")
+        ) {
+          return true;
+        }
+      }
+    });
+
+    returnedDate.includes(true)
+      ? setSingleDayStatus(false)
+      : setSingleDayStatus(true);
 
     // Validations
     let timeStartFormatted = dayjs(timeStart).format("HH:mm");
@@ -119,12 +169,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
     } else {
       setTimeEnd(dob);
     }
-
-    let returnedEndTime = bookingDataArray.find(
-      (bookDate) => dayjs(timeEnd).format("h:m") === dayjs(bookdate.booked_dateTimeEnd).format("h:m")
-    );
-
-    returnedEndTime ? setSingleDayStatus(false) : setSingleDayStatus(true);
 
     // Calculations
     let newStartTime = dayjs(timeStart).format("HH:mm:ss");
@@ -163,15 +207,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
     const newDateTimeStart = new Date(dateFormatStart + timeFormatStart);
     const newDateTimeEnd = new Date(dateFormatStart + timeFormatEnd);
 
-    
-    if(singleDayStatus === true){
-
+    if (singleDayStatus === true) {
       if (!totalSingleHours) {
         console.log("error missings data");
         errorToast("Please input some data");
         return;
       }
-  
+
       let timeStartFormatted = dayjs(timeStart).format("HH:mm");
       let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
       if (timeStartFormatted >= timeEndFormatted) {
@@ -194,11 +236,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
         };
         dispatch(bookSkilledWorker(data, navigation));
       }
-    }else{
-      
+    } else {
     }
-
-    
   };
 
   const renderHeader = () => {
@@ -400,17 +439,16 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let temp = profileData.myServicesData[0].bookingsData.map(
       (bookingData) => bookingData
     );
-      
 
     setBookingDataArray([...temp]);
-    
-    let returnedDate = temp.find(
-      (bookDate) => dayjs(dateTimeStart).format("l") === dayjs(bookDate.booked_dateTimeStart).format("l")
-    );
-    
-    
-    returnedDate ? setSingleDayStatus(false) : setSingleDayStatus(true);
 
+    // let returnedDate = temp.find(
+    //   (bookDate) =>
+    //     dayjs(dateTimeStart).format("l") ===
+    //     dayjs(bookDate.booked_dateTimeStart).format("l")
+    // );
+
+    // returnedDate ? setSingleDayStatus(false) : setSingleDayStatus(true);
   }, []);
 
   return (
