@@ -166,9 +166,9 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const handleSubmitSingleDay = () => {
     const dateFormatStart = dayjs(dateTimeStart).format("YYYY-MM-DDT");
     const timeFormatStart =  dayjs(timeStart).format("HH:mm:ssZ[Z]");
-    // const newFormat = dateFormatStart + timeFormatStart;
-    // console.log(newFormat);
-    console.log("I AM NEW DATE" , dayjs(dateFormatStart).toISOString());
+    const newFormat = dateFormatStart + timeFormatStart;
+    console.log(newFormat);
+    console.log("I AM NEW DATE" , dayjs(newFormat).toDate());
     if (!totalSingleHours) {
       console.log("error missings data");
       errorToast("Please input some data");
@@ -188,7 +188,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         worker: profileData._id,
         client: user.id,
         book_type: "Single",
-        booked_dateTimeStart: dateFormatStart + timeFormatStart,
+        booked_dateTimeStart: dateTimeStart,
         booked_dateTimeEnd: new Date(
           dateTimeStart.getDate() + timeEnd.getTime()
         ),
