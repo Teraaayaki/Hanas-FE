@@ -1,97 +1,56 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
-import Header from "@components/Header";
-import { colors, fontSize } from "@constants";
-import styles from "./styles";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useState, useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { View, Text } from 'react-native';
+import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+import { NavigationContainer } from '@react-navigation/native';
+
+import { SocketContext } from '../../../context/socketContext';
+import Header from '@components/Header';
+import { colors, fontSize } from '@constants';
+import styles from './styles';
+import {
+  getUserConversations,
+  storeNewMessage
+} from '@redux/actions/conversationAction';
 
 // Params:
-// inboundName
-// outboundName
-// inboundAvatarImageSource
-// outboundAvatarImageSource
+// receiverID
+// receiverName
+// receiverProfile
+// messages
 
 const Chatroom = ({ navigation, route }) => {
-  const [messages, setMessages] = useState([
-    /**
-     * Mock message data
-     */
-    // example of system message
-    {
-      _id: 0,
-      text: "New room created.",
-      createdAt: new Date().getTime(),
-      system: true,
-    },
-    // example of inbound chat message
-    // if user_id == 1 the message is outbound
-    // else if user_id == 2 the message is inbound
-    {
-      _id: 1,
-      text: "Henlo!",
-      createdAt: new Date().getTime(),
-      user: {
-        _id: 2,
-        name: route.params.inboundName,
-        avatar: route.params.inboundAvatarImageSource,
-      },
-    },
-    //example of outbound chat message
-    // if user_id == 1 the message is outbound
-    // else if user_id == 2 the message is inbound
-    {
-      _id: 2,
-      text: "Hi!",
-      createdAt: new Date().getTime(),
-      user: {
-        _id: 1,
-        name: route.params.outboundName,
-        avatar: route.params.outboundAvatarImageSource,
-      },
-    },
-    // more examples
-    {
-      _id: 3,
-      text: "Nicen!",
-      createdAt: new Date().getTime(),
-      user: {
-        _id: 2,
-        name: route.params.inboundName,
-        avatar: route.params.inboundAvatarImageSource,
-      },
-    },
-    {
-      _id: 4,
-      text: "Nicen!",
-      createdAt: new Date().getTime(),
-      user: {
-        _id: 1,
-        name: route.params.outboundName,
-        avatar: route.params.outboundAvatarImageSource,
-      },
-    },
-    {
-      _id: 5,
-      text: "Haha",
-      createdAt: new Date().getTime(),
-      user: {
-        _id: 1,
-        name: route.params.outboundName,
-        avatar: route.params.outboundAvatarImageSource,
-      },
-    },
-    {
-      _id: 6,
-      text: "Sample Messages", //above in code
-      createdAt: new Date().getTime(),
-      system: true,
-    },
-  ]);
+  const { socket } = useContext(SocketContext);
+  const { user } = useSelector((state) => state.userDetails);
+  const senderName = `${user.first_name} ${user.middle_name} ${user.last_name}`;
+
+  const [messages, setMessages] = useState(route.params.messages);
+
+  useEffect(() => {
+    socket.current.emit('connectToChatroom', user.id);
+
+    return () => {
+      socket.current.emit('disconnectToChatroom', user.id);
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.current.on('message', (newMessage) => {
+      if (newMessage[0].user._id === route.params.receiverID) {
+        setMessages(GiftedChat.append(messages, newMessage));
+      }
+    });
+
+    return () => {
+      socket.current.off('message');
+    };
+  });
 
   // helper method that sends a message
   function handleSend(newMessage = []) {
+    socket.current.emit('message', newMessage, route.params.receiverID);
     setMessages(GiftedChat.append(messages, newMessage));
+    storeNewMessage(route.params.receiverID, newMessage[0]);
   }
 
   function renderBubble(props) {
@@ -101,21 +60,21 @@ const Chatroom = ({ navigation, route }) => {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: colors.lightGrey,
+            backgroundColor: colors.lightGrey
           },
           right: {
             // Here is the color change
-            backgroundColor: colors.secondary,
-          },
+            backgroundColor: colors.secondary
+          }
         }}
         textStyle={{
           right: {
-            color: "#fff",
-            fontSize: fontSize.p,
+            color: '#fff',
+            fontSize: fontSize.p
           },
           left: {
-            fontSize: fontSize.p,
-          },
+            fontSize: fontSize.p
+          }
         }}
       />
     );
@@ -132,7 +91,7 @@ const Chatroom = ({ navigation, route }) => {
               styles.sendButton,
               styles.py1,
               styles.px5,
-              styles.rounded100,
+              styles.rounded100
             ]}
           >
             SEND
@@ -144,18 +103,17 @@ const Chatroom = ({ navigation, route }) => {
 
   return (
     <View style={styles.body}>
-      <Header title={route.params.inboundName} />
+      <Header title={route.params.receiverName} />
       <GiftedChat
         messages={messages}
         onSend={(newMessage) => handleSend(newMessage)}
         user={{
-          _id: 1,
-          name: route.params.outboundName,
-          avatar: route.params.outboundAvatarImageSource,
+          _id: user.id,
+          name: senderName
         }}
         renderBubble={renderBubble}
         showUserAvatar
-        onPressAvatar={() => navigation.navigate("Profile")}
+        // onPressAvatar={() => navigation.navigate('ProfileView')}
         alwaysShowSend
         renderSend={renderSend}
         isTyping={true}

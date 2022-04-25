@@ -1,81 +1,83 @@
-import React, { useState } from "react";
-import {
-  View,
-  FlatList,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 
-import { colors, fontWeight, fontSize, margin } from "@constants";
-import CircularImage from "@components/CircularImage";
-import styles from "./style";
+import { SocketContext } from '../../../context/socketContext';
+import CircularImage from '@components/CircularImage';
+import { getUserConversations } from '@redux/actions/conversationAction';
+import styles from './style';
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    name: "James",
-    message: "Thank you! That was very helpful!",
-    image: require("@images/profile3.png"),
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    name: "Will Kenny",
-    message: "I know... I'm trying to get the funds",
-    image: require("@images/profile1.png"),
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    name: "Beth Williams",
-    message:
-      "I'm looking for tips around capturing the milky way. I have a 6D with a 24-100mm...",
-    image: require("@images/profile4.png"),
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d71",
-    name: "Rev Shawn",
-    message: "Wanted to ask if you're available for a portrait shoot next week",
-    image: require("@images/profile5.png"),
-  },
-];
-
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+const Item = ({ image, name, latestMessage, onPress }) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item]}>
     <View style={styles.containerRow}>
-      <CircularImage imageSource={item.image} />
+      <CircularImage imageSource={image} />
       <View style={styles.container}>
-        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.name}>{name}</Text>
         <View style={styles.viewButtonContainerFlex}>
-          <Text style={styles.messageText}>{item.message}</Text>
+          <Text style={styles.messageText}>{latestMessage}</Text>
         </View>
-        <Text style={styles.dateText}>{item.date}</Text>
       </View>
     </View>
   </TouchableOpacity>
 );
 
 const MessagesFlatlist = ({ navigation }) => {
-  const [selectedId, setSelectedId] = useState(null);
+  const { socket } = useContext(SocketContext);
+  const { conversations } = useSelector((state) => state.userConversations);
+  const { user } = useSelector((state) => state.userDetails);
+  const [DATA, setDATA] = useState(null);
+  const [fetchData, setFetchData] = useState(false);
+  const [doneFetching, setDoneFetching] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserConversations()).then(() => {
+      setDoneFetching(true);
+      setFetchData(false);
+    });
+  }, [fetchData]);
+
+  useEffect(() => {
+    socket.current.on('conversationUpdate', () => {
+      setFetchData(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (doneFetching) {
+      setDATA(conversations);
+      setDoneFetching(false);
+    }
+  }, [doneFetching]);
+
+  const getReceiverInfo = (participants) => {
+    const info = participants.filter(
+      (participant) => participant.user._id !== user.id
+    );
+
+    return info[0].user;
+  };
 
   const renderItem = ({ item }) => {
-    const backgroundColor =
-      item.id === selectedId ? colors.borderGrey : colors.background;
-    const color = item.id === selectedId ? "white" : "black";
+    const receiver = getReceiverInfo(item.participants);
+    const receiverName = `${receiver.first_name} ${receiver.middle_name} ${receiver.family_name} ${receiver.suffix}`;
+    const latestMessage = item.messages[0];
+    const messages = item.messages;
 
     return (
       <Item
-        item={item}
+        image={require('@images/profile1.png')}
+        name={receiverName}
+        latestMessage={latestMessage.text}
         onPress={() =>
-          navigation.navigate("Chatroom", {
-            inboundName: item.name,
-            outboundName: "Username",
-            inboundAvatarImageSource: item.image,
-            outboundAvatarImageSource: "",
+          navigation.navigate('Chatroom', {
+            receiverID: receiver._id,
+            receiverName: receiverName,
+            receiverProfile: item.image,
+            messages: messages
           })
         }
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
       />
     );
   };
@@ -84,10 +86,9 @@ const MessagesFlatlist = ({ navigation }) => {
     <FlatList
       data={DATA}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      extraData={selectedId}
+      keyExtractor={(item) => item._id}
       contentContainerStyle={{
-        flexGrow: 1,
+        flexGrow: 1
       }}
     />
   );
