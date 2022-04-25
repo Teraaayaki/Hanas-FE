@@ -14,7 +14,7 @@ const BookingSummary = ({ route }) => {
   const { success } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
-  console.log(booking_data);
+
   useEffect(() => {
     if (success) {
       showToast(
@@ -29,7 +29,6 @@ const BookingSummary = ({ route }) => {
   return (
     <>
       <View style={styles.container}>
-        {console.log("viewData", booking_data)}
         <Header title="Booking Summary" />
         <ScrollView>
           <ReceiptAndSummary  

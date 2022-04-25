@@ -188,7 +188,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
         book_status: "Pending",
         conv_fee: convenienceFee,
       };
-      console.log("dispatched booking");
       dispatch(bookSkilledWorker(data, navigation));
     }
   };
@@ -545,9 +544,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
           <View style={[styles.py3, styles.px5, styles.m5]}>
             <View style={[styles.px5, styles.mx5, styles.my3]}>
-              {loading && (
-                <ActivityIndicator size="large" color={colors.secondary} />
-              )}
               <Button title="Book for Single Day" onPress={() => navigation.navigate("BookSkilledWorker", {serviceName})} />
             </View>
             <View style={[styles.px5, styles.mx5]}>

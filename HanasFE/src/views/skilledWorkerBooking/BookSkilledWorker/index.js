@@ -86,11 +86,16 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
-   
-    let returnedDate = bookingDataArray.find(bookDate =>  dayjs(dob).format("MMMDYYYY") === dayjs(bookDate).format("MMMDYYYY")) ? setSingleDayStatus(false) : setSingleDayStatus(true);
-    console.log("DOB" , dob);
-    // returnedDate ? setTimeStart(false) : setTimeStart(true);
-    // console.log(returnedDate);
+    console.log("I AM DOB TO BE SET" ,dob);
+    let returnedDate = bookingDataArray.find(bookDate =>  dayjs(dob).format("l") === dayjs(bookDate).format("l"));
+    // ? console.log("I AM DOB" ,dob) : console.log("I AM DOB FORMATTED", dayjs(dob).format("l")
+    
+    console.log(dayjs(returnedDate).format("l"));
+    console.log("DOB" , dayjs(dob).format("l"));
+    dayjs(returnedDate).format("l") === dayjs(dob).format("l") ? setSingleDayStatus(false) : setSingleDayStatus(true);
+    
+    // console.log(singleDayStatus);
+    
   };
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
@@ -159,6 +164,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const handleSubmitSingleDay = () => {
+    const dateFormatStart = dayjs(dateTimeStart).format("YYYY-MM-DDT");
+    const timeFormatStart =  dayjs(timeStart).format("HH:mm:ssZ[Z]");
+    // const newFormat = dateFormatStart + timeFormatStart;
+    // console.log(newFormat);
+    console.log("I AM NEW DATE" , dayjs(dateFormatStart).toISOString());
     if (!totalSingleHours) {
       console.log("error missings data");
       errorToast("Please input some data");
@@ -178,9 +188,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         worker: profileData._id,
         client: user.id,
         book_type: "Single",
-        booked_dateTimeStart: new Date(
-          dateTimeStart.getDate() + timeStart.getTime()
-        ),
+        booked_dateTimeStart: dateFormatStart + timeFormatStart,
         booked_dateTimeEnd: new Date(
           dateTimeStart.getDate() + timeEnd.getTime()
         ),
@@ -189,39 +197,39 @@ const BookSkilledWorker = ({ navigation, route }) => {
         book_status: "Pending",
         conv_fee: convenienceFee,
       };
-      console.log("dispatched booking");
       dispatch(bookSkilledWorker(data, navigation));
     }
+    
   };
 
-  const handleSubmitMultipleDay = () => {
-    if (!totalMultipleHours) {
-      console.log("error missings data");
-      errorToast("Please input some data");
-      return;
-    }
+  // const handleSubmitMultipleDay = () => {
+  //   if (!totalMultipleHours) {
+  //     console.log("error missings data");
+  //     errorToast("Please input some data");
+  //     return;
+  //   }
 
-    if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
-      errorToast("Date end must not be lesser than or equal to date start");
-      let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
-      setDateTimeEnd(new Date(newDateEnd));
-      setDateTimeEndModal(false);
-    } else {
-      const data = {
-        service_availed: profileData.myServicesData[0]._id,
-        worker: profileData._id,
-        client: user.id,
-        book_type: "Multiple",
-        booked_dateTimeStart: dateTimeStart,
-        booked_dateTimeEnd: dateTimeEnd,
-        total_cost: totalCost,
-        total_hours: totalMultipleHours,
-        book_status: "Pending",
-        conv_fee: convenienceFee,
-      };
-      dispatch(bookSkilledWorker(data, navigation));
-    }
-  };
+  //   if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
+  //     errorToast("Date end must not be lesser than or equal to date start");
+  //     let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
+  //     setDateTimeEnd(new Date(newDateEnd));
+  //     setDateTimeEndModal(false);
+  //   } else {
+  //     const data = {
+  //       service_availed: profileData.myServicesData[0]._id,
+  //       worker: profileData._id,
+  //       client: user.id,
+  //       book_type: "Multiple",
+  //       booked_dateTimeStart: dateTimeStart,
+  //       booked_dateTimeEnd: dateTimeEnd,
+  //       total_cost: totalCost,
+  //       total_hours: totalMultipleHours,
+  //       book_status: "Pending",
+  //       conv_fee: convenienceFee,
+  //     };
+  //     dispatch(bookSkilledWorker(data, navigation));
+  //   }
+  // };
 
   const renderHeader = () => {
     return (
@@ -420,7 +428,9 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setDateTimeEnd(new Date(newDateEnd));
 
     let temp = profileData.myServicesData[0].bookingsData.map(bookingData => bookingData.booked_dateTimeStart);
+    // console.log(temp);
     setBookingDataArray([...temp]);
+    
   }, []);
   
   return (
@@ -483,7 +493,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
               <Text style={[styles.h3, styles.bold, styles.mb4]}>
                 Day of Service
               </Text>
-              <Text style={ singleDayStatus ? styles.fail_notif : styles.success_notif} ></Text>
+              {/* {bookingDataArray.length == 0 &&  */}
+              <Text style={ singleDayStatus ?  styles.success_notif: styles.fail_notif } ></Text>
             </View>
             
             <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
@@ -549,9 +560,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
           <View style={[styles.py3, styles.px5, styles.m5]}>
             <View style={[styles.px5, styles.mx5, styles.my3]}>
-              {loading && (
-                <ActivityIndicator size="large" color={colors.secondary} />
-              )}
               <Button title="Book for Multiple Days" onPress={() => navigation.navigate("BookSkilledWorkerMultipleDays", {serviceName})} />
             </View>
             <View style={[styles.px5, styles.mx5]}>
