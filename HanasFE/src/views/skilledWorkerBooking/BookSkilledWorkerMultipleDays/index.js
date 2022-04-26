@@ -77,9 +77,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
       // }
     });
     console.log("END DATE", returnedDate);
+
     returnedDate.includes(true)
-      ? setMultipleDayEndStatus(false)
-      : setMultipleDayEndStatus(true);
+      ? setMultipleDayStartStatus(false)
+      : setMultipleDayStartStatus(true);
 
     if (dateTimeStart.getDate() >= dob.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
