@@ -12,7 +12,12 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useDispatch, useSelector } from "react-redux";
-import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import {
+  ALERT_TYPE,
+  Dialog,
+  Root,
+  Toast,
+} from "react-native-alert-notification";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
@@ -34,9 +39,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   // DATE STATUS
   const [multipleDayStartStatus, setMultipleDayStartStatus] = useState(true);
-  const [multipleDayEndStatus, setMultipleDayEndStatus ] = useState(true);
+  const [multipleDayEndStatus, setMultipleDayEndStatus] = useState(true);
 
-  
   // COMPUTATION VALUES
   const [totalMultipleHours, setTotalMultipleHours] = useState("");
   const [subTotal, setSubTotal] = useState(0);
@@ -55,65 +59,30 @@ const BookSkilledWorker = ({ navigation, route }) => {
     showToast("error", mess, "Please try again");
   };
 
-  const diff = (start, end) => {
-    start = start.split(":");
-    end = end.split(":");
-    let startDate = new Date(0, 0, 0, start[0], start[1], 0);
-    let endDate = new Date(0, 0, 0, end[0], end[1], 0);
-    let diff = endDate.getTime() - startDate.getTime();
-    let hours = Math.floor(diff / 1000 / 60 / 60);
-    diff -= hours * 1000 * 60 * 60;
-    let minutes = Math.floor(diff / 1000 / 60);
-
-    // If using time pickers with 24 hours format, add the below line get exact hours
-    if (hours < 0) hours = hours + 24;
-
-    return parseFloat(`${hours}.${minutes}`);
-  };
-
   //DATE
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
-    
-    console.log(dob);
-    let returnedDate = bookingDataArray.map((bookDate) => {
-      // if (
-      //   dayjs(dob).format("MMDDYY") ===
-      //   dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
-      // ) {
-        if (
-          dayjs(dob).format("MMDDYY") >=
-            dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") && dayjs(dob).format("MMDDYY") < dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
-        ) {
-          errorToast("Worker is unavailable on specified dates");
-          return true;
-        }
-      // }
-    });
-    console.log("START DATE", returnedDate);
-    returnedDate.includes(true)
-      ? setMultipleDayStartStatus(false)
-      : setMultipleDayStartStatus(true);
   };
 
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
+    if (!dob) {
+      return;
+    }
 
     console.log(dateTimeEnd);
 
     let returnedDate = bookingDataArray.map((bookDate) => {
-      // if (
-      //   dayjs(dob).format("MMDDYY") ===
-      //   dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
-      // ) {
-        if (
-          dayjs(dob).format("MMDDYY") >=
-            dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") && dayjs(dob).format("MMDDYY") <= dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
-        ) {
-          errorToast("Worker is unavailable on specified dates");
-          return true;
-        }
+      if (
+        dayjs(dob).format("MMDDYY") >=
+          dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") &&
+        dayjs(dob).format("MMDDYY") <=
+          dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
+      ) {
+        errorToast("Worker is unavailable on specified dates");
+        return true;
+      }
       // }
     });
     console.log("END DATE", returnedDate);
@@ -121,9 +90,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
       ? setMultipleDayEndStatus(false)
       : setMultipleDayEndStatus(true);
 
-    if (!dob) {
-      return;
-    }
     if (dateTimeStart.getDate() >= dob.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
@@ -132,43 +98,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
       dob && setDateTimeEnd(dob);
     }
   };
-
-
-  // const changeEndTime = (e, dob) => {
-  //   setTimeEndModal(false);
-
-  //   // Validations
-  //   let timeStartFormatted = dayjs(timeStart).format("HH:mm");
-  //   let timeEndFormatted = dayjs(dob).format("HH:mm");
-  //   let newTimeEnd;
-
-  //   if (!dob) {
-  //     newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-  //     setTimeEnd(newTimeEnd);
-  //   } else if (timeStartFormatted >= timeEndFormatted) {
-  //     errorToast("Time end must be greater than time start");
-  //     newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-  //     setTimeEnd(newTimeEnd);
-  //   } else {
-  //     setTimeEnd(dob);
-  //   }
-
-  //   // Calculations
-  //   let newStartTime = dayjs(timeStart).format("HH:mm:ss");
-  //   let newEndTime =
-  //     timeStartFormatted >= timeEndFormatted
-  //       ? dayjs(newTimeEnd).format("HH:mm:ss")
-  //       : dayjs(dob).format("HH:mm:ss");
-  //   let timeDifference = diff(newStartTime, newEndTime);
-  //   let subTotalValue =
-  //     profileData.myServicesData[0].hourly_rate * timeDifference;
-  //   let convenienceFeeValue = subTotalValue * 0.05;
-
-  //   setTotalSingleHours(timeDifference.toFixed(2));
-  //   setSubTotal(subTotalValue.toFixed(2));
-  //   setConvenienceFee(convenienceFeeValue.toFixed(2));
-  //   setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
-  // };
 
   const setTotalHoursRendered = (e) => {
     let subTotalValue = profileData.myServicesData[0].hourly_rate * parseInt(e);
@@ -180,10 +109,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
   };
 
-  
-
   const handleSubmitMultipleDay = () => {
-    if(multipleDayStartStatus === false || multipleDayEndStatus === false){
+    if (multipleDayStartStatus === false || multipleDayEndStatus === false) {
       errorToast("Worker is unavailable on specified dates");
       return;
     }
@@ -418,7 +345,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
     setBookingDataArray([...temp]);
   }, []);
-  
+
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
       <Header title={"Book Skilled Worker (Multiple Days)"} />
@@ -443,7 +370,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
               </View>
             </View>
           </View>
-          <View style={[
+          <View
+            style={[
               styles.bgLightGrey,
               styles.m3,
               styles.p3,
@@ -451,15 +379,24 @@ const BookSkilledWorker = ({ navigation, route }) => {
               styles.rounded,
               styles.border,
               styles.borderMuted25,
-            ]}>
+            ]}
+          >
             <Text style={styles.bold}>Note:</Text>
-            <View style={styles.flexStartContainer}> 
+            <View style={styles.flexStartContainer}>
               <Text style={styles.success_notif}></Text>
-              <Text> - green indicates that the skilled worker has no other resposibility on this date.</Text>
+              <Text>
+                {" "}
+                - green indicates that the skilled worker has no other
+                resposibility on this date.
+              </Text>
             </View>
-            <View style={styles.flexStartContainer}> 
+            <View style={styles.flexStartContainer}>
               <Text style={styles.fail_notif}></Text>
-              <Text style={{textAlign: "justify"}}> - red indicates that the skilled worker has an exisiting job on this date.</Text>
+              <Text style={{ textAlign: "justify" }}>
+                {" "}
+                - red indicates that the skilled worker has an exisiting job on
+                this date.
+              </Text>
             </View>
           </View>
           <View
@@ -479,11 +416,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
               </Text>
               <Text
                 style={
-                  multipleDayStartStatus ? styles.success_notif : styles.fail_notif
+                  multipleDayStartStatus
+                    ? styles.success_notif
+                    : styles.fail_notif
                 }
               ></Text>
             </View>
-            
+
             <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
               <IconField
                 iconName="calendar"
@@ -506,13 +445,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
               <Text style={[styles.h3, styles.bold, styles.mb4]}>
                 End of Service
               </Text>
-              <Text
-                style={
-                  multipleDayEndStatus ? styles.success_notif : styles.fail_notif
-                }
-              ></Text>
             </View>
-            
+
             <TouchableOpacity onPress={() => setDateTimeEndModal(true)}>
               <IconField
                 iconName="calendar"
@@ -550,13 +484,21 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
           <View style={[styles.py3, styles.px5, styles.m5]}>
             <View style={[styles.px5, styles.mx5, styles.my3]}>
-              <Button title="Book for Single Day" onPress={() => navigation.navigate("BookSkilledWorker", {serviceName})} />
+              <Button
+                title="Book for Single Day"
+                onPress={() =>
+                  navigation.navigate("BookSkilledWorker", { serviceName })
+                }
+              />
             </View>
             <View style={[styles.px5, styles.mx5]}>
               {loading && (
                 <ActivityIndicator size="large" color={colors.secondary} />
               )}
-              <Button title="Submit Request" onPress={handleSubmitMultipleDay}/>
+              <Button
+                title="Submit Request"
+                onPress={handleSubmitMultipleDay}
+              />
             </View>
           </View>
         </ScrollView>
