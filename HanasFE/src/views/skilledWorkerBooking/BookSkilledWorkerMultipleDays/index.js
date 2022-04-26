@@ -49,6 +49,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
     showToast("error", mess, "Please try again");
   };
 
+  const getLastDay = (y, m) => {
+    return new Date(y, m + 1, 0).getDate();
+  };
+
   //DATE
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
@@ -61,27 +65,66 @@ const BookSkilledWorker = ({ navigation, route }) => {
     if (!dob) {
       return;
     }
-    // console.log(bookingDataArray);
-    console.log("DATE TIME START" , dayjs(dateTimeStart).format("DDMMYY"));
-    let myBookedDateArray = [];
 
-    for (let i = dayjs(dateTimeStart).format("DDMMYY"); i <= dayjs(dob).format("DDMMYY"); i++) {
-      console.log(i);
-      myBookedDateArray.push(new Date(dateTimeStart.setDate(i)));
+    console.log("DATE TIME START", dayjs(dateTimeStart).format("DD"));
+    let myBookedDateArray = [];
+    let myBookedDateArray2 = [];
+    let tempDate = new Date(dateTimeStart);
+    let tempDateNewMonth = new Date(dob);
+
+    if (dateTimeStart.getMonth() === dob.getMonth()) {
+      for (
+        let i = parseInt(dayjs(dateTimeStart).format("DD"));
+        i <= parseInt(dayjs(dob).format("DD"));
+        i++
+      ) {
+        console.log(i);
+        myBookedDateArray.push(new Date(tempDate.setDate(i)));
+      }
+    } else {
+      for (
+        let i = parseInt(dayjs(dateTimeStart).format("DD"));
+        i <= getLastDay(dateTimeStart.getFullYear(), dateTimeStart.getMonth());
+        i++
+      ) {
+        console.log(i);
+        myBookedDateArray.push(new Date(tempDate.setDate(i)));
+      }
+
+      for (let i = 1; i <= dob.getDate(); i++) {
+        console.log(i);
+        myBookedDateArray2.push(new Date(tempDateNewMonth.setDate(i)));
+      }
     }
 
+    let mergeBookedDateArray = [...myBookedDateArray, ...myBookedDateArray2];
+    let bookedDateValidationArray = [];
+    mergeBookedDateArray.map((mergeBookedDate) =>
+      bookingDataArray.map((bookingData) => {
+        bookedDateValidationArray.push(
+          dayjs(mergeBookedDate).format("MMDDYY") ===
+            dayjs(bookingData).format("MMDDYY")
+        );
+      })
+    );
 
-    console.log("MY BOOKED DATES" , myBookedDateArray);
-    console.log(dateTimeStart.getDate());
-    console.log(dob.getDate());
+    bookedDateValidationArray.includes(true)
+      ? setMultipleDayStartStatus(false)
+      : setMultipleDayStartStatus(true);
 
-    // returnedDate.includes(true)
-    //   ? setMultipleDayStartStatus(false)
-    //   : setMultipleDayStartStatus(true);
-
-    if (dateTimeStart.getDate() >= dob.getDate()) {
+    if (
+      dateTimeStart.getMonth() === dob.getMonth() &&
+      dateTimeStart.getDate() >= dob.getDate()
+    ) {
       errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
+      setDateTimeEnd(new Date(newDateEnd));
+    } else if (dateTimeStart.getMonth() > dob.getMonth()) {
+      errorToast("Date end must not be lesser than or equal to date start");
+      let newDateEnd = new Date(
+        dateTimeEnd.setDate(dateTimeStart.getDate() + 1)
+      );
+      newDateEnd.setMonth(dateTimeEnd.getMonth() + 1);
       setDateTimeEnd(new Date(newDateEnd));
     } else {
       dob && setDateTimeEnd(dob);
@@ -331,17 +374,38 @@ const BookSkilledWorker = ({ navigation, route }) => {
         return new Date(bookingData.booked_dateTimeStart);
       }
     });
+
     let temp2 = [];
+    let temp3 = [];
+
     profileData.myServicesData[0].bookingsData.map((bookingData) => {
       if (bookingData.book_type === "Multiple") {
         let dateStart = new Date(bookingData.booked_dateTimeStart);
         let dateEnd = new Date(bookingData.booked_dateTimeEnd);
-        for (let i = dateStart.getDate(); i <= dateEnd.getDate(); i++) {
-          temp2.push(new Date(dateStart.setDate(i)));
+        let tempDateEnd = new Date(dateEnd);
+
+        if (
+          dayjs(bookingData.booked_dateTimeStart).format("MM") ===
+          dayjs(bookingData.booked_dateTimeEnd).format("MM")
+        ) {
+          for (let i = dateStart.getDate(); i <= dateEnd.getDate(); i++) {
+            temp2.push(new Date(dateStart.setDate(i)));
+          }
+        } else {
+          for (
+            let i = dateStart.getDate();
+            i <= getLastDay(dateStart.getFullYear(), dateStart.getMonth());
+            i++
+          ) {
+            temp2.push(new Date(dateStart.setDate(i)));
+          }
+          for (let i = 1; i <= dateEnd.getDate(); i++) {
+            temp3.push(new Date(tempDateEnd.setDate(i)));
+          }
         }
       }
     });
-    const mergedArray = [...temp, ...temp2];
+    const mergedArray = [...temp, ...temp2, ...temp3];
     console.log(mergedArray);
 
     setBookingDataArray([...mergedArray]);
