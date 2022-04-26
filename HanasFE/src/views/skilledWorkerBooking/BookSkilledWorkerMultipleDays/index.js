@@ -1,29 +1,20 @@
 import React, { useState, useEffect } from "react";
-
 import {
   ActivityIndicator,
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  useWindowDimensions,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ALERT_TYPE,
-  Dialog,
-  Root,
-  Toast,
-} from "react-native-alert-notification";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
-import { colors, fontWeight } from "@constants";
 import styles from "./style";
+import { colors } from "@constants";
 import { ToastComponent, showToast } from "@helpers/toast";
 import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
 
@@ -39,7 +30,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   // DATE STATUS
   const [multipleDayStartStatus, setMultipleDayStartStatus] = useState(true);
-  const [multipleDayEndStatus, setMultipleDayEndStatus] = useState(true);
 
   // COMPUTATION VALUES
   const [totalMultipleHours, setTotalMultipleHours] = useState("");
@@ -67,11 +57,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
+
     if (!dob) {
       return;
     }
 
-    console.log(dateTimeEnd);
+    console.log(dob);
 
     let returnedDate = bookingDataArray.map((bookDate) => {
       if (
@@ -334,16 +325,28 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   useEffect(() => {
     let date = new Date();
-    // setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
-
     let newDateEnd = date.setDate(date.getDate() + 1);
     setDateTimeEnd(new Date(newDateEnd));
 
-    let temp = profileData.myServicesData[0].bookingsData.map(
-      (bookingData) => bookingData
-    );
+    let temp = profileData.myServicesData[0].bookingsData.map((bookingData) => {
+      if (bookingData.book_type === "Single") {
+        return new Date(bookingData.booked_dateTimeStart);
+      }
+    });
+    let temp2 = [];
+    profileData.myServicesData[0].bookingsData.map((bookingData) => {
+      if (bookingData.book_type === "Multiple") {
+        let dateStart = new Date(bookingData.booked_dateTimeStart);
+        let dateEnd = new Date(bookingData.booked_dateTimeEnd);
+        for (let i = dateStart.getDate(); i <= dateEnd.getDate(); i++) {
+          temp2.push(new Date(dateStart.setDate(i)));
+        }
+      }
+    });
+    const mergedArray = [...temp, ...temp2];
+    console.log(mergedArray);
 
-    setBookingDataArray([...temp]);
+    setBookingDataArray([...mergedArray]);
   }, []);
 
   return (
