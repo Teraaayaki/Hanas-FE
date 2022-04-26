@@ -33,15 +33,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const [bookingDataArray, setBookingDataArray] = useState([]);
 
   // DATE STATUS
-  const [singleDayStatus, setSingleDayStatus] = useState(false);
-  const [multipleDayEndStatus, setMultipleDayEndStatus ] = useState(false);
+  const [multipleDayStartStatus, setMultipleDayStartStatus] = useState(true);
+  const [multipleDayEndStatus, setMultipleDayEndStatus ] = useState(true);
 
-  //TAB VIEW
-  const layout = useWindowDimensions();
-  const [index, setIndex] = useState(0);
-
+  
   // COMPUTATION VALUES
-  const [totalSingleHours, setTotalSingleHours] = useState("");
   const [totalMultipleHours, setTotalMultipleHours] = useState("");
   const [subTotal, setSubTotal] = useState(0);
   const [convenienceFee, setConvenienceFee] = useState(0);
@@ -53,13 +49,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const [dateStartModal, setDateTimeStartModal] = useState(false);
   const [dateEndModal, setDateTimeEndModal] = useState(false);
-
-  //TIME
-  const [timeStart, setTimeStart] = useState(new Date());
-  const [timeEnd, setTimeEnd] = useState(new Date());
-
-  const [timeStartModal, setTimeStartModal] = useState(false);
-  const [timeEndModal, setTimeEndModal] = useState(false);
 
   const errorToast = (mess) => {
     console.log("Showing Toast");
@@ -86,13 +75,52 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
-    console.log("DOB" , dob);
-    let returnedDate = bookingDataArray.find(bookDate =>  dayjs(dob).format("MMMDYYYY") === dayjs(bookDate).format("MMMDYYYY")) ? setTimeStart(false) : setTimeStart(true);
-    // returnedDate ? setTimeStart(false) : setTimeStart(true);
-    // console.log(returnedDate);
+    
+    console.log(dob);
+    let returnedDate = bookingDataArray.map((bookDate) => {
+      // if (
+      //   dayjs(dob).format("MMDDYY") ===
+      //   dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
+      // ) {
+        if (
+          dayjs(dob).format("MMDDYY") >=
+            dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") && dayjs(dob).format("MMDDYY") < dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
+        ) {
+          errorToast("Worker is unavailable on specified dates");
+          return true;
+        }
+      // }
+    });
+    console.log("START DATE", returnedDate);
+    returnedDate.includes(true)
+      ? setMultipleDayStartStatus(false)
+      : setMultipleDayStartStatus(true);
   };
+
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
+
+    console.log(dateTimeEnd);
+
+    let returnedDate = bookingDataArray.map((bookDate) => {
+      // if (
+      //   dayjs(dob).format("MMDDYY") ===
+      //   dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
+      // ) {
+        if (
+          dayjs(dob).format("MMDDYY") >=
+            dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") && dayjs(dob).format("MMDDYY") <= dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
+        ) {
+          errorToast("Worker is unavailable on specified dates");
+          return true;
+        }
+      // }
+    });
+    console.log("END DATE", returnedDate);
+    returnedDate.includes(true)
+      ? setMultipleDayEndStatus(false)
+      : setMultipleDayEndStatus(true);
+
     if (!dob) {
       return;
     }
@@ -105,47 +133,42 @@ const BookSkilledWorker = ({ navigation, route }) => {
     }
   };
 
-  //TIME
-  const changeStartTime = (e, dob) => {
-    setTimeStartModal(false);
-    dob && setTimeStart(dob);
-  };
 
-  const changeEndTime = (e, dob) => {
-    setTimeEndModal(false);
+  // const changeEndTime = (e, dob) => {
+  //   setTimeEndModal(false);
 
-    // Validations
-    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
-    let timeEndFormatted = dayjs(dob).format("HH:mm");
-    let newTimeEnd;
+  //   // Validations
+  //   let timeStartFormatted = dayjs(timeStart).format("HH:mm");
+  //   let timeEndFormatted = dayjs(dob).format("HH:mm");
+  //   let newTimeEnd;
 
-    if (!dob) {
-      newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-      setTimeEnd(newTimeEnd);
-    } else if (timeStartFormatted >= timeEndFormatted) {
-      errorToast("Time end must be greater than time start");
-      newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-      setTimeEnd(newTimeEnd);
-    } else {
-      setTimeEnd(dob);
-    }
+  //   if (!dob) {
+  //     newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+  //     setTimeEnd(newTimeEnd);
+  //   } else if (timeStartFormatted >= timeEndFormatted) {
+  //     errorToast("Time end must be greater than time start");
+  //     newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
+  //     setTimeEnd(newTimeEnd);
+  //   } else {
+  //     setTimeEnd(dob);
+  //   }
 
-    // Calculations
-    let newStartTime = dayjs(timeStart).format("HH:mm:ss");
-    let newEndTime =
-      timeStartFormatted >= timeEndFormatted
-        ? dayjs(newTimeEnd).format("HH:mm:ss")
-        : dayjs(dob).format("HH:mm:ss");
-    let timeDifference = diff(newStartTime, newEndTime);
-    let subTotalValue =
-      profileData.myServicesData[0].hourly_rate * timeDifference;
-    let convenienceFeeValue = subTotalValue * 0.05;
+  //   // Calculations
+  //   let newStartTime = dayjs(timeStart).format("HH:mm:ss");
+  //   let newEndTime =
+  //     timeStartFormatted >= timeEndFormatted
+  //       ? dayjs(newTimeEnd).format("HH:mm:ss")
+  //       : dayjs(dob).format("HH:mm:ss");
+  //   let timeDifference = diff(newStartTime, newEndTime);
+  //   let subTotalValue =
+  //     profileData.myServicesData[0].hourly_rate * timeDifference;
+  //   let convenienceFeeValue = subTotalValue * 0.05;
 
-    setTotalSingleHours(timeDifference.toFixed(2));
-    setSubTotal(subTotalValue.toFixed(2));
-    setConvenienceFee(convenienceFeeValue.toFixed(2));
-    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
-  };
+  //   setTotalSingleHours(timeDifference.toFixed(2));
+  //   setSubTotal(subTotalValue.toFixed(2));
+  //   setConvenienceFee(convenienceFeeValue.toFixed(2));
+  //   setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+  // };
 
   const setTotalHoursRendered = (e) => {
     let subTotalValue = profileData.myServicesData[0].hourly_rate * parseInt(e);
@@ -157,42 +180,14 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
   };
 
-  const handleSubmitSingleDay = () => {
-    if (!totalSingleHours) {
-      console.log("error missings data");
-      errorToast("Please input some data");
+  
+
+  const handleSubmitMultipleDay = () => {
+    if(multipleDayStartStatus === false || multipleDayEndStatus === false){
+      errorToast("Worker is unavailable on specified dates");
       return;
     }
 
-    let timeStartFormatted = dayjs(timeStart).format("HH:mm");
-    let timeEndFormatted = dayjs(timeEnd).format("HH:mm");
-    if (timeStartFormatted >= timeEndFormatted) {
-      console.log("timeStart is greater than or equal to timeEnd");
-      errorToast("Time end must be greater than time start");
-      let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
-      setTimeEnd(newTimeEnd);
-    } else {
-      const data = {
-        service_availed: profileData.myServicesData[0]._id,
-        worker: profileData._id,
-        client: user.id,
-        book_type: "Single",
-        booked_dateTimeStart: new Date(
-          dateTimeStart.getDate() + timeStart.getTime()
-        ),
-        booked_dateTimeEnd: new Date(
-          dateTimeStart.getDate() + timeEnd.getTime()
-        ),
-        total_cost: totalCost,
-        total_hours: totalSingleHours,
-        book_status: "Pending",
-        conv_fee: convenienceFee,
-      };
-      dispatch(bookSkilledWorker(data, navigation));
-    }
-  };
-
-  const handleSubmitMultipleDay = () => {
     if (!totalMultipleHours) {
       console.log("error missings data");
       errorToast("Please input some data");
@@ -412,12 +407,15 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   useEffect(() => {
     let date = new Date();
-    setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
+    // setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
 
     let newDateEnd = date.setDate(date.getDate() + 1);
     setDateTimeEnd(new Date(newDateEnd));
 
-    let temp = profileData.myServicesData[0].bookingsData.map(bookingData => bookingData.booked_dateTimeStart);
+    let temp = profileData.myServicesData[0].bookingsData.map(
+      (bookingData) => bookingData
+    );
+
     setBookingDataArray([...temp]);
   }, []);
   
@@ -479,7 +477,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
               <Text style={[styles.h3, styles.bold, styles.mb4]}>
                 Start of Service
               </Text>
-              <Text style={styles.success_notif}></Text>
+              <Text
+                style={
+                  multipleDayStartStatus ? styles.success_notif : styles.fail_notif
+                }
+              ></Text>
             </View>
             
             <TouchableOpacity onPress={() => setDateTimeStartModal(true)}>
@@ -504,7 +506,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
               <Text style={[styles.h3, styles.bold, styles.mb4]}>
                 End of Service
               </Text>
-              <Text style={styles.fail_notif}></Text>
+              <Text
+                style={
+                  multipleDayEndStatus ? styles.success_notif : styles.fail_notif
+                }
+              ></Text>
             </View>
             
             <TouchableOpacity onPress={() => setDateTimeEndModal(true)}>
