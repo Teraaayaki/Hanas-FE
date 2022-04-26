@@ -34,7 +34,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   // DATE STATUS
   const [multipleDayStartStatus, setMultipleDayStartStatus] = useState(true);
-  const [multipleDayEndStatus, setMultipleDayEndStatus ] = useState(true);
+
 
   
   // COMPUTATION VALUES
@@ -75,26 +75,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const changeStartDate = (e, dob) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
-    
-    console.log(dob);
-    let returnedDate = bookingDataArray.map((bookDate) => {
-      // if (
-      //   dayjs(dob).format("MMDDYY") ===
-      //   dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
-      // ) {
-        if (
-          dayjs(dob).format("MMDDYY") >=
-            dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") && dayjs(dob).format("MMDDYY") < dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
-        ) {
-          errorToast("Worker is unavailable on specified dates");
-          return true;
-        }
-      // }
-    });
-    console.log("START DATE", returnedDate);
-    returnedDate.includes(true)
-      ? setMultipleDayStartStatus(false)
-      : setMultipleDayStartStatus(true);
   };
 
   const changeEndDate = (e, dob) => {
@@ -103,23 +83,21 @@ const BookSkilledWorker = ({ navigation, route }) => {
     console.log(dateTimeEnd);
 
     let returnedDate = bookingDataArray.map((bookDate) => {
-      // if (
-      //   dayjs(dob).format("MMDDYY") ===
-      //   dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
-      // ) {
+      
         if (
-          dayjs(dob).format("MMDDYY") >=
-            dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") && dayjs(dob).format("MMDDYY") <= dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
+          dayjs(dob).format("MMDDYY") <=
+            dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY") && dayjs(dob).format("MMDDYY") >= dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
         ) {
           errorToast("Worker is unavailable on specified dates");
           return true;
         }
-      // }
+
     });
     console.log("END DATE", returnedDate);
+
     returnedDate.includes(true)
-      ? setMultipleDayEndStatus(false)
-      : setMultipleDayEndStatus(true);
+    ? setMultipleDayStartStatus(false)
+    : setMultipleDayStartStatus(true);
 
     if (!dob) {
       return;
@@ -183,7 +161,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
   
 
   const handleSubmitMultipleDay = () => {
-    if(multipleDayStartStatus === false || multipleDayEndStatus === false){
+    if(multipleDayStartStatus === false){
       errorToast("Worker is unavailable on specified dates");
       return;
     }
@@ -506,11 +484,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
               <Text style={[styles.h3, styles.bold, styles.mb4]}>
                 End of Service
               </Text>
-              <Text
-                style={
-                  multipleDayEndStatus ? styles.success_notif : styles.fail_notif
-                }
-              ></Text>
             </View>
             
             <TouchableOpacity onPress={() => setDateTimeEndModal(true)}>
