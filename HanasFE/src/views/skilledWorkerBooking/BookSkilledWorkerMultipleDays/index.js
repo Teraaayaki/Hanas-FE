@@ -61,26 +61,23 @@ const BookSkilledWorker = ({ navigation, route }) => {
     if (!dob) {
       return;
     }
+    // console.log(bookingDataArray);
+    console.log("DATE TIME START" , dayjs(dateTimeStart).format("DDMMYY"));
+    let myBookedDateArray = [];
 
-    console.log(dob);
+    for (let i = dayjs(dateTimeStart).format("DDMMYY"); i <= dayjs(dob).format("DDMMYY"); i++) {
+      console.log(i);
+      myBookedDateArray.push(new Date(dateTimeStart.setDate(i)));
+    }
 
-    let returnedDate = bookingDataArray.map((bookDate) => {
-      if (
-        dayjs(dob).format("MMDDYY") >=
-          dayjs(bookDate.booked_dateTimeStart).format("MMDDYY") &&
-        dayjs(dob).format("MMDDYY") <=
-          dayjs(bookDate.booked_dateTimeEnd).format("MMDDYY")
-      ) {
-        errorToast("Worker is unavailable on specified dates");
-        return true;
-      }
-      // }
-    });
-    console.log("END DATE", returnedDate);
 
-    returnedDate.includes(true)
-      ? setMultipleDayStartStatus(false)
-      : setMultipleDayStartStatus(true);
+    console.log("MY BOOKED DATES" , myBookedDateArray);
+    console.log(dateTimeStart.getDate());
+    console.log(dob.getDate());
+
+    // returnedDate.includes(true)
+    //   ? setMultipleDayStartStatus(false)
+    //   : setMultipleDayStartStatus(true);
 
     if (dateTimeStart.getDate() >= dob.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
