@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
-import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useState, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+import { View, Text } from "react-native";
+import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
 
-import { SocketContext } from '../../../context/socketContext';
-import Header from '@components/Header';
-import { colors, fontSize } from '@constants';
-import styles from './styles';
+import { SocketContext } from "../../../context/socketContext";
+import Header from "@components/Header";
+import { colors, fontSize } from "@constants";
+import styles from "./styles";
 import {
   getUserConversations,
-  storeNewMessage
-} from '@redux/actions/conversationAction';
+  storeNewMessage,
+} from "@redux/actions/conversationAction";
 
 // Params:
 // receiverID
@@ -27,28 +26,28 @@ const Chatroom = ({ navigation, route }) => {
   const [messages, setMessages] = useState(route.params.messages);
 
   useEffect(() => {
-    socket.current.emit('connectToChatroom', user.id);
+    socket.current.emit("connectToChatroom", user.id);
 
     return () => {
-      socket.current.emit('disconnectToChatroom', user.id);
+      socket.current.emit("disconnectToChatroom", user.id);
     };
   }, []);
 
   useEffect(() => {
-    socket.current.on('message', (newMessage) => {
+    socket.current.on("message", (newMessage) => {
       if (newMessage[0].user._id === route.params.receiverID) {
         setMessages(GiftedChat.append(messages, newMessage));
       }
     });
 
     return () => {
-      socket.current.off('message');
+      socket.current.off("message");
     };
   });
 
   // helper method that sends a message
   function handleSend(newMessage = []) {
-    socket.current.emit('message', newMessage, route.params.receiverID);
+    socket.current.emit("message", newMessage, route.params.receiverID);
     setMessages(GiftedChat.append(messages, newMessage));
     storeNewMessage(route.params.receiverID, newMessage[0]);
   }
@@ -60,21 +59,21 @@ const Chatroom = ({ navigation, route }) => {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: colors.lightGrey
+            backgroundColor: colors.lightGrey,
           },
           right: {
             // Here is the color change
-            backgroundColor: colors.secondary
-          }
+            backgroundColor: colors.secondary,
+          },
         }}
         textStyle={{
           right: {
-            color: '#fff',
-            fontSize: fontSize.p
+            color: "#fff",
+            fontSize: fontSize.p,
           },
           left: {
-            fontSize: fontSize.p
-          }
+            fontSize: fontSize.p,
+          },
         }}
       />
     );
@@ -91,7 +90,7 @@ const Chatroom = ({ navigation, route }) => {
               styles.sendButton,
               styles.py1,
               styles.px5,
-              styles.rounded100
+              styles.rounded100,
             ]}
           >
             SEND
@@ -109,7 +108,7 @@ const Chatroom = ({ navigation, route }) => {
         onSend={(newMessage) => handleSend(newMessage)}
         user={{
           _id: user.id,
-          name: senderName
+          name: senderName,
         }}
         renderBubble={renderBubble}
         showUserAvatar

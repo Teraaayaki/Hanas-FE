@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
@@ -17,7 +17,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 dayjs.extend(utc);
 
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
-  let date = new Date("1990");
+  let date = new Date(1990, 0, 21);
 
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
@@ -97,8 +97,8 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
                   ]}
                 >
                   {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -{" "}
-                  {dayjs(item.booked_dateTimeStart).format("h:m A")} -{" "}
-                  {dayjs(item.booked_dateTimeEnd).format("h:m A")}
+                  {dayjs(item.booked_dateTimeStart).format("h:mm A")} -{" "}
+                  {dayjs(item.booked_dateTimeEnd).format("h:mm A")}
                 </Text>
               ) : (
                 <Text
@@ -129,12 +129,14 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
   const renderTitle = ({ item }) => {
     if (
-      dayjs(item.booked_dateTimeStart).format("MDYY") !=
+      dayjs(item.booked_dateTimeStart).format("MDYY") !==
       dayjs(date).format("MDYY")
     ) {
-      date = item.booked_dateTimeStart;
+      date = new Date(item.booked_dateTimeStart);
+
       return (
         <View style={[styles.flex1, styles.mt2]}>
+          {console.log("Show")}
           <PinkSidedCardHeader
             title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
           />
@@ -164,12 +166,16 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
   const renderItem = ({ item }) => {
     return (
-      <View>
+      <>
         {renderTitle({ item })}
         {renderCard({ item })}
-      </View>
+      </>
     );
   };
+
+  useEffect(() => {
+    date = new Date(1990, 0, 21);
+  }, [DATA]);
 
   return (
     <FlatList
