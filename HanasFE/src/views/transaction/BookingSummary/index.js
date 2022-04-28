@@ -45,6 +45,7 @@ const BookingSummary = ({ route }) => {
             name={`${booking_data.workerData[0].first_name} ${booking_data.workerData[0].family_name}`}
             address={booking_data.workerData[0].address}
             booked_date={dayjs(booking_data.booked_dateTimeStart).format("MMMM D, YYYY (dddd)")}
+            booked_end={dayjs(booking_data.booked_dateTimeEnd).format("MMMM D, YYYY (dddd)")}
             time_start={dayjs(booking_data.booked_dateTimeStart).format("h:m A")}
             time_end={dayjs(booking_data.booked_dateTimeEnd).format("h:m A")}
           />

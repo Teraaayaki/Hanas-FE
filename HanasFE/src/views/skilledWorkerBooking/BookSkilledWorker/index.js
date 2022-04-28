@@ -12,12 +12,6 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ALERT_TYPE,
-  Dialog,
-  Root,
-  Toast,
-} from "react-native-alert-notification";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";

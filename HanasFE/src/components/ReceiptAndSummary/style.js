@@ -83,6 +83,9 @@ export default StyleSheet.create({
     flexDirection: "column",
     width: 150,
   },
+  addressContainer: {
+    paddingHorizontal: padding.p5
+  },
   smallHeadings: {
     fontSize: fontSize.labelSmall,
     color: colors.borderGray,

@@ -27,6 +27,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   //BOOKING DATA STATE ARRAY
   const [bookingDataArray, setBookingDataArray] = useState([]);
+  const [mergedDataArray, setMergedDataArray] = useState([]);
 
   // DATE STATUS
   const [multipleDayStartStatus, setMultipleDayStartStatus] = useState(true);
@@ -61,12 +62,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
-
+    console.log("DATES" ,dateTimeStart.getDate() , dateTimeEnd.getDate())
+    
     if (!dob) {
       return;
     }
 
-    console.log("DATE TIME START", dayjs(dateTimeStart).format("DD"));
     let myBookedDateArray = [];
     let myBookedDateArray2 = [];
     let tempDate = new Date(dateTimeStart);
@@ -98,6 +99,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
     }
 
     let mergeBookedDateArray = [...myBookedDateArray, ...myBookedDateArray2];
+    setMergedDataArray(mergeBookedDateArray);
     let bookedDateValidationArray = [];
     mergeBookedDateArray.map((mergeBookedDate) =>
       bookingDataArray.map((bookingData) => {
@@ -112,6 +114,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       ? setMultipleDayStartStatus(false)
       : setMultipleDayStartStatus(true);
 
+    
     if (
       dateTimeStart.getMonth() === dob.getMonth() &&
       dateTimeStart.getDate() >= dob.getDate()
@@ -129,6 +132,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
     } else {
       dob && setDateTimeEnd(dob);
     }
+
   };
 
   const setTotalHoursRendered = (e) => {
@@ -142,8 +146,15 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const handleSubmitMultipleDay = () => {
-    if (multipleDayStartStatus === false || multipleDayEndStatus === false) {
+    if (multipleDayStartStatus === false ) {
       errorToast("Worker is unavailable on specified dates");
+      return;
+    }
+
+    console.log("ARRAY LENGTH" , mergedDataArray.length);
+    const hoursRenderedOffset = mergedDataArray.length * 24;
+    if(totalMultipleHours > hoursRenderedOffset) {
+      errorToast("Invalid total number of hours");
       return;
     }
 
@@ -310,7 +321,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
         >
           <Text style={styles.h4}>Total Hours:</Text>
           <Text style={[styles.h4, styles.textRight]}>
-            {service_mode === "Single" ? totalSingleHours : totalMultipleHours}
+            {totalMultipleHours}
             hr(s)
           </Text>
         </View>

@@ -6,7 +6,7 @@ import {colors} from "@constants";
 import {margin, padding, fontSize, fontWeight} from "@constants";
 
 
-const ReceiptAndSummary = ({summaryTitle, payment_method, date_paid, rate, hours_rendered, convenience_fee, status, discount, total, service_type, name, address, booked_date, time_start, time_end}) => {
+const ReceiptAndSummary = ({summaryTitle, payment_method, date_paid, rate, hours_rendered, convenience_fee, status, discount, total, service_type, name, address, booked_date, booked_end, time_start, time_end}) => {
   return (
     <View style={styles.receiptContainer}>
         <Text style={styles.receiptTitle} >{summaryTitle} Summary</Text>
@@ -65,15 +65,23 @@ const ReceiptAndSummary = ({summaryTitle, payment_method, date_paid, rate, hours
                 </View>
             </View>
             <View style={styles.serviceContainer}>
-                <View style={styles.valuesContainer}>
+                <View style={styles.addressContainer}>
                     <Text style={styles.smallHeadings}>Address</Text>
                     <Text style={styles.valueForSmallHeadings} numberOflines={1}>{address}</Text>
                 </View>
+            </View>
+            <View style={styles.serviceContainer}>
                 <View style={styles.valuesContainer}>
-                    <Text style={styles.smallHeadings}>Booked Date</Text>
+                    <Text style={styles.smallHeadings}>Booked Start Date</Text>
                     <Text style={styles.valueForSmallHeadings} numberOfLines={2}>{booked_date}</Text>
                 </View>
+                <View style={styles.valuesContainer}>
+                    <Text style={styles.smallHeadings}>Booked End Date</Text>
+                    <Text style={styles.valueForSmallHeadings} numberOfLines={2}>{booked_end}</Text>
+                </View>
+                
             </View>
+            
             <View style={styles.serviceContainer}>
                 <View style={styles.valuesContainer}>
                     <Text style={styles.smallHeadings}>Time Start</Text>
