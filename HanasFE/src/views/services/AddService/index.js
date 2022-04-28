@@ -16,6 +16,8 @@ import { getItem } from "@helpers/asyncStorage";
 import { addServiceWorker } from "@redux/actions/workerServiceActions";
 
 const AddService = ({ navigation }) => {
+  const [showVerifyGuide, setShowVerifyGuide] = useState(false);
+
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingCertificate, setUploadingCertificate] = useState(false);
@@ -381,7 +383,34 @@ const AddService = ({ navigation }) => {
           })
         )}
 
-        <Text style={[styles.h3, styles.bold, styles.mt5]}>Certificates</Text>
+        <View
+          style={[
+            styles.w100,
+            styles.flexRow,
+            styles.justifyContentSpaceBetween,
+            styles.alignCenter,
+            styles.pt5,
+          ]}
+        >
+          <Text style={[styles.h3, styles.bold]}>Certificates</Text>
+          <TouchableOpacity
+            onPressOut={() => setShowVerifyGuide(!showVerifyGuide)}
+          >
+            <Icon
+              name="info-circle"
+              type="font-awesome-5"
+              size={22}
+              color={colors.success}
+              style={[styles.mb5, styles.pb5]}
+            />
+          </TouchableOpacity>
+        </View>
+        {showVerifyGuide && (
+          <Text style={[styles.p, styles.textJustify]}>
+            This Service will not be public until your skills are Verified.
+            Upload your Certificates to get Verified.
+          </Text>
+        )}
         {!uploadingCertificate && (
           <TouchableOpacity style={[styles.my2]} onPress={pickCertificate}>
             <Text

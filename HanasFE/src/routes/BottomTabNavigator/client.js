@@ -1,7 +1,8 @@
-import React from "react";
-import { Image } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react';
+import { Image } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+<<<<<<< HEAD
 import { colors } from "@constants";
 import ClientDashboard from "@screens/dashboard/ClientDashboard";
 import BrowseServices from "@screens/BrowseServices";
@@ -20,6 +21,25 @@ import BookSkilledWorker from "@screens/skilledWorkerBooking/BookSkilledWorker";
 import BookSkilledWorkerMultipleDays from "@screens/skilledWorkerBooking/BookSkilledWorkerMultipleDays";
 import ProfileView from "@screens/profile/ProfileView";
 import Favorites from "@screens/Favorites";
+=======
+import { colors } from '@constants';
+import ClientDashboard from '@screens/dashboard/ClientDashboard';
+import BrowseServices from '@screens/BrowseServices';
+import SetLocation from '@screens/SetLocation';
+import ProfileClient from '@screens/profile/ProfileClient';
+import TransactionHistory from '@screens/transaction/TransactionHistory';
+import TransactionReport from '@screens/transaction/TransactionReport';
+import Reviews from '@screens/Reviews';
+import Messages from '@screens/messages/MessagesLobby';
+import Notification from '@screens/Notification';
+import BookingSummary from '@screens/transaction/BookingSummary';
+import ClientSchedule from '@screens/schedules/ClientSchedule';
+import ClientBookingRequests from '@screens/bookingRequests/ClientBookingRequests';
+import ServicesNearYou from '@screens/ServicesNearYou';
+import BookSkilledWorker from '@screens/BookSkilledWorker';
+import ProfileView from '@screens/profile/ProfileView';
+import Favorites from '@screens/Favorites';
+>>>>>>> develop
 
 const Tab = createBottomTabNavigator();
 
@@ -30,8 +50,8 @@ const Tabs = () => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: "8%",
-        },
+          height: '8%'
+        }
       }}
     >
       <Tab.Screen
@@ -41,15 +61,15 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <Image
-                source={require("@icons/Home.png")}
+                source={require('@icons/Home.png')}
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? colors.secondary : colors.primary,
+                  tintColor: focused ? colors.secondary : colors.primary
                 }}
               />
             );
-          },
+          }
         }}
       />
       <Tab.Screen
@@ -59,15 +79,15 @@ const Tabs = () => {
           tabBarIcon: ({ focused, tintColor }) => {
             return (
               <Image
-                source={require("@icons/Notification.png")}
+                source={require('@icons/Notification.png')}
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? colors.secondary : colors.primary,
+                  tintColor: focused ? colors.secondary : colors.primary
                 }}
               />
             );
-          },
+          }
         }}
       />
       <Tab.Screen
@@ -77,15 +97,15 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <Image
-                source={require("@icons/Calendar.png")}
+                source={require('@icons/Calendar.png')}
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? colors.secondary : colors.primary,
+                  tintColor: focused ? colors.secondary : colors.primary
                 }}
               />
             );
-          },
+          }
         }}
       />
       <Tab.Screen
@@ -95,15 +115,15 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <Image
-                source={require("@icons/SecuredLetter.png")}
+                source={require('@icons/SecuredLetter.png')}
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? colors.secondary : colors.primary,
+                  tintColor: focused ? colors.secondary : colors.primary
                 }}
               />
             );
-          },
+          }
         }}
       />
       <Tab.Screen
@@ -113,15 +133,15 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <Image
-                source={require("@icons/MaleUser.png")}
+                source={require('@icons/MaleUser.png')}
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? colors.secondary : colors.primary,
+                  tintColor: focused ? colors.secondary : colors.primary
                 }}
               />
             );
-          },
+          }
         }}
       />
 
@@ -131,7 +151,7 @@ const Tabs = () => {
         component={ClientBookingRequests}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -139,7 +159,7 @@ const Tabs = () => {
         component={ServicesNearYou}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -147,7 +167,7 @@ const Tabs = () => {
         component={SetLocation}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -155,7 +175,7 @@ const Tabs = () => {
         component={BrowseServices}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -163,7 +183,7 @@ const Tabs = () => {
         component={TransactionHistory}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -171,7 +191,7 @@ const Tabs = () => {
         component={TransactionReport}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -179,7 +199,7 @@ const Tabs = () => {
         component={Reviews}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -187,7 +207,7 @@ const Tabs = () => {
         component={BookingSummary}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -195,7 +215,7 @@ const Tabs = () => {
         component={BookSkilledWorker}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -211,7 +231,7 @@ const Tabs = () => {
         component={ProfileView}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -219,7 +239,7 @@ const Tabs = () => {
         component={Favorites}
         options={{
           tabBarButton: () => null,
-          tabBarVisible: false,
+          tabBarVisible: false
         }}
       />
     </Tab.Navigator>

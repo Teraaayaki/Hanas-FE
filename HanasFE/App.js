@@ -1,15 +1,16 @@
-import * as React from "react";
-import { AppState, Text, View, StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { Provider } from "react-redux";
-import Geocoder from "react-native-geocoding";
-import { SWRConfig } from "swr";
+import * as React from 'react';
+import { AppState, Text, View, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import Geocoder from 'react-native-geocoding';
+import { SWRConfig } from 'swr';
 
-import HanasStack from "@routes";
-import store from "./src/redux";
-import { MAPS_API_KEY } from "@env";
-import { Suspense } from "react";
-import Loading from "@components/Loading";
+import { SocketProvider } from './src/context/socketContext';
+import HanasStack from '@routes';
+import store from './src/redux';
+import { MAPS_API_KEY } from '@env';
+import { Suspense } from 'react';
+import Loading from '@components/Loading';
 
 Geocoder.init(MAPS_API_KEY);
 
@@ -18,7 +19,7 @@ export default function App() {
     <SWRConfig
       value={{
         fetcher: (...args) => fetch(...args).then((res) => res.json()),
-        suspense: true,
+        suspense: true
       }}
     >
       <Suspense
@@ -30,7 +31,9 @@ export default function App() {
       >
         <Provider store={store}>
           <NavigationContainer>
-            <HanasStack />
+            <SocketProvider>
+              <HanasStack />
+            </SocketProvider>
           </NavigationContainer>
         </Provider>
       </Suspense>
@@ -41,7 +44,7 @@ export default function App() {
 const styles = StyleSheet.create({
   suspenseLoadContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
+    flexDirection: 'row',
+    justifyContent: 'center'
+  }
 });

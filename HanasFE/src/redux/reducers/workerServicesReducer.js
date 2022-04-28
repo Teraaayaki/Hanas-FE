@@ -17,7 +17,7 @@ const workerServicesReducer = (state = workerServicesInitialValues, action) => {
     case WorkerServiceActions.WORKER_SERVICE_SUCCESS:
       return { ...state, loading: false, success: true };
     case WorkerServiceActions.WORKER_MY_SERVICES:
-      return { ...state, loading: false, myServices: action.payload };
+      return { ...state, loading: false, myServices: [...action.payload] };
     case WorkerServiceActions.WORKER_SERVICE_FAIL:
       return {
         ...state,

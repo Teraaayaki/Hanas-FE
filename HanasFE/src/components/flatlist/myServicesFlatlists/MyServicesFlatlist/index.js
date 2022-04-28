@@ -28,11 +28,12 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
           </Text>
           <TouchableOpacity
             style={styles.ml3}
-            onPressOut={() =>
+            onPressOut={() => [
+              console.log(item._id),
               navigation.navigate("EditService", {
                 service_id: item._id,
-              })
-            }
+              }),
+            ]}
           >
             <View style={[styles.flex1, styles.alignCenter]}>
               <View
@@ -85,9 +86,16 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
       <View style={[styles.mb5, styles.mt4]}>
         {renderItemHeader({ item, index })}
         {renderItemInfoCard({ item })}
-        <SampleWorksFlatlist DATA={item.sample_works} onPressImage={() => {}} />
+        <SampleWorksFlatlist
+          navigation={navigation}
+          DATA={item.sample_works}
+          service_id={item._id}
+          onPressImage={() => {}}
+        />
         <CertificatesFlatlist
+          navigation={navigation}
           DATA={item.certificates}
+          service_id={item._id}
           onPressImage={() => {}}
         />
       </View>

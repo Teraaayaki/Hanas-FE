@@ -4,6 +4,9 @@ import { colors, margin, fontSize, padding } from "@constants";
 export default StyleSheet.create({
   //Unique===================================================================
   //MyServices 2.0 styles-----------------------------
+  EmptyImageCardInside: {
+    backgroundColor: "#D6D6D6",
+  },
   HorizontalFlatlistHeight: {
     height: 140,
   },
@@ -185,6 +188,7 @@ export default StyleSheet.create({
   bgGrey: { backgroundColor: colors.grey },
   bgPrimary: { backgroundColor: colors.primary },
   bgSecondary: { backgroundColor: colors.secondary },
+  bgMuted20: { backgroundColor: colors.muted20 },
   // Border Color -------------------------------
   border: {
     borderWidth: 1,

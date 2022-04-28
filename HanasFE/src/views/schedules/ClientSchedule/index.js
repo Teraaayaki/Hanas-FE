@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, Flatlist } from "react-native";
+import { View, Text, Flatlist, ScrollView } from "react-native";
 import { LogBox } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import Header from "@components/Header";
 import ClientScheduleFlatlist from "@components/flatlist/scheduleFlatlists/ClientScheduleFlatlist";
@@ -86,35 +86,12 @@ const ClientSchedule = ({ navigation }) => {
   ];
 
   return (
-    <ParallaxScrollView
-      backgroundColor="#FF6D8F"
-      contentBackgroundColor={colors.background}
-      contentContainerStyle={{ height: "100%" }}
-      parallaxHeaderHeight={80}
-      renderForeground={() => <Header title={"Schedule"} />}
-      stickyHeaderHeight={70}
-      renderStickyHeader={() => (
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#FF6D8F",
-            height: "100%",
-          }}
-        >
-          <Text
-            style={{
-              color: colors.black,
-              alignSelf: "center",
-              fontSize: fontSize.h1,
-              marginTop: 30,
-            }}
-          >
-            Booking Requests ({BRcount})
-          </Text>
-        </View>
-      )}
-    >
+    <FlatList
+      ListHeaderComponent={
+        <Header title={"Schedule"} />
+
+      }
+      ListFooterComponent={
       <View style={[styles.body]}>
         <View style={[styles.mx3, styles.flex1]}>
           <ClientScheduleFlatlist navigation={navigation} DATA={DATA} />
@@ -143,7 +120,8 @@ const ClientSchedule = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </ParallaxScrollView>
+      }
+    />
   );
 };
 
