@@ -70,10 +70,10 @@ const Chatroom = ({ navigation, route }) => {
         textStyle={{
           right: {
             color: '#fff',
-            fontSize: fontSize.p
+            fontSize: fontSize.h3,
           },
           left: {
-            fontSize: fontSize.p
+            fontSize: fontSize.h3,
           }
         }}
       />

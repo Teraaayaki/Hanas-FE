@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   sendButton: {
-    fontSize: 8,
+    fontSize: 15,
     color: "#FFF",
     backgroundColor: colors.secondary,
   },
