@@ -1,86 +1,62 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { LogBox } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { useSelector, useDispatch } from "react-redux";
 
 import Header from "@components/Header";
 import ClientScheduleFlatlist from "@components/flatlist/scheduleFlatlists/ClientScheduleFlatlist";
 import styles from "./style";
-import { useSelector } from "react-redux";
+import { colors } from "@constants";
+import { SocketContext } from "../../../context/socketContext";
+import { getBooking } from "@redux/actions/clientBookingActions";
 
-const DATA = [
-  {
-    id: "1",
-    date: "date1",
-    serviceType: "Electrical",
-    workerName: "Soy Lebumfacil",
-    address: "Bogo City, Cebu",
-    timeStart: "11:00 AM",
-    timeEnd: "10:00 PM",
-    bookStatus: "Accepted",
-  },
-  {
-    id: "2",
-    date: "date1",
-    serviceType: "Mechanical",
-    workerName: "James Karl Sia",
-    address: "Talamban, Cebu",
-    timeStart: "10:00 AM",
-    timeEnd: "2:00 PM",
-    bookStatus: "Cancelled",
-  },
-  {
-    id: "3",
-    date: "date2",
-    serviceType: "Electrical",
-    workerName: "Mary Therese Sun Alegre",
-    address: "Lapu-lapu City, Cebu",
-    timeStart: "10:00 AM",
-    timeEnd: "1:00 PM",
-    bookStatus: "Accepted",
-  },
-  {
-    id: "4",
-    date: "date3",
-  },
-  {
-    id: "5",
-    date: "date4",
-    serviceType: "Electrical",
-    workerName: "Soy Lebumfacil",
-    address: "Bogo City, Cebu",
-    timeStart: "5:00 PM",
-    timeEnd: "8:00 PM",
-    bookStatus: "Ongoing",
-  },
-  {
-    id: "6",
-    date: "date4",
-    serviceType: "Mechanical",
-    workerName: "Hosea Barriga",
-    address: "Danao City, Cebu",
-    timeStart: "12:00 AM",
-    timeEnd: "3:00 PM",
-    bookStatus: "Cancelled",
-  },
-  {
-    id: "7",
-    date: "date5",
-    serviceType: "Mechanical",
-    workerName: "Hosea Barriga",
-    address: "Danao City, Cebu",
-    timeStart: "12:00 AM",
-    timeEnd: "3:00 PM",
-    bookStatus: "Finished",
-  },
-  {
-    id: "8",
-    date: "date6",
-  },
-];
+const filterBookingData = (bookingDataArray) => {
+  let filteredArrayData = [];
+  bookingDataArray.map((bookingDataItem) => {
+    if (
+      bookingDataItem.book_status === "Accepted" ||
+      bookingDataItem.book_status === "Ongoing" ||
+      bookingDataItem.book_status === "Finished"
+    ) {
+      filteredArrayData.push(bookingDataItem);
+    }
+  });
+  return filteredArrayData;
+};
 
 const ClientSchedule = ({ navigation }) => {
-  const { bookingData } = useSelector((state) => state.clientBooking);
+  const { bookingData, loading } = useSelector((state) => state.clientBooking);
+  const { user } = useSelector((state) => state.userDetails);
+  const { socket } = useContext(SocketContext);
+  const dispatch = useDispatch();
+
+  const [updateBookingData, setUpdateBookingData] = useState(false);
+  const [filteredBookingData, setFilteredBookingData] = useState([]);
+
+  useEffect(() => {
+    let filteredArrayData = filterBookingData(bookingData);
+    if (
+      JSON.stringify(filteredBookingData) !== JSON.stringify(filteredArrayData)
+    ) {
+      setFilteredBookingData([...filteredArrayData]);
+    }
+  }, [bookingData]);
+
+  useEffect(() => {
+    socket.current.on("clientBookingUpdate", ({ newData }) => {
+      if (user.id === newData) {
+        console.log("Booking Changed");
+        setUpdateBookingData(true);
+      }
+    });
+  });
+
+  useEffect(() => {
+    if (updateBookingData) {
+      dispatch(getBooking());
+      setUpdateBookingData(false);
+    }
+  }, [updateBookingData]);
 
   return (
     <FlatList
@@ -88,7 +64,14 @@ const ClientSchedule = ({ navigation }) => {
       ListFooterComponent={
         <View style={[styles.body]}>
           <View style={[styles.mx3, styles.flex1]}>
-            <ClientScheduleFlatlist navigation={navigation} DATA={DATA} />
+            {loading ? (
+              <ActivityIndicator size="large" color={colors.secondary} />
+            ) : (
+              <ClientScheduleFlatlist
+                navigation={navigation}
+                DATA={filteredBookingData}
+              />
+            )}
             <View
               style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
             >

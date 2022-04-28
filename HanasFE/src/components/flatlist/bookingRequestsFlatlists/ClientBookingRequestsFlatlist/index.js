@@ -136,7 +136,6 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          {console.log("Show")}
           <PinkSidedCardHeader
             title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
           />

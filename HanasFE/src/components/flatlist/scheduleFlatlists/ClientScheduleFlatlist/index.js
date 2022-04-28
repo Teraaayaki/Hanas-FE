@@ -1,33 +1,36 @@
-import React, { Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import {
   PinkSidedCardHeader,
   PinkSidedCardItem,
 } from "@components/card/PinkSidedCardList";
-import ContainedIcon from "@components/icons/ContainedIcon";
 import styles from "./style";
 import { colors } from "@constants";
 import { padding } from "@constants";
 
+dayjs.extend(utc);
+
 const ClientScheduleFlatlist = ({ navigation, DATA }) => {
-  let date = "_";
+  let date = new Date(1990, 1, 20);
 
   const renderTopButton = ({ item }) => {
     const renderIcon = ({ item }) => {
-      if (item.bookStatus == "Finished") {
+      if (item.book_status == "Finished") {
         return (
           <Icon name="checkmark-circle-outline" type="ionicon" size={18} />
         );
       }
-      if (item.bookStatus == "Cancelled") {
+      if (item.book_status == "Cancelled") {
         return <Icon name="x-circle" type="feather" size={18} />;
       }
       return <Icon name="calendar-clock" type="material-community" size={18} />;
     };
     const topBorderStyle = ({ item }) => {
-      switch (item.bookStatus) {
+      switch (item.book_status) {
         case "Finished":
         case "Ongoing":
           return styles.borderSuccess;
@@ -56,7 +59,7 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
         {renderIcon({ item })}
         <Text style={[styles.h5, styles.textBlack]}>
           {" "}
-          {item.bookStatus == "Finished" ? "Completed" : item.bookStatus}
+          {item.book_status === "Finished" ? "Completed" : item.book_status}
         </Text>
       </View>
     );
@@ -64,16 +67,12 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
 
   const renderBottomButton = ({ item }) => {
     const message = ({ item }) => {
-      if (item.bookStatus == "Finished" || item.bookStatus == "Cancelled") {
+      if (item.book_status == "Finished" || item.book_status == "Cancelled") {
         return <Text style={[styles.h5]}>Delete</Text>;
       }
-      return <Text style={[styles.h5]}>Cancel</Text>;
+      // return <Text style={[styles.h5]}>Cancel</Text>;
     };
-    if (
-      item.bookStatus == "Finished" ||
-      item.bookStatus == "Cancelled" ||
-      item.bookStatus == "Accepted"
-    ) {
+    if (item.book_status == "Finished") {
       //Missing Condition: This button must only appear when Current Date is more than 3 days away from Booked Date & Time Start
       // item.bookStatus == "Finished" || item.bookStatus == "Cancelled" || (item.bookStatus == "Accepted" && currentDate > BookedDate + 3Days)
       return (
@@ -100,19 +99,26 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
 
   const renderCard = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
-      if (item.bookStatus == "Finished" || item.bookStatus == "Cancelled") {
+      if (item.book_status == "Finished" || item.book_status == "Cancelled") {
         return colors.muted75;
       }
       return colors.secondary;
     };
-    if (item.bookStatus != "Declined") {
+    if (item.book_status != "Declined") {
       return (
         <View
           style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
         >
           <View style={[styles.flex4, styles.pl3]}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("ProfileView")}
+              onPress={() =>
+                navigation.navigate("ProfileView", {
+                  worker_id: item.workerData[0]._id,
+                  service_id: item.workerServiceData[0]._id,
+                  serviceName:
+                    item.workerServiceData[0].serviceNameData[0].service_type,
+                })
+              }
             >
               <Text
                 style={[
@@ -124,14 +130,15 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
                   styles.mb2,
                 ]}
               >
-                {item.workerName}
+                {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
               </Text>
             </TouchableOpacity>
             <Text style={[styles.flex1, styles.mx1, styles.p, styles.my1]}>
-              {item.serviceType} Service
+              {item.workerServiceData[0].serviceNameData[0].service_type}{" "}
+              Service
             </Text>
-            <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.address}
+            <Text style={[styles.flex1, styles.mx1, styles.h4, styles.bold]}>
+              {item.book_type} Day Booking
             </Text>
             <View
               style={[
@@ -146,11 +153,32 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
                 type="material-community"
                 color={scheduleIconColorStyle({ item })}
               />
-              <Text
-                style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
-              >
-                {item.timeStart} - {item.timeEnd}
-              </Text>
+              {item.book_type === "Single" ? (
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.bold,
+                    styles.p,
+                    styles.textMuted75,
+                  ]}
+                >
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -{" "}
+                  {dayjs(item.booked_dateTimeStart).format("h:mm A")} -{" "}
+                  {dayjs(item.booked_dateTimeEnd).format("h:mm A")}
+                </Text>
+              ) : (
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.bold,
+                    styles.p,
+                    styles.textMuted75,
+                  ]}
+                >
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -
+                  {dayjs(item.booked_dateTimeEnd).format("MMM D, YYYY")}
+                </Text>
+              )}
             </View>
           </View>
           <View
@@ -171,11 +199,16 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (item.date != date) {
-      date = item.date;
+    if (
+      dayjs(item.booked_dateTimeStart).format("MDYY") !==
+      dayjs(date).format("MDYY")
+    ) {
+      date = new Date(item.booked_dateTimeStart);
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={item.date} />
+          <PinkSidedCardHeader
+            title={dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}
+          />
         </View>
       );
     }
@@ -183,8 +216,8 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
 
   const renderItem = ({ item }) => {
     const renderPinkSidedCard = ({ item }) => {
-      if (item.serviceType) {
-        switch (item.bookStatus) {
+      if (item.workerServiceData[0].serviceNameData[0].service_type) {
+        switch (item.book_status) {
           case "Finished":
             return (
               <PinkSidedCardItem
@@ -222,11 +255,15 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
     );
   };
 
+  useEffect(() => {
+    date = new Date(1990, 0, 21);
+  }, [DATA]);
+
   return (
     <FlatList
       data={DATA}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
     />
   );
