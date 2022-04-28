@@ -62,7 +62,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   const changeEndDate = (e, dob) => {
     setDateTimeEndModal(false);
-    console.log("DATES" ,dateTimeStart.getDate() , dateTimeEnd.getDate())
     
     if (!dob) {
       return;
@@ -151,7 +150,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
       return;
     }
 
-    console.log("ARRAY LENGTH" , mergedDataArray.length);
     const hoursRenderedOffset = mergedDataArray.length * 24;
     if(totalMultipleHours > hoursRenderedOffset) {
       errorToast("Invalid total number of hours");
@@ -417,7 +415,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
       }
     });
     const mergedArray = [...temp, ...temp2, ...temp3];
-    console.log(mergedArray);
 
     setBookingDataArray([...mergedArray]);
   }, []);
