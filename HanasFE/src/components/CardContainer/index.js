@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import { View, Text, Image, TouchableOpacity, TouchableHighlight} from "react-native";
 import styles from "./style";
+
 import { colors, fontSize, margin } from "@constants";
 import CircularImage from '@components/CircularImage';
 import TextLinkPink from '@components/TextLinkPink';
+import { Icon } from "react-native-elements";
 
 
 const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, onPressServices, navigation}) => {
@@ -27,12 +29,19 @@ const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, on
                     <Text style={styles.profession} onPress={onPressServices} >{profession}</Text>
                 </TouchableHighlight>
                 <View style={styles.detailsContainer}>
-                    <Text style={styles.fadeText}>Rating</Text>
-                    <Text style={styles.fadeText}>Jobs</Text>
+                    <Text style={[styles.fadeText, {marginLeft: "2%"}]}>Rating</Text>
+                    <Text style={[styles.fadeText, {marginLeft: "4%"}]}>Jobs</Text>
                     <Text style={styles.fadeText}>Rate</Text>
                 </View>
                 <View style={styles.detailsContainer}>
-                    <Text style={styles.fadeTextValues}><Image source={require("@images/star.png")} style={{height: 13, width: 13}}/> {rating}/5</Text>
+                    <Icon
+                        color="#FFD706"
+                        size={18}
+                        name="star"
+                        /> 
+                    <Text style={styles.fadeTextValues}>
+                    {rating}/5
+                    </Text>
                     <Text style={styles.fadeTextValues}>{jobs}</Text>
                     <Text style={styles.fadeTextValues}>{rate} Php/hr</Text>
                 </View>
