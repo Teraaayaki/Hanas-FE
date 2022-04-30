@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import CircularImage from "@components/CircularImage";
-import { FlatList, View, Text } from "react-native";
+import { FlatList, View, Text, Fragment } from "react-native";
 import { Icon } from "react-native-elements";
 
 import styles from "./styles";
+import PinkSidedCard from "@components/card/PinkSidedCard";
 import {
   PinkSidedCardHeader,
   PinkSidedCardItem,
 } from "@components/card/PinkSidedCardList";
+import Ongoing from "@components/dashboardCards/Ongoing";
 import Overview from "@components/dashboardCards/Overview";
 import Achievements from "@components/dashboardCards/Achievements";
 import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
 
 const SkilledWorkerDashboardFlatlist = ({
   navigation,
+  OngoingDATA,
   ServicesDATA,
   OverviewDATA,
   AchievementsDATA,
@@ -21,17 +24,17 @@ const SkilledWorkerDashboardFlatlist = ({
 }) => {
   const [hideCard, setHideCard] = useState(false);
 
-  const renderFlatlist = ({ hideCard }) => {
+  const renderFlatlist = ({ OngoingDATA, hideCard }) => {
     const renderCard = ({ item }) => {
       return (
         <PinkSidedCardItem
           hideCard={hideCard}
-          content={renderCardBody({ item })}
+          content={renderUpcomingBody({ item })}
         />
       );
     };
 
-    const renderCardBody = ({ item }) => {
+    const renderUpcomingBody = ({ item }) => {
       return (
         <View style={[styles.flex1, styles.w100]}>
           {/* Card Body */}
@@ -77,7 +80,7 @@ const SkilledWorkerDashboardFlatlist = ({
           ]}
         >
           <Text style={[styles.h1, styles.bold, styles.textMuted50]}>
-            Service ends in:{" "}
+            Service starts in:{" "}
           </Text>
           <Text style={[styles.h1, styles.bold]}>{renderServiceEnd()}</Text>
         </View>
@@ -153,12 +156,15 @@ const SkilledWorkerDashboardFlatlist = ({
         keyExtractor={(item) => item.id}
         extraData={[hideCard]}
         ListHeaderComponent={
-          <PinkSidedCardHeader
-            title="Upcoming Services"
-            hideCardBtn
-            hideCard={hideCard}
-            setHideCard={setHideCard}
-          />
+          <View>
+            <Ongoing OngoingDATA={OngoingDATA} />
+            <PinkSidedCardHeader
+              title="Upcoming Services"
+              hideCardBtn
+              hideCard={hideCard}
+              setHideCard={setHideCard}
+            />
+          </View>
         }
         ListFooterComponent={
           <View style={[styles.flex1, styles.mb5, styles.pb5]}>
@@ -178,8 +184,8 @@ const SkilledWorkerDashboardFlatlist = ({
     <View style={[styles.mt3, styles.w100]}>
       {renderFlatlist({
         hideCard,
+        OngoingDATA,
         ServicesDATA,
-        OverviewDATA,
         AchievementsDATA,
         ConvenienceFeeDATA,
       })}
