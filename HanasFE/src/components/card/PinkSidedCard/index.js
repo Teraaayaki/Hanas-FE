@@ -16,6 +16,7 @@ const PinkSidedCard = ({
   hideCardBtn,
   title,
   content,
+  success,
 }) => {
   const [hideCard, setHideCard] = useState(false);
 
@@ -61,6 +62,18 @@ const PinkSidedCard = ({
           style={[
             styles.pl3,
             styles.bgGrey,
+            styles.roundedTopLeft,
+            styles.roundedBottomLeft,
+          ]}
+        ></View>
+      );
+    }
+    if (success) {
+      return (
+        <View
+          style={[
+            styles.pl3,
+            styles.bgSuccess,
             styles.roundedTopLeft,
             styles.roundedBottomLeft,
           ]}

@@ -6,6 +6,17 @@ import Header from "@components/Header";
 import SkilledWorkerDashboardFlatlist from "@components/flatlist/dashboardFlatlists/SkilledWorkerDashboardFlatlist";
 
 const WorkerDashboard = ({ navigation }) => {
+  //Ongoing---------------------------------------------
+  const OngoingDATA = {
+    id: "bd7a2cbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "Zeroth Item",
+    name: "Hosea Barriga",
+    timeStart: "10:00 AM",
+    timeEnd: "8:30 PM",
+    image: require("@images/service1.png"),
+    address: "Danao City",
+  };
+
   //Services--------------------------------------------
   const ServicesDATA = [
     {
@@ -81,6 +92,7 @@ const WorkerDashboard = ({ navigation }) => {
       <View style={[styles.flex1, styles.w100, styles.px3]}>
         <SkilledWorkerDashboardFlatlist
           navigation={navigation}
+          OngoingDATA={OngoingDATA}
           ServicesDATA={ServicesDATA}
           OverviewDATA={OverviewDATA}
           AchievementsDATA={AchievementsDATA}

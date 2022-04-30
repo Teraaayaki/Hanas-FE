@@ -169,6 +169,7 @@ export default StyleSheet.create({
   bgLightGrey: { backgroundColor: colors.lightGrey },
   bgPrimary: { backgroundColor: colors.primary },
   bgSecondary: { backgroundColor: colors.secondary },
+  bgSuccess: { backgroundColor: "#abe6a1" },
   // Border Color -------------------------------
   border: {
     borderWidth: 1,
