@@ -2,6 +2,12 @@ import dayjs from "dayjs";
 
 import getLastDay from "./getLastDay";
 
+/**
+ * Creates a new array that contains all the current bookings
+ * (accepted or ongoing) of the skilled worker.
+ *
+ * @param bookingsData The record of all the bookings of the skilled worker
+ */
 export default getBookedDate = (bookingsData) => {
   let temp = [];
   let temp2 = [];

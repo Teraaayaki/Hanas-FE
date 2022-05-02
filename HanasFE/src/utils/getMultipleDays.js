@@ -1,16 +1,22 @@
 import dayjs from "dayjs";
 import getLastDay from "./getLastDay";
 
-export default getMultipleDays = (dateTimeStart, dob) => {
+/**
+ * Calculates the booking dates including the start date and the end date.
+ *
+ * @param dateTimeStart Start date of the booking
+ * @param dateTimeEnd End date of the booking
+ */
+export default getMultipleDays = (dateTimeStart, dateTimeEnd) => {
   let myBookedDateArray = [];
   let myBookedDateArray2 = [];
   let tempDate = new Date(dateTimeStart);
-  let tempDateNewMonth = new Date(dob);
+  let tempDateNewMonth = new Date(dateTimeEnd);
 
-  if (dateTimeStart.getMonth() === dob.getMonth()) {
+  if (dateTimeStart.getMonth() === dateTimeEnd.getMonth()) {
     for (
       let i = parseInt(dayjs(dateTimeStart).format("DD"));
-      i <= parseInt(dayjs(dob).format("DD"));
+      i <= parseInt(dayjs(dateTimeEnd).format("DD"));
       i++
     ) {
       console.log(i);
@@ -26,7 +32,7 @@ export default getMultipleDays = (dateTimeStart, dob) => {
       myBookedDateArray.push(new Date(tempDate.setDate(i)));
     }
 
-    for (let i = 1; i <= dob.getDate(); i++) {
+    for (let i = 1; i <= dateTimeEnd.getDate(); i++) {
       console.log(i);
       myBookedDateArray2.push(new Date(tempDateNewMonth.setDate(i)));
     }

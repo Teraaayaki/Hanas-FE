@@ -1,3 +1,9 @@
+/**
+ * Calculates the difference between the two times.
+ *
+ * @param start Start time
+ * @param end End time
+ */
 export default getTimeDifference = (start, end) => {
   start = start.split(":");
   end = end.split(":");
