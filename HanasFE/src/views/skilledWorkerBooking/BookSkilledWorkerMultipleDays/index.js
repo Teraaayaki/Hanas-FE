@@ -17,6 +17,8 @@ import styles from "./style";
 import { colors } from "@constants";
 import { ToastComponent, showToast } from "@helpers/toast";
 import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
+import getBookedDate from "@utils/getBookedDate";
+import getMultipleDays from "@utils/getMultipleDays";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
@@ -50,56 +52,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
     showToast("error", mess, "Please try again");
   };
 
-  const getLastDay = (y, m) => {
-    return new Date(y, m + 1, 0).getDate();
-  };
-
   //DATE
-  const changeStartDate = (e, dob) => {
-    setDateTimeStartModal(false);
-    dob && setDateTimeStart(dob);
-  };
-
-  const changeEndDate = (e, dob) => {
-    setDateTimeEndModal(false);
-    
-    if (!dob) {
-      return;
-    }
-
-    let myBookedDateArray = [];
-    let myBookedDateArray2 = [];
-    let tempDate = new Date(dateTimeStart);
-    let tempDateNewMonth = new Date(dob);
-
-    if (dateTimeStart.getMonth() === dob.getMonth()) {
-      for (
-        let i = parseInt(dayjs(dateTimeStart).format("DD"));
-        i <= parseInt(dayjs(dob).format("DD"));
-        i++
-      ) {
-        console.log(i);
-        myBookedDateArray.push(new Date(tempDate.setDate(i)));
-      }
-    } else {
-      for (
-        let i = parseInt(dayjs(dateTimeStart).format("DD"));
-        i <= getLastDay(dateTimeStart.getFullYear(), dateTimeStart.getMonth());
-        i++
-      ) {
-        console.log(i);
-        myBookedDateArray.push(new Date(tempDate.setDate(i)));
-      }
-
-      for (let i = 1; i <= dob.getDate(); i++) {
-        console.log(i);
-        myBookedDateArray2.push(new Date(tempDateNewMonth.setDate(i)));
-      }
-    }
-
-    let mergeBookedDateArray = [...myBookedDateArray, ...myBookedDateArray2];
-    setMergedDataArray(mergeBookedDateArray);
+  const bookedDateValidation = (mergeBookedDateArray) => {
     let bookedDateValidationArray = [];
+
     mergeBookedDateArray.map((mergeBookedDate) =>
       bookingDataArray.map((bookingData) => {
         bookedDateValidationArray.push(
@@ -109,11 +65,31 @@ const BookSkilledWorker = ({ navigation, route }) => {
       })
     );
 
+    return bookedDateValidationArray;
+  };
+
+  const changeStartDate = (e, dob) => {
+    setDateTimeStartModal(false);
+    dob && setDateTimeStart(dob);
+  };
+
+  const changeEndDate = (e, dob) => {
+    setDateTimeEndModal(false);
+
+    if (!dob) {
+      return;
+    }
+
+    let mergeBookedDateArray = getMultipleDays(dateTimeStart, dob);
+    console.log("Merged Booked Date", mergeBookedDateArray);
+    setMergedDataArray([...mergeBookedDateArray]);
+
+    let bookedDateValidationArray = bookedDateValidation(mergeBookedDateArray);
+
     bookedDateValidationArray.includes(true)
       ? setMultipleDayStartStatus(false)
       : setMultipleDayStartStatus(true);
 
-    
     if (
       dateTimeStart.getMonth() === dob.getMonth() &&
       dateTimeStart.getDate() >= dob.getDate()
@@ -131,7 +107,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
     } else {
       dob && setDateTimeEnd(dob);
     }
-
   };
 
   const setTotalHoursRendered = (e) => {
@@ -145,13 +120,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const handleSubmitMultipleDay = () => {
-    if (multipleDayStartStatus === false ) {
-      errorToast("Worker is unavailable on specified dates");
+    if (multipleDayStartStatus === false) {
+      errorToast("Worker has conflicts on specified dates");
       return;
     }
 
     const hoursRenderedOffset = mergedDataArray.length * 24;
-    if(totalMultipleHours > hoursRenderedOffset) {
+    if (totalMultipleHours > hoursRenderedOffset) {
       errorToast("Invalid total number of hours");
       return;
     }
@@ -378,43 +353,9 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let newDateEnd = date.setDate(date.getDate() + 1);
     setDateTimeEnd(new Date(newDateEnd));
 
-    let temp = profileData.myServicesData[0].bookingsData.map((bookingData) => {
-      if (bookingData.book_type === "Single") {
-        return new Date(bookingData.booked_dateTimeStart);
-      }
-    });
-
-    let temp2 = [];
-    let temp3 = [];
-
-    profileData.myServicesData[0].bookingsData.map((bookingData) => {
-      if (bookingData.book_type === "Multiple") {
-        let dateStart = new Date(bookingData.booked_dateTimeStart);
-        let dateEnd = new Date(bookingData.booked_dateTimeEnd);
-        let tempDateEnd = new Date(dateEnd);
-
-        if (
-          dayjs(bookingData.booked_dateTimeStart).format("MM") ===
-          dayjs(bookingData.booked_dateTimeEnd).format("MM")
-        ) {
-          for (let i = dateStart.getDate(); i <= dateEnd.getDate(); i++) {
-            temp2.push(new Date(dateStart.setDate(i)));
-          }
-        } else {
-          for (
-            let i = dateStart.getDate();
-            i <= getLastDay(dateStart.getFullYear(), dateStart.getMonth());
-            i++
-          ) {
-            temp2.push(new Date(dateStart.setDate(i)));
-          }
-          for (let i = 1; i <= dateEnd.getDate(); i++) {
-            temp3.push(new Date(tempDateEnd.setDate(i)));
-          }
-        }
-      }
-    });
-    const mergedArray = [...temp, ...temp2, ...temp3];
+    const mergedArray = getBookedDate(
+      profileData.myServicesData[0].bookingsData
+    );
 
     setBookingDataArray([...mergedArray]);
   }, []);

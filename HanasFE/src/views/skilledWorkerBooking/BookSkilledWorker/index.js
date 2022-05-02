@@ -20,6 +20,8 @@ import { colors, fontWeight } from "@constants";
 import styles from "./style";
 import { ToastComponent, showToast } from "@helpers/toast";
 import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
+import getBookedDate from "@utils/getBookedDate";
+import getTimeDifference from "@utils/getTimeDifference";
 
 const BookSkilledWorker = ({ navigation, route }) => {
   const { serviceName } = route.params;
@@ -55,22 +57,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const errorToast = (mess) => {
     console.log("Showing Toast");
     showToast("error", mess, "Please try again");
-  };
-
-  const diff = (start, end) => {
-    start = start.split(":");
-    end = end.split(":");
-    let startDate = new Date(0, 0, 0, start[0], start[1], 0);
-    let endDate = new Date(0, 0, 0, end[0], end[1], 0);
-    let diff = endDate.getTime() - startDate.getTime();
-    let hours = Math.floor(diff / 1000 / 60 / 60);
-    diff -= hours * 1000 * 60 * 60;
-    let minutes = Math.floor(diff / 1000 / 60);
-
-    // If using time pickers with 24 hours format, add the below line get exact hours
-    if (hours < 0) hours = hours + 24;
-
-    return parseFloat(`${hours}.${minutes}`);
   };
 
   //DATE
@@ -171,19 +157,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
         ? dayjs(newTimeEnd).format("HH:mm:ss")
         : dayjs(dob).format("HH:mm:ss");
 
-    let timeDifference = diff(newStartTime, newEndTime);
-    let subTotalValue =
-      profileData.myServicesData[0].hourly_rate * timeDifference;
-    let convenienceFeeValue = subTotalValue * 0.05;
-
-    setTotalSingleHours(timeDifference.toFixed(2));
-    setSubTotal(subTotalValue.toFixed(2));
-    setConvenienceFee(convenienceFeeValue.toFixed(2));
-    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+    let timeDifference = getTimeDifference(newStartTime, newEndTime);
+    setTotalHoursRendered(timeDifference);
   };
 
   const setTotalHoursRendered = (e) => {
-    let subTotalValue = profileData.myServicesData[0].hourly_rate * parseInt(e);
+    let subTotalValue = profileData.myServicesData[0].hourly_rate * e;
     let convenienceFeeValue = subTotalValue * 0.05;
 
     setTotalMultipleHours(e);
@@ -430,19 +409,21 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let newDateEnd = date.setDate(date.getDate() + 1);
     setDateTimeEnd(new Date(newDateEnd));
 
-    let temp = profileData.myServicesData[0].bookingsData.map(
-      (bookingData) => bookingData
+    const mergedArray = getBookedDate(
+      profileData.myServicesData[0].bookingsData
     );
 
-    setBookingDataArray([...temp]);
+    setBookingDataArray([...mergedArray]);
 
-    // let returnedDate = temp.find(
-    //   (bookDate) =>
-    //     dayjs(dateTimeStart).format("l") ===
-    //     dayjs(bookDate.booked_dateTimeStart).format("l")
-    // );
+    let returnedDate = mergedArray.map(
+      (bookDate) =>
+        dayjs(dateTimeStart).format("MMDDYY") ===
+        dayjs(bookDate).format("MMDDYY")
+    );
 
-    // returnedDate ? setSingleDayStatus(false) : setSingleDayStatus(true);
+    returnedDate.includes(true)
+      ? setSingleDayStatus(false)
+      : setSingleDayStatus(true);
   }, []);
 
   return (
