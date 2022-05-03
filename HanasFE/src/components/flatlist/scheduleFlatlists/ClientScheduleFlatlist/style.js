@@ -433,4 +433,7 @@ export default StyleSheet.create({
     marginRight: margin.m5,
   },
   //==========================================================================
+  controlledWidth: {
+    maxWidth: 150,
+  }
 });

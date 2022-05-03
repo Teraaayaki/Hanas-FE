@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View, Text, TouchableOpacity } from "react-native";
+import { FlatList, View, Text, TouchableOpacity, Button} from "react-native";
 import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useDispatch } from "react-redux";
+import { removeSchedule } from "@redux/actions/scheduleActions"
 
 import {
   PinkSidedCardHeader,
@@ -16,6 +18,19 @@ dayjs.extend(utc);
 
 const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   let date = new Date(1990, 1, 20);
+
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    const Data = {
+        _id: DATA[0]._id,
+    }
+
+    dispatch(removeSchedule(Data));
+
+    console.log("I was clicked!");
+  }
+  
 
   const renderTopButton = ({ item }) => {
     const renderIcon = ({ item }) => {
@@ -68,7 +83,7 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   const renderBottomButton = ({ item }) => {
     const message = ({ item }) => {
       if (item.book_status == "Finished" || item.book_status == "Cancelled") {
-        return <Text style={[styles.h5]}>Delete</Text>;
+        return <Text style={[styles.h5]} onPress={handleRemove} >Remove</Text>;
       }
       // return <Text style={[styles.h5]}>Cancel</Text>;
     };
@@ -160,9 +175,10 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
                     styles.bold,
                     styles.p,
                     styles.textMuted75,
+                    styles.controlledWidth
                   ]}
                 >
-                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")} -{" "}
+                  {dayjs(item.booked_dateTimeStart).format("MMM D, YYYY")}{"\n"}
                   {dayjs(item.booked_dateTimeStart).format("h:mm A")} -{" "}
                   {dayjs(item.booked_dateTimeEnd).format("h:mm A")}
                 </Text>
