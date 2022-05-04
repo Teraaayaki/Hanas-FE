@@ -3,6 +3,8 @@ import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useDispatch } from "react-redux";
+import { removeCancelledBookSchedule, cancelBookingSchedule } from "@redux/actions/scheduleActions";
 
 import {
   PinkSidedCardHeader,
@@ -19,6 +21,26 @@ dayjs.extend(utc);
 const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
   let date = new Date(1990, 0, 21);
 
+  const dispatch = useDispatch();
+
+  const handleRemoveCancelled = () => {
+
+    const Data = {
+      _id: DATA[0]._id,
+    }
+
+    dispatch(removeCancelledBookSchedule(Data));
+
+  }
+
+  const cancelBooking = () => {
+    const Data = {
+      _id: DATA[0]._id,
+    }
+
+    dispatch(cancelBookingSchedule(Data));
+  }
+
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
       if (item.book_status == "Declined") {
@@ -33,7 +55,12 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
         >
           <View style={[styles.flex4, styles.pl3]}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("ProfileView")}
+              onPress={() => navigation.navigate("ProfileView" , {
+                worker_id: item.workerData[0]._id,
+                  service_id: item.workerServiceData[0]._id,
+                  serviceName:
+                    item.workerServiceData[0].serviceNameData[0].service_type,
+              })}
             >
               <Text
                 style={[
@@ -117,9 +144,9 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
           </View>
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
             {item.book_status == "Pending" ? (
-              <ContainedIcon xMark danger pressable onPress={() => {}} />
+              <ContainedIcon xMark danger pressable onPress={cancelBooking} />
             ) : (
-              <ContainedIcon xMark disabled pressable onPress={() => {}} />
+              <ContainedIcon xMark disabled pressable onPress={handleRemoveCancelled} />
             )}
           </View>
         </View>
