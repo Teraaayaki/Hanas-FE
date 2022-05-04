@@ -8,10 +8,12 @@ import getLastDay from "./getLastDay";
  *
  * @param bookingsData The record of all the bookings of the skilled worker
  */
-export default getBookedDate = (bookingsData) => {
+export default getBookedDateMultiple = (bookingsData) => {
   let temp = [];
   let temp2 = [];
   let temp3 = [];
+
+  // Get All Single Bookings
   bookingsData.map((bookingData) => {
     if (
       bookingData.book_type === "Single" &&
@@ -22,6 +24,7 @@ export default getBookedDate = (bookingsData) => {
     }
   });
 
+  // Get All Multiple Bookings
   bookingsData.map((bookingData) => {
     if (
       bookingData.book_type === "Multiple" &&

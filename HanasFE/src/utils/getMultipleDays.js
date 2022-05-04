@@ -3,6 +3,7 @@ import getLastDay from "./getLastDay";
 
 /**
  * Calculates the booking dates including the start date and the end date.
+ * Example. May 31 to June 5 ( May 31, June 1, June 2, June 3, June 4, June 5)
  *
  * @param dateTimeStart Start date of the booking
  * @param dateTimeEnd End date of the booking

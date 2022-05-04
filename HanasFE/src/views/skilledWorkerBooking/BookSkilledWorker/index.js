@@ -20,7 +20,7 @@ import { colors, fontWeight } from "@constants";
 import styles from "./style";
 import { ToastComponent, showToast } from "@helpers/toast";
 import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
-import getBookedDate from "@utils/getBookedDate";
+import getBookedDateSingle from "@utils/getBookedDateSingle";
 import getTimeDifference from "@utils/getTimeDifference";
 
 const BookSkilledWorker = ({ navigation, route }) => {
@@ -31,7 +31,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   //BOOKING DATA STATE ARRAY
-  const [bookingDataArray, setBookingDataArray] = useState([]);
+  const [bookingSingleDataArray, setBookingSingleDataArray] = useState([]);
+  const [bookingMultipleDataArray, setBookingMultipleDataArray] = useState([]);
 
   // DATE STATUS
   const [singleDayStatus, setSingleDayStatus] = useState(true);
@@ -45,7 +46,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   //DATE
   const [dateTimeStart, setDateTimeStart] = useState(new Date());
-  const [dateTimeEnd, setDateTimeEnd] = useState(new Date());
   const [dateStartModal, setDateTimeStartModal] = useState(false);
 
   //TIME
@@ -54,9 +54,84 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const [timeStartModal, setTimeStartModal] = useState(false);
   const [timeEndModal, setTimeEndModal] = useState(false);
 
+  // HELPER FUNCTIONS
   const errorToast = (mess) => {
     console.log("Showing Toast");
     showToast("error", mess, "Please try again");
+  };
+
+  const formatStartandEndTime = (
+    dateTimeStart,
+    scheduleTimeStart,
+    scheduleTimeEnd
+  ) => {
+    const dateFormatStart = dayjs(dateTimeStart)
+      .format("YYYY-MM-DDT")
+      .toString();
+    const timeFormatStart = dayjs(scheduleTimeStart)
+      .format("HH:mm:ssZ")
+      .toString();
+    const timeFormatEnd = dayjs(scheduleTimeEnd).format("HH:mm:ssZ").toString();
+    const newDateTimeStart = new Date(dateFormatStart + timeFormatStart);
+    const newDateTimeEnd = new Date(dateFormatStart + timeFormatEnd);
+
+    return { newDateTimeStart, newDateTimeEnd };
+  };
+
+  const setTotalHoursRendered = (e) => {
+    let subTotalValue = profileData.myServicesData[0].hourly_rate * e;
+    let convenienceFeeValue = subTotalValue * 0.05;
+
+    setTotalMultipleHours(e);
+    setSubTotal(subTotalValue.toFixed(2));
+    setConvenienceFee(convenienceFeeValue.toFixed(2));
+    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+  };
+
+  const validateTime = (scheduleTimeStart, scheduleTimeEnd) => {
+    const { newDateTimeStart, newDateTimeEnd } = formatStartandEndTime(
+      dateTimeStart,
+      scheduleTimeStart,
+      scheduleTimeEnd
+    );
+
+    let tempArray = bookingSingleDataArray.filter(
+      (bookDate) =>
+        dayjs(bookDate).format("MMDDYY") ===
+        dayjs(newDateTimeStart).format("MMDDYY")
+    );
+
+    if (tempArray.length === 0) {
+      return true;
+    } else {
+      let inputtedTime = [];
+      let validationArray = [];
+      for (
+        let i = newDateTimeStart.getHours();
+        i <= newDateTimeEnd.getHours();
+        i++
+      ) {
+        if (i === newDateTimeStart.getHours()) {
+          inputtedTime.push(new Date(newDateTimeStart));
+        } else if (i === newDateTimeEnd.getHours()) {
+          inputtedTime.push(newDateTimeEnd);
+        } else {
+          inputtedTime.push(new Date(newDateTimeStart.setHours(i)));
+        }
+      }
+
+      tempArray.map((bookDate) => {
+        inputtedTime.map((inputtedTime) => {
+          validationArray.push(
+            dayjs(bookDate).format("HH") === dayjs(inputtedTime).format("HH")
+          );
+        });
+      });
+      console.log("inputtedTime", inputtedTime);
+      console.log("Temp Array", tempArray);
+      console.log("Validation Array", validationArray);
+      return validationArray.includes(true) ? false : true;
+    }
   };
 
   //DATE
@@ -64,21 +139,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
     setDateTimeStartModal(false);
     dob && setDateTimeStart(dob);
 
-    let returnedDate = bookingDataArray.map((bookDate) => {
-      if (
-        dayjs(dob).format("MMDDYY") ===
-        dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
-      ) {
-        if (
-          dayjs(timeStart).format("H") >=
-            dayjs(bookDate.booked_dateTimeStart).format("H") &&
-          dayjs(timeStart).format("H") <=
-            dayjs(bookDate.booked_dateTimeEnd).format("H")
-        ) {
-          return true;
-        }
-      }
-    });
+    let returnedDate = bookingMultipleDataArray.map(
+      (bookDate) =>
+        dayjs(dob).format("MMDDYY") === dayjs(bookDate).format("MMDDYY")
+    );
 
     returnedDate.includes(true)
       ? setSingleDayStatus(false)
@@ -89,50 +153,15 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const changeStartTime = (e, dob) => {
     setTimeStartModal(false);
     dob && setTimeStart(dob);
-
-    let returnedDate = bookingDataArray.map((bookDate) => {
-      if (
-        dayjs(dateTimeStart).format("MMDDYY") ===
-        dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
-      ) {
-        if (
-          dayjs(dob).format("H") >=
-            dayjs(bookDate.booked_dateTimeStart).format("H") &&
-          dayjs(dob).format("H") <=
-            dayjs(bookDate.booked_dateTimeEnd).format("H")
-        ) {
-          return true;
-        }
-      }
-    });
-
-    returnedDate.includes(true)
-      ? setSingleDayStatus(false)
-      : setSingleDayStatus(true);
   };
 
   const changeEndTime = (e, dob) => {
     setTimeEndModal(false);
 
-    let returnedDate = bookingDataArray.map((bookDate) => {
-      if (
-        dayjs(dateTimeStart).format("MMDDYY") ===
-        dayjs(bookDate.booked_dateTimeStart).format("MMDDYY")
-      ) {
-        if (
-          dayjs(dob).format("H") >=
-            dayjs(bookDate.booked_dateTimeStart).format("H") &&
-          dayjs(dob).format("H") <=
-            dayjs(bookDate.booked_dateTimeEnd).format("H")
-        ) {
-          return true;
-        }
-      }
-    });
+    const validTime = validateTime(timeStart, dob);
+    console.log("Time is valid?: ", validTime);
 
-    returnedDate.includes(true)
-      ? setSingleDayStatus(false)
-      : setSingleDayStatus(true);
+    !validTime ? setSingleDayStatus(false) : setSingleDayStatus(true);
 
     // Validations
     let timeStartFormatted = dayjs(timeStart).format("HH:mm");
@@ -158,27 +187,25 @@ const BookSkilledWorker = ({ navigation, route }) => {
         : dayjs(dob).format("HH:mm:ss");
 
     let timeDifference = getTimeDifference(newStartTime, newEndTime);
+    setTotalSingleHours(timeDifference);
     setTotalHoursRendered(timeDifference);
   };
 
-  const setTotalHoursRendered = (e) => {
-    let subTotalValue = profileData.myServicesData[0].hourly_rate * e;
-    let convenienceFeeValue = subTotalValue * 0.05;
-
-    setTotalMultipleHours(e);
-    setSubTotal(subTotalValue.toFixed(2));
-    setConvenienceFee(convenienceFeeValue.toFixed(2));
-    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
-  };
-
   const handleSubmitSingleDay = () => {
-    const dateFormatStart = dayjs(dateTimeStart)
-      .format("YYYY-MM-DDT")
-      .toString();
-    const timeFormatStart = dayjs(timeStart).format("HH:mm:ssZ").toString();
-    const timeFormatEnd = dayjs(timeEnd).format("HH:mm:ssZ").toString();
-    const newDateTimeStart = new Date(dateFormatStart + timeFormatStart);
-    const newDateTimeEnd = new Date(dateFormatStart + timeFormatEnd);
+    const { newDateTimeStart, newDateTimeEnd } = formatStartandEndTime(
+      dateTimeStart,
+      timeStart,
+      timeEnd
+    );
+
+    const validTime = validateTime(timeStart, timeEnd);
+
+    !validTime ? setSingleDayStatus(false) : setSingleDayStatus(true);
+
+    if (!validTime) {
+      errorToast("There is a conflict of schedule");
+      return;
+    }
 
     if (singleDayStatus === true) {
       if (!totalSingleHours) {
@@ -209,7 +236,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
         };
         dispatch(bookSkilledWorker(data, navigation));
       }
-    } else {
     }
   };
 
@@ -406,16 +432,16 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let date = new Date();
     setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
 
-    let newDateEnd = date.setDate(date.getDate() + 1);
-    setDateTimeEnd(new Date(newDateEnd));
-
-    const mergedArray = getBookedDate(
+    const { singleDates, multipleDates } = getBookedDateSingle(
       profileData.myServicesData[0].bookingsData
     );
 
-    setBookingDataArray([...mergedArray]);
+    console.log(singleDates);
+    console.log(multipleDates);
+    setBookingSingleDataArray([...singleDates]);
+    setBookingMultipleDataArray([...multipleDates]);
 
-    let returnedDate = mergedArray.map(
+    let returnedDate = multipleDates.map(
       (bookDate) =>
         dayjs(dateTimeStart).format("MMDDYY") ===
         dayjs(bookDate).format("MMDDYY")

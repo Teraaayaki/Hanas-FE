@@ -17,7 +17,7 @@ import styles from "./style";
 import { colors } from "@constants";
 import { ToastComponent, showToast } from "@helpers/toast";
 import { bookSkilledWorker } from "@redux/actions/clientBookingActions";
-import getBookedDate from "@utils/getBookedDate";
+import getBookedDateMultiple from "@utils/getBookedDateMultiple";
 import getMultipleDays from "@utils/getMultipleDays";
 
 const BookSkilledWorker = ({ navigation, route }) => {
@@ -353,7 +353,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let newDateEnd = date.setDate(date.getDate() + 1);
     setDateTimeEnd(new Date(newDateEnd));
 
-    const mergedArray = getBookedDate(
+    const mergedArray = getBookedDateMultiple(
       profileData.myServicesData[0].bookingsData
     );
 

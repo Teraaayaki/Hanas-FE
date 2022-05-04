@@ -1,5 +1,6 @@
 /**
  * Calculates the date of the last of the month.
+ * Example: Last Day of May = 31
  *
  * @param y Year
  * @param m Month
