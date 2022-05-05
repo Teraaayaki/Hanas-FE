@@ -8,14 +8,12 @@ import Header from "@components/Header";
 import ClientBookingRequestsFlatlist from "@components/flatlist/bookingRequestsFlatlists/ClientBookingRequestsFlatlist";
 import { SocketContext } from "../../../context/socketContext";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import { TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 
 const filterBookingData = (bookingDataArray) => {
   let filteredArrayData = [];
   bookingDataArray.map((bookingDataItem) => {
-    if (
-      bookingDataItem.book_status === "Pending" 
-    ) {
+    if (bookingDataItem.book_status === "Pending") {
       filteredArrayData.push(bookingDataItem);
     }
   });
@@ -25,20 +23,24 @@ const filterBookingData = (bookingDataArray) => {
 const filterDeclinedData = (bookingDataArray) => {
   let filteredDeclinedArrayData = [];
 
-  bookingDataArray.map( (bookingDataItem) => {
-    if(bookingDataItem.book_status === "Declined" && bookingDataItem.isRemovedClient === false){
+  bookingDataArray.map((bookingDataItem) => {
+    if (
+      bookingDataItem.book_status === "Declined" &&
+      bookingDataItem.isRemovedClient === false
+    ) {
       filteredDeclinedArrayData.push(bookingDataItem);
     }
   });
 
   return filteredDeclinedArrayData;
-}
+};
 
 const ClientBookingRequests = ({ navigation }) => {
   const { loading, bookingData } = useSelector((state) => state.clientBooking);
   const { user } = useSelector((state) => state.userDetails);
   const [filteredBookingData, setFilteredBookingData] = useState([]);
-  const [filteredDeclinedBookingData, setFilteredDeclinedBookingData] = useState([]);
+  const [filteredDeclinedBookingData, setFilteredDeclinedBookingData] =
+    useState([]);
   const { socket } = useContext(SocketContext);
   const [updateBookingData, setUpdateBookingData] = useState(false);
   const dispatch = useDispatch();
@@ -47,10 +49,9 @@ const ClientBookingRequests = ({ navigation }) => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'first', title: 'Pending' },
-    { key: 'second', title: 'Declined/Cancelled' },
+    { key: "first", title: "Pending" },
+    { key: "second", title: "Declined/Cancelled" },
   ]);
-
 
   const FirstRoute = () => (
     <View style={[styles.body]}>
@@ -81,16 +82,16 @@ const ClientBookingRequests = ({ navigation }) => {
       </View>
     </View>
   );
-  
+
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
   });
 
-  const renderTabBar = props => (
+  const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: 'white' }}
+      indicatorStyle={{ backgroundColor: "white" }}
       style={{ backgroundColor: colors.secondary }}
     />
   );
@@ -98,15 +99,21 @@ const ClientBookingRequests = ({ navigation }) => {
   useEffect(() => {
     socket.current.on("clientBookingUpdate", ({ newData }) => {
       if (user.id === newData) {
+        console.log("Update!!");
         setUpdateBookingData(true);
       }
     });
+
+    return () => {
+      socket.current.off("clientBookingUpdate");
+    };
   });
 
   useEffect(() => {
     if (updateBookingData) {
-      dispatch(getBooking());
+      console.log("Updating Booking Data: ", updateBookingData);
       setUpdateBookingData(false);
+      dispatch(getBooking());
     }
   }, [updateBookingData]);
 
@@ -114,7 +121,10 @@ const ClientBookingRequests = ({ navigation }) => {
     let filteredArrayData = filterBookingData(bookingData);
     let filteredDeclinedArrayData = filterDeclinedData(bookingData);
     if (
-      JSON.stringify(filteredBookingData) !== JSON.stringify(filteredArrayData) || JSON.stringify(filteredDeclinedBookingData) !== JSON.stringify(filteredDeclinedArrayData)
+      JSON.stringify(filteredBookingData) !==
+        JSON.stringify(filteredArrayData) ||
+      JSON.stringify(filteredDeclinedBookingData) !==
+        JSON.stringify(filteredDeclinedArrayData)
     ) {
       setFilteredBookingData([...filteredArrayData]);
       setFilteredDeclinedBookingData([...filteredDeclinedArrayData]);
