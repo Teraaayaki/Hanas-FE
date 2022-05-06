@@ -42,7 +42,7 @@ export const addToFavorites = (DATA) => async (dispatch) => {
   }
 };
 
-const getFavorites = () => async (dispatch) => {
+export const getFavorites = () => async (dispatch) => {
   let token = await getItem("token");
 
   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
@@ -53,10 +53,10 @@ const getFavorites = () => async (dispatch) => {
     });
 
     if (data) {
-      console.log("Get Favorites");
+      console.log("Get Favorites", data);
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
-        payload: data.favorites,
+        payload: data.favoritesArray,
       });
 
       dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });

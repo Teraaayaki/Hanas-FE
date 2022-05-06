@@ -5,13 +5,14 @@ import Header from "@components/Header";
 import FavoritesFlatlist from "@components/flatlist/dashboardFlatlists/FavoritesFlatlist";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
+import { getFavorites } from "@redux/actions/favoritesActions";
+import { useSelector } from "react-redux";
 
-const Favorites = ({ navigation, route }) => {
-  const { profileData } = route.params;
-  console.log("PROFILE DATA", profileData);
-  let profileDataArray = []; 
-  profileDataArray.unshift(profileData);
-  console.log("PROFILE ARRAY", profileDataArray);
+const Favorites = ({ navigation }) => {
+
+  const { favoritesData } = useSelector( (state) => state.favorites);
+
+  console.log("FAVORITES DATA", favoritesData);
 
   return (
     <View style={styles.container}>
@@ -20,7 +21,7 @@ const Favorites = ({ navigation, route }) => {
         <TypeOfService title={"Electrical Services"} />
         <DropdownPicker />
       </View>
-      <FavoritesFlatlist navigation={navigation} data={profileDataArray}/>
+      <FavoritesFlatlist navigation={navigation}/>
     </View>
   );
 };
