@@ -2,6 +2,12 @@ import { FavoritesActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
+export const resetError = () => (dispatch) => {
+    dispatch({
+      type: FavoritesActions.CLIENT_FAVORITES_FAIL,
+    });
+};
+
 export const addToFavorites = (DATA) => async (dispatch) => {
   let token = await getItem("token");
 
@@ -30,7 +36,7 @@ export const getFavorites = () => async (dispatch) => {
   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
 
   try {
-    let { data } = await axiost.get("/api/client/get-favorites", {
+    let { data } = await axios.get("/api/client/get-favorites", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
