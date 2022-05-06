@@ -3,9 +3,9 @@ import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
 export const resetError = () => (dispatch) => {
-    dispatch({
-      type: FavoritesActions.CLIENT_FAVORITES_FAIL,
-    });
+  dispatch({
+    type: FavoritesActions.CLIENT_FAVORITES_FAIL,
+  });
 };
 
 export const addToFavorites = (DATA) => async (dispatch) => {
@@ -21,7 +21,19 @@ export const addToFavorites = (DATA) => async (dispatch) => {
     );
 
     if (data) {
-      getFavorites();
+      let { data: DATA } = await axios.get("/api/client/get-favorites", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (DATA) {
+        console.log("Get Favorites");
+        dispatch({
+          type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
+          payload: DATA.favorites,
+        });
+
+        dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+      }
     }
   } catch (err) {
     console.log(err);
@@ -30,7 +42,7 @@ export const addToFavorites = (DATA) => async (dispatch) => {
   }
 };
 
-export const getFavorites = () => async (dispatch) => {
+const getFavorites = () => async (dispatch) => {
   let token = await getItem("token");
 
   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
@@ -41,6 +53,7 @@ export const getFavorites = () => async (dispatch) => {
     });
 
     if (data) {
+      console.log("Get Favorites");
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
         payload: data.favorites,
