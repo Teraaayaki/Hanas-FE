@@ -24,20 +24,19 @@ const ProfileView = ({ navigation, route }) => {
     (state) => state.clientWorkerView
   );
 
-  const {user} = useSelector( (state) => state.userDetails);
-  
+  const { user } = useSelector((state) => state.userDetails);
+
   console.log("PROFILE DATA", profileData);
 
   const handleAddToFavorites = () => {
-
     const Data = {
       client_id: user.id,
-      favorite_workers: profileData.myServicesData[0]._id,
-    }
+      favorite_services: profileData.myServicesData[0]._id,
+    };
 
     dispatch(addToFavorites(Data));
-    showToast('success', 'Success', 'Worker added to favorites');
-  }
+    showToast("success", "Success", "Worker added to favorites");
+  };
 
   useEffect(() => {
     console.log("Triggered [worker_id, service_id]");
@@ -164,14 +163,16 @@ const ProfileView = ({ navigation, route }) => {
                           style={styles.whiteButton}
                           onPress={handleAddToFavorites}
                         >
-                          <Text style={styles.buttonText} >
+                          <Text style={styles.buttonText}>
                             ADD TO FAVORITES
                           </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.pinkButton}
                           onPress={() =>
-                            navigation.navigate("BookSkilledWorker", {serviceName}) 
+                            navigation.navigate("BookSkilledWorker", {
+                              serviceName,
+                            })
                           }
                         >
                           <Text style={styles.buttonText}>BOOK</Text>
@@ -217,7 +218,7 @@ const ProfileView = ({ navigation, route }) => {
           </>
         )
       )}
-      <ToastComponent/>
+      <ToastComponent />
     </>
   );
 };
