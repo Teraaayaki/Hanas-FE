@@ -21,15 +21,18 @@ export const addToFavorites = (DATA) => async (dispatch) => {
     );
 
     if (data) {
-      let { data: DATA } = await axios.get("/api/client/get-favorites", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      let { data: favoritesDATA } = await axios.get(
+        "/api/client/get-favorites",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-      if (DATA) {
+      if (favoritesDATA) {
         console.log("Get Favorites");
         dispatch({
           type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
-          payload: DATA.favorites,
+          payload: favoritesDATA.favoritesArray,
         });
 
         dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
