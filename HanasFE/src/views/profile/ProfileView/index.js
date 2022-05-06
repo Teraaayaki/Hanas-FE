@@ -14,6 +14,8 @@ import Loading from "@components/Loading";
 import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileReviewFlatlist";
 import { colors, fontSize, margin, padding } from "@constants";
 import { fetchData } from "@redux/actions/clientWorkerViewActions";
+import { addToFavorites } from "@redux/actions/favoritesActions";
+import { ToastComponent, showToast } from "@helpers/toast";
 
 const ProfileView = ({ navigation, route }) => {
   const { worker_id, service_id, serviceName } = route.params;
@@ -21,6 +23,21 @@ const ProfileView = ({ navigation, route }) => {
   const { loading, profileData, success } = useSelector(
     (state) => state.clientWorkerView
   );
+
+  const {user} = useSelector( (state) => state.userDetails);
+  
+  console.log("PROFILE DATA", profileData);
+
+  const handleAddToFavorites = () => {
+
+    const Data = {
+      client_id: user.id,
+      favorite_workers: profileData.myServicesData[0]._id,
+    }
+
+    dispatch(addToFavorites(Data));
+    showToast('success', 'Success', 'Worker added to favorites');
+  }
 
   useEffect(() => {
     console.log("Triggered [worker_id, service_id]");
@@ -145,9 +162,9 @@ const ProfileView = ({ navigation, route }) => {
                       <View style={styles.flexedEvenly}>
                         <TouchableOpacity
                           style={styles.whiteButton}
-                          onPress={() => navigation.navigate("Favorites")}
+                          onPress={handleAddToFavorites}
                         >
-                          <Text style={styles.buttonText}>
+                          <Text style={styles.buttonText} >
                             ADD TO FAVORITES
                           </Text>
                         </TouchableOpacity>
@@ -200,6 +217,7 @@ const ProfileView = ({ navigation, route }) => {
           </>
         )
       )}
+      <ToastComponent/>
     </>
   );
 };
