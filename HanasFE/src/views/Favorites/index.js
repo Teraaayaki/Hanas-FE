@@ -6,13 +6,16 @@ import FavoritesFlatlist from "@components/flatlist/dashboardFlatlists/Favorites
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 import { getFavorites } from "@redux/actions/favoritesActions";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const Favorites = ({ navigation }) => {
 
   const { favoritesData } = useSelector( (state) => state.favorites);
-
+  const dispatch = useDispatch();
+  
   console.log("FAVORITES DATA", favoritesData);
+
+  dispatch(getFavorites);
 
   return (
     <View style={styles.container}>
