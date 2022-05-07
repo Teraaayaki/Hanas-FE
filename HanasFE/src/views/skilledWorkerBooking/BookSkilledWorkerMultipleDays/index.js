@@ -128,6 +128,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
       return;
     }
 
+    if (mergedDataArray.length === 0) {
+      errorToast("Please set start and end date");
+      return;
+    }
+
     const hoursRenderedOffset = mergedDataArray.length * 24;
     if (totalMultipleHours > hoursRenderedOffset) {
       errorToast("Invalid total number of hours");
