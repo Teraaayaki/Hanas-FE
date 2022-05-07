@@ -309,7 +309,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             styles.alignCenter,
           ]}
         >
-          <Text style={styles.h3}>Convenience Fee (5%):</Text>
+          <Text style={styles.h4}>Convenience Fee (5%):</Text>
           <Text style={[styles.h4, styles.textRight]}>
             PHP {convenienceFee}
           </Text>
