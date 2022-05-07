@@ -35,16 +35,14 @@ const ReceiptAndSummary = ({
       <View style={styles.container}>
         <View style={styles.boxContainer}>
           <View style={styles.flexContainers}>
-            <Text style={styles.headings}>Payment Method :</Text>
-            <Text style={styles.values}>{payment_method}</Text>
-            <Text style={styles.headings}>Date Paid : </Text>
-            <Text style={styles.values}>{date_paid}</Text>
+            <View>
+              <Text style={styles.headings}>Description</Text>
+            </View>
+            <View>
+              <Text style={styles.headings}>Amount</Text>
+            </View>
           </View>
           <View style={styles.hr}></View>
-          <View style={styles.flexContainerInside}>
-            <Text style={styles.headings}>Description</Text>
-            <Text style={styles.headings}>Amount</Text>
-          </View>
           <View style={styles.flexContainerInside}>
             <Text style={styles.blackHeadings}>Rate Per Hour</Text>
             <Text style={styles.blackHeadings}>Php {rate}.00</Text>
@@ -69,7 +67,7 @@ const ReceiptAndSummary = ({
           <View style={styles.hr}></View>
           <View style={styles.flexContainerInside}>
             <Text style={styles.boldHeadings}>Total Amount</Text>
-            <Text style={styles.boldHeadings}>PHP {total}.00</Text>
+            <Text style={styles.boldHeadings}>PHP {total.toFixed(2)}</Text>
           </View>
         </View>
 
