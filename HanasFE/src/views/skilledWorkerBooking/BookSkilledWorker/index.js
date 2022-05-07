@@ -409,19 +409,6 @@ const BookSkilledWorker = ({ navigation, route }) => {
             styles.alignCenter,
           ]}
         >
-          <Text style={styles.h3}>Convenience Fee (5%):</Text>
-          <Text style={[styles.h4, styles.textRight]}>
-            PHP {convenienceFee}
-          </Text>
-        </View>
-        <View
-          style={[
-            styles.flex1,
-            styles.flexRow,
-            styles.justifyContentSpaceBetween,
-            styles.alignCenter,
-          ]}
-        >
           <Text style={[styles.bold, styles.h3]}>Total Cost:</Text>
           <Text style={[styles.h3, styles.textRight, styles.bold]}>
             PHP {totalCost}
