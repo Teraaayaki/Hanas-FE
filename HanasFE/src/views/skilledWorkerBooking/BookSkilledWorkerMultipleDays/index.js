@@ -114,9 +114,9 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let convenienceFeeValue = subTotalValue * 0.05;
 
     setTotalMultipleHours(e);
-    setSubTotal(subTotalValue.toFixed(2));
+    setSubTotal((subTotalValue - convenienceFeeValue).toFixed(2));
     setConvenienceFee(convenienceFeeValue.toFixed(2));
-    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+    setTotalCost(subTotalValue.toFixed(2));
   };
 
   const handleSubmitMultipleDay = () => {

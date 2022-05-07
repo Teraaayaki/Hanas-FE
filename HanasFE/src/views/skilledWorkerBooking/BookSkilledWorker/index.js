@@ -83,9 +83,9 @@ const BookSkilledWorker = ({ navigation, route }) => {
     let convenienceFeeValue = subTotalValue * 0.05;
 
     setTotalMultipleHours(e);
-    setSubTotal(subTotalValue.toFixed(2));
+    setSubTotal((subTotalValue - convenienceFeeValue).toFixed(2));
     setConvenienceFee(convenienceFeeValue.toFixed(2));
-    setTotalCost((convenienceFeeValue + subTotalValue).toFixed(2));
+    setTotalCost(subTotalValue.toFixed(2));
   };
 
   const validateTime = (scheduleTimeStart, scheduleTimeEnd) => {
@@ -430,7 +430,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   useEffect(() => {
     let date = new Date();
-    setTimeEnd(new Date(date.getTime() + 1000 * 60 * 60));
+    setTimeStart(new Date(date.getTime() + 1000 * 60 * 60));
+    setTimeEnd(new Date(date.getTime() + 1000 * 60 * 120));
 
     const { singleDates, multipleDates } = getBookedDateSingle(
       profileData.myServicesData[0].bookingsData

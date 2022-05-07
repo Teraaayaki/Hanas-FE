@@ -1,9 +1,8 @@
 import { View, Text, ScrolLView } from "react-native";
-import React from "react";
-import styles from "./style";
-import { colors } from "@constants";
+import React, { useState, useEffect } from "react";
 
-import { margin, padding, fontSize, fontWeight } from "@constants";
+import styles from "./style";
+import { getItem } from "@helpers/asyncStorage";
 
 const ReceiptAndSummary = ({
   summaryTitle,
@@ -23,6 +22,13 @@ const ReceiptAndSummary = ({
   time_start,
   time_end,
 }) => {
+  const [isWorker, setIsWorker] = useState(false);
+
+  useEffect(async () => {
+    let isWorker = await getItem("is_worker");
+    setIsWorker(JSON.parse(isWorker));
+  }, []);
+
   return (
     <View style={styles.receiptContainer}>
       <Text style={styles.receiptTitle}>{summaryTitle} Summary</Text>
@@ -45,12 +51,21 @@ const ReceiptAndSummary = ({
           </View>
           <View style={styles.flexContainerInside}>
             <Text style={styles.blackHeadings}>Total Hours Rendered</Text>
-            <Text style={styles.blackHeadings}>{hours_rendered} hours</Text>
+            {hours_rendered >= 1 ? (
+              <Text style={styles.blackHeadings}>{hours_rendered} hour/s</Text>
+            ) : (
+              <Text style={styles.blackHeadings}>
+                {hours_rendered * 100} minutes
+              </Text>
+            )}
           </View>
-          <View style={styles.flexContainerInside}>
-            <Text style={styles.blackHeadings}>Convenience Fee</Text>
-            <Text style={styles.blackHeadings}>Php {convenience_fee}.00</Text>
-          </View>
+
+          {isWorker && (
+            <View style={styles.flexContainerInside}>
+              <Text style={styles.blackHeadings}>Convenience Fee</Text>
+              <Text style={styles.blackHeadings}>Php {convenience_fee}.00</Text>
+            </View>
+          )}
           <View style={styles.hr}></View>
           <View style={styles.flexContainerInside}>
             <Text style={styles.boldHeadings}>Total Amount</Text>
