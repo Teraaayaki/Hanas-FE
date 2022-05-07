@@ -58,7 +58,7 @@ const ReceiptAndSummary = ({
             )}
           </View>
 
-          {isWorker && (
+          {true && (
             <View style={styles.flexContainerInside}>
               <Text style={styles.blackHeadings}>Convenience Fee</Text>
               <Text style={styles.blackHeadings}>Php {convenience_fee}.00</Text>
