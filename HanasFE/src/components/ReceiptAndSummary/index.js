@@ -49,17 +49,18 @@ const ReceiptAndSummary = ({
           </View>
           <View style={styles.flexContainerInside}>
             <Text style={styles.blackHeadings}>Total Hours Rendered</Text>
-            {hours_rendered >= 1 ? (
-              <Text style={styles.blackHeadings}>{hours_rendered} hour/s</Text>
-            ) : (
-              <Text style={styles.blackHeadings}>{hours_rendered} minutes</Text>
-            )}
+
+            <Text style={styles.blackHeadings}>
+              {parseInt(hours_rendered)} hours {hours_rendered * 100} mins{" "}
+            </Text>
           </View>
 
           {true && (
             <View style={styles.flexContainerInside}>
               <Text style={styles.blackHeadings}>Convenience Fee</Text>
-              <Text style={styles.blackHeadings}>Php {convenience_fee}.00</Text>
+              <Text style={styles.blackHeadings}>
+                Php {convenience_fee.toFixed(2)}
+              </Text>
             </View>
           )}
           <View style={styles.hr}></View>
