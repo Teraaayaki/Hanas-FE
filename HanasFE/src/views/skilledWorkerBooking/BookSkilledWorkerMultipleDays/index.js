@@ -484,7 +484,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             )}
 
             <Text style={[styles.h3, styles.bold, styles.mb4]}>
-              Hours to be rendered
+              Total Hours to be rendered
             </Text>
 
             <IconField
