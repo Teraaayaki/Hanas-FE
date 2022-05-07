@@ -20,7 +20,8 @@
           "@axios": "./src/helper/axios",
           "@redux": "./src/redux",
           "@hooks": "./src/hooks",
-          "@helpers": "./src/helper"
+          "@helpers": "./src/helper",
+          "@utils": "./src/utils"
         }
       }
     ]
