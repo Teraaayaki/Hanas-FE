@@ -297,8 +297,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
         >
           <Text style={styles.h4}>Total Hours:</Text>
           <Text style={[styles.h4, styles.textRight]}>
-            {totalMultipleHours}
-            hr(s)
+            {parseInt(totalMultipleHours)} hours{" "}
+            {parseInt((totalMultipleHours % 1) * 100)} mins{" "}
           </Text>
         </View>
         <View

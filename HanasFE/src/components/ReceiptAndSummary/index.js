@@ -51,7 +51,8 @@ const ReceiptAndSummary = ({
             <Text style={styles.blackHeadings}>Total Hours Rendered</Text>
 
             <Text style={styles.blackHeadings}>
-              {parseInt(hours_rendered)} hours {hours_rendered * 100} mins{" "}
+              {parseInt(hours_rendered)} hours{" "}
+              {parseInt((hours_rendered % 1) * 100)} mins{" "}
             </Text>
           </View>
 
