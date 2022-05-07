@@ -52,9 +52,7 @@ const ReceiptAndSummary = ({
             {hours_rendered >= 1 ? (
               <Text style={styles.blackHeadings}>{hours_rendered} hour/s</Text>
             ) : (
-              <Text style={styles.blackHeadings}>
-                {hours_rendered * 100} minutes
-              </Text>
+              <Text style={styles.blackHeadings}>{hours_rendered} minutes</Text>
             )}
           </View>
 

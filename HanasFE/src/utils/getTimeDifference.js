@@ -15,7 +15,10 @@ export default getTimeDifference = (start, end) => {
   diff -= hours * 1000 * 60 * 60;
   let minutes = Math.floor(diff / 1000 / 60);
 
-  // 24 hours format
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
   if (hours < 0) hours = hours + 24;
 
   return parseFloat(`${hours}.${minutes}`);
