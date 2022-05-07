@@ -110,7 +110,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
   };
 
   const setTotalHoursRendered = (e) => {
-    let subTotalValue = profileData.myServicesData[0].hourly_rate * parseInt(e);
+    let minutesAmount =
+      ((e % 1) / 0.6) * profileData.myServicesData[0].hourly_rate;
+    let hoursAmount = parseInt(e) * profileData.myServicesData[0].hourly_rate;
+    let subTotalValue = hoursAmount + minutesAmount;
     let convenienceFeeValue = subTotalValue * 0.05;
 
     setTotalMultipleHours(e);
