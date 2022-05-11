@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import { colors, fontWeight, fontSize, margin } from "@constants";
-import CardContainer from "@components/CardContainer";
+import CardContainer from "@components/CardContainerWithRemove";
 import styles from "./style";
 import { getFavorites } from "@redux/actions/favoritesActions";
 import { useDispatch } from "react-redux";
@@ -38,9 +38,6 @@ const FavoritesFlatlist = ({ navigation, data}) => {
     setIsRefreshing(false);
   };
 
-  // useEffect(() => {
-  //  console.log("New Data Fetched");
-  // }, [isRefreshing]);
   
   const renderItem = ({ item }) => {
     
@@ -48,10 +45,11 @@ const FavoritesFlatlist = ({ navigation, data}) => {
       item.id === selectedId ? colors.borderGrey : colors.background;
     const color = item.id === selectedId ? "white" : "black";
     
+    console.log("ITEM", item);
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate("ProfileView" , {worker_id: item._id, service_id: item.myServicesData[0]._id, serviceName: item.myServicesData[0].serviceNameData[0].service_type})}
+        onPress={() => navigation.navigate("ProfileView" , {worker_id: item.clientNameData[0]._id, service_id: item._id , serviceName: item.serviceNameData[0].service_type})}
         onPressServices={() => navigation.navigate("ServicesNearYou")}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}

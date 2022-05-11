@@ -21,18 +21,18 @@ const Favorites = ({ navigation }) => {
 
 
   //reset the success toast
-  // useEffect(() => {
-  //   if(favoritesSuccess){
-  //     dispatch(resetError());
-  //   }
-  // }, [favoritesSuccess]);
+  useEffect(() => {
+    if(favoritesSuccess){
+      dispatch(resetError());
+    }
+  }, [favoritesSuccess]);
 
   //reset the error toast
-  // useEffect(() => {
-  //   if(error){
-  //     dispatch(resetError());
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    if(error){
+      dispatch(resetError());
+    }
+  }, [error]);
 
   useEffect(() => {
     console.log("Re-render");
