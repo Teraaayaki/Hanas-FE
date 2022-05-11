@@ -14,12 +14,12 @@ const Item = ({
   notif,
 }) => (
   <CardContainer
-    name={item.name}
-    profession={item.myServicesData[0].serviceNameData[0].service_type}
-    rating={item.myServicesData[0].feedbackData[0].rateAvg}
-    jobs={1000}
+    name={item.clientNameData[0].name}
+    profession={item.serviceNameData[0].service_type}
+    rating={item.feedbackData[0].rateAvg}
+    jobs={item.feedbackData[0].jobs}
     image={item.image}
-    rate={item.myServicesData[0].hourly_rate}
+    rate={item.hourly_rate}
     onPress={onPress}
     onPressServices={onPressServices}
   />
@@ -27,9 +27,9 @@ const Item = ({
 
 const FavoritesFlatlist = ({ navigation, data }) => {
   const [selectedId, setSelectedId] = useState(null);
+
   const renderItem = ({ item }) => {
     
-    console.log("ITEMS", item);
     const backgroundColor =
       item.id === selectedId ? colors.borderGrey : colors.background;
     const color = item.id === selectedId ? "white" : "black";

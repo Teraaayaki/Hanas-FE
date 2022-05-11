@@ -52,8 +52,8 @@ export const getFavorites = () => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
+   
     if (data) {
-      console.log("Get Favorites", data);
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
         payload: data.favoritesArray,
