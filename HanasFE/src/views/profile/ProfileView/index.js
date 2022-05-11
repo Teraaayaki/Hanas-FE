@@ -51,12 +51,13 @@ const ProfileView = ({ navigation, route }) => {
   };
 
   useEffect( () => {
-    if(typeof error !== undefined){
+    if(error){
       errorToast("Worker already added");
     }
   }, [error]);
 
   useEffect( () => {
+    console.log("FAVORITES SUCCESS", favoritesSuccess);
     if(favoritesSuccess){
       successToast("Worker added to favorites");
     }

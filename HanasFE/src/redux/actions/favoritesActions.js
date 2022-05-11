@@ -55,15 +55,22 @@ export const getFavorites = () => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-   
     if (data) {
+      console.log("DATA", data.favoritesArray);
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
         payload: data.favoritesArray,
       });
 
       dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+    }else{
+      
+      dispatch({
+        type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
+        payload: data.favoritesArray,
+      });
     }
+
   } catch (err) {
     console.log(err);
     let error = err.response.data ? err.response.data : err;

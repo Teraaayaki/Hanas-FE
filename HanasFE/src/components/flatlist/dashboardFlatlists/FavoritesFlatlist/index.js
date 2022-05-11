@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import { colors, fontWeight, fontSize, margin } from "@constants";
 import CardContainer from "@components/CardContainer";
 import styles from "./style";
+import { getFavorites } from "@redux/actions/favoritesActions";
+import { useDispatch } from "react-redux";
 
 const Item = ({
   item,
@@ -25,9 +27,21 @@ const Item = ({
   />
 );
 
-const FavoritesFlatlist = ({ navigation, data }) => {
+const FavoritesFlatlist = ({ navigation, data}) => {
+  const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const _onRefresh = () => {
+    setIsRefreshing(true);
+    dispatch(getFavorites());
+    setIsRefreshing(false);
+  };
+
+  // useEffect(() => {
+  //  console.log("New Data Fetched");
+  // }, [isRefreshing]);
+  
   const renderItem = ({ item }) => {
     
     const backgroundColor =
@@ -54,6 +68,8 @@ const FavoritesFlatlist = ({ navigation, data }) => {
       contentContainerStyle={{
         flexGrow: 1,
       }}
+      onRefresh={_onRefresh}
+      refreshing={isRefreshing}
     />
   );
 };
