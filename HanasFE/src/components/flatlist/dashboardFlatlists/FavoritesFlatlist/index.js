@@ -35,10 +35,11 @@ const Item = ({
 const FavoritesFlatlist = ({ navigation, data}) => {
   const dispatch = useDispatch();
   const {user} = useSelector( (state) => state.userDetails);
-  const {error, success: favoritesSuccess} = useSelector( (state) => state.favorites);
+  const {error, success} = useSelector( (state) => state.favorites);
 
   const [selectedId, setSelectedId] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+
 
   const _onRefresh = () => {
     setIsRefreshing(true);
@@ -52,8 +53,8 @@ const FavoritesFlatlist = ({ navigation, data}) => {
         favorite_services: data._id,
     }
     dispatch(removeFavorites(Data));
-    showToast("success", "Successfully removed from favorites", "Pull down to refresh list");
 
+    showToast("success", "Successfully removed from favorites", "Pull down to refresh list", () => { dispatch(resetError()) } );
   }
   
   const renderLeftActions = (progress, dragX) => {
@@ -80,11 +81,12 @@ const FavoritesFlatlist = ({ navigation, data}) => {
     );
   };
   
+  //reset the success toast
   useEffect(() => {
-    if(favoritesSuccess){
+    if(success){
       dispatch(resetError());
     }
-  }, [favoritesSuccess]);
+  }, [success]);
 
   const renderItem = ({ item }) => {
     
@@ -119,7 +121,7 @@ const FavoritesFlatlist = ({ navigation, data}) => {
         onRefresh={_onRefresh}
         refreshing={isRefreshing}
       />
-      {/* <ToastComponent/> */}
+      <ToastComponent/>
     </>
     
   );

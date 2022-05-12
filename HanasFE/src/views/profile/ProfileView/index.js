@@ -14,7 +14,7 @@ import Loading from "@components/Loading";
 import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileReviewFlatlist";
 import { colors, fontSize, margin, padding } from "@constants";
 import { fetchData } from "@redux/actions/clientWorkerViewActions";
-import { addToFavorites, resetError } from "@redux/actions/favoritesActions";
+import { addToFavorites, resetError} from "@redux/actions/favoritesActions";
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const ProfileView = ({ navigation, route }) => {
@@ -57,7 +57,6 @@ const ProfileView = ({ navigation, route }) => {
   }, [error]);
 
   useEffect( () => {
-    console.log("FAVORITES SUCCESS", favoritesSuccess);
     if(favoritesSuccess){
       successToast("Worker added to favorites");
     }

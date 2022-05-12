@@ -90,9 +90,7 @@ export  const removeFavorites = (DATA) => async (dispatch) => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-
     if(data){
-      console.log("Successful Deletion");
       dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
     }
 
