@@ -72,7 +72,7 @@ const FavoritesFlatlist = ({ navigation, data}) => {
             },
           ]}>
           <Icon
-              color="#dd2c00"
+              color={colors.danger}
               size={40}
               name="delete"
               /> 
@@ -109,7 +109,6 @@ const FavoritesFlatlist = ({ navigation, data}) => {
   };
 
   return (
-    <>
       <FlatList
         data={data}
         renderItem={renderItem}
@@ -121,9 +120,6 @@ const FavoritesFlatlist = ({ navigation, data}) => {
         onRefresh={_onRefresh}
         refreshing={isRefreshing}
       />
-      <ToastComponent/>
-    </>
-    
   );
 };
 

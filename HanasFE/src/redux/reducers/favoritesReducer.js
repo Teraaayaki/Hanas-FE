@@ -5,6 +5,10 @@ export const favoritesInitialValues = {
   success: false,
   favoritesData: [],
   error: undefined,
+  addedSuccess: false,
+  removedSuccess: false,
+  addedError: undefined,
+  removedError: undefined,
 };
 
 const favoritesReducer = (state = favoritesInitialValues, action) => {
@@ -22,6 +26,16 @@ const favoritesReducer = (state = favoritesInitialValues, action) => {
       };
     case FavoritesActions.CLIENT_FAVORITES_DETAILS:
       return { ...state, loading: false, favoritesData: action.payload };
+    case FavoritesActions.CLIENT_FAVORITES_RESET:
+      return { ...state, loading: false, success: false, error: undefined};
+    case FavoritesActions.CLIENT_FAVORITES_ADDED_SUCCESS:
+      return {...state, loading: false, addedSuccess: true, addedError: undefined}
+    case FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR:
+      return {...state, loading: false, addedSuccess: false, addedError: action.payload}
+    case FavoritesActions.CLIENT_FAVORITES_REMOVED_SUCCESS:
+      return {...state, loading: false, removedSuccess: true, removedError: undefined}
+    case FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR:
+      return {...state, loading: false, removedSuccess: false, removedError: action.payload}
     default:
       return state;
   }

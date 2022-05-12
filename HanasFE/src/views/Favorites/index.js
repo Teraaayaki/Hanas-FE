@@ -8,6 +8,7 @@ import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 import { getFavorites } from "@redux/actions/favoritesActions";
 import { resetError } from "@redux/actions/favoritesActions";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastComponent, showToast } from "@helpers/toast";
 
 const Favorites = ({ navigation }) => {
   
@@ -20,19 +21,20 @@ const Favorites = ({ navigation }) => {
   }, []);
 
 
-  //reset the success toast
-  useEffect(() => {
-    if(favoritesSuccess){
-      dispatch(resetError());
-    }
-  }, [favoritesSuccess]);
+  // //reset the success toast
+  // useEffect(() => {
+  //   if(favoritesSuccess){
+  //     dispatch(resetError());
+  //   }
+  // }, [favoritesSuccess]);
 
-  //reset the error toast
-  useEffect(() => {
-    if(error){
-      dispatch(resetError());
-    }
-  }, [error]);
+  // reset the error toast
+  // useEffect(() => {
+  //   // if(error){
+  //   //   dispatch(resetError());
+  //   // }
+  //   console.log("FAVORITES", error, favoritesSuccess);
+  // }, [error]);
 
   useEffect(() => {
     console.log("Re-render");
@@ -42,7 +44,6 @@ const Favorites = ({ navigation }) => {
   return (
    
     <View style={styles.container}>
-      { console.log("favoritesData", favoritesData)}
       <Header title="Favorites" />
       {/* <View style={styles.textContainer}>
         <TypeOfService title={"Electrical Services"} />
@@ -54,6 +55,7 @@ const Favorites = ({ navigation }) => {
           <Text style={styles.emptyText}>No workers added to favorites yet.</Text> 
         </View>
         : <FavoritesFlatlist navigation={navigation} data={favoritesData} /> }
+      <ToastComponent/>
     </View>
   );
 };

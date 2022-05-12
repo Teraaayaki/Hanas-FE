@@ -25,42 +25,39 @@ const ProfileView = ({ navigation, route }) => {
   );
 
   const {user} = useSelector( (state) => state.userDetails);
-  const {error, success: favoritesSuccess} = useSelector( (state) => state.favorites);
+  const {addedSuccess, addedError} = useSelector( (state) => state.favorites);
   
   const errorToast = (mess) => {
-    showToast("error", mess, () => {
-      dispatch(resetError());
-    });
+    showToast("error", mess, "Please try again");
   };
 
   const successToast = (mess) => {
-    showToast("success", mess, () => {
-      dispatch(resetError());
-    });
+    showToast("success", mess, "Successful");
   };
 
   const handleAddToFavorites = () => {
-
+    console.log("I WAS CLICKED")
     const Data = {
       client_id: user.id,
       favorite_services: profileData.myServicesData[0]._id,
     }
 
     dispatch(addToFavorites(Data));
-
   };
 
   useEffect( () => {
-    if(error){
+    console.log("ADDED ERROR", addedError);
+    if(typeof addedError !== undefined){
       errorToast("Worker already added");
     }
-  }, [error]);
+  }, [addedError]);
 
   useEffect( () => {
-    if(favoritesSuccess){
+    console.log("ADDED SUCCESS", addedSuccess);
+    if(addedSuccess){
       successToast("Worker added to favorites");
     }
-  }, [favoritesSuccess]);
+  }, [addedSuccess]);
 
   useEffect(() => {
     console.log(profileData.email);

@@ -3,8 +3,9 @@ import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
 export const resetError = () => (dispatch) => {
+  console.log("TRIGGERED RESET ERROR");
   dispatch({
-    type: FavoritesActions.CLIENT_FAVORITES_FAIL,
+    type: FavoritesActions.CLIENT_FAVORITES_RESET,
   });
 };
 
@@ -34,13 +35,12 @@ export const addToFavorites = (DATA) => async (dispatch) => {
           payload: favoritesDATA.favoritesArray,
         });
 
-        dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+        dispatch({ type: FavoritesActions.CLIENT_FAVORITES_ADDED_SUCCESS });
       }
     }
   } catch (err) {
-    console.log(err);
     let error = err.response.data ? err.response.data : err;
-    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_FAIL, payload: error });
+    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR, payload: error });
   }
 };
 
@@ -56,13 +56,12 @@ export const getFavorites = () => async (dispatch) => {
     );
 
     if (data) {
-      console.log("DATA", data.favoritesArray);
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
         payload: data.favoritesArray,
       });
 
-      dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+
     }else{
       
       dispatch({
@@ -91,12 +90,12 @@ export  const removeFavorites = (DATA) => async (dispatch) => {
     );
 
     if(data){
-      dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+      dispatch({ type: FavoritesActions.CLIENT_FAVORITES_REMOVED_SUCCESS });
     }
 
   }catch(err){
     console.log(err);
     let error = err.response.data ? err.response.data : err;
-    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_FAIL, payload: error });
+    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR, payload: error });
   }
 }
