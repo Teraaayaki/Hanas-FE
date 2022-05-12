@@ -11,23 +11,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const Favorites = ({ navigation }) => {
-  const {
-    favoritesData,
-    error,
-    success: favoritesSuccess,
-  } = useSelector((state) => state.favorites);
+  const { favoritesData } = useSelector((state) => state.favorites);
+
+  const { removedSuccess } = useSelector((state) => state.removedSuccess);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFavorites());
   }, []);
 
-  // //reset the success toast
+  //reset the success toast
   // useEffect(() => {
   //   if(favoritesSuccess){
   //     dispatch(resetError());
   //   }
-  // }, [favoritesSuccess]);
+  // }, [removedSuccess]);
 
   // reset the error toast
   // useEffect(() => {

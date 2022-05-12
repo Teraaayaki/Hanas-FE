@@ -81,7 +81,7 @@ export const removefavoritesReducer = (
       return {
         ...state,
         loading: true,
-        success: false,
+        removedSuccess: false,
       };
     case FavoritesActions.CLIENT_FAVORITES_REMOVED_SUCCESS:
       return {
