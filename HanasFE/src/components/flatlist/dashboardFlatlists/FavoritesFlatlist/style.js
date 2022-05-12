@@ -36,4 +36,16 @@ export default StyleSheet.create({
     color: colors.muted50,
     fontSize: fontSize.h5,
   },
+  leftAction: {
+    padding: 2,
+    justifyContent: "center",
+    flex: .2,
+    borderRadius: 15,
+    height: 110,
+    marginTop: 10,
+  },
+  actionText: {
+    color: colors.white,
+    alignSelf: "center",
+  }
 });

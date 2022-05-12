@@ -29,7 +29,6 @@ export const addToFavorites = (DATA) => async (dispatch) => {
       );
 
       if (favoritesDATA) {
-        console.log("Get Favorites");
         dispatch({
           type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
           payload: favoritesDATA.favoritesArray,
@@ -51,9 +50,10 @@ export const getFavorites = () => async (dispatch) => {
   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
 
   try {
-    let { data } = await axios.get("/api/client/get-favorites", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    let { data } = await axios.get(
+      "/api/client/get-favorites", 
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
     if (data) {
       console.log("DATA", data.favoritesArray);
@@ -77,3 +77,28 @@ export const getFavorites = () => async (dispatch) => {
     dispatch({ type: FavoritesActions.CLIENT_FAVORITES_FAIL, payload: error });
   }
 };
+
+export  const removeFavorites = (DATA) => async (dispatch) => {
+  let token = await getItem("token");
+
+  dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
+
+  try{
+    let {data} = await axios.post(
+      "api/client/remove-from-favorites", 
+      { DATA },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+
+    if(data){
+      console.log("Successful Deletion");
+      dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+    }
+
+  }catch(err){
+    console.log(err);
+    let error = err.response.data ? err.response.data : err;
+    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_FAIL, payload: error });
+  }
+}

@@ -1,15 +1,20 @@
 import React, {useState} from 'react';
 import { View, Text, Image, TouchableOpacity, TouchableHighlight} from "react-native";
-import styles from "./style";
+import { useDispatch, useSelector} from "react-redux";
 
+
+
+import styles from "./style";
 import { colors, fontSize, margin } from "@constants";
 import CircularImage from '@components/CircularImage';
 import TextLinkPink from '@components/TextLinkPink';
 import { Button, Icon } from "react-native-elements";
 
 
-const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, onPressServices, navigation}) => {
+const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, onPressServices, navigation, item}) => {
 
+    
+    const dispatch = useDispatch();
     var [isPress, setIsPress] = useState(false);
 
     var touchPropsServices = {
@@ -19,6 +24,9 @@ const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, on
         onHideUnderlay: () => setIsPress(console.log("I SHOULD BESHOWN")),
         onShowUnderlay: () => setIsPress(console.log("I AM SHOWN")),
       };
+
+    
+    
   return (
     <View style={styles.container} >
         <TouchableOpacity style={styles.cardContainer} activeOpacity={0.6} onPress={onPress}>
@@ -46,11 +54,6 @@ const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, on
                         <Text style={styles.fadeTextValues}>{jobs}</Text>
                         <Text style={styles.fadeTextValues}>{rate} Php/hr</Text>
                     </View>
-                </View>
-                <View style={{flex: .4}}>
-                    <TouchableOpacity>
-                        <Button title="Remove" style={{color: colors.secondary}} onPress={() => console.log("Removed")}></Button>
-                    </TouchableOpacity>
                 </View>
             </View>
         </TouchableOpacity>
