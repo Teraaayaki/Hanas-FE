@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from "react-native";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./style";
 import Header from "@components/Header";
 import FavoritesFlatlist from "@components/flatlist/dashboardFlatlists/FavoritesFlatlist";
@@ -11,15 +11,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const Favorites = ({ navigation }) => {
-  
- 
-  const { favoritesData, error, success: favoritesSuccess } = useSelector( (state) => state.favorites);
+  const {
+    favoritesData,
+    error,
+    success: favoritesSuccess,
+  } = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFavorites());
   }, []);
-
 
   // //reset the success toast
   // useEffect(() => {
@@ -39,23 +40,25 @@ const Favorites = ({ navigation }) => {
   useEffect(() => {
     console.log("Re-render");
   }, [favoritesData]);
- 
- 
+
   return (
-   
     <View style={styles.container}>
       <Header title="Favorites" />
       {/* <View style={styles.textContainer}>
         <TypeOfService title={"Electrical Services"} />
         <DropdownPicker />
       </View> */}
-      
-      { (favoritesData.length == 0) ? 
+
+      {favoritesData.length == 0 ? (
         <View style={styles.centeredEmptyText}>
-          <Text style={styles.emptyText}>No workers added to favorites yet.</Text> 
+          <Text style={styles.emptyText}>
+            No workers added to favorites yet.
+          </Text>
         </View>
-        : <FavoritesFlatlist navigation={navigation} data={favoritesData} /> }
-      <ToastComponent/>
+      ) : (
+        <FavoritesFlatlist navigation={navigation} data={favoritesData} />
+      )}
+      <ToastComponent />
     </View>
   );
 };

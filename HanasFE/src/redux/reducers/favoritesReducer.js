@@ -5,9 +5,18 @@ export const favoritesInitialValues = {
   success: false,
   favoritesData: [],
   error: undefined,
-  addedSuccess: false,
-  removedSuccess: false,
   addedError: undefined,
+  removedError: undefined,
+};
+
+export const addfavoritesInitialValues = {
+  addedSuccess: false,
+  addedError: undefined,
+  loading: false,
+};
+
+export const removefavoritesInitialValues = {
+  removedSuccess: false,
   removedError: undefined,
 };
 
@@ -27,15 +36,67 @@ const favoritesReducer = (state = favoritesInitialValues, action) => {
     case FavoritesActions.CLIENT_FAVORITES_DETAILS:
       return { ...state, loading: false, favoritesData: action.payload };
     case FavoritesActions.CLIENT_FAVORITES_RESET:
-      return { ...state, loading: false, success: false, error: undefined};
+      return { ...state, loading: false, success: false, error: undefined };
+    default:
+      return state;
+  }
+};
+
+export const addfavoritesReducer = (
+  state = addfavoritesInitialValues,
+  action
+) => {
+  switch (action.type) {
+    case FavoritesActions.CLIENT_FAVORITES_ADDED_LOADING:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
     case FavoritesActions.CLIENT_FAVORITES_ADDED_SUCCESS:
-      return {...state, loading: false, addedSuccess: true, addedError: undefined}
+      return {
+        ...state,
+        loading: false,
+        addedSuccess: true,
+        addedError: undefined,
+      };
     case FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR:
-      return {...state, loading: false, addedSuccess: false, addedError: action.payload}
+      return {
+        ...state,
+        loading: false,
+        addedSuccess: false,
+        addedError: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const removefavoritesReducer = (
+  state = addfavoritesInitialValues,
+  action
+) => {
+  switch (action.type) {
+    case FavoritesActions.CLIENT_FAVORITES_ADDED_LOADING:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
     case FavoritesActions.CLIENT_FAVORITES_REMOVED_SUCCESS:
-      return {...state, loading: false, removedSuccess: true, removedError: undefined}
+      return {
+        ...state,
+        loading: false,
+        removedSuccess: true,
+        removedError: undefined,
+      };
     case FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR:
-      return {...state, loading: false, removedSuccess: false, removedError: action.payload}
+      return {
+        ...state,
+        loading: false,
+        removedSuccess: false,
+        removedError: action.payload,
+      };
     default:
       return state;
   }

@@ -14,7 +14,7 @@ import Loading from "@components/Loading";
 import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileReviewFlatlist";
 import { colors, fontSize, margin, padding } from "@constants";
 import { fetchData } from "@redux/actions/clientWorkerViewActions";
-import { addToFavorites, resetError} from "@redux/actions/favoritesActions";
+import { addToFavorites, resetError } from "@redux/actions/favoritesActions";
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const ProfileView = ({ navigation, route }) => {
@@ -24,9 +24,11 @@ const ProfileView = ({ navigation, route }) => {
     (state) => state.clientWorkerView
   );
 
-  const {user} = useSelector( (state) => state.userDetails);
-  const {addedSuccess, addedError} = useSelector( (state) => state.favorites);
-  
+  const { user } = useSelector((state) => state.userDetails);
+  const { addedSuccess, addedError } = useSelector(
+    (state) => state.addFavorites
+  );
+
   const errorToast = (mess) => {
     showToast("error", mess, "Please try again");
   };
@@ -36,25 +38,26 @@ const ProfileView = ({ navigation, route }) => {
   };
 
   const handleAddToFavorites = () => {
-    console.log("I WAS CLICKED")
+    console.log("I WAS CLICKED");
     const Data = {
       client_id: user.id,
       favorite_services: profileData.myServicesData[0]._id,
-    }
+    };
 
     dispatch(addToFavorites(Data));
   };
 
-  useEffect( () => {
-    console.log("ADDED ERROR", addedError);
-    if(typeof addedError !== undefined){
+  useEffect(() => {
+    console.log("ADDED ERROR", addedError, typeof addedError !== undefined);
+    if (typeof addedError !== undefined) {
+      console.log("Show Error Toast");
       errorToast("Worker already added");
     }
   }, [addedError]);
 
-  useEffect( () => {
+  useEffect(() => {
     console.log("ADDED SUCCESS", addedSuccess);
-    if(addedSuccess){
+    if (addedSuccess) {
       successToast("Worker added to favorites");
     }
   }, [addedSuccess]);
@@ -64,7 +67,6 @@ const ProfileView = ({ navigation, route }) => {
     console.log("Triggered [worker_id, service_id]");
     console.log(profileData.family_name);
     dispatch(fetchData(worker_id, service_id));
-
   }, [worker_id, service_id]);
 
   return (
@@ -186,14 +188,16 @@ const ProfileView = ({ navigation, route }) => {
                           style={styles.whiteButton}
                           onPress={handleAddToFavorites}
                         >
-                          <Text style={styles.buttonText} >
+                          <Text style={styles.buttonText}>
                             ADD TO FAVORITES
                           </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.pinkButton}
                           onPress={() =>
-                            navigation.navigate("BookSkilledWorker", {serviceName}) 
+                            navigation.navigate("BookSkilledWorker", {
+                              serviceName,
+                            })
                           }
                         >
                           <Text style={styles.buttonText}>BOOK</Text>
@@ -239,7 +243,7 @@ const ProfileView = ({ navigation, route }) => {
           </>
         )
       )}
-      <ToastComponent/>
+      <ToastComponent />
     </>
   );
 };

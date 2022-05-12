@@ -40,7 +40,10 @@ export const addToFavorites = (DATA) => async (dispatch) => {
     }
   } catch (err) {
     let error = err.response.data ? err.response.data : err;
-    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR, payload: error });
+    dispatch({
+      type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR,
+      payload: error,
+    });
   }
 };
 
@@ -50,26 +53,21 @@ export const getFavorites = () => async (dispatch) => {
   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
 
   try {
-    let { data } = await axios.get(
-      "/api/client/get-favorites", 
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    let { data } = await axios.get("/api/client/get-favorites", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     if (data) {
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
         payload: data.favoritesArray,
       });
-
-
-    }else{
-      
+    } else {
       dispatch({
         type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
         payload: data.favoritesArray,
       });
     }
-
   } catch (err) {
     console.log(err);
     let error = err.response.data ? err.response.data : err;
@@ -77,25 +75,43 @@ export const getFavorites = () => async (dispatch) => {
   }
 };
 
-export  const removeFavorites = (DATA) => async (dispatch) => {
+export const removeFavorites = (DATA) => async (dispatch) => {
   let token = await getItem("token");
 
   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
 
-  try{
-    let {data} = await axios.post(
-      "api/client/remove-from-favorites", 
+  try {
+    let { data } = await axios.post(
+      "api/client/remove-from-favorites",
       { DATA },
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    if(data){
+    if (data) {
       dispatch({ type: FavoritesActions.CLIENT_FAVORITES_REMOVED_SUCCESS });
-    }
 
-  }catch(err){
+      let { data: favoritesDATA } = await axios.get(
+        "/api/client/get-favorites",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (favoritesDATA) {
+        dispatch({
+          type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
+          payload: favoritesDATA.favoritesArray,
+        });
+
+        dispatch({ type: FavoritesActions.CLIENT_FAVORITES_ADDED_SUCCESS });
+      }
+    }
+  } catch (err) {
     console.log(err);
     let error = err.response.data ? err.response.data : err;
-    dispatch({ type: FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR, payload: error });
+    dispatch({
+      type: FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR,
+      payload: error,
+    });
   }
-}
+};
