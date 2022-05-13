@@ -48,13 +48,17 @@ const FavoritesFlatlist = ({ navigation, data}) => {
   };
 
   const handleRemove = () => {
+
+    console.log("DATA", data);
+
     const Data = {
         client_id: user.id,
-        favorite_services: data._id,
+        favorite_services: data[0]._id,
     }
+
     dispatch(removeFavorites(Data));
 
-    showToast("success", "Successfully removed from favorites", "Pull down to refresh list", () => { dispatch(resetError()) } );
+    showToast("success", "Successfully removed from favorites", "Pull down to refresh list");
   }
   
   const renderLeftActions = (progress, dragX) => {
@@ -81,13 +85,6 @@ const FavoritesFlatlist = ({ navigation, data}) => {
     );
   };
   
-  //reset the success toast
-  useEffect(() => {
-    if(success){
-      dispatch(resetError());
-    }
-  }, [success]);
-
   const renderItem = ({ item }) => {
     
     const backgroundColor =

@@ -13,7 +13,7 @@ import { ToastComponent, showToast } from "@helpers/toast";
 const Favorites = ({ navigation }) => {
   const { favoritesData } = useSelector((state) => state.favorites);
 
-  const { removedSuccess } = useSelector((state) => state.removedSuccess);
+  const { removedSuccess } = useSelector((state) => state.removeFavorites);
 
   const dispatch = useDispatch();
 
@@ -40,6 +40,8 @@ const Favorites = ({ navigation }) => {
     console.log("Re-render");
   }, [favoritesData]);
 
+  
+  
   return (
     <View style={styles.container}>
       <Header title="Favorites" />

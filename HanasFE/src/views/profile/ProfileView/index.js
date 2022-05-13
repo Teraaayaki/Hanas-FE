@@ -49,7 +49,7 @@ const ProfileView = ({ navigation, route }) => {
 
   useEffect(() => {
     console.log("ADDED ERROR", addedError, typeof addedError !== undefined);
-    if (typeof addedError !== undefined) {
+    if (addedError) {
       console.log("Show Error Toast");
       errorToast("Worker already added");
     }
