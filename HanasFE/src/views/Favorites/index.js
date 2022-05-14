@@ -6,7 +6,7 @@ import FavoritesFlatlist from "@components/flatlist/dashboardFlatlists/Favorites
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 import { getFavorites } from "@redux/actions/favoritesActions";
-import { resetError } from "@redux/actions/favoritesActions";
+import { resetRemoveError } from "@redux/actions/favoritesActions";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
 
@@ -21,27 +21,22 @@ const Favorites = ({ navigation }) => {
     dispatch(getFavorites());
   }, []);
 
-  //reset the success toast
-  // useEffect(() => {
-  //   if(favoritesSuccess){
-  //     dispatch(resetError());
-  //   }
-  // }, [removedSuccess]);
-
-  // reset the error toast
-  // useEffect(() => {
-  //   // if(error){
-  //   //   dispatch(resetError());
-  //   // }
-  //   console.log("FAVORITES", error, favoritesSuccess);
-  // }, [error]);
+  useEffect(() => {
+    console.log("removedSuccess", removedSuccess);
+    if (removedSuccess) {
+      showToast(
+        "success",
+        "Successfully removed from favorites",
+        "Pull down to refresh list",
+        () => dispatch(resetRemoveError())
+      );
+    }
+  }, [removedSuccess]);
 
   useEffect(() => {
     console.log("Re-render");
   }, [favoritesData]);
 
-  
-  
   return (
     <View style={styles.container}>
       <Header title="Favorites" />

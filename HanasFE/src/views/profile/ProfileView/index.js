@@ -14,7 +14,10 @@ import Loading from "@components/Loading";
 import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileReviewFlatlist";
 import { colors, fontSize, margin, padding } from "@constants";
 import { fetchData } from "@redux/actions/clientWorkerViewActions";
-import { addToFavorites, resetError } from "@redux/actions/favoritesActions";
+import {
+  addToFavorites,
+  resetAddedError,
+} from "@redux/actions/favoritesActions";
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const ProfileView = ({ navigation, route }) => {
@@ -30,11 +33,13 @@ const ProfileView = ({ navigation, route }) => {
   );
 
   const errorToast = (mess) => {
-    showToast("error", mess, "Please try again");
+    showToast("error", mess, "Please try again", () =>
+      dispatch(resetAddedError())
+    );
   };
 
   const successToast = (mess) => {
-    showToast("success", mess, "Successful");
+    showToast("success", mess, "Successful", () => dispatch(resetAddedError()));
   };
 
   const handleAddToFavorites = () => {
@@ -63,9 +68,7 @@ const ProfileView = ({ navigation, route }) => {
   }, [addedSuccess]);
 
   useEffect(() => {
-    console.log(profileData.email);
     console.log("Triggered [worker_id, service_id]");
-    console.log(profileData.family_name);
     dispatch(fetchData(worker_id, service_id));
   }, [worker_id, service_id]);
 

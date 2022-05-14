@@ -16,6 +16,7 @@ export const addfavoritesInitialValues = {
 };
 
 export const removefavoritesInitialValues = {
+  loading: false,
   removedSuccess: false,
   removedError: undefined,
 };
@@ -73,11 +74,11 @@ export const addfavoritesReducer = (
 };
 
 export const removefavoritesReducer = (
-  state = addfavoritesInitialValues,
+  state = removefavoritesInitialValues,
   action
 ) => {
   switch (action.type) {
-    case FavoritesActions.CLIENT_FAVORITES_ADDED_LOADING:
+    case FavoritesActions.CLIENT_FAVORITES_REMOVED_LOADING:
       return {
         ...state,
         loading: true,
@@ -88,7 +89,6 @@ export const removefavoritesReducer = (
         ...state,
         loading: false,
         removedSuccess: true,
-        removedError: undefined,
       };
     case FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR:
       return {

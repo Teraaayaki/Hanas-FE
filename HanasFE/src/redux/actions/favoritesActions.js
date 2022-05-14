@@ -9,6 +9,20 @@ export const resetError = () => (dispatch) => {
   });
 };
 
+export const resetAddedError = () => (dispatch) => {
+  console.log("TRIGGERED RESET ADDED ERROR");
+  dispatch({
+    type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR,
+  });
+};
+
+export const resetRemoveError = () => (dispatch) => {
+  console.log("TRIGGERED RESET REMOVED ERROR");
+  dispatch({
+    type: FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR,
+  });
+};
+
 export const addToFavorites = (DATA) => async (dispatch) => {
   let token = await getItem("token");
 
@@ -78,7 +92,7 @@ export const getFavorites = () => async (dispatch) => {
 export const removeFavorites = (DATA) => async (dispatch) => {
   let token = await getItem("token");
 
-  dispatch({ type: FavoritesActions.CLIENT_FAVORITES_LOADING });
+  dispatch({ type: FavoritesActions.CLIENT_FAVORITES_REMOVED_LOADING });
 
   try {
     let { data } = await axios.post(
@@ -86,25 +100,25 @@ export const removeFavorites = (DATA) => async (dispatch) => {
       { DATA },
       { headers: { Authorization: `Bearer ${token}` } }
     );
-
+    console.log(data);
     if (data) {
       dispatch({ type: FavoritesActions.CLIENT_FAVORITES_REMOVED_SUCCESS });
 
-      let { data: favoritesDATA } = await axios.get(
-        "/api/client/get-favorites",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      // let { data: favoritesDATA } = await axios.get(
+      //   "/api/client/get-favorites",
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
 
-      if (favoritesDATA) {
-        dispatch({
-          type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
-          payload: favoritesDATA.favoritesArray,
-        });
+      // if (favoritesDATA) {
+      //   dispatch({
+      //     type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
+      //     payload: favoritesDATA.favoritesArray,
+      //   });
 
-        dispatch({ type: FavoritesActions.CLIENT_FAVORITES_ADDED_SUCCESS });
-      }
+      //   dispatch({ type: FavoritesActions.CLIENT_FAVORITES_SUCCESS });
+      // }
     }
   } catch (err) {
     console.log(err);
