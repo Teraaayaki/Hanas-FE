@@ -17,7 +17,7 @@ const Item = ({
     name={item.name}
     profession={item.myServicesData[0].serviceNameData[0].service_type}
     rating={item.myServicesData[0].feedbackData[0].rateAvg}
-    jobs={1000}
+    jobs={item.myServicesData[0].feedbackData[0].jobs}
     image={item.image}
     rate={item.myServicesData[0].hourly_rate}
     onPress={onPress}
@@ -35,8 +35,14 @@ const CardContainerFlatlist = ({ navigation, data }) => {
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate("ProfileView" , {worker_id: item._id, service_id: item.myServicesData[0]._id, serviceName: item.myServicesData[0].serviceNameData[0].service_type})}
-        onPressServices={() => navigation.navigate("ServicesNearYou")}
+        onPress={() =>
+          navigation.navigate("ProfileView", {
+            worker_id: item._id,
+            service_id: item.myServicesData[0]._id,
+            serviceName: item.myServicesData[0].serviceNameData[0].service_type,
+          })
+        }
+        // onPressServices={() => navigation.navigate("ServicesNearYou")}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

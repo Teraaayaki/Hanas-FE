@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import {margin, padding, colors} from "@constants";
+import {margin, padding, colors, fontSize} from "@constants";
 
 const styles = StyleSheet.create({
     container:{
@@ -15,6 +15,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: padding.p3,
         backgroundColor: colors.background,
+    },
+    emptyText: {
+        color: colors.black,
+        fontSize: fontSize.h2,
+    },
+    centeredEmptyText: {
+        flex:1, 
+        justifyContent: "center", 
+        alignItems: "center"
     },
 });
 
