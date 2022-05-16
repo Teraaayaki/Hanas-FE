@@ -1,60 +1,9 @@
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors, margin, fontSize, padding, fontWeight } from "@constants";
 
 export default StyleSheet.create({
-  //CLIENT STyLES///////////////////////////////////////////////////////////////////////////
-  container: {
-    flex: 1,
-    backgroundColor: colors.lightGrey,
-  },
-  horizontalContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  headerText: {
-    fontSize: fontSize.title,
-    color: colors.dark,
-    fontWeight: fontWeight.bold,
-    alignSelf: "center",
-  },
-  horizontalScrollContainer: {
-    height: "auto",
-  },
-  textContainer: {
-    marginHorizontal: margin.m3,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: padding.p3,
-    backgroundColor: "transparent",
-  },
-  labelText: {
-    fontSize: fontSize.label,
-  },
-  fadeText: {
-    fontSize: fontSize.h5,
-    color: colors.borderGrey,
-  },
-  btnPress: {
-    borderRadius: 10,
-    padding: 5,
-  },
-
-  //WORKER STYLES///////////////////////////////////////////////////////////////////////////
   //Unique===================================================================
-  chatInput: {
-    borderWidth: 1,
-    borderColor: "#AF183C",
-  },
 
-  sendingContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  sendButton: {
-    fontSize: 8,
-    color: "#FFF",
-    backgroundColor: colors.secondary,
-  },
   //Unique===================================================================
   //Reusables================================================================
   temp1: {
@@ -65,6 +14,15 @@ export default StyleSheet.create({
   },
   temp3: {
     backgroundColor: "#FCF",
+  },
+  temp4: {
+    backgroundColor: "#FCC",
+  },
+  temp5: {
+    backgroundColor: "#CFC",
+  },
+  temp6: {
+    backgroundColor: "#CCF",
   },
 
   body: {
@@ -78,6 +36,18 @@ export default StyleSheet.create({
   },
   rounded100: {
     borderRadius: 100,
+  },
+  roundedLeft100: {
+    borderTopStartRadius: 100,
+    borderBottomStartRadius: 100,
+  },
+  roundedRight100: {
+    borderTopEndRadius: 100,
+    borderBottomEndRadius: 100,
+  },
+
+  absolute: {
+    position: "absolute",
   },
 
   square: {
@@ -102,6 +72,9 @@ export default StyleSheet.create({
   },
   justifyContentSpaceEvenly: {
     justifyContent: "space-evenly",
+  },
+  justifyContentSpaceBetween: {
+    justifyContent: "space-between",
   },
   //Height---------------------------------------
   h100: {
@@ -172,14 +145,19 @@ export default StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+  underline: {
+    textDecorationLine: "underline",
+  },
   //Color ==================================================
   //Background Color-----------------------------
   bgWhite: { backgroundColor: "#FFF" },
   bgDark: { backgroundColor: colors.dark },
   bgLight: { backgroundColor: colors.light },
+  bgLightGrey: { backgroundColor: colors.lightGrey },
   bgGrey: { backgroundColor: colors.grey },
   bgPrimary: { backgroundColor: colors.primary },
   bgSecondary: { backgroundColor: colors.secondary },
+  bgBG: { backgroundColor: colors.background },
   // Border Color -------------------------------
   border: {
     borderWidth: 1,
@@ -187,6 +165,11 @@ export default StyleSheet.create({
   borderTop: {
     borderTopWidth: 1,
   },
+
+  borderBottom: {
+    borderBottomWidth: 1,
+  },
+
   borderPrimary: { borderColor: colors.primary },
   borderSecondary: { borderColor: colors.secondary },
   borderMuted50: { borderColor: colors.muted50 },
@@ -194,6 +177,7 @@ export default StyleSheet.create({
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textSecondary: { color: colors.secondary },
+  textMuted50: { color: colors.muted50 },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,
@@ -450,4 +434,48 @@ export default StyleSheet.create({
     marginRight: margin.m5,
   },
   //==========================================================================
+  single : { 
+    color: colors.white,
+    fontSize: 15, 
+    fontWeight: fontWeight.bold, 
+    letterSpacing: 1.5, 
+    minWidth: 100, 
+    textAlign: 'center' 
+  },
+  multiple : {
+    color: colors.black,
+    fontSize: 15, 
+    fontWeight: fontWeight.bold, 
+    letterSpacing: 1.5, 
+    minWidth: 100, 
+    textAlign: 'center' 
+  },
+  flexStartContainer: {
+    flexDirection: "row", 
+    justifyContent: "flex-start"
+  },
+  flexBetweenContainer: {
+    flexDirection: "row", 
+    justifyContent: "space-between"
+  },
+  success_notif: {
+    backgroundColor: colors.success,
+    marginTop: margin.m2,
+    borderColor: colors.black,
+    borderRadius: 12,
+    width: 10,
+    height: 10,
+    fontWeight: fontWeight.bold,
+    fontSize: fontSize.h5,
+  },
+  fail_notif: {
+    backgroundColor: colors.danger,
+    marginTop: margin.m2,
+    borderColor: colors.black,
+    borderRadius: 12,
+    width: 10,
+    height: 10,
+    fontWeight: fontWeight.bold,
+    fontSize: fontSize.h5,
+  },
 });

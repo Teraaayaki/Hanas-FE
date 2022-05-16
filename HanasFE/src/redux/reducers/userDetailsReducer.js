@@ -1,18 +1,9 @@
-import { UserDetailActions } from '../actions/types';
-
-// address: "",
-// birthdate: new Date(0, 0, 0),
-// email: "",
-// first_name: "",
-// last_name: "",
-// middle_name: "",
-// mobile_no: 0,
-// sex: "",
+import { UserDetailActions } from "../actions/types";
 
 export const userDetailsInitialValues = {
   loading: false,
   user: {},
-  error: undefined
+  error: undefined,
 };
 
 const userDetailReducer = (state = userDetailsInitialValues, action) => {

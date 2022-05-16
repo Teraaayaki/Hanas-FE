@@ -36,7 +36,7 @@ export default StyleSheet.create({
   headings: {
     fontSize: fontSize.h5,
     fontWeight: fontWeight.bold,
-    color: colors.borderGray,
+    color: colors.gray,
     opacity: 0.3,
   },
   values: {
@@ -82,6 +82,9 @@ export default StyleSheet.create({
     paddingHorizontal: padding.p4,
     flexDirection: "column",
     width: 150,
+  },
+  addressContainer: {
+    paddingHorizontal: padding.p5,
   },
   smallHeadings: {
     fontSize: fontSize.labelSmall,

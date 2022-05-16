@@ -1,4 +1,4 @@
-import { ClientWorkerViewActions} from "./types";
+import { ClientWorkerViewActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
@@ -26,6 +26,7 @@ export const fetchData = (worker_id, service_id) => async (dispatch) => {
       });
     }
   } catch (err) {
+    console.log(err);
     let error = err.response.data ? err.response.data : err;
     dispatch({
       type: ClientWorkerViewActions.CLIENT_WORKER_FAIL,

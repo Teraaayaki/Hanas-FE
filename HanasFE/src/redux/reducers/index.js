@@ -6,10 +6,12 @@ import workerServicesReducer from "./workerServicesReducer";
 import clientWorkerViewReducer from "./clientWorkerViewReducer";
 import clientBookingReducer from "./clientBookingReducer";
 import conversationReducer from "./conversationReducer";
+import scheduleReducer from "./scheduleReducer";
 import favoritesReducer, {
   addfavoritesReducer,
   removefavoritesReducer,
 } from "./favoritesReducer";
+import { combineReducers } from "redux";
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -22,4 +24,5 @@ export default combineReducers({
   favorites: favoritesReducer,
   addFavorites: addfavoritesReducer,
   removeFavorites: removefavoritesReducer,
+  schedule: scheduleReducer,
 });
