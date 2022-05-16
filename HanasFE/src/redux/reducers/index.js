@@ -11,7 +11,6 @@ import favoritesReducer, {
   addfavoritesReducer,
   removefavoritesReducer,
 } from "./favoritesReducer";
-import { combineReducers } from "redux";
 
 export default combineReducers({
   userLogin: userLoginReducer,
