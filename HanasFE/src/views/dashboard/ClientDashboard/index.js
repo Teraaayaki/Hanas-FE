@@ -19,6 +19,7 @@ import { colors } from "@constants";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 import { getBooking } from "@redux/actions/clientBookingActions";
+import { fontSize } from "../../../constants";
 
 const fetcher = async (url) => {
   let token = await getItem("token");
@@ -80,37 +81,56 @@ const ClientDashboard = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
               >
                 <View style={styles.horizontalContainer}>
-                  <CircularImage
-                    imageSource={require("@images/service1.png")}
-                    onPress={() => navigation.navigate("ProfileView")}
-                  />
-                  <CircularImage
-                    imageSource={require("@images/service2.png")}
-                    onPress={() => navigation.navigate("ProfileView")}
-                  />
-                  <CircularImage
-                    imageSource={require("@images/service3.png")}
-                    onPress={() => navigation.navigate("ProfileView")}
-                  />
-                  <CircularImage
-                    imageSource={require("@images/service4.png")}
-                    onPress={() => navigation.navigate("ProfileView")}
-                  />
-                  <CircularImage
-                    imageSource={require("@images/service5.png")}
-                    onPress={() => navigation.navigate("ProfileView")}
-                  />
-                  <CircularImage
-                    imageSource={require("@images/service6.png")}
-                    onPress={() => navigation.navigate("ProfileView")}
-                  />
+                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                    <CircularImage
+                      imageSource={require("@images/service1.png")}
+                      onPress={() => navigation.navigate("ProfileView")}
+                    />
+                    <Text style={styles.pinkText}>Electricity</Text>
+                  </View>
+                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                    <CircularImage
+                      imageSource={require("@images/service2.png")}
+                      onPress={() => navigation.navigate("ProfileView")}
+                    />
+                    <Text style={styles.pinkText}>Plumbing</Text>
+                  </View>
+                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                    <CircularImage
+                      imageSource={require("@images/service3.png")}
+                      onPress={() => navigation.navigate("ProfileView")}
+                    />
+                    <Text style={styles.pinkText}>Cleaning</Text>
+                  </View>
+                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                    <CircularImage
+                      imageSource={require("@images/service4.png")}
+                      onPress={() => navigation.navigate("ProfileView")}
+                    />
+                    <Text style={styles.pinkText}>Massage</Text>
+                  </View>
+                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                    <CircularImage
+                      imageSource={require("@images/service5.png")}
+                      onPress={() => navigation.navigate("ProfileView")}
+                    />
+                    <Text style={styles.pinkText}>House</Text>
+                  </View>
+                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                    <CircularImage
+                      imageSource={require("@images/service6.png")}
+                      onPress={() => navigation.navigate("ProfileView")}
+                    />
+                    <Text style={styles.pinkText}>Computer</Text>
+                  </View>
+                  
                 </View>
               </ScrollView>
             </ScrollView>
           </View>
         }
         ListFooterComponent={
-          <View>
+          <View style={styles.adjustedTop}>
             <View style={styles.textContainer}>
               <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
             </View>

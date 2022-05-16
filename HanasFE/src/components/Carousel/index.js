@@ -16,13 +16,13 @@ const HorizontalCarousel = () => {
         image: require("@images/dashboard1.png"),
       },
       {
-        image: require("@images/dashboard1.png"),
+        image: require("@images/dashboard2.png"),
       },
       {
-        image: require("@images/dashboard1.png"),
+        image: require("@images/dashboard3.png"),
       },
       {
-        image: require("@images/dashboard1.png"),
+        image: require("@images/dashboard4.png"),
       },
     ],
   };

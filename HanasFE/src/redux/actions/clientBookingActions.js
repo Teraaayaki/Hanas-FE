@@ -9,11 +9,16 @@ export const resetLoading = () => async (dispatch) => {
 export const getBooking = () => async (dispatch) => {
   let token = await getItem("token");
 
+  dispatch({
+    type: ClientBookingActions.CLIENT_BOOKING_LOADING,
+  });
+
   try {
     let { data } = await axios.get("/api/client/get-bookings", {
       headers: { authorization: `Bearer ${token}` },
     });
     if (data.bookings) {
+      console.log("Get Bookings");
       dispatch({
         type: ClientBookingActions.CLIENT_BOOKING_DETAILS,
         payload: data.bookings,

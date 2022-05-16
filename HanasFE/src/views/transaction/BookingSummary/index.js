@@ -14,7 +14,6 @@ const BookingSummary = ({ route }) => {
   const { success } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
-  console.log(booking_data);
   useEffect(() => {
     if (success) {
       showToast(
@@ -29,10 +28,9 @@ const BookingSummary = ({ route }) => {
   return (
     <>
       <View style={styles.container}>
-        {console.log("viewData", booking_data)}
         <Header title="Booking Summary" />
         <ScrollView>
-          <ReceiptAndSummary  
+          <ReceiptAndSummary
             summaryTitle={"Booking"}
             payment_method={"CASH"}
             date_paid={"N/A"}
@@ -45,9 +43,17 @@ const BookingSummary = ({ route }) => {
             service_type={`${booking_data.workerServiceData[0].serviceNameData[0].service_type} Services`}
             name={`${booking_data.workerData[0].first_name} ${booking_data.workerData[0].family_name}`}
             address={booking_data.workerData[0].address}
-            booked_date={dayjs(booking_data.workerData[0].createdAt).format("MMMM D, YYYY  h:m A (dddd)")}
-            time_start={dayjs(booking_data.booked_dateTimeStart).format("MMMM D, YYYY h:m A (dddd)")}
-            time_end={dayjs(booking_data.booked_dateTimeEnd).format("MMMM D, YYYY h:m A (dddd)")}
+            book_type={booking_data.book_type}
+            booked_date={dayjs(booking_data.booked_dateTimeStart).format(
+              "MMMM D, YYYY (dddd)"
+            )}
+            booked_end={dayjs(booking_data.booked_dateTimeEnd).format(
+              "MMMM D, YYYY (dddd)"
+            )}
+            time_start={dayjs(booking_data.booked_dateTimeStart).format(
+              "h:mm A"
+            )}
+            time_end={dayjs(booking_data.booked_dateTimeEnd).format("h:mm A")}
           />
         </ScrollView>
         <ToastComponent />

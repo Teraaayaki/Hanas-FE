@@ -68,7 +68,6 @@ const ProfileView = ({ navigation, route }) => {
   }, [addedSuccess]);
 
   useEffect(() => {
-    console.log("Triggered [worker_id, service_id]");
     dispatch(fetchData(worker_id, service_id));
   }, [worker_id, service_id]);
 

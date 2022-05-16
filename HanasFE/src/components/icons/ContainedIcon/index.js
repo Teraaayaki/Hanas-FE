@@ -99,7 +99,7 @@ const ContainedIcon = ({
   const isButtonHandler = ({ pressable, onPress }) => {
     if (pressable) {
       return (
-        <TouchableOpacity onPress={() => onPress}>
+        <TouchableOpacity onPress={onPress}>
           {renderIcon()}
         </TouchableOpacity>
       );
