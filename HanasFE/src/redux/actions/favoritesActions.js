@@ -18,6 +18,7 @@ export const resetAddedError = () => (dispatch) => {
 
 export const resetRemoveError = () => (dispatch) => {
   console.log("TRIGGERED RESET REMOVED ERROR");
+  console.log("DISpATCHED ERROR", FavoritesActions);
   dispatch({
     type: FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR,
   });
