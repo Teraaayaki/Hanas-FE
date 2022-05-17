@@ -18,7 +18,7 @@ import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { getItem } from "@helpers/asyncStorage";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import services from "@helpers/topServices";
+import services from "@helpers/services";
 
 const fetcher = async (url) => {
   let token = await getItem("token");
@@ -40,20 +40,29 @@ const ClientDashboard = ({ navigation }) => {
     `${process.env.LOCALHOST}/api/client/get-top-services`,
     fetcher
   );
+
+  //holder for the state of all the compared fetched top services to its corresponding images
   const [topRatedServices, setTopRatedServices] = useState([]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("Booking Data Populated");
     dispatch(getBooking());
 
+    //map the fetched data
     let topRatedTemp = servicesData.top_rated_services.map(
       (serviceData) => serviceData.service_type
     );
+    
+    //filter the fetched data's service type with its corresponding image
     let filteredServices = services.filter((service) =>
       topRatedTemp.includes(service.service_type)
     );
-    console.log(filteredServices);
+    
+    let sortedFilteredServices = filteredServices.sort();
+
+    //set the new 
     setTopRatedServices([...filteredServices]);
   }, []);
 
@@ -91,7 +100,6 @@ const ClientDashboard = ({ navigation }) => {
                       }}
                       key={topRatedServiceInfo._id}
                     >
-                      {console.log(typeof topRatedServiceInfo.image)}
                       <CircularImage
                         imageSource={topRatedServiceInfo.image}
                         onPress={() => navigation.navigate("ProfileView")}

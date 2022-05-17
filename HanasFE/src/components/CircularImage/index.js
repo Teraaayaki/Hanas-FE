@@ -4,7 +4,7 @@ import styles from "./style";
 import { colors, fontSize } from "@constants";
 
 const CircularImage = ({
-  imageSource,
+  imageSource = require("@images/default.png"),
   onPress,
 }) => {
   return (
