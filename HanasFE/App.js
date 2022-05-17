@@ -19,6 +19,7 @@ export default function App() {
     <SWRConfig
       value={{
         fetcher: (...args) => fetch(...args).then((res) => res.json()),
+        topServicesFetcher: (...args) => fetch(...args).then((res) => res.json()),
         suspense: true
       }}
     >

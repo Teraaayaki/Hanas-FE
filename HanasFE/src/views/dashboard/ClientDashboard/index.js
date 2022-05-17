@@ -32,12 +32,38 @@ const fetcher = async (url) => {
   return data;
 };
 
+const topServicesFetcher = async (url) => {
+  let token = await getItem("token");
+
+  let { data } = await axios.get(url, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  });
+
+  return data;
+};
+
 const ClientDashboard = ({ navigation }) => {
+  let servicesListArr = [];
   const { data, error } = useSWR(
     `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
     fetcher
   );
+
+  const { data : servicesData , error: topServicesError } = useSWR(
+      `${process.env.LOCALHOST}/api/client/get-top-services`,
+      topServicesFetcher
+  );
+
   const dispatch = useDispatch();
+  
+  
+  // const arrayViewOfServices = (servicesData) => {
+    
+
+    // return buttonsListArr;
+  // };
 
   var [isPress, setIsPress] = useState(false);
   var touchProps = {
@@ -56,7 +82,6 @@ const ClientDashboard = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <LightHeader />
-
       <FlatList
         style={styles.container}
         ListHeaderComponent={
@@ -81,49 +106,25 @@ const ClientDashboard = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
               >
                 <View style={styles.horizontalContainer}>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
+                  {/* <View style={{flexDirection: "column", justifyContent: "center"}}>
                     <CircularImage
                       imageSource={require("@images/service1.png")}
                       onPress={() => navigation.navigate("ProfileView")}
                     />
-                    <Text style={styles.pinkText}>Electricity</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service2.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Plumbing</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service3.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Cleaning</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service4.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Massage</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service5.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>House</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service6.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Computer</Text>
-                  </View>
+                    <Text style={styles.pinkText}>{servicesData.top_rated_services[0].service_type}</Text>
+                  </View> */}
                   
+                  {servicesData.top_rated_services.map(servicesInfo => (
+                    
+                    <View style={{flexDirection: "column", justifyContent: "center"}}>
+                      {console.log(typeof servicesInfo.image)}
+                      <CircularImage
+                        imageSource={require(`${servicesInfo.image}`)}
+                        onPress={() => navigation.navigate("ProfileView")}
+                      />
+                      <Text style={styles.pinkText}>{servicesInfo.service_type}</Text>
+                    </View>
+                  ))}
                 </View>
               </ScrollView>
             </ScrollView>
