@@ -18,7 +18,7 @@ import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { getItem } from "@helpers/asyncStorage";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import topServices from "@helpers/topServices";
+import services from "@helpers/topServices";
 
 const fetcher = async (url) => {
   let token = await getItem("token");
@@ -36,16 +36,25 @@ const ClientDashboard = ({ navigation }) => {
     `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
     fetcher
   );
-  // const { data: servicesData, error: topServicesError } = useSWR(
-  //   `${process.env.LOCALHOST}/api/client/get-top-services`,
-  //   fetcher
-  // );
-
+  const { data: servicesData, error: topServicesError } = useSWR(
+    `${process.env.LOCALHOST}/api/client/get-top-services`,
+    fetcher
+  );
+  const [topRatedServices, setTopRatedServices] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("Booking Data Populated");
     dispatch(getBooking());
+
+    let topRatedTemp = servicesData.top_rated_services.map(
+      (serviceData) => serviceData.service_type
+    );
+    let filteredServices = services.filter((service) =>
+      topRatedTemp.includes(service.service_type)
+    );
+    console.log(filteredServices);
+    setTopRatedServices([...filteredServices]);
   }, []);
 
   return (
@@ -74,21 +83,21 @@ const ClientDashboard = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
               >
                 <View style={styles.horizontalContainer}>
-                  {topServices.map((topServicesInfo) => (
+                  {topRatedServices.map((topRatedServiceInfo) => (
                     <View
                       style={{
                         flexDirection: "column",
                         justifyContent: "center",
                       }}
-                      key={topServicesInfo._id}
+                      key={topRatedServiceInfo._id}
                     >
-                      {console.log(typeof topServicesInfo.image)}
+                      {console.log(typeof topRatedServiceInfo.image)}
                       <CircularImage
-                        imageSource={topServicesInfo.image}
+                        imageSource={topRatedServiceInfo.image}
                         onPress={() => navigation.navigate("ProfileView")}
                       />
                       <Text style={styles.pinkText}>
-                        {topServicesInfo.service_type}
+                        {topRatedServiceInfo.service_type}
                       </Text>
                     </View>
                   ))}
