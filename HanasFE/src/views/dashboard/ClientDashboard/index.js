@@ -11,15 +11,14 @@ import {
 } from "react-native";
 import useSWR from "swr";
 import { useDispatch } from "react-redux";
+import axios from "@axios";
 
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
-import { colors } from "@constants";
-import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import { fontSize } from "../../../constants";
+import services from "@helpers/services";
 
 const fetcher = async (url) => {
   let token = await getItem("token");
@@ -37,26 +36,37 @@ const ClientDashboard = ({ navigation }) => {
     `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
     fetcher
   );
-  const dispatch = useDispatch();
+  const { data: servicesData, error: topServicesError } = useSWR(
+    `${process.env.LOCALHOST}/api/client/get-top-services`,
+    fetcher
+  );
 
-  var [isPress, setIsPress] = useState(false);
-  var touchProps = {
-    activeOpacity: 0.2,
-    underlayColor: colors.lightGrey, // <-- "backgroundColor" will be always overwritten by "underlayColor"
-    style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
-    onHideUnderlay: () => setIsPress(false),
-    onShowUnderlay: () => setIsPress(true),
-  };
+  //holder for the state of all the compared fetched top services to its corresponding images
+  const [topRatedServices, setTopRatedServices] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("Booking Data Populated");
     dispatch(getBooking());
+
+    //map the fetched data
+    let topRatedTemp = servicesData.top_rated_services.map(
+      (serviceData) => serviceData.service_type
+    );
+    
+    //filter the fetched data's service type with its corresponding image
+    let filteredServices = services.filter((service) =>
+      topRatedTemp.includes(service.service_type)
+    );
+    
+    //set the new 
+    setTopRatedServices([...filteredServices]);
   }, []);
 
   return (
     <View style={styles.container}>
       <LightHeader />
-
       <FlatList
         style={styles.container}
         ListHeaderComponent={
@@ -69,7 +79,6 @@ const ClientDashboard = ({ navigation }) => {
               <View style={styles.textContainer}>
                 <Text style={styles.labelText}>Top Services</Text>
                 <TouchableHighlight
-                  {...touchProps}
                   onPress={() => navigation.navigate("BrowseServices")}
                 >
                   <Text style={styles.fadeText}>View more</Text>
@@ -81,49 +90,23 @@ const ClientDashboard = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
               >
                 <View style={styles.horizontalContainer}>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service1.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Electricity</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service2.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Plumbing</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service3.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Cleaning</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service4.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Massage</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service5.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>House</Text>
-                  </View>
-                  <View style={{flexDirection: "column", justifyContent: "center"}}>
-                    <CircularImage
-                      imageSource={require("@images/service6.png")}
-                      onPress={() => navigation.navigate("ProfileView")}
-                    />
-                    <Text style={styles.pinkText}>Computer</Text>
-                  </View>
-                  
+                  {topRatedServices.map((topRatedServiceInfo) => (
+                    <View
+                      style={{
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                      key={topRatedServiceInfo._id}
+                    >
+                      <CircularImage
+                        imageSource={topRatedServiceInfo.image}
+                        onPress={() => navigation.navigate("ServicesNearYou", {service_type: topRatedServiceInfo.service_type})}
+                      />
+                      <Text style={styles.pinkText}>
+                        {topRatedServiceInfo.service_type}
+                      </Text>
+                    </View>
+                  ))}
                 </View>
               </ScrollView>
             </ScrollView>

@@ -142,6 +142,9 @@ const styles = StyleSheet.create({
   },
   h100: {
     height: "100%"
+  },
+  controlledWidth: {
+    maxWidth: 180,
   }
 });
 
