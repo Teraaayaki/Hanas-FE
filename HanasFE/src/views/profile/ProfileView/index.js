@@ -22,6 +22,8 @@ import { ToastComponent, showToast } from "@helpers/toast";
 
 const ProfileView = ({ navigation, route }) => {
   const { worker_id, service_id, serviceName } = route.params;
+  console.log("SERVICE_ID", service_id);
+
   const dispatch = useDispatch();
   const { loading, profileData, success } = useSelector(
     (state) => state.clientWorkerView
@@ -158,8 +160,9 @@ const ProfileView = ({ navigation, route }) => {
                       </View>
                       <View style={styles.snippetDetails}>
                         <Text style={[styles.blackText, { marginLeft: 15 }]}>
+                          {console.log("PROFILE DATA", profileData)}
                           <Icon color="#FFD706" size={15} name="star" />
-                          {profileData.myServicesData[0].feedbacksData[0].rate}
+                          {profileData.myServicesData[0].feedbacksData[0] == null ? `0` : profileData.myServicesData[0].feedbacksData[0].rate}
                           /5
                         </Text>
                         <Text style={[styles.blackText, { marginLeft: 20 }]}>

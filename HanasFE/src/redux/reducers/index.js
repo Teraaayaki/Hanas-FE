@@ -11,6 +11,7 @@ import favoritesReducer, {
   addfavoritesReducer,
   removefavoritesReducer,
 } from "./favoritesReducer";
+import servicesNearYouReducer from "./servicesNearYouReducer";
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -24,4 +25,5 @@ export default combineReducers({
   addFavorites: addfavoritesReducer,
   removeFavorites: removefavoritesReducer,
   schedule: scheduleReducer,
+  servicesNearYou: servicesNearYouReducer,
 });

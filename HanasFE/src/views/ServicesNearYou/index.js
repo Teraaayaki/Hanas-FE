@@ -9,19 +9,31 @@ import {
   TouchableOpacity,
   LogBox,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
+import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 
 const ServicesNearYou = ({ navigation, route }) => {
-  
+  const { servicesData } = useSelector((state) => state.servicesNearYou);
+
+  console.log("SERVICES DATA", servicesData)
+  const dispatch = useDispatch();
+
   const { service_type } = route.params;
 
   useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
-  }, []);
+    
+    const Data = {
+      service_type: service_type
+    }
+
+    dispatch(getServicesNearYou(Data));
+  }, [service_type]);
 
   return (
     <View style={styles.container}>
@@ -44,47 +56,25 @@ const ServicesNearYou = ({ navigation, route }) => {
           <TypeOfService title={`${service_type} Services`} />
           <DropdownPicker />
         </View>
-
-        <CardContainer
-          name={"Hosea Barriga"}
-          profession={"Electrical Services"}
-          rating={"4.5"}
-          jobs={"1000"}
+        {servicesData.map((workerInfo) => 
+          <CardContainer
+          key={workerInfo._id}
+          name={workerInfo.workerDetails[0].name}
+          profession={`${service_type} Services`}
+          rating={workerInfo.feedbackData[0] == null ?  `0` : workerInfo.feedbackData[0].rateAvg }
+          jobs={workerInfo.feedbackData[0] == null ? '0' : workerInfo.feedbackData[0].jobs}
           image={require("@images/profile1.png")}
-          rate={"100"}
-          onPressServices={() => navigation.navigate("ServicesNearYou")}
-          onPress={() => navigation.navigate("Profile")}
+          rate={workerInfo.hourly_rate}
+          onPress={() => navigation.navigate("ProfileView", 
+            {
+              worker_id: workerInfo.worker,
+              service_id: workerInfo._id,
+              serviceName: service_type
+            }
+          )}
         />
-        <CardContainer
-          name={"Hosea Barriga"}
-          profession={"Electrical Services"}
-          rating={"4.5"}
-          jobs={"1000"}
-          image={require("@images/profile1.png")}
-          rate={"100"}
-          onPressServices={() => navigation.navigate("ServicesNearYou")}
-          onPress={() => navigation.navigate("Profile")}
-        />
-        <CardContainer
-          name={"Hosea Barriga"}
-          profession={"Electrical Services"}
-          rating={"4.5"}
-          jobs={"1000"}
-          image={require("@images/profile1.png")}
-          rate={"100"}
-          onPressServices={() => navigation.navigate("ServicesNearYou")}
-          onPress={() => navigation.navigate("Profile")}
-        />
-        <CardContainer
-          name={"Hosea Barriga"}
-          profession={"Electrical Services"}
-          rating={"4.5"}
-          jobs={"1000"}
-          image={require("@images/profile1.png")}
-          rate={"100"}
-          onPressServices={() => navigation.navigate("ServicesNearYou")}
-          onPress={() => navigation.navigate("Profile")}
-        />
+        )}
+        
       </ScrollView>
     </View>
   );
