@@ -41,7 +41,7 @@ const ServicesNearYou = ({ navigation, route }) => {
           <Text style={styles.headerText}>SERVICES NEAR YOU</Text>
         </View>
         <View style={styles.textContainer}>
-          <TypeOfService title={"Electrical Services"} />
+          <TypeOfService title={`${service_type} Services`} />
           <DropdownPicker />
         </View>
 

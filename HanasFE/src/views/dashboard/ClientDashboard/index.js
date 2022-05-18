@@ -60,8 +60,6 @@ const ClientDashboard = ({ navigation }) => {
       topRatedTemp.includes(service.service_type)
     );
     
-    let sortedFilteredServices = filteredServices.sort();
-
     //set the new 
     setTopRatedServices([...filteredServices]);
   }, []);
