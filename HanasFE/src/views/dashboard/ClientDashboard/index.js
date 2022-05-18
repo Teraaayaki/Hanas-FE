@@ -102,7 +102,7 @@ const ClientDashboard = ({ navigation }) => {
                     >
                       <CircularImage
                         imageSource={topRatedServiceInfo.image}
-                        onPress={() => navigation.navigate("ProfileView")}
+                        onPress={() => navigation.navigate("ServicesNearYou", {service_type: topRatedServiceInfo.service_type})}
                       />
                       <Text style={styles.pinkText}>
                         {topRatedServiceInfo.service_type}

@@ -15,7 +15,10 @@ import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 
-const ServicesNearYou = ({ navigation }) => {
+const ServicesNearYou = ({ navigation, route }) => {
+  
+  const { service_type } = route.params;
+
   useEffect(() => {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, []);
