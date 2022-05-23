@@ -19,6 +19,7 @@ import {
   resetAddedError,
 } from "@redux/actions/favoritesActions";
 import { ToastComponent, showToast } from "@helpers/toast";
+import style from "../../ServicesNearYou/style";
 
 const ProfileView = ({ navigation, route }) => {
   const { worker_id, service_id, serviceName, jobs } = route.params;
@@ -206,30 +207,42 @@ const ProfileView = ({ navigation, route }) => {
                           <Text style={styles.buttonText}>BOOK</Text>
                         </TouchableOpacity>
                       </View>
-                      <View style={{ marginTop: margin.m5 }}>
-                        <Text style={styles.labelText}>
-                          Sample Works (
-                          {profileData.myServicesData[0].sample_works.length})
-                        </Text>
+                      <View style={styles.mtMargin}>
+                          {profileData.myServicesData[0].sample_works.length > 0 ? <Text style={[styles.labelText]}>Sample Works ({profileData.myServicesData[0].sample_works.length})</Text> : 
+                            <View>
+                              <Text style={styles.labelText}>Sample Works</Text>
+                              <View style={styles.centerView}>
+                                <Text style={styles.mtMargin}>No sample works added</Text>
+                              </View>
+                            </View>
+                          }
                       </View>
                       <SampleWorks
                         DATA={profileData.myServicesData[0].sample_works}
                       />
                       <View style={{ marginTop: margin.m5 }}>
-                        <Text style={styles.labelText}>
-                          Certificates (
-                          {profileData.myServicesData[0].certificates.length})
-                        </Text>
+                          {profileData.myServicesData[0].certificates.length > 0 ? <Text style={[styles.labelText]}>Certificates ({profileData.myServicesData[0].certificates.length})</Text> : 
+                            <View>
+                              <Text style={styles.labelText}>Certificates</Text>
+                              <View style={styles.centerView}>
+                                <Text style={styles.mtMargin}>No certficates added</Text>
+                              </View>
+                            </View>
+                          }
                       </View>
                       <Certificates
                         DATA={profileData.myServicesData[0].certificates}
                       />
-                      <View style={styles.flexedBetween}>
-                        <Text style={styles.labelText}>
-                          Feedback (
-                          {profileData.myServicesData[0].feedbacksData.length})
-                        </Text>
-                      </View>
+                      {/* <View style={styles.flexedBetween}> */}
+                          {profileData.myServicesData[0].feedbacksData.length > 0 ? <Text style={[styles.labelText]}>Feedback ({profileData.myServicesData[0].feedbacksData.length })</Text> : 
+                            <View>
+                              <Text style={styles.labelText}>Feedback</Text>
+                              <View style={styles.centerView}>
+                                <Text style={[styles.mtMargin, {marginBottom: 25}]}>No feedbacks received</Text>
+                              </View>
+                            </View>
+                          }
+                      {/* </View> */}
                     </View>
                   </View>
                 </ParallaxScrollView>

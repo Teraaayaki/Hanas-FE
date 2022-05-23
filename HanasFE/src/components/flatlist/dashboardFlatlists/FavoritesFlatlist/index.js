@@ -25,8 +25,8 @@ const Item = ({
   <CardContainer
     name={item.clientNameData[0].name}
     profession={item.serviceNameData[0].service_type}
-    rating={item.feedbackData[0].rateAvg}
-    jobs={item.feedbackData[0].jobs}
+    rating={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg}
+    jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
     image={item.image}
     rate={item.hourly_rate}
     item={item}
@@ -94,6 +94,7 @@ const FavoritesFlatlist = ({ navigation, data }) => {
               worker_id: item.clientNameData[0]._id,
               service_id: item._id,
               serviceName: item.serviceNameData[0].service_type,
+              jobs: item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs
             })
           }
           onPressServices={() => navigation.navigate("ServicesNearYou")}

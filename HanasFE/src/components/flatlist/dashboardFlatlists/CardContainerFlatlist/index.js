@@ -13,7 +13,6 @@ const Item = ({
   textColor,
   notif,
 }) => (
-  console.log("ITEM", item),
   <CardContainer
     name={item.name}
     profession={item.myServicesData[0].serviceNameData[0].service_type}

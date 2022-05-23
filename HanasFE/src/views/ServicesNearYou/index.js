@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
@@ -21,19 +21,43 @@ import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 const ServicesNearYou = ({ navigation, route }) => {
   const { servicesData } = useSelector((state) => state.servicesNearYou);
 
+  const [ isServicesData, setServicesData] = useState([]);
+
   const dispatch = useDispatch();
 
   const { service_type } = route.params;
+
+  // console.log("SERVICES DATA", servicesData.feedbackData[0].length);
+  // console.log("servicesData", servicesData);
+  // console.log("JOBS DONE SERVICES", servicesData[0].feedbackData[0].jobs);
+
+  // console.log("JOBS DONE", jobs_done);
+  useEffect(() => {
+    console.log("SERVICES DATA", servicesData);
+
+    const Data = {
+      service_type: service_type
+    }
+    
+    dispatch(getServicesNearYou(Data));
+
+    servicesData[0] === undefined ? setServicesData(["No worker found"]): setServicesData(servicesData);
+
+    console.log("IS SERVICES DATA", isServicesData);
+  }, []);
 
   useEffect(() => {
     
     const Data = {
       service_type: service_type
     }
-
+    
     dispatch(getServicesNearYou(Data));
+
   }, [service_type]);
 
+
+  
   return (
     <View style={styles.container}>
       <LightHeader />
@@ -59,8 +83,8 @@ const ServicesNearYou = ({ navigation, route }) => {
           key={workerInfo._id}
           name={workerInfo.workerDetails[0].name}
           profession={`${service_type} Services`}
-          rating={workerInfo.feedbackData[0] == null ?  `0` : workerInfo.feedbackData[0].rateAvg }
-          jobs={workerInfo.feedbackData[0] == null ? '0' : workerInfo.feedbackData[0].jobs}
+          rating={workerInfo.feedbackData[0] === undefined ?  `0` : workerInfo.feedbackData[0].rateAvg }
+          jobs={workerInfo.feedbackData[0] === undefined ?  `0` : workerInfo.feedbackData[0].jobs}
           image={require("@images/profile1.png")}
           rate={workerInfo.hourly_rate}
           onPress={() => navigation.navigate("ProfileView", 
@@ -68,7 +92,7 @@ const ServicesNearYou = ({ navigation, route }) => {
               worker_id: workerInfo.worker,
               service_id: workerInfo._id,
               serviceName: service_type,
-              jobs: workerInfo.feedbackData[0].jobs,
+              jobs: workerInfo.feedbackData[0] === undefined ?  `0` : workerInfo.feedbackData[0].jobs,
             }
           )}
         />
