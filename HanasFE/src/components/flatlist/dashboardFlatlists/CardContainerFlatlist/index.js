@@ -41,6 +41,7 @@ const CardContainerFlatlist = ({ navigation, data }) => {
             worker_id: item._id,
             service_id: item.myServicesData[0]._id,
             serviceName: item.myServicesData[0].serviceNameData[0].service_type,
+            jobs: item.myServicesData[0].feedbackData[0].jobs,
           })
         }
         // onPressServices={() => navigation.navigate("ServicesNearYou")}

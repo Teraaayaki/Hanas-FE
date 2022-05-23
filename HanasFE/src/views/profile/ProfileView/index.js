@@ -21,8 +21,7 @@ import {
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const ProfileView = ({ navigation, route }) => {
-  const { worker_id, service_id, serviceName } = route.params;
-  console.log("SERVICE_ID", service_id);
+  const { worker_id, service_id, serviceName, jobs } = route.params;
 
   const dispatch = useDispatch();
   const { loading, profileData, success } = useSelector(
@@ -113,7 +112,7 @@ const ProfileView = ({ navigation, route }) => {
                               <ButtonHallowGray
                                 title={serviceName}
                                 onPress={() =>
-                                  navigation.navigate("ServicesNearYou")
+                                  navigation.navigate("ServicesNearYou", {service_type: serviceName})
                                 }
                               />
                             </View>
@@ -155,21 +154,20 @@ const ProfileView = ({ navigation, route }) => {
                     <View>
                       <View style={styles.snippetDetails}>
                         <Text style={styles.fadedText}>Rating</Text>
-                        <Text style={styles.fadedText}>Jobs</Text>
+                        <Text style={styles.fadedText}>Jobs Done</Text>
                         <Text style={styles.fadedText}>Rate</Text>
                       </View>
                       <View style={styles.snippetDetails}>
-                        <Text style={[styles.blackText, { marginLeft: 15 }]}>
-                          {console.log("PROFILE DATA", profileData)}
+                        <Text style={[styles.blackText, {paddingLeft: 30}]}>
                           <Icon color="#FFD706" size={15} name="star" />
                           {profileData.myServicesData[0].feedbacksData[0] == null ? `0` : profileData.myServicesData[0].feedbacksData[0].rate}
                           /5
                         </Text>
-                        <Text style={[styles.blackText, { marginLeft: 20 }]}>
-                          1000
+                        <Text style={[styles.blackText, {marginLeft: 30, paddingLeft: 30}]}>
+                        {jobs === undefined ? `0` : jobs} 
                         </Text>
-                        <Text style={styles.blackText}>
-                          {profileData.myServicesData[0].hourly_rate}Php/hr
+                        <Text style={[styles.blackText, {marginLeft: 20, paddingLeft: 30}]}>
+                          {profileData.myServicesData[0].hourly_rate} Php/hr
                         </Text>
                       </View>
                     </View>

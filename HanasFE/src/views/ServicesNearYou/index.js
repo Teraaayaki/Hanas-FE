@@ -21,7 +21,6 @@ import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 const ServicesNearYou = ({ navigation, route }) => {
   const { servicesData } = useSelector((state) => state.servicesNearYou);
 
-  console.log("SERVICES DATA", servicesData)
   const dispatch = useDispatch();
 
   const { service_type } = route.params;
@@ -54,7 +53,6 @@ const ServicesNearYou = ({ navigation, route }) => {
         </View>
         <View style={styles.textContainer}>
           <TypeOfService title={`${service_type} Services`} />
-          <DropdownPicker />
         </View>
         {servicesData.map((workerInfo) => 
           <CardContainer
@@ -69,7 +67,8 @@ const ServicesNearYou = ({ navigation, route }) => {
             {
               worker_id: workerInfo.worker,
               service_id: workerInfo._id,
-              serviceName: service_type
+              serviceName: service_type,
+              jobs: workerInfo.feedbackData[0].jobs,
             }
           )}
         />

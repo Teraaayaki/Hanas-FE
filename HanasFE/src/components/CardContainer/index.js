@@ -30,8 +30,8 @@ const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, on
                 </TouchableHighlight>
                 <View style={styles.detailsContainer}>
                     <Text style={[styles.fadeText, {marginLeft: "2%"}]}>Rating</Text>
-                    <Text style={[styles.fadeText, {marginLeft: "4%"}]}>Jobs</Text>
-                    <Text style={styles.fadeText}>Rate</Text>
+                    <Text style={[styles.fadeText]}>Jobs Done</Text>
+                    <Text style={[styles.fadeText, {marginLeft: "5%"}]}>Rate</Text>
                 </View>
                 <View style={styles.detailsContainer}>
                     <Icon
