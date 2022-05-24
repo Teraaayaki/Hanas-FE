@@ -21,19 +21,11 @@ import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 const ServicesNearYou = ({ navigation, route }) => {
   const { servicesData } = useSelector((state) => state.servicesNearYou);
 
-  const [ isServicesData, setServicesData] = useState([]);
-
   const dispatch = useDispatch();
 
   const { service_type } = route.params;
-
-  // console.log("SERVICES DATA", servicesData.feedbackData[0].length);
-  // console.log("servicesData", servicesData);
-  // console.log("JOBS DONE SERVICES", servicesData[0].feedbackData[0].jobs);
-
-  // console.log("JOBS DONE", jobs_done);
+ 
   useEffect(() => {
-    console.log("SERVICES DATA", servicesData);
 
     const Data = {
       service_type: service_type
@@ -41,9 +33,6 @@ const ServicesNearYou = ({ navigation, route }) => {
     
     dispatch(getServicesNearYou(Data));
 
-    servicesData[0] === undefined ? setServicesData(["No worker found"]): setServicesData(servicesData);
-
-    console.log("IS SERVICES DATA", isServicesData);
   }, []);
 
   useEffect(() => {
