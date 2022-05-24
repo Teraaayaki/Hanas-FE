@@ -25,8 +25,10 @@ const Item = ({
   <CardContainer
     name={item.clientNameData[0].name}
     profession={item.serviceNameData[0].service_type}
-    rating={item.feedbackData[0].rateAvg}
-    jobs={item.feedbackData[0].jobs}
+    rating={
+      item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg
+    }
+    jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
     image={item.image}
     rate={item.hourly_rate}
     item={item}
@@ -49,23 +51,25 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     setIsRefreshing(false);
   };
 
-  const handleRemove = () => {
-    console.log("CLICKED REMOVE");
+  const handleRemove = (id) => {
     const Data = {
       client_id: user.id,
-      favorite_services: data[0]._id,
+      favorite_services: id,
     };
 
     dispatch(removeFavorites(Data));
   };
 
-  const renderLeftActions = (progress, dragX) => {
+  const renderLeftActions = (progress, dragX, id) => {
     const trans = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [0, 1],
     });
     return (
-      <TouchableOpacity style={styles.leftAction} onPress={handleRemove}>
+      <TouchableOpacity
+        style={styles.leftAction}
+        onPress={() => handleRemove(id)}
+      >
         <Animated.Text
           style={[
             styles.actionText,
@@ -86,7 +90,11 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     const color = item.id === selectedId ? "white" : "black";
 
     return (
-      <Swipeable renderLeftActions={renderLeftActions}>
+      <Swipeable
+        renderLeftActions={(progress, dragX) =>
+          renderLeftActions(progress, dragX, item._id)
+        }
+      >
         <Item
           item={item}
           onPress={() =>
@@ -94,9 +102,13 @@ const FavoritesFlatlist = ({ navigation, data }) => {
               worker_id: item.clientNameData[0]._id,
               service_id: item._id,
               serviceName: item.serviceNameData[0].service_type,
+              jobs:
+                item.feedbackData[0] === undefined
+                  ? 0
+                  : item.feedbackData[0].jobs,
             })
           }
-          onPressServices={() => navigation.navigate("ServicesNearYou")}
+          // onPressServices={() => navigation.navigate("ServicesNearYou")}
           backgroundColor={{ backgroundColor }}
           textColor={{ color }}
         />

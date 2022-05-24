@@ -13,7 +13,9 @@ import { ToastComponent, showToast } from "@helpers/toast";
 const Favorites = ({ navigation }) => {
   const { favoritesData } = useSelector((state) => state.favorites);
 
-  const { removedSuccess, removedError } = useSelector((state) => state.removeFavorites);
+  const { removedSuccess, removedError } = useSelector(
+    (state) => state.removeFavorites
+  );
 
   const dispatch = useDispatch();
 
@@ -22,7 +24,6 @@ const Favorites = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log("removedSuccess", removedSuccess);
     if (removedSuccess) {
       showToast(
         "success",
@@ -31,7 +32,6 @@ const Favorites = ({ navigation }) => {
         () => dispatch(resetRemoveError())
       );
     }
-    console.log("SECOND removedSuccess", removedError);
   }, [removedSuccess]);
 
   useEffect(() => {

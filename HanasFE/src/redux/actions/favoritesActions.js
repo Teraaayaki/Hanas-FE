@@ -3,22 +3,18 @@ import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
 export const resetError = () => (dispatch) => {
-  console.log("TRIGGERED RESET ERROR");
   dispatch({
     type: FavoritesActions.CLIENT_FAVORITES_RESET,
   });
 };
 
 export const resetAddedError = () => (dispatch) => {
-  console.log("TRIGGERED RESET ADDED ERROR");
   dispatch({
     type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR,
   });
 };
 
 export const resetRemoveError = () => (dispatch) => {
-  console.log("TRIGGERED RESET REMOVED ERROR");
-  console.log("DISpATCHED ERROR", FavoritesActions);
   dispatch({
     type: FavoritesActions.CLIENT_FAVORITES_REMOVED_ERROR,
   });

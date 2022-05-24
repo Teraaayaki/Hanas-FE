@@ -188,11 +188,17 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: fontSize.label,
     color: "#433E3E",
-    fontWeight: fontWeight.bold
+    fontWeight: fontWeight.bold,
   },
   fadeText: {
     fontSize: fontSize.h5,
     color: colors.borderGrey,
+  },
+  centerView: {
+    flex: 1, justifyContent:"center", alignItems: "center"
+  },
+  mtMargin: { 
+    marginTop: margin.m5 
   }
 });
 
