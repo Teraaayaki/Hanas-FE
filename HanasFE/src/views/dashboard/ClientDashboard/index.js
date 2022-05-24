@@ -6,7 +6,6 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  TouchableHighlight,
   FlatList,
 } from "react-native";
 import useSWR from "swr";
@@ -54,13 +53,13 @@ const ClientDashboard = ({ navigation }) => {
     let topRatedTemp = servicesData.top_rated_services.map(
       (serviceData) => serviceData.service_type
     );
-    
+
     //filter the fetched data's service type with its corresponding image
     let filteredServices = services.filter((service) =>
       topRatedTemp.includes(service.service_type)
     );
-    
-    //set the new 
+
+    //set the new
     setTopRatedServices([...filteredServices]);
   }, []);
 
@@ -78,11 +77,11 @@ const ClientDashboard = ({ navigation }) => {
               <HorizontalCarousel />
               <View style={styles.textContainer}>
                 <Text style={styles.labelText}>Top Services</Text>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => navigation.navigate("BrowseServices")}
                 >
                   <Text style={styles.fadeText}>View more</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <ScrollView
                 horizontal={true}
@@ -100,7 +99,11 @@ const ClientDashboard = ({ navigation }) => {
                     >
                       <CircularImage
                         imageSource={topRatedServiceInfo.image}
-                        onPress={() => navigation.navigate("ServicesNearYou", {service_type: topRatedServiceInfo.service_type})}
+                        onPress={() =>
+                          navigation.navigate("ServicesNearYou", {
+                            service_type: topRatedServiceInfo.service_type,
+                          })
+                        }
                       />
                       <Text style={styles.pinkText}>
                         {topRatedServiceInfo.service_type}

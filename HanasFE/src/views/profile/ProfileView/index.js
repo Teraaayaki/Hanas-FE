@@ -19,7 +19,6 @@ import {
   resetAddedError,
 } from "@redux/actions/favoritesActions";
 import { ToastComponent, showToast } from "@helpers/toast";
-import style from "../../ServicesNearYou/style";
 
 const ProfileView = ({ navigation, route }) => {
   const { worker_id, service_id, serviceName, jobs } = route.params;
