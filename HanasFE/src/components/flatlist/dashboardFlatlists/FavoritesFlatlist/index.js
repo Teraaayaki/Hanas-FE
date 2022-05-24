@@ -25,7 +25,9 @@ const Item = ({
   <CardContainer
     name={item.clientNameData[0].name}
     profession={item.serviceNameData[0].service_type}
-    rating={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg}
+    rating={
+      item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg
+    }
     jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
     image={item.image}
     rate={item.hourly_rate}
@@ -49,13 +51,10 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     setIsRefreshing(false);
   };
 
-
   const handleRemove = (id) => {
-    console.log("REMOVED ID", id);
-
     const Data = {
       client_id: user.id,
-      favorite_services: id
+      favorite_services: id,
     };
 
     dispatch(removeFavorites(Data));
@@ -67,7 +66,10 @@ const FavoritesFlatlist = ({ navigation, data }) => {
       outputRange: [0, 1],
     });
     return (
-      <TouchableOpacity style={styles.leftAction} onPress={()=>handleRemove(id)}>
+      <TouchableOpacity
+        style={styles.leftAction}
+        onPress={() => handleRemove(id)}
+      >
         <Animated.Text
           style={[
             styles.actionText,
@@ -88,7 +90,11 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     const color = item.id === selectedId ? "white" : "black";
 
     return (
-      <Swipeable renderLeftActions={(progress, dragX) => renderLeftActions(progress, dragX, item._id)}>
+      <Swipeable
+        renderLeftActions={(progress, dragX) =>
+          renderLeftActions(progress, dragX, item._id)
+        }
+      >
         <Item
           item={item}
           onPress={() =>
@@ -96,7 +102,10 @@ const FavoritesFlatlist = ({ navigation, data }) => {
               worker_id: item.clientNameData[0]._id,
               service_id: item._id,
               serviceName: item.serviceNameData[0].service_type,
-              jobs: item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs
+              jobs:
+                item.feedbackData[0] === undefined
+                  ? 0
+                  : item.feedbackData[0].jobs,
             })
           }
           // onPressServices={() => navigation.navigate("ServicesNearYou")}

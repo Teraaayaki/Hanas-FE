@@ -13,7 +13,9 @@ import { ToastComponent, showToast } from "@helpers/toast";
 const Favorites = ({ navigation }) => {
   const { favoritesData } = useSelector((state) => state.favorites);
 
-  const { removedSuccess, removedError } = useSelector((state) => state.removeFavorites);
+  const { removedSuccess, removedError } = useSelector(
+    (state) => state.removeFavorites
+  );
 
   const dispatch = useDispatch();
 
