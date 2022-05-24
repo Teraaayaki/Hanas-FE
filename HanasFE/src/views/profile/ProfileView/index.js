@@ -45,7 +45,6 @@ const ProfileView = ({ navigation, route }) => {
   };
 
   const handleAddToFavorites = () => {
-    console.log("I WAS CLICKED");
     const Data = {
       client_id: user.id,
       favorite_services: profileData.myServicesData[0]._id,
@@ -55,15 +54,12 @@ const ProfileView = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    console.log("ADDED ERROR", addedError, typeof addedError !== undefined);
     if (addedError) {
-      console.log("Show Error Toast");
       errorToast("Worker already added");
     }
   }, [addedError]);
 
   useEffect(() => {
-    console.log("ADDED SUCCESS", addedSuccess);
     if (addedSuccess) {
       successToast("Worker added to favorites");
     }
@@ -113,7 +109,9 @@ const ProfileView = ({ navigation, route }) => {
                               <ButtonHallowGray
                                 title={serviceName}
                                 onPress={() =>
-                                  navigation.navigate("ServicesNearYou", {service_type: serviceName})
+                                  navigation.navigate("ServicesNearYou", {
+                                    service_type: serviceName,
+                                  })
                                 }
                               />
                             </View>
@@ -159,15 +157,29 @@ const ProfileView = ({ navigation, route }) => {
                         <Text style={styles.fadedText}>Rate</Text>
                       </View>
                       <View style={styles.snippetDetails}>
-                        <Text style={[styles.blackText, {paddingLeft: 30}]}>
+                        <Text style={[styles.blackText, { paddingLeft: 30 }]}>
                           <Icon color="#FFD706" size={15} name="star" />
-                          {profileData.myServicesData[0].feedbacksData[0] == null ? `0` : profileData.myServicesData[0].feedbacksData[0].rate}
+                          {profileData.myServicesData[0].feedbacksData[0] ==
+                          null
+                            ? `0`
+                            : profileData.myServicesData[0].feedbacksData[0]
+                                .rate}
                           /5
                         </Text>
-                        <Text style={[styles.blackText, {marginLeft: 30, paddingLeft: 30}]}>
-                        {jobs === undefined ? `0` : jobs} 
+                        <Text
+                          style={[
+                            styles.blackText,
+                            { marginLeft: 30, paddingLeft: 30 },
+                          ]}
+                        >
+                          {jobs === undefined ? `0` : jobs}
                         </Text>
-                        <Text style={[styles.blackText, {marginLeft: 20, paddingLeft: 30}]}>
+                        <Text
+                          style={[
+                            styles.blackText,
+                            { marginLeft: 20, paddingLeft: 30 },
+                          ]}
+                        >
                           {profileData.myServicesData[0].hourly_rate} Php/hr
                         </Text>
                       </View>
@@ -208,40 +220,66 @@ const ProfileView = ({ navigation, route }) => {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.mtMargin}>
-                          {profileData.myServicesData[0].sample_works.length > 0 ? <Text style={[styles.labelText]}>Sample Works ({profileData.myServicesData[0].sample_works.length})</Text> : 
-                            <View>
-                              <Text style={styles.labelText}>Sample Works</Text>
-                              <View style={styles.centerView}>
-                                <Text style={styles.mtMargin}>No sample works added</Text>
-                              </View>
+                        {profileData.myServicesData[0].sample_works.length >
+                        0 ? (
+                          <Text style={[styles.labelText]}>
+                            Sample Works (
+                            {profileData.myServicesData[0].sample_works.length})
+                          </Text>
+                        ) : (
+                          <View>
+                            <Text style={styles.labelText}>Sample Works</Text>
+                            <View style={styles.centerView}>
+                              <Text style={styles.mtMargin}>
+                                No sample works added
+                              </Text>
                             </View>
-                          }
+                          </View>
+                        )}
                       </View>
                       <SampleWorks
                         DATA={profileData.myServicesData[0].sample_works}
                       />
                       <View style={{ marginTop: margin.m5 }}>
-                          {profileData.myServicesData[0].certificates.length > 0 ? <Text style={[styles.labelText]}>Certificates ({profileData.myServicesData[0].certificates.length})</Text> : 
-                            <View>
-                              <Text style={styles.labelText}>Certificates</Text>
-                              <View style={styles.centerView}>
-                                <Text style={styles.mtMargin}>No certficates added</Text>
-                              </View>
+                        {profileData.myServicesData[0].certificates.length >
+                        0 ? (
+                          <Text style={[styles.labelText]}>
+                            Certificates (
+                            {profileData.myServicesData[0].certificates.length})
+                          </Text>
+                        ) : (
+                          <View>
+                            <Text style={styles.labelText}>Certificates</Text>
+                            <View style={styles.centerView}>
+                              <Text style={styles.mtMargin}>
+                                No certficates added
+                              </Text>
                             </View>
-                          }
+                          </View>
+                        )}
                       </View>
                       <Certificates
                         DATA={profileData.myServicesData[0].certificates}
                       />
                       {/* <View style={styles.flexedBetween}> */}
-                          {profileData.myServicesData[0].feedbacksData.length > 0 ? <Text style={[styles.labelText]}>Feedback ({profileData.myServicesData[0].feedbacksData.length })</Text> : 
-                            <View>
-                              <Text style={styles.labelText}>Feedback</Text>
-                              <View style={styles.centerView}>
-                                <Text style={[styles.mtMargin, {marginBottom: 25}]}>No feedbacks received</Text>
-                              </View>
-                            </View>
-                          }
+                      {profileData.myServicesData[0].feedbacksData.length >
+                      0 ? (
+                        <Text style={[styles.labelText]}>
+                          Feedback (
+                          {profileData.myServicesData[0].feedbacksData.length})
+                        </Text>
+                      ) : (
+                        <View>
+                          <Text style={styles.labelText}>Feedback</Text>
+                          <View style={styles.centerView}>
+                            <Text
+                              style={[styles.mtMargin, { marginBottom: 25 }]}
+                            >
+                              No feedbacks received
+                            </Text>
+                          </View>
+                        </View>
+                      )}
                       {/* </View> */}
                     </View>
                   </View>

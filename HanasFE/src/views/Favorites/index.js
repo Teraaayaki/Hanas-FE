@@ -24,7 +24,6 @@ const Favorites = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log("removedSuccess", removedSuccess);
     if (removedSuccess) {
       showToast(
         "success",
@@ -33,7 +32,6 @@ const Favorites = ({ navigation }) => {
         () => dispatch(resetRemoveError())
       );
     }
-    console.log("SECOND removedSuccess", removedError);
   }, [removedSuccess]);
 
   useEffect(() => {
