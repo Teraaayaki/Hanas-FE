@@ -51,36 +51,42 @@ const ServicesNearYou = ({ navigation, route }) => {
         <View style={styles.textContainer}>
           <TypeOfService title={`${service_type} Services`} />
         </View>
-        {servicesData.map((workerInfo) => (
-          <CardContainer
-            key={workerInfo._id}
-            name={workerInfo.workerDetails[0].name}
-            profession={`${service_type} Services`}
-            rating={
-              workerInfo.feedbackData[0] === undefined
-                ? `0`
-                : workerInfo.feedbackData[0].rateAvg
-            }
-            jobs={
-              workerInfo.feedbackData[0] === undefined
-                ? `0`
-                : workerInfo.feedbackData[0].jobs
-            }
-            // image={require("@images/profile1.png")}
-            rate={workerInfo.hourly_rate}
-            onPress={() =>
-              navigation.navigate("ProfileView", {
-                worker_id: workerInfo.worker,
-                service_id: workerInfo._id,
-                serviceName: service_type,
-                jobs:
-                  workerInfo.feedbackData[0] === undefined
-                    ? `0`
-                    : workerInfo.feedbackData[0].jobs,
-              })
-            }
-          />
-        ))}
+        {servicesData.length == 0 ? (
+          <Text style={styles.selfCenter}>
+            No workers offering the service yet
+          </Text>
+        ) : (
+          servicesData.map((workerInfo) => (
+            <CardContainer
+              key={workerInfo._id}
+              name={workerInfo.workerDetails[0].name}
+              profession={`${service_type} Services`}
+              rating={
+                workerInfo.feedbackData[0] === undefined
+                  ? `0`
+                  : workerInfo.feedbackData[0].rateAvg
+              }
+              jobs={
+                workerInfo.feedbackData[0] === undefined
+                  ? `0`
+                  : workerInfo.feedbackData[0].jobs
+              }
+              // image={require("@images/profile1.png")}
+              rate={workerInfo.hourly_rate}
+              onPress={() =>
+                navigation.navigate("ProfileView", {
+                  worker_id: workerInfo.worker,
+                  service_id: workerInfo._id,
+                  serviceName: service_type,
+                  jobs:
+                    workerInfo.feedbackData[0] === undefined
+                      ? `0`
+                      : workerInfo.feedbackData[0].jobs,
+                })
+              }
+            />
+          ))
+        )}
       </ScrollView>
     </View>
   );
