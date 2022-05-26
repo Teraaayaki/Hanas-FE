@@ -62,8 +62,8 @@ export default HanasStack = () => {
         </Stack.Group>
       ) : isWorker ? (
         <Stack.Group>
-          <Stack.Screen name="GetVerified" component={GetVerified} />
           <Stack.Screen name="Dashboard" component={WorkerTabs} />
+          <Stack.Screen name="GetVerified" component={GetVerified} />
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
           <Stack.Screen name="Chatroom" component={Chatroom} />
