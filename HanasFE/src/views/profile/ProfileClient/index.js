@@ -45,8 +45,8 @@ const ProfileClient = ({ navigation }) => {
                 style={styles.name}
               >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
               <Text style={styles.verified}>
-                <Icon color="green" size={fontSize.h3} name="verified" />{" "}
-                Verified
+                <Icon color="lightblue" size={fontSize.h3} name="verified" />{" "}
+                Basic User
               </Text>
             </View>
           </View>
