@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import LightHeader from "@components/LightHeaderWithHanas";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
+import LightHeader from "@components/LightHeaderWithHanas";
 import styles from "./style";
 import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
@@ -10,9 +10,7 @@ import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 
 const ServicesNearYou = ({ navigation, route }) => {
   const { servicesData } = useSelector((state) => state.servicesNearYou);
-
   const dispatch = useDispatch();
-
   const { service_type } = route.params;
 
   useEffect(() => {
@@ -51,36 +49,42 @@ const ServicesNearYou = ({ navigation, route }) => {
         <View style={styles.textContainer}>
           <TypeOfService title={`${service_type} Services`} />
         </View>
-        {servicesData.map((workerInfo) => (
-          <CardContainer
-            key={workerInfo._id}
-            name={workerInfo.workerDetails[0].name}
-            profession={`${service_type} Services`}
-            rating={
-              workerInfo.feedbackData[0] === undefined
-                ? `0`
-                : workerInfo.feedbackData[0].rateAvg
-            }
-            jobs={
-              workerInfo.feedbackData[0] === undefined
-                ? `0`
-                : workerInfo.feedbackData[0].jobs
-            }
-            // image={require("@images/profile1.png")}
-            rate={workerInfo.hourly_rate}
-            onPress={() =>
-              navigation.navigate("ProfileView", {
-                worker_id: workerInfo.worker,
-                service_id: workerInfo._id,
-                serviceName: service_type,
-                jobs:
-                  workerInfo.feedbackData[0] === undefined
-                    ? `0`
-                    : workerInfo.feedbackData[0].jobs,
-              })
-            }
-          />
-        ))}
+        {servicesData.length == 0 ? (
+          <Text style={styles.selfCenter}>
+            No workers offering the service yet
+          </Text>
+        ) : (
+          servicesData.map((workerInfo) => (
+            <CardContainer
+              key={workerInfo._id}
+              name={workerInfo.workerDetails[0].name}
+              profession={`${service_type} Services`}
+              rating={
+                workerInfo.feedbackData[0] === undefined
+                  ? `0`
+                  : workerInfo.feedbackData[0].rateAvg
+              }
+              jobs={
+                workerInfo.feedbackData[0] === undefined
+                  ? `0`
+                  : workerInfo.feedbackData[0].jobs
+              }
+              // image={require("@images/profile1.png")}
+              rate={workerInfo.hourly_rate}
+              onPress={() =>
+                navigation.navigate("ProfileView", {
+                  worker_id: workerInfo.worker,
+                  service_id: workerInfo._id,
+                  serviceName: service_type,
+                  jobs:
+                    workerInfo.feedbackData[0] === undefined
+                      ? `0`
+                      : workerInfo.feedbackData[0].jobs,
+                })
+              }
+            />
+          ))
+        )}
       </ScrollView>
     </View>
   );
