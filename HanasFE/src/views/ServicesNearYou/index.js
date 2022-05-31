@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import LightHeader from "@components/LightHeaderWithHanas";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
+import LightHeader from "@components/LightHeaderWithHanas";
 import styles from "./style";
 import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
@@ -10,9 +10,7 @@ import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 
 const ServicesNearYou = ({ navigation, route }) => {
   const { servicesData } = useSelector((state) => state.servicesNearYou);
-
   const dispatch = useDispatch();
-
   const { service_type } = route.params;
 
   useEffect(() => {
