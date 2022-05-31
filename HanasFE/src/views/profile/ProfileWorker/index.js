@@ -44,10 +44,21 @@ const Profile = ({ navigation }) => {
               <Text
                 style={styles.name}
               >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
-              <Text style={styles.verified}>
-                <Icon color="green" size={fontSize.h3} name="verified" />{" "}
-                Verified
-              </Text>
+              {user.is_verified ? (
+                <Text style={styles.verified}>
+                  <Icon color="green" size={fontSize.h3} name="verified" />{" "}
+                  Verified
+                </Text>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("GetVerified")}
+                >
+                  <Text style={styles.verified}>
+                    <Icon color="red" size={fontSize.h3} name="verified" />{" "}
+                    Unverified
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </LinearGradient>
@@ -58,12 +69,22 @@ const Profile = ({ navigation }) => {
           <Text
             style={styles.stickyName}
           >{`${user.first_name} ${user.last_name}`}</Text>
-          <Icon
-            color="green"
-            size={fontSize.h3}
-            name="verified"
-            style={styles.iconAdjusted}
-          ></Icon>
+
+          {user.is_verified ? (
+            <Icon
+              color="green"
+              size={fontSize.h3}
+              name="verified"
+              style={styles.iconAdjusted}
+            />
+          ) : (
+            <Icon
+              color="red"
+              size={fontSize.h3}
+              name="verified"
+              style={styles.iconAdjusted}
+            />
+          )}
         </View>
       )}
     >
@@ -73,7 +94,9 @@ const Profile = ({ navigation }) => {
           <View style={styles.hr}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Address</Text>
-            <Text style={[styles.values, styles.controlledWidth]}>{`${user.address}`}</Text>
+            <Text
+              style={[styles.values, styles.controlledWidth]}
+            >{`${user.address}`}</Text>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>

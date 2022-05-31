@@ -1,89 +1,125 @@
-import axios from '@axios';
-import { getItem, setItem, removeItem } from '@helpers/asyncStorage';
+import axios from "@axios";
+import { getItem, setItem, removeItem } from "@helpers/asyncStorage";
 import {
   UserLoginActions,
   RegisterActions,
   UserDetailActions,
-  WorkerServiceActions
-} from './types';
-import { workerServicesInitialValues } from '../reducers/workerServicesReducer';
-import { userDetailsInitialValues } from '../reducers/userDetailsReducer';
+  WorkerServiceActions,
+} from "./types";
+import { workerServicesInitialValues } from "../reducers/workerServicesReducer";
+import { userDetailsInitialValues } from "../reducers/userDetailsReducer";
 
 export const userLogin = (navigation, email, password) => async (dispatch) => {
-  // removeItem("token");
-  let token = await getItem('token');
-  let isWorker = JSON.parse(await getItem('is_worker'));
+  let token = await getItem("token");
+  let isWorker = JSON.parse(await getItem("is_worker"));
   dispatch({ type: UserLoginActions.USER_LOADING, payload: true });
 
+  //IF TOKEN ALREADY EXISTS
   if (token) {
-    console.log('Token Already Exists - userLoginAction');
+    console.log("Token Already Exists - userLoginAction");
 
     try {
-      let { data } = await axios.get('/api/auth/get-details', {
-        headers: { Authorization: `Bearer ${token}` }
+      let { data } = await axios.get("/api/auth/get-details", {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (data) {
         dispatch({
           type: UserLoginActions.USER_LOGIN_SUCCESS,
-          payload: isWorker
+          payload: isWorker,
         });
         dispatch({
           type: UserDetailActions.USER_DETAILS_SUCCESS,
-          payload: data.user
+          payload: data.user,
         });
 
         if (isWorker) {
-          navigation.navigate('GetVerified');
+          if (data.user.is_verified) {
+            console.log("User is Verified");
+            navigation.navigate("Dashboard");
+          } else {
+            console.log("User is not Verified");
+            navigation.navigate("GetVerified");
+          }
         } else {
-          navigation.navigate('Dashboard');
+          navigation.navigate("Dashboard");
         }
       }
     } catch (err) {
+      console.log("Error On Refresh");
       let { error } = err.response.data;
       dispatch({
-        type: UserDetailActions.USER_DETAILS_FAIL,
-        payload: error
+        type: UserLoginActions.USER_LOGIN_FAIL,
+        payload: error,
       });
+      userForceLogout(navigation, dispatch);
     }
   } else {
-    console.log('No Token');
+    console.log("No Token");
     doUserLogin(navigation, email, password, dispatch);
   }
 };
 
+// USER FORCED LOGOUT HELPER FUNCTION
+export const userForceLogout = async (navigation, dispatch) => {
+  removeItem("token");
+  removeItem("is_worker");
+
+  dispatch({
+    type: RegisterActions.REGISTER_LOGOUT,
+  });
+  dispatch({
+    type: UserDetailActions.USER_DETAILS_LOGOUT,
+    payload: userDetailsInitialValues,
+  });
+  dispatch({
+    type: WorkerServiceActions.WORKER_SERVICE_LOGOUT,
+    payload: workerServicesInitialValues,
+  });
+
+  navigation.navigate("Login");
+};
+
+// USER LOGIN HELPER FUNCTION
 const doUserLogin = async (navigation, email, password, dispatch) => {
   if (!email && !password) {
-    console.log('No email and pass provided');
+    console.log("No email and pass provided");
     dispatch({ type: UserLoginActions.USER_LOGIN_FAIL });
     return;
   }
 
   try {
-    console.log('Axios Call');
-    let { data } = await axios.post('/api/auth/login', {
+    console.log("Axios Call");
+    let { data } = await axios.post("/api/auth/login", {
       email,
-      password
+      password,
     });
 
-    console.log('Storing Token');
-    setItem('token', data.token);
-    setItem('is_worker', JSON.stringify(data.is_worker));
+    console.log("Storing Token");
+    setItem("token", data.token);
+    setItem("is_worker", JSON.stringify(data.is_worker));
     dispatch({
       type: UserLoginActions.USER_LOGIN_SUCCESS,
-      payload: data.is_worker
+      payload: data.is_worker,
     });
 
     dispatch({
       type: UserDetailActions.USER_DETAILS_SUCCESS,
-      payload: data.user
+      payload: data.user,
     });
 
+    // IF USER IS A WORKER
     if (data.is_worker) {
-      setItem('is_verified', JSON.stringify(data.is_verified));
-      navigation.navigate('Dashboard');
+      // IF WORKER IS VERIFIED
+      if (data.user.is_verified) {
+        console.log("User is Verified");
+        navigation.navigate("Dashboard");
+      } else {
+        console.log("User is not Verified");
+        navigation.navigate("GetVerified");
+      }
     } else {
-      navigation.navigate('Dashboard');
+      navigation.navigate("Dashboard");
     }
   } catch (err) {
     console.log(err);
@@ -94,27 +130,27 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
 };
 
 export const userLogout = () => async (dispatch) => {
-  console.log('Removing items');
-  removeItem('token');
-  removeItem('is_worker');
-  console.log('Succesfully removed items');
-  console.log('Dispatching Logout');
+  console.log("Removing items");
+  removeItem("token");
+  removeItem("is_worker");
+  console.log("Succesfully removed items");
+  console.log("Dispatching Logout");
 
   dispatch({
-    type: UserLoginActions.USER_LOGOUT
+    type: UserLoginActions.USER_LOGOUT,
   });
   dispatch({
-    type: RegisterActions.REGISTER_LOGOUT
+    type: RegisterActions.REGISTER_LOGOUT,
   });
   dispatch({
     type: UserDetailActions.USER_DETAILS_LOGOUT,
-    payload: userDetailsInitialValues
+    payload: userDetailsInitialValues,
   });
   dispatch({
     type: WorkerServiceActions.WORKER_SERVICE_LOGOUT,
-    payload: workerServicesInitialValues
+    payload: workerServicesInitialValues,
   });
-  console.log('Dispatched Logout');
+  console.log("Dispatched Logout");
 
   return;
 };

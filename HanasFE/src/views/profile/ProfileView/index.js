@@ -98,11 +98,19 @@ const ProfileView = ({ navigation, route }) => {
                           <View style={styles.nameContainer}>
                             <Text style={styles.name}>
                               {`${profileData.first_name} ${profileData.family_name}`}{" "}
-                              <Icon
-                                color="green"
-                                size={fontSize.h3}
-                                name="verified"
-                              />
+                              {profileData.is_verified ? (
+                                <Icon
+                                  color="green"
+                                  size={fontSize.h3}
+                                  name="verified"
+                                />
+                              ) : (
+                                <Icon
+                                  color="red"
+                                  size={fontSize.h3}
+                                  name="Unverified"
+                                />
+                              )}
                             </Text>
                             <View style={styles.servicesContainer}>
                               <ButtonHallowGray
