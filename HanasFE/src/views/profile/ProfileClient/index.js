@@ -88,14 +88,7 @@ const ProfileClient = ({ navigation }) => {
           <View style={styles.profileInfoContainer}>
             <TextLinkPink
               title="Edit Account Info"
-              onPress={() =>
-                navigation.navigate("EditAccount", {
-                  user_id: user.id,
-                  email: user.email,
-                  address: user.address,
-                  profile_pic: user.profile_pic,
-                })
-              }
+              onPress={() => navigation.navigate("EditAccount")}
             />
             <TextLinkPink
               title="Edit Password"

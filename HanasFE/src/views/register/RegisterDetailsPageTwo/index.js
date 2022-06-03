@@ -87,7 +87,11 @@ export default function RegisterDetailsPageTwo({ navigation }) {
               <Text style={styles.label}>Address</Text>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate("SetLocation")}
+              onPress={() =>
+                navigation.navigate("SetLocation", {
+                  nextPage: "RegisterDetailsPageTwo",
+                })
+              }
             >
               <IconField
                 iconName="location-pin"
