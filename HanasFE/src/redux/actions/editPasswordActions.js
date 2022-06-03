@@ -23,14 +23,12 @@ export const editPassword = (DATA) => async (dispatch) => {
       { headers: { authorization: `Bearer ${token}` } }
     );
 
-    console.log("data", data);
-
     if (data) {
       dispatch({ type: EditPasswordActions.EDIT_PASSWORD_SUCCESS });
     }
   } catch (err) {
     console.log(err);
-    let error = err.response.data ? err.response.data : err;
+    let { error } = err.response.data;
     dispatch({ type: EditPasswordActions.EDIT_PASSWORD_FAIL, payload: error });
   }
 };

@@ -65,8 +65,6 @@ const EditPassword = () => {
       email: user.email,
     };
 
-    console.log(Data);
-
     dispatch(editPassword(Data));
   };
 
@@ -82,8 +80,7 @@ const EditPassword = () => {
   }, [success]);
 
   useEffect(() => {
-    console.log("ERROR", error);
-    if (typeof error !== "undefined") {
+    if (error) {
       showToast("error", "Something went wrong", error, () =>
         dispatch(resetError())
       );
