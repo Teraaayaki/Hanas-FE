@@ -65,6 +65,8 @@ export const userForceLogout = async (navigation, dispatch) => {
   removeItem("token");
   removeItem("is_worker");
 
+  console.log("Force Logout");
+
   dispatch({
     type: RegisterActions.REGISTER_LOGOUT,
   });

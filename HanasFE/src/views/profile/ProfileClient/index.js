@@ -7,7 +7,7 @@ import { Icon } from "react-native-elements";
 
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
-import CircularImage from "@components/CircularImage";
+import CircularProfileImage from "@components/CircularProfileImage";
 import { colors, fontSize, margin } from "@constants";
 import styles from "./style";
 import { userLogout } from "@redux/actions/authActions";
@@ -36,9 +36,9 @@ const ProfileClient = ({ navigation }) => {
             <Text style={styles.text}>Your Profile</Text>
           </View>
           <View style={styles.headContainer}>
-            <CircularImage
+            <CircularProfileImage
               style={styles.image}
-              imageSource={require("@images/mullet.jpg")}
+              imageSource={user.profile_pic}
             />
             <View style={styles.nameContainer}>
               <Text
@@ -88,7 +88,14 @@ const ProfileClient = ({ navigation }) => {
           <View style={styles.profileInfoContainer}>
             <TextLinkPink
               title="Edit Account Info"
-              onPress={() => navigation.navigate("EditAccount")}
+              onPress={() =>
+                navigation.navigate("EditAccount", {
+                  user_id: user.id,
+                  email: user.email,
+                  address: user.address,
+                  profile_pic: user.profile_pic,
+                })
+              }
             />
             <TextLinkPink
               title="Edit Password"
