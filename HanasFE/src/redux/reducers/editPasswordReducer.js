@@ -13,6 +13,8 @@ const editPasswordReducer = (state = editPasswordInitialValues, action) => {
       return { ...state, loading: true, success: false };
     case EditPasswordActions.EDIT_PASSWORD_SUCCESS:
       return { ...state, loading: false, success: true };
+    case EditPasswordActions.EDIT_PASSWORD_RESET_SUCCESS:
+      return { ...state, loading: false, success: false };
     case EditPasswordActions.EDIT_PASSWORD_FAIL:
       return {
         ...state,

@@ -4,7 +4,7 @@ import { getItem } from "@helpers/asyncStorage";
 import axios from "@axios";
 
 export const resetSuccess = () => async (dispatch) => {
-  dispatch({ type: EditPasswordActions.EDIT_PASSWORD_SUCCESS });
+  dispatch({ type: EditPasswordActions.EDIT_PASSWORD_RESET_SUCCESS });
 };
 
 export const resetError = () => async (dispatch) => {

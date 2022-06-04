@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
 
+import { getItem } from "@helpers/asyncStorage";
 import styles from "./style";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
@@ -51,7 +52,7 @@ const PasswordSchema = yup.object().shape({
     ),
 });
 
-const EditPassword = () => {
+const EditPassword = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userDetails);
   const { success, error, loading } = useSelector(
@@ -68,14 +69,26 @@ const EditPassword = () => {
     dispatch(editPassword(Data));
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     if (success) {
+      let isWorker = await getItem("is_worker");
+
       showToast(
         "success",
         "Succefully Changed Password",
         "You will receive an email for the confirmation",
         () => dispatch(resetSuccess())
       );
+
+      if (isWorker === false) {
+        setTimeout(() => {
+          navigation.navigate("Home");
+        }, 3000);
+      } else {
+        setTimeout(() => {
+          navigation.navigate("Home");
+        }, 3000);
+      }
     }
   }, [success]);
 
