@@ -82,11 +82,11 @@ const EditPassword = ({ navigation }) => {
 
       if (isWorker === false) {
         setTimeout(() => {
-          navigation.navigate("Home");
+          navigation.navigate("ProfileView");
         }, 3000);
       } else {
         setTimeout(() => {
-          navigation.navigate("Home");
+          navigation.navigate("ProfileView");
         }, 3000);
       }
     }
