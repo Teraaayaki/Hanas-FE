@@ -68,10 +68,13 @@ const EditAccount = ({ navigation }) => {
     // FILTER URI AND CREATE FORMDATA
     const { filename, type } = filterUri(inputProfilePic);
     const formData = createFormdata(inputProfilePic, type, filename, "profile");
-    const fileName = lastProfileFilename();
 
     try {
-      await deleteLastProfilePicture(fileName);
+      if (user.profile_pic !== "none") {
+        const fileName = lastProfileFilename();
+        await deleteLastProfilePicture(fileName);
+      }
+
       const response = await fetch(
         `${process.env.LOCALHOST}/api/edit/upload-profile-image`,
         {
@@ -141,7 +144,7 @@ const EditAccount = ({ navigation }) => {
     if (inputProfilePic !== "none") {
       uploadProfilePicture();
     } else {
-      // PROFILE PIC IS REMOVED NEEDS DELETION OF LAST PROFILE
+      // PROFILE PIC IS REMOVED NEEDS DELETION OF LAST PROFILE PIC
       if (user.profile_pic !== "none") {
         console.log("User removed profile pic");
         const fileName = lastProfileFilename();
@@ -150,7 +153,7 @@ const EditAccount = ({ navigation }) => {
         setUploadingImage(false);
         dispatch(changeAccountInfo(inputProfilePic, inputEmail));
       } else {
-        // LAST PROFILE PIC IS NONE NO UPLOADING NEEDED
+        // LAST PROFILE PIC IS NONE NO UPLOADING AND DELETION NEEDED
         console.log("User has no profile pic");
         resetState();
         setUploadingImage(false);
