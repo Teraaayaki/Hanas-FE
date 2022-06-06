@@ -34,11 +34,12 @@ export default StyleSheet.create({
     flex: 1,
     fontSize: fontSize.h5,
     color: colors.borderGrey,
+    fontFamily: "Regular",
   },
   fadeTextValues: {
     flex: 1,
     fontSize: fontSize.h5,
-    fontWeight: fontWeight.bold,
+    fontFamily: "Bold",
     color: colors.black,
   },
   name: {
@@ -48,6 +49,7 @@ export default StyleSheet.create({
   profession: {
     fontSize: fontSize.h5,
     color: colors.secondary,
+    fontFamily: "Regular",
   },
   btnPress: {
     borderRadius: 10,
