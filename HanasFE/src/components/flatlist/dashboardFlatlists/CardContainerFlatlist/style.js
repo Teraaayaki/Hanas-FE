@@ -9,8 +9,8 @@ export default StyleSheet.create({
     // marginTop: StatusBar.currentHeight || 0,
   },
   containerRow: {
-      flex: 1, 
-      flexDirection: "row"
+    flex: 1,
+    flexDirection: "row",
   },
   item: {
     padding: padding.p2,

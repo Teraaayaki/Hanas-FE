@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import { margin, colors, padding, fontSize } from "@constants";
-import { fontWeight } from "../../constants";
+import { margin, colors, padding, fontSize, fontWeight } from "@constants";
 
 export default StyleSheet.create({
   container: {
@@ -44,7 +43,7 @@ export default StyleSheet.create({
   },
   name: {
     fontSize: fontSize.h4,
-    fontWeight: fontWeight.bold,
+    fontFamily: "Bold",
   },
   profession: {
     fontSize: fontSize.h5,
