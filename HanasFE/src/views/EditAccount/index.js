@@ -5,6 +5,7 @@ import {
   Text,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,7 @@ import {
   changeErrorState,
 } from "@redux/actions/userDetailActions";
 import { showToast, ToastComponent } from "@helpers/toast";
+import axios from "@helpers/axios";
 
 const EditAccount = ({ navigation }) => {
   const { user, changeSuccess, error } = useSelector(
@@ -45,40 +47,31 @@ const EditAccount = ({ navigation }) => {
     setTouchedProfile(false);
   };
 
-  const handleChangeEmail = (e) => {
-    setTouchedEmail(true);
-    setInputEmail(e);
+  const lastProfileFilename = () => {
+    const { filename } = filterUri(user.profile_pic);
+    return filename;
   };
 
-  const handleInputProfilePic = async () => {
-    setTouchedProfile(true);
-    let result = await pickImage();
-    if (!result.cancelled) {
-      setInputProfilePic(result.uri);
+  const deleteLastProfilePicture = async (fileName) => {
+    console.log("deleting last profile picture", fileName);
+    try {
+      await axios.delete("/api/edit/delete-profile-image", {
+        headers: { Authorization: `Bearer ${token}` },
+        data: { fileName },
+      });
+    } catch (err) {
+      console.log("Error " + err.response.data.error);
     }
   };
 
-  const handleSubmit = async () => {
-    if (!touchedEmail && !touchedProfile) {
-      // console.log("No changes", touchedEmail, touchedProfile);
-      showToast("error", "No data changed", "Please try again.");
-      return;
-    }
-
-    if (!isEmail(inputEmail)) {
-      // console.log("invalid Email");
-      showToast("error", "Invalid Email", "Please try again.");
-      return;
-    }
-
-    setUploadingImage(true);
-    console.log("Editing account");
+  const uploadProfilePicture = async () => {
     // FILTER URI AND CREATE FORMDATA
     const { filename, type } = filterUri(inputProfilePic);
     const formData = createFormdata(inputProfilePic, type, filename, "profile");
+    const fileName = lastProfileFilename();
 
-    // NETWORK REQUEST
     try {
+      await deleteLastProfilePicture(fileName);
       const response = await fetch(
         `${process.env.LOCALHOST}/api/edit/upload-profile-image`,
         {
@@ -109,6 +102,63 @@ const EditAccount = ({ navigation }) => {
     }
   };
 
+  const handleChangeEmail = (e) => {
+    setTouchedEmail(true);
+    setInputEmail(e);
+  };
+
+  const handleInputProfilePic = async () => {
+    setTouchedProfile(true);
+    let result = await pickImage();
+    if (!result.cancelled) {
+      setInputProfilePic(result.uri);
+    }
+  };
+
+  const handleRemovePic = () => {
+    setTouchedProfile(true);
+    setInputProfilePic("none");
+  };
+
+  const handleSubmit = async () => {
+    if (!touchedEmail && !touchedProfile) {
+      // console.log("No changes", touchedEmail, touchedProfile);
+      // showToast("error", "No data changed", "Please try again.");
+      return;
+    }
+
+    if (!isEmail(inputEmail)) {
+      // console.log("invalid Email");
+      showToast("error", "Invalid Email", "Please try again.");
+      return;
+    }
+
+    setUploadingImage(true);
+    console.log("Editing account");
+
+    // CHECK IF PROFILE PIC IS NOT NONE
+
+    if (inputProfilePic !== "none") {
+      uploadProfilePicture();
+    } else {
+      // PROFILE PIC IS REMOVED NEEDS DELETION OF LAST PROFILE
+      if (user.profile_pic !== "none") {
+        console.log("User removed profile pic");
+        const fileName = lastProfileFilename();
+        (async () => await deleteLastProfilePicture(fileName))();
+        resetState();
+        setUploadingImage(false);
+        dispatch(changeAccountInfo(inputProfilePic, inputEmail));
+      } else {
+        // LAST PROFILE PIC IS NONE NO UPLOADING NEEDED
+        console.log("User has no profile pic");
+        resetState();
+        setUploadingImage(false);
+        dispatch(changeAccountInfo(inputProfilePic, inputEmail));
+      }
+    }
+  };
+
   // CHECK IF CLIENT OR WORKER
   useEffect(async () => {
     const isWorker = JSON.parse(await getItem("is_worker"));
@@ -124,7 +174,7 @@ const EditAccount = ({ navigation }) => {
     const backAction = () => {
       Alert(
         "Hold on!",
-        "Are you sure you want to go back?",
+        "You have unsaved changes. Are you sure you want to go back?",
         "Cancel",
         "YES",
         () => null,
@@ -204,6 +254,11 @@ const EditAccount = ({ navigation }) => {
               imageSource={inputProfilePic}
               onPress={handleInputProfilePic}
             />
+            {inputProfilePic !== "none" && (
+              <TouchableOpacity onPress={handleRemovePic}>
+                <Text style={[styles.h4, styles.textDanger]}>Remove Photo</Text>
+              </TouchableOpacity>
+            )}
           </View>
 
           <View style={[styles.my5, styles.py5]}>

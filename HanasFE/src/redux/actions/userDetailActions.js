@@ -71,7 +71,7 @@ export const changeAccountInfo = (profile_pic, email) => async (dispatch) => {
 
   try {
     const { data } = await axios.patch(
-      "/api/edit/acount-info",
+      "/api/edit/account-info",
       { profile_pic, email },
       {
         headers: { Authorization: `Bearer ${token}` },
