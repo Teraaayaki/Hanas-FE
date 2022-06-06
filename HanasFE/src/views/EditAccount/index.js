@@ -1,89 +1,111 @@
 import {
-  Alert,
+  ActivityIndicator,
   BackHandler,
   View,
   Text,
   ScrollView,
   KeyboardAvoidingView,
-  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
+import isEmail from "validator/es/lib/isEmail";
 
+import Alert from "@helpers/alert";
 import styles from "./style";
 import { getItem } from "@helpers/asyncStorage";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
 import CircularProfileImage from "@components/CircularProfileImage";
+import { colors } from "@constants";
+import { pickImage, filterUri, createFormdata } from "@utils/imageUtils";
+import {
+  changeAccountInfo,
+  changeSuccessState,
+  changeErrorState,
+} from "@redux/actions/userDetailActions";
+import { showToast, ToastComponent } from "@helpers/toast";
 
 const EditAccount = ({ navigation }) => {
-  const { user } = useSelector((state) => state.userDetails);
-  const { address } = useSelector((state) => state.userRegister);
+  const { user, changeSuccess, error } = useSelector(
+    (state) => state.userDetails
+  );
+  const dispatch = useDispatch();
 
+  const [token, setToken] = useState("");
   const [prevPage, setPrevPage] = useState("");
-  const [inputAddress, setInputAddress] = useState(user.address);
   const [inputEmail, setInputEmail] = useState(user.email);
   const [inputProfilePic, setInputProfilePic] = useState(user.profile_pic);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [touchedEmail, setTouchedEmail] = useState(false);
+  const [touchedProfile, setTouchedProfile] = useState(false);
 
-  const editLocation = () => {
-    navigation.navigate("SetLocation", { nextPage: "EditAccount" });
+  const resetState = () => {
+    setTouchedEmail(false);
+    setTouchedProfile(false);
   };
 
   const handleChangeEmail = (e) => {
+    setTouchedEmail(true);
     setInputEmail(e);
   };
 
   const handleInputProfilePic = async () => {
-    const token = await getItem("token");
-    setUploadingImage(true);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
-
+    setTouchedProfile(true);
+    let result = await pickImage();
     if (!result.cancelled) {
-      // FILTER URI
-      let localUri = result.uri;
-      let filename = localUri.split("/").pop();
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
+      setInputProfilePic(result.uri);
+    }
+  };
 
-      // CREATE FORMDATA
-      const formData = new FormData();
-      formData.append("profile", {
-        uri: result.uri,
-        type: type,
-        name: filename,
-      });
+  const handleSubmit = async () => {
+    if (!touchedEmail && !touchedProfile) {
+      // console.log("No changes", touchedEmail, touchedProfile);
+      showToast("error", "No data changed", "Please try again.");
+      return;
+    }
 
-      // NETWORK REQUEST
-      if (result) {
-        let response = await fetch(
-          `${process.env.LOCALHOST}/api/edit/upload-profile-image`,
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              "content-type": "multipart/form-data",
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          let { publicUrl } = await response.json();
-          console.log(publicUrl);
-          setInputProfilePic(publicUrl);
-          setUploadingImage(false);
-        } else {
-          console.log(await response.json());
+    if (!isEmail(inputEmail)) {
+      // console.log("invalid Email");
+      showToast("error", "Invalid Email", "Please try again.");
+      return;
+    }
+
+    setUploadingImage(true);
+    console.log("Editing account");
+    // FILTER URI AND CREATE FORMDATA
+    const { filename, type } = filterUri(inputProfilePic);
+    const formData = createFormdata(inputProfilePic, type, filename, "profile");
+
+    // NETWORK REQUEST
+    try {
+      const response = await fetch(
+        `${process.env.LOCALHOST}/api/edit/upload-profile-image`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "content-type": "multipart/form-data",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        let { publicUrl } = await response.json();
+        // console.log(publicUrl);
+        setUploadingImage(false);
+        resetState();
+        dispatch(changeAccountInfo(publicUrl, inputEmail));
+      } else {
+        // ERROR CATCHING
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error("Bad response from server");
         }
       }
-    } else {
+    } catch (error) {
       setUploadingImage(false);
+      showToast("error", error.toString(), "Please try again.");
     }
   };
 
@@ -99,19 +121,14 @@ const EditAccount = ({ navigation }) => {
 
   // HANDLE BACK NAVIGATION
   useEffect(() => {
-    console.log(user.id, inputAddress, inputEmail, inputProfilePic);
     const backAction = () => {
-      Alert.alert(
+      Alert(
         "Hold on!",
-        "You have unsaved changes. Are you sure you want to go back?",
-        [
-          {
-            text: "Cancel",
-            onPress: () => null,
-            style: "cancel",
-          },
-          { text: "YES", onPress: () => navigation.navigate(prevPage) },
-        ]
+        "Are you sure you want to go back?",
+        "Cancel",
+        "YES",
+        () => null,
+        () => navigation.navigate(prevPage)
       );
       return true;
     };
@@ -124,8 +141,12 @@ const EditAccount = ({ navigation }) => {
     return () => backHandler.remove();
   }, [prevPage]);
 
-  // HANDLE PERMISSIONS
+  // HANDLE PERMISSIONS AND GET TOKEN
   useEffect(() => {
+    (async () => {
+      const fetchedToken = await getItem("token");
+      setToken(fetchedToken);
+    })();
     (async () => {
       if (Platform.OS !== "web") {
         const { status } =
@@ -137,12 +158,29 @@ const EditAccount = ({ navigation }) => {
     })();
   }, []);
 
-  // HANDLE ADDRESS INPUT ON SETLOCATION
+  // HANDLES SUCCESS
   useEffect(() => {
-    if (address) {
-      setInputAddress(address);
+    if (changeSuccess) {
+      showToast(
+        "success",
+        "Successfully updated account info",
+        "You will be redirected automatically in 4 seconds",
+        () => {
+          dispatch(changeSuccessState(false));
+          navigation.navigate(prevPage);
+        }
+      );
     }
-  }, [address]);
+  }, [changeSuccess]);
+
+  // HANDLES ERROR
+  useEffect(() => {
+    if (error !== undefined) {
+      showToast("error", error, "Please try again.", () => {
+        dispatch(changeErrorState());
+      });
+    }
+  }, [error]);
 
   return (
     <View
@@ -169,19 +207,6 @@ const EditAccount = ({ navigation }) => {
           </View>
 
           <View style={[styles.my5, styles.py5]}>
-            <Text style={[styles.bold, styles.mb3]}>Address</Text>
-            <TouchableOpacity onPress={editLocation}>
-              <IconField
-                iconName="location-pin"
-                iconType="material-community-icons"
-                iconSize={25}
-                editable={false}
-                autoCapitalize="none"
-                autoComplete={"password"}
-                value={inputAddress}
-              />
-            </TouchableOpacity>
-
             <Text style={[styles.bold, styles.mt4, styles.mb3]}>Email</Text>
             <IconField
               iconName="email"
@@ -193,11 +218,18 @@ const EditAccount = ({ navigation }) => {
               onChangeText={(e) => handleChangeEmail(e)}
             />
           </View>
+
           <View style={[styles.mt5, styles.pt5]}>
-            <Button title="Confirm" onPress={() => {}} />
+            {uploadingImage && (
+              <View style={styles.my1}>
+                <ActivityIndicator size="large" color={colors.secondary} />
+              </View>
+            )}
+            <Button title="Confirm" onPress={handleSubmit} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+      <ToastComponent />
     </View>
   );
 };
