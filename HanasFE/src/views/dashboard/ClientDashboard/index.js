@@ -17,18 +17,19 @@ import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { getItem } from "@helpers/asyncStorage";
 import { getBooking } from "@redux/actions/clientBookingActions";
+import { fetcher } from "@helpers/fetcher";
 import services from "@helpers/services";
 
-const fetcher = async (url) => {
-  let token = await getItem("token");
-  let { data } = await axios.get(url, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+// const fetcher = async (url) => {
+//   let token = await getItem("token");
+//   let { data } = await axios.get(url, {
+//     headers: {
+//       authorization: `Bearer ${token}`,
+//     },
+//   });
 
-  return data;
-};
+//   return data;
+// };
 
 const ClientDashboard = ({ navigation }) => {
   const { data, error } = useSWR(

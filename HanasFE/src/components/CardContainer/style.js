@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import { margin, colors, padding, fontSize } from "@constants";
-import { fontWeight } from "../../constants";
+import { margin, colors, padding, fontSize, fontWeight } from "@constants";
 
 export default StyleSheet.create({
   container: {
@@ -35,20 +34,22 @@ export default StyleSheet.create({
     flex: 1,
     fontSize: fontSize.h5,
     color: colors.borderGrey,
+    fontFamily: "Regular",
   },
   fadeTextValues: {
     flex: 1,
     fontSize: fontSize.h5,
-    fontWeight: fontWeight.bold,
+    fontFamily: "Bold",
     color: colors.black,
   },
   name: {
     fontSize: fontSize.h4,
-    fontWeight: fontWeight.bold,
+    fontFamily: "Bold",
   },
   profession: {
     fontSize: fontSize.h5,
     color: colors.secondary,
+    fontFamily: "Regular",
   },
   btnPress: {
     borderRadius: 10,

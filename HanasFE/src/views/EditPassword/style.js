@@ -424,4 +424,12 @@ export default StyleSheet.create({
     marginRight: margin.m5,
   },
   //==========================================================================
+  error: {
+    color: colors.danger,
+    fontWeight: "bold",
+    alignSelf: "center",
+    width: "100%",
+    marginTop: "-3%",
+    marginBottom: margin.m2,
+  },
 });

@@ -12,6 +12,7 @@ import favoritesReducer, {
   removefavoritesReducer,
 } from "./favoritesReducer";
 import servicesNearYouReducer from "./servicesNearYouReducer";
+import editPasswordReducer from "./editPasswordReducer";
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -26,4 +27,5 @@ export default combineReducers({
   removeFavorites: removefavoritesReducer,
   schedule: scheduleReducer,
   servicesNearYou: servicesNearYouReducer,
+  editPassword: editPasswordReducer,
 });
