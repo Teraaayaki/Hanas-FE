@@ -98,9 +98,11 @@ const ProfileClient = ({ navigation }) => {
           <View style={styles.hr}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Address</Text>
-            <Text
-              style={[styles.values, styles.controlledWidth]}
-            >{`${user.address}`}</Text>
+            <TouchableOpacity onPress={editLocation}>
+              <Text
+                style={[styles.valuesEditable, styles.controlledWidth]}
+              >{`${user.address}`}</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>
