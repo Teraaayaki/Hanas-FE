@@ -88,13 +88,19 @@ export const setUserDetails = (user, navigation) => (dispatch) => {
   navigation.navigate("RegisterDetailsPageTwo");
 };
 
-export const setLocation = (address, navigation) => (dispatch) => {
+export const setLocation = (address, navigation, nextPage) => (dispatch) => {
   dispatch({
     type: RegisterActions.REGISTER_LOCATION,
     payload: address,
   });
 
-  navigation.navigate("RegisterDetailsPageTwo");
+  navigation.navigate(nextPage);
+};
+
+export const resetLocation = () => (dispatch) => {
+  dispatch({
+    type: RegisterActions.REGISTER_LOCATION,
+  });
 };
 
 export const registerUser = (user, navigation) => async (dispatch) => {
@@ -112,6 +118,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     isWorker,
   } = user;
 
+  // Store user in userDetails Object (Local Copy)
   let userDetails = {
     first_name: firstName,
     middle_name: middleName,
@@ -122,6 +129,8 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     address,
     birthdate: dob,
     sex,
+    is_verified: false,
+    profile_pic: "none",
   };
 
   dispatch({
@@ -144,16 +153,21 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       isWorker,
     });
 
+    // SUCCESSFUL REGISTER
     if (data) {
       setItem("token", data.token);
       setItem("is_worker", JSON.stringify(data.is_worker));
+
+      // USED IN DETERMINING WHICH SCREENS TO DISPLAY (SEE /routes FOLDER)
       dispatch({
         type: UserLoginActions.USER_LOGIN_SUCCESS,
-        payload: true,
+        payload: data.is_worker,
       });
+      // RESETS REGISTER REDUCER STATE
       dispatch({
-        type: RegisterActions.REGISTER_SUCCESS,
+        type: RegisterActions.REGISTER_LOGOUT,
       });
+      // INSTEAD OF SENDING API REQUEST, DETAILS CREATED IN REGISTER ARE USED
       dispatch({
         type: UserDetailActions.USER_DETAILS_SUCCESS,
         payload: userDetails,
@@ -162,7 +176,7 @@ export const registerUser = (user, navigation) => async (dispatch) => {
       console.log("Navigate to another page");
       if (data.is_worker) {
         setItem("is_verified", JSON.stringify(false));
-        navigation.navigate("Dashboard");
+        navigation.navigate("GetVerified");
       } else {
         navigation.navigate("Dashboard");
       }

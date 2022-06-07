@@ -5,21 +5,45 @@ import { Text, View, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 
+import Alert from "@helpers/alert";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
-import CircularImage from "@components/CircularImage";
+import CircularProfileImage from "@components/CircularProfileImage";
 import { colors, fontSize, margin } from "@constants";
 import styles from "./style";
 import { userLogout } from "@redux/actions/authActions";
+import { changeAddress } from "@redux/actions/userDetailActions";
 
 const ProfileClient = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userDetails);
+  const { address } = useSelector((state) => state.userRegister);
 
+  // ROUTE TO SET LOCATION
+  const editLocation = () => {
+    Alert(
+      "Hold on!",
+      "You are about to change your address. Continue?",
+      "Cancel",
+      "YES",
+      () => null,
+      () => navigation.navigate("SetLocation", { nextPage: "ProfileClient" })
+    );
+  };
+
+  // LOGOUT
   const handleSubmit = () => {
     console.log("logging out");
     dispatch(userLogout());
   };
+
+  useEffect(() => {
+    console.log("Running");
+    if (address !== "") {
+      // EDIT ADDRESS
+      dispatch(changeAddress(address));
+    }
+  }, [address]);
 
   return (
     <ParallaxScrollView
@@ -36,9 +60,10 @@ const ProfileClient = ({ navigation }) => {
             <Text style={styles.text}>Your Profile</Text>
           </View>
           <View style={styles.headContainer}>
-            <CircularImage
+            <CircularProfileImage
               style={styles.image}
-              imageSource={require("@images/mullet.jpg")}
+              onPress={() => navigation.navigate("EditAccount")}
+              imageSource={user.profile_pic}
             />
             <View style={styles.nameContainer}>
               <Text
@@ -73,7 +98,9 @@ const ProfileClient = ({ navigation }) => {
           <View style={styles.hr}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Address</Text>
-            <Text style={styles.values}>{`${user.address}`}</Text>
+            <Text
+              style={[styles.values, styles.controlledWidth]}
+            >{`${user.address}`}</Text>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>

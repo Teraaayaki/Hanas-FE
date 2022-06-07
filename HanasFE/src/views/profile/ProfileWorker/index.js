@@ -5,21 +5,43 @@ import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 
+import Alert from "@helpers/alert";
 import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import styles from "./style";
-import CircularImage from "@components/CircularImage";
+import CircularProfileImage from "@components/CircularProfileImage";
 import { colors, fontSize } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
+import { changeAddress } from "@redux/actions/userDetailActions";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userDetails);
+  const { address } = useSelector((state) => state.userRegister);
+
+  // ROUTE TO SET LOCATION
+  const editLocation = () => {
+    Alert(
+      "Hold on!",
+      "You are about to change your address. Continue?",
+      "Cancel",
+      "YES",
+      () => null,
+      () => navigation.navigate("SetLocation", { nextPage: "Profile" })
+    );
+  };
 
   const handleSubmit = () => {
     console.log("logging out");
     dispatch(userLogout());
   };
+
+  useEffect(() => {
+    if (address !== "") {
+      // EDIT ADDRESS
+      dispatch(changeAddress(address));
+    }
+  }, [address]);
 
   return (
     <ParallaxScrollView
@@ -36,9 +58,10 @@ const Profile = ({ navigation }) => {
             <Text style={styles.text}>Your Profile</Text>
           </View>
           <View style={styles.headContainer}>
-            <CircularImage
+            <CircularProfileImage
               style={styles.image}
-              imageSource={require("@images/mullet.jpg")}
+              imageSource={user.profile_pic}
+              onPress={() => navigation.navigate("EditAccount")}
             />
             <View style={styles.nameContainer}>
               <Text
@@ -94,9 +117,11 @@ const Profile = ({ navigation }) => {
           <View style={styles.hr}></View>
           <View style={styles.profileInfoContainer}>
             <Text style={styles.label}>Address</Text>
-            <Text
-              style={[styles.values, styles.controlledWidth]}
-            >{`${user.address}`}</Text>
+            <TouchableOpacity onPress={editLocation}>
+              <Text
+                style={[styles.valuesHyperlink, styles.controlledWidth]}
+              >{`${user.address}`}</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.hrFaded}></View>
           <View style={styles.profileInfoContainer}>

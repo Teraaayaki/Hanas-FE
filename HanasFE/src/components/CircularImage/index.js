@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import styles from "./style";
-import { colors, fontSize } from "@constants";
 
 const CircularImage = ({
-  imageSource = require("@images/default.png"),
+  imageSource = require("@images/hanasLogoSquared.png"),
   onPress,
 }) => {
   return (

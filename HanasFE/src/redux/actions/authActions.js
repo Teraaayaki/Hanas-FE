@@ -65,6 +65,8 @@ export const userForceLogout = async (navigation, dispatch) => {
   removeItem("token");
   removeItem("is_worker");
 
+  console.log("Force Logout");
+
   dispatch({
     type: RegisterActions.REGISTER_LOGOUT,
   });
@@ -133,9 +135,8 @@ export const userLogout = () => async (dispatch) => {
   console.log("Removing items");
   removeItem("token");
   removeItem("is_worker");
-  console.log("Succesfully removed items");
   console.log("Dispatching Logout");
-
+  // RESET ALL IMPORTANT REDUCER STATE
   dispatch({
     type: UserLoginActions.USER_LOGOUT,
   });
@@ -151,6 +152,4 @@ export const userLogout = () => async (dispatch) => {
     payload: workerServicesInitialValues,
   });
   console.log("Dispatched Logout");
-
-  return;
 };

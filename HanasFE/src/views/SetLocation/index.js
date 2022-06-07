@@ -18,7 +18,8 @@ let regionDefault = {
   latitudeDelta: 0.9,
 };
 
-const SetLocation = ({ navigation }) => {
+const SetLocation = ({ navigation, route }) => {
+  const { nextPage } = route.params;
   const [region, setRegion] = useState(regionDefault);
   const [address, setAddress] = useState("");
   const [errMessage, setErrMessage] = useState("");
@@ -51,7 +52,7 @@ const SetLocation = ({ navigation }) => {
         setErrMessage("");
       }, 2000);
     } else {
-      dispatch(setLocation(address, navigation));
+      dispatch(setLocation(address, navigation, nextPage));
     }
   };
 

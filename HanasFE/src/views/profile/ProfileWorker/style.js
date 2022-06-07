@@ -41,54 +41,58 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: fontSize.h3,
   },
-  parallaxContentContainer: { 
+  parallaxContentContainer: {
     flex: 1,
-    backgroundColor: colors.background, 
-    marginTop: 10 , 
-    borderTopEndRadius: 50, 
-    borderTopStartRadius: 50, 
+    backgroundColor: colors.background,
+    marginTop: 10,
+    borderTopEndRadius: 50,
+    borderTopStartRadius: 50,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    padding: padding.p5 , 
-    marginBottom: 120
+    padding: padding.p5,
+    marginBottom: 120,
   },
   profileDetailsContainer: {
-      backgroundColor: colors.white, 
-      marginVertical: 50, 
-      padding: padding.p5, 
-      borderWidth: 1, 
-      borderColor: 
-      colors.borderGrey, 
-      borderRadius: 5
+    backgroundColor: colors.white,
+    marginVertical: 50,
+    padding: padding.p5,
+    borderWidth: 1,
+    borderColor: colors.borderGrey,
+    borderRadius: 5,
   },
   profileInfoContainer: {
     flex: 1,
-    flexDirection: "row", 
-    padding: padding.p5, 
-    justifyContent: "space-between"
+    flexDirection: "row",
+    padding: padding.p5,
+    justifyContent: "space-between",
   },
   headingText: {
-      fontWeight: fontWeight.bold, 
-      fontSize: fontSize.h3, 
-      padding: padding.p1
+    fontWeight: fontWeight.bold,
+    fontSize: fontSize.h3,
+    padding: padding.p1,
   },
   label: {
-      fontSize: fontSize.p, 
-      fontWeight: fontWeight.bold
+    fontSize: fontSize.p,
+    fontWeight: fontWeight.bold,
   },
   values: {
-      fontSize: fontSize.p, 
-      color: colors.black
+    fontSize: fontSize.p,
+    color: colors.black,
+  },
+  valuesHyperlink: {
+    fontSize: fontSize.p,
+    color: "skyblue",
+    textDecorationLine: "underline",
   },
   hr: {
-      borderBottomColor: colors.borderGrey, 
-      borderWidth: 1
+    borderBottomColor: colors.borderGrey,
+    borderWidth: 1,
   },
   hrFaded: {
-    borderBottomColor: colors.borderGrey, 
+    borderBottomColor: colors.borderGrey,
     borderWidth: 1,
     opacity: 0.3,
-    marginHorizontal: margin.m5
+    marginHorizontal: margin.m5,
   },
   buttonContainer: {
     backgroundColor: colors.background,
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   flexedView: {
-    flex: 1, 
+    flex: 1,
     alignItems: "center",
     marginHorizontal: margin.m1,
   },
@@ -116,36 +120,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: "100%",
-    height: 80
+    height: 80,
   },
   buttonText: {
     marginLeft: margin.m3,
     fontSize: fontSize.h3,
     fontWeight: "bold",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   stickyHeaderContainer: {
-    flexDirection: "row", 
-    justifyContent: "center", 
-    backgroundColor: "#FF6D8F", 
-    height: "100%"
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#FF6D8F",
+    height: "100%",
   },
   stickyName: {
-    color: colors.black, 
-    alignSelf: "center", 
-    fontSize: fontSize.h1, 
-    marginTop: 30
+    color: colors.black,
+    alignSelf: "center",
+    fontSize: fontSize.h1,
+    marginTop: 30,
   },
   iconAdjusted: {
-    marginTop: 42, 
-    marginLeft: 5
+    marginTop: 42,
+    marginLeft: 5,
   },
   h100: {
-    height: "100%"
+    height: "100%",
   },
   controlledWidth: {
     maxWidth: 180,
-  }
+  },
 });
 
 export default styles;

@@ -164,6 +164,7 @@ export default StyleSheet.create({
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
   textBlack: { color: "#000" },
+  textDanger: { color: colors.danger },
   textSecondary: { color: colors.secondary },
   textInfo: { color: colors.info },
   textMuted50: { color: colors.muted50 },
