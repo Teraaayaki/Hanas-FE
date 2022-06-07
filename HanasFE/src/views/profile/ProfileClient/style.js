@@ -79,6 +79,11 @@ const styles = StyleSheet.create({
     fontSize: fontSize.p,
     color: colors.black,
   },
+  valuesEditable: {
+    fontSize: fontSize.p,
+    color: colors.blue,
+    textDecorationLine: "underline",
+  },
   hr: {
     borderBottomColor: colors.borderGrey,
     borderWidth: 1,

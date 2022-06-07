@@ -14,7 +14,7 @@ import Notification from "@screens/Notification";
 import WorkerSchedule from "@screens/schedules/WorkerSchedule";
 import WorkerBookingRequests from "@screens/bookingRequests/WorkerBookingRequests";
 import Achievements from "@screens/Achievements";
-
+import SetLocation from "@screens/SetLocation";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -164,6 +164,14 @@ const Tabs = () => {
       <Tab.Screen
         name="Achievements"
         component={Achievements}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="SetLocation"
+        component={SetLocation}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
