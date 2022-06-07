@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   valuesHyperlink: {
     fontSize: fontSize.p,
-    color: "skyblue",
+    color: colors.blue,
     textDecorationLine: "underline",
   },
   hr: {
