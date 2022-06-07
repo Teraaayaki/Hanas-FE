@@ -83,20 +83,15 @@ const EditPassword = ({ navigation, route }) => {
         () => dispatch(resetSuccess())
       );
 
-      console.log("IS WORKER", isWorker);
-
-      if (isWorker) {
-        console.log("I was executed here");
+      if (!isWorker) {
         setTimeout(() => {
           navigation.navigate("ProfileClient");
         }, 3000);
-      } else if (!isWorker) {
+      } else if (isWorker) {
         setTimeout(() => {
           navigation.navigate("Profile");
         }, 3000);
       }
-
-      console.log("SECOND IS WORKER", isWorker);
     }
   }, [success]);
 
