@@ -6,7 +6,7 @@ import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./style";
-import CircularImage from "@components/CircularImage";
+import CircularProfileImage from "@components/CircularProfileImage";
 import ButtonHallowGray from "@components/ButtonHallowGray";
 import SampleWorks from "@components/SampleWorks";
 import Certificates from "@components/Certificates";
@@ -93,7 +93,10 @@ const ProfileView = ({ navigation, route }) => {
                         <Text style={styles.text}>Profile</Text>
                       </View>
                       <View style={styles.headContainer}>
-                        <CircularImage style={styles.image} />
+                        <CircularProfileImage
+                          style={styles.image}
+                          imageSource={profileData.profile_pic}
+                        />
                         <View style={styles.flexedContainer}>
                           <View style={styles.nameContainer}>
                             <Text style={styles.name}>

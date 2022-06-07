@@ -29,7 +29,7 @@ const Item = ({
       item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg
     }
     jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
-    image={item.image}
+    image={item.clientNameData[0].profile_pic}
     rate={item.hourly_rate}
     item={item}
     onPress={onPress}
