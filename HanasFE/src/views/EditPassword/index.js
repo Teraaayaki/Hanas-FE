@@ -5,7 +5,7 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -52,8 +52,9 @@ const PasswordSchema = yup.object().shape({
     ),
 });
 
-const EditPassword = ({ navigation }) => {
+const EditPassword = ({ navigation, route }) => {
   const dispatch = useDispatch();
+  const [isWorker, setIsWorker] = useState(false);
   const { user } = useSelector((state) => state.userDetails);
   const { success, error, loading } = useSelector(
     (state) => state.editPassword
@@ -69,10 +70,12 @@ const EditPassword = ({ navigation }) => {
     dispatch(editPassword(Data));
   };
 
+  useEffect(() => {
+    setIsWorker(getItem("is_worker"));
+  }, []);
+
   useEffect(async () => {
     if (success) {
-      let isWorker = await getItem("is_worker");
-
       showToast(
         "success",
         "Succefully Changed Password",
@@ -80,15 +83,20 @@ const EditPassword = ({ navigation }) => {
         () => dispatch(resetSuccess())
       );
 
-      if (isWorker === false) {
+      console.log("IS WORKER", isWorker);
+
+      if (isWorker) {
+        console.log("I was executed here");
         setTimeout(() => {
-          navigation.navigate("ProfileView");
+          navigation.navigate("ProfileClient");
         }, 3000);
-      } else {
+      } else if (!isWorker) {
         setTimeout(() => {
-          navigation.navigate("ProfileView");
+          navigation.navigate("Profile");
         }, 3000);
       }
+
+      console.log("SECOND IS WORKER", isWorker);
     }
   }, [success]);
 
