@@ -7,18 +7,8 @@ import styles from "./style";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import { getItem } from "@helpers/asyncStorage";
+import { fetcher } from "@helpers/fetcher";
 import services from "@helpers/services";
-
-const fetcher = async (url) => {
-  let token = await getItem("token");
-  let { data } = await axios.get(url, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-
-  return data;
-};
 
 const BrowseServices = ({ navigation }) => {
   //local state where we are going to store all servicecs with their corresponding images
