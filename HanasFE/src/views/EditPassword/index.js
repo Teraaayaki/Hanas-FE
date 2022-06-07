@@ -75,6 +75,8 @@ const EditPassword = ({ navigation, route }) => {
   }, []);
 
   useEffect(async () => {
+    console.log("SUCCESS", success);
+
     if (success) {
       showToast(
         "success",
@@ -86,11 +88,11 @@ const EditPassword = ({ navigation, route }) => {
       if (!isWorker) {
         setTimeout(() => {
           navigation.navigate("ProfileClient");
-        }, 3000);
+        }, 5000);
       } else if (isWorker) {
         setTimeout(() => {
           navigation.navigate("Profile");
-        }, 3000);
+        }, 5000);
       }
     }
   }, [success]);
