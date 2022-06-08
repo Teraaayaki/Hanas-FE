@@ -1,62 +1,74 @@
-import React, {useState} from 'react';
-import { View, Text, Image, TouchableOpacity, TouchableHighlight} from "react-native";
-import { useDispatch, useSelector} from "react-redux";
-
-
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./style";
 import { colors, fontSize, margin } from "@constants";
-import CircularImage from '@components/CircularImage';
-import TextLinkPink from '@components/TextLinkPink';
+import CircularProfileImage from "@components/CircularProfileImage";
+import TextLinkPink from "@components/TextLinkPink";
 import { Button, Icon } from "react-native-elements";
 
+const CardContainer = ({
+  name,
+  profession,
+  image,
+  rating,
+  jobs,
+  rate,
+  onPress,
+  onPressServices,
+  navigation,
+  item,
+}) => {
+  const dispatch = useDispatch();
+  var [isPress, setIsPress] = useState(false);
 
-const CardContainer = ({name, profession, image, rating, jobs, rate, onPress, onPressServices, navigation, item}) => {
+  var touchPropsServices = {
+    activeOpacity: 0.8,
+    underlayColor: colors.primary, // <-- "backgroundColor" will be always overwritten by "underlayColor"
+    style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
+    onHideUnderlay: () => setIsPress(console.log("I SHOULD BESHOWN")),
+    onShowUnderlay: () => setIsPress(console.log("I AM SHOWN")),
+  };
 
-    
-    const dispatch = useDispatch();
-    var [isPress, setIsPress] = useState(false);
-
-    var touchPropsServices = {
-        activeOpacity: 0.8,
-        underlayColor: colors.primary, // <-- "backgroundColor" will be always overwritten by "underlayColor"
-        style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
-        onHideUnderlay: () => setIsPress(console.log("I SHOULD BESHOWN")),
-        onShowUnderlay: () => setIsPress(console.log("I AM SHOWN")),
-      };
-
-    
-    
   return (
-    <View style={styles.container} >
-        <TouchableOpacity style={styles.cardContainer} activeOpacity={0.6} onPress={onPress}>
-            <CircularImage imageSource={image} onPress={onPress}/>
-            <View style={styles.flexedRow}>
-                <View style={styles.profileContainer}>
-                    <Text style={styles.name}>{name}</Text>
-                    <TouchableHighlight {...touchPropsServices}>
-                        <Text style={styles.profession} onPress={onPressServices} >{profession}</Text>
-                    </TouchableHighlight>
-                    <View style={styles.detailsContainer}>
-                        <Text style={[styles.fadeText, {marginLeft: "2%"}]}>Rating</Text>
-                        <Text style={[styles.fadeText, {marginLeft: "4%"}]}>Jobs</Text>
-                        <Text style={styles.fadeText}>Rate</Text>
-                    </View>
-                    <View style={styles.detailsContainer}>
-                        <Icon
-                            color="#FFD706"
-                            size={18}
-                            name="star"
-                            /> 
-                        <Text style={styles.fadeTextValues}>
-                        {rating}/5
-                        </Text>
-                        <Text style={styles.fadeTextValues}>{jobs}</Text>
-                        <Text style={styles.fadeTextValues}>{rate} Php/hr</Text>
-                    </View>
-                </View>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.cardContainer}
+        activeOpacity={0.6}
+        onPress={onPress}
+      >
+        <CircularProfileImage style={styles.image} imageSource={image} />
+        <View style={styles.flexedRow}>
+          <View style={styles.profileContainer}>
+            <Text style={styles.name}>{name}</Text>
+            <TouchableHighlight {...touchPropsServices}>
+              <Text style={styles.profession} onPress={onPressServices}>
+                {profession}
+              </Text>
+            </TouchableHighlight>
+            <View style={styles.detailsContainer}>
+              <Text style={[styles.fadeText, { marginLeft: "2%" }]}>
+                Rating
+              </Text>
+              <Text style={[styles.fadeText, { marginLeft: "4%" }]}>Jobs</Text>
+              <Text style={styles.fadeText}>Rate</Text>
             </View>
-        </TouchableOpacity>
+            <View style={styles.detailsContainer}>
+              <Icon color="#FFD706" size={18} name="star" />
+              <Text style={styles.fadeTextValues}>{rating}/5</Text>
+              <Text style={styles.fadeTextValues}>{jobs}</Text>
+              <Text style={styles.fadeTextValues}>{rate} Php/hr</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

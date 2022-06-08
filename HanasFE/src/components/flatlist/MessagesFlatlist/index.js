@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
-import { SocketContext } from '../../../context/socketContext';
-import CircularImage from '@components/CircularImage';
-import { getUserConversations } from '@redux/actions/conversationAction';
-import styles from './style';
+import { SocketContext } from "../../../context/socketContext";
+import CircularProfileImage from "@components/CircularProfileImage";
+import { getUserConversations } from "@redux/actions/conversationAction";
+import styles from "./style";
 
 const Item = ({ image, name, latestMessage, onPress }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item]}>
     <View style={styles.containerRow}>
-      <CircularImage imageSource={image} />
+      <CircularProfileImage imageSource={image} />
       <View style={styles.container}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.viewButtonContainerFlex}>
@@ -39,7 +39,7 @@ const MessagesFlatlist = ({ navigation }) => {
   }, [fetchData]);
 
   useEffect(() => {
-    socket.current.on('conversationUpdate', () => {
+    socket.current.on("conversationUpdate", () => {
       setFetchData(true);
     });
   }, []);
@@ -67,15 +67,15 @@ const MessagesFlatlist = ({ navigation }) => {
 
     return (
       <Item
-        image={require('@images/profile1.png')}
+        image={receiver.profile_pic}
         name={receiverName}
         latestMessage={latestMessage.text}
         onPress={() =>
-          navigation.navigate('Chatroom', {
+          navigation.navigate("Chatroom", {
             receiverID: receiver._id,
             receiverName: receiverName,
             receiverProfile: item.image,
-            messages: messages
+            messages: messages,
           })
         }
       />
@@ -88,7 +88,7 @@ const MessagesFlatlist = ({ navigation }) => {
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       contentContainerStyle={{
-        flexGrow: 1
+        flexGrow: 1,
       }}
     />
   );

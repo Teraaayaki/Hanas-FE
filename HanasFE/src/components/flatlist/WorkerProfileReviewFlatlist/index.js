@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-import CircularImage from "@components/CircularImage";
+import CircularProfileImage from "@components/CircularProfileImage";
 import styles from "./style";
 
 const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
@@ -26,7 +26,10 @@ const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
 const Item = ({ item }) => (
   <TouchableOpacity style={[styles.item]}>
     <View style={{ flex: 1, flexDirection: "row" }}>
-      <CircularImage style={{ borderRadius: 50 }} />
+      <CircularProfileImage
+        style={{ borderRadius: 50 }}
+        imageSource={item.nameData[0].profile_pic}
+      />
       <View style={styles.container}>
         <Text
           style={styles.name}

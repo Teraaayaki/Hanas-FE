@@ -83,7 +83,7 @@ const ServicesNearYou = ({ navigation, route }) => {
                       ? `0`
                       : workerInfo.feedbackData[0].jobs
                   }
-                  // image={require("@images/profile1.png")}
+                  image={workerInfo.workerDetails[0].profile_pic}
                   rate={workerInfo.hourly_rate}
                   onPress={() =>
                     navigation.navigate("ProfileView", {
