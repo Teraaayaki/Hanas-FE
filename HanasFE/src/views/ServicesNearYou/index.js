@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { View, Text, ScrollView, Modal, ActivityIndicator } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
+import { AddressContext } from "../../context/addressContext";
 import LightHeader from "@components/LightHeaderWithHanas";
 import styles from "./style";
 import { colors } from "@constants";
 import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
+import LocationBar from "@components/LocationBar";
+import LocationModal from "@components/LocationModal";
 import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 
 const ServicesNearYou = ({ navigation, route }) => {
@@ -22,12 +18,17 @@ const ServicesNearYou = ({ navigation, route }) => {
   );
   const dispatch = useDispatch();
   const { service_type } = route.params;
+  const { address, setAddress } = useContext(AddressContext);
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   useEffect(() => {
     const Data = {
       service_type: service_type,
     };
-
     dispatch(getServicesNearYou(Data));
   }, []);
 
@@ -35,7 +36,6 @@ const ServicesNearYou = ({ navigation, route }) => {
     const Data = {
       service_type: service_type,
     };
-
     dispatch(getServicesNearYou(Data));
   }, [service_type]);
 
@@ -44,16 +44,12 @@ const ServicesNearYou = ({ navigation, route }) => {
       <LightHeader />
       <ScrollView style={styles.scrollContainer}>
         <View>
-          <TouchableOpacity style={styles.location}>
-            <Text onPress={() => navigation.navigate("SetLocation")}>
-              {" "}
-              <Image
-                source={require("@images/marker.png")}
-                style={styles.pin}
-              />{" "}
-              Tungkil, Minglanilla, Cebu
-            </Text>
-          </TouchableOpacity>
+          <LocationBar location={address} onPress={toggleOverlay} />
+          <LocationModal
+            visible={visible}
+            onBackdropPress={toggleOverlay}
+            setAddress={setAddress}
+          />
           <Text style={styles.headerText}>SERVICES NEAR YOU</Text>
         </View>
         <View style={styles.textContainer}>

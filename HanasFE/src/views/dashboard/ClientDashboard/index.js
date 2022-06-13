@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
@@ -10,26 +10,16 @@ import {
 } from "react-native";
 import useSWR from "swr";
 import { useDispatch } from "react-redux";
-import axios from "@axios";
 
+import { AddressContext } from "../../../context/addressContext";
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
-import { getItem } from "@helpers/asyncStorage";
 import { getBooking } from "@redux/actions/clientBookingActions";
 import { fetcher } from "@helpers/fetcher";
 import services from "@helpers/services";
-
-// const fetcher = async (url) => {
-//   let token = await getItem("token");
-//   let { data } = await axios.get(url, {
-//     headers: {
-//       authorization: `Bearer ${token}`,
-//     },
-//   });
-
-//   return data;
-// };
+import LocationBar from "@components/LocationBar";
+import LocationModal from "@components/LocationModal";
 
 const ClientDashboard = ({ navigation }) => {
   const { data, error } = useSWR(
@@ -40,11 +30,16 @@ const ClientDashboard = ({ navigation }) => {
     `${process.env.LOCALHOST}/api/client/get-top-services`,
     fetcher
   );
+  // LOCATION STATE
+  const { address, setAddress } = useContext(AddressContext);
+  const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   //holder for the state of all the compared fetched top services to its corresponding images
   const [topRatedServices, setTopRatedServices] = useState([]);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("Booking Data Populated");
@@ -67,6 +62,12 @@ const ClientDashboard = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <LightHeader />
+      <LocationBar location={address} onPress={toggleOverlay} />
+      <LocationModal
+        visible={visible}
+        onBackdropPress={toggleOverlay}
+        setAddress={setAddress}
+      />
       <FlatList
         style={styles.container}
         ListHeaderComponent={

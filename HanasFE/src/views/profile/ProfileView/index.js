@@ -111,7 +111,7 @@ const ProfileView = ({ navigation, route }) => {
                                 <Icon
                                   color="red"
                                   size={fontSize.h3}
-                                  name="Unverified"
+                                  name="verified"
                                 />
                               )}
                             </Text>

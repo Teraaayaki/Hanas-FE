@@ -6,6 +6,7 @@ import Geocoder from "react-native-geocoding";
 import { SWRConfig } from "swr";
 import AppLoading from "expo-app-loading";
 
+import AddressProvider from "./src/context/addressContext";
 import { SocketProvider } from "./src/context/socketContext";
 import HanasStack from "@routes";
 import store from "./src/redux";
@@ -51,9 +52,11 @@ export default function App() {
       >
         <Provider store={store}>
           <NavigationContainer>
-            <SocketProvider>
-              <HanasStack />
-            </SocketProvider>
+            <AddressProvider>
+              <SocketProvider>
+                <HanasStack />
+              </SocketProvider>
+            </AddressProvider>
           </NavigationContainer>
         </Provider>
       </Suspense>
