@@ -140,6 +140,9 @@ export default StyleSheet.create({
     textDecorationLine: "underline",
   },
   //Color ==================================================
+  //Text Color-----------------------------
+  textWhite: { color: "white" },
+  //Color ==================================================
   //Background Color-----------------------------
   bgWhite: { backgroundColor: "#FFF" },
   bgDark: { backgroundColor: colors.dark },
@@ -148,6 +151,7 @@ export default StyleSheet.create({
   bgGrey: { backgroundColor: colors.grey },
   bgPrimary: { backgroundColor: colors.primary },
   bgSecondary: { backgroundColor: colors.secondary },
+  bgFeedback: { backgroundColor: colors.info },
   bgMuted20: { backgroundColor: colors.muted20 },
   bgMuted25: { backgroundColor: colors.muted25 },
   bgMuted50: { backgroundColor: colors.muted50 },
@@ -435,5 +439,5 @@ export default StyleSheet.create({
   //==========================================================================
   controlledWidth: {
     maxWidth: 150,
-  }
+  },
 });

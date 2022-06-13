@@ -2,6 +2,10 @@ import { ScheduleActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
+export const resetError = (DATA) => async (dispatch) => {
+  dispatch({ type: ScheduleActions.SCHEDULE_RESET_FAIL });
+};
+
 export const removeSchedule = (DATA) => async (dispatch) => {
   let token = await getItem("token");
 

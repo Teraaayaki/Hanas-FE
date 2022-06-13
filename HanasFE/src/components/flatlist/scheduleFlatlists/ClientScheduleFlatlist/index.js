@@ -3,9 +3,10 @@ import { FlatList, View, Text, TouchableOpacity, Button } from "react-native";
 import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { removeSchedule } from "@redux/actions/scheduleActions";
+import { removeSchedule, resetError } from "@redux/actions/scheduleActions";
+import { ToastComponent, showToast } from "@helpers/toast";
 import {
   PinkSidedCardHeader,
   PinkSidedCardItem,
@@ -20,6 +21,7 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   let date = new Date(1990, 1, 20);
 
   const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.schedule);
 
   const handleRemove = () => {
     const Data = {
@@ -88,27 +90,86 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
       }
       // return <Text style={[styles.h5]}>Cancel</Text>;
     };
+
+    const feedback = ({ item }) => {
+      if (item.isFeedbacked == true) {
+        return (
+          <Text
+            style={[styles.h5, styles.textWhite]}
+            onPress={() =>
+              showToast(
+                "error",
+                "Feedback already made",
+                "You already added a feedback on this booking",
+                () => dispatch(resetError())
+              )
+            }
+          >
+            Feedback Done
+          </Text>
+        );
+      } else {
+        return (
+          <Text
+            style={[styles.h5, styles.textWhite]}
+            onPress={() =>
+              navigation.navigate("Feedback", {
+                workerData: item.workerData[0],
+                serviceData: item.workerServiceData[0],
+                booking_id: item._id,
+              })
+            }
+          >
+            Feedback
+          </Text>
+        );
+      }
+      // return <Text style={[styles.h5]}>Cancel</Text>;
+    };
+
     if (item.book_status == "Finished") {
       //Missing Condition: This button must only appear when Current Date is more than 3 days away from Booked Date & Time Start
       // item.bookStatus == "Finished" || item.bookStatus == "Cancelled" || (item.bookStatus == "Accepted" && currentDate > BookedDate + 3Days)
       return (
-        <TouchableOpacity>
-          <View
-            style={[
-              styles.w100,
-              styles.border,
-              styles.borderMuted50,
-              styles.bgLightGrey,
-              styles.flexRow,
-              styles.justifyContentCenter,
-              styles.alignCenter,
-              styles.py5,
-              styles.rounded5,
-            ]}
-          >
-            {message({ item })}
-          </View>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity>
+            <View
+              style={[
+                styles.w100,
+                styles.border,
+                styles.borderMuted50,
+                styles.bgLightGrey,
+                styles.flexRow,
+                styles.justifyContentCenter,
+                styles.alignCenter,
+                styles.py5,
+                styles.rounded5,
+                styles.mt5,
+              ]}
+            >
+              {message({ item })}
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View
+              style={[
+                styles.w100,
+                styles.border,
+                styles.borderMuted50,
+                styles.borderInfo,
+                styles.bgFeedback,
+                styles.flexRow,
+                styles.justifyContentCenter,
+                styles.alignCenter,
+                styles.py5,
+                styles.rounded5,
+                { marginTop: 15 },
+              ]}
+            >
+              {feedback({ item })}
+            </View>
+          </TouchableOpacity>
+        </View>
       );
     }
   };
@@ -278,12 +339,15 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   }, [DATA]);
 
   return (
-    <FlatList
-      data={DATA}
-      renderItem={renderItem}
-      keyExtractor={(item) => item._id}
-      contentContainerStyle={{ paddingBottom: padding.p5 }}
-    />
+    <>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        contentContainerStyle={{ paddingBottom: padding.p5 }}
+      />
+      <ToastComponent />
+    </>
   );
 };
 
