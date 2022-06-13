@@ -1,129 +1,66 @@
-import React, { useState } from "react";
-import { View, Text, Flatlist } from "react-native";
-import { LogBox } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Text, Flatlist } from 'react-native';
+import { LogBox } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import Header from "@components/Header";
-import WorkerScheduleFlatlist from "@components/flatlist/scheduleFlatlists/WorkerScheduleFlatlist";
-import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { colors, fontSize } from "@constants";
-import styles from "./style";
+import Header from '@components/Header';
+import WorkerScheduleFlatlist from '@components/flatlist/scheduleFlatlists/WorkerScheduleFlatlist';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import { colors, fontSize } from '@constants';
+import styles from './style';
 
-LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]); //ignore ni niya nga message
+import { getSchedules } from '../../../redux/actions/workerScheduleActions';
+
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside']); //ignore ni niya nga message
 
 const WorkerSchedule = ({ navigation }) => {
-  let BRcount = 3;
+  const dispatch = useDispatch();
 
-  const DATA = [
-    {
-      id: "1",
-      date: "date1",
-      serviceType: "Electrical",
-      clientName: "Soy Lebumfacil",
-      address: "Bogo City, Cebu",
-      timeStart: "11:00 AM",
-      timeEnd: "10:00 PM",
-      bookStatus: "Accepted",
-    },
-    {
-      id: "2",
-      date: "date1",
-      serviceType: "Mechanical",
-      clientName: "James Karl Sia",
-      address: "Talamban, Cebu",
-      timeStart: "10:00 AM",
-      timeEnd: "2:00 PM",
-      bookStatus: "Cancelled",
-    },
-    {
-      id: "3",
-      date: "date2",
-      serviceType: "Electrical",
-      clientName: "Mary Therese Sun Alegre",
-      address: "Lapu-lapu City, Cebu",
-      timeStart: "10:00 AM",
-      timeEnd: "1:00 PM",
-      bookStatus: "Accepted",
-    },
-    {
-      id: "4",
-      date: "date3",
-    },
-    {
-      id: "5",
-      date: "date4",
-      serviceType: "Electrical",
-      clientName: "Soy Lebumfacil",
-      address: "Bogo City, Cebu",
-      timeStart: "5:00 PM",
-      timeEnd: "8:00 PM",
-      bookStatus: "Ongoing",
-    },
-    {
-      id: "6",
-      date: "date4",
-      serviceType: "Mechanical",
-      clientName: "Hosea Barriga",
-      address: "Danao City, Cebu",
-      timeStart: "12:00 AM",
-      timeEnd: "3:00 PM",
-      bookStatus: "Cancelled",
-    },
-    {
-      id: "7",
-      date: "date5",
-      serviceType: "Mechanical",
-      clientName: "Hosea Barriga",
-      address: "Danao City, Cebu",
-      timeStart: "12:00 AM",
-      timeEnd: "3:00 PM",
-      bookStatus: "Finished",
-    },
-    {
-      id: "8",
-      date: "date6",
-    },
-  ];
+  const { count } = useSelector((state) => state.workerBookingRequests);
+  const { acceptedRequests } = useSelector((state) => state.workerSchedules);
+
+  useEffect(() => {
+    dispatch(getSchedules());
+  }, []);
 
   return (
     <ParallaxScrollView
-      backgroundColor="#FF6D8F"
+      backgroundColor='#FF6D8F'
       contentBackgroundColor={colors.background}
-      contentContainerStyle={{ height: "100%" }}
+      contentContainerStyle={{ height: '100%' }}
       parallaxHeaderHeight={80}
-      renderForeground={() => <Header title={"Schedule"} />}
+      renderForeground={() => <Header title={'Schedule'} />}
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#FF6D8F",
-            height: "100%",
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: '#FF6D8F',
+            height: '100%',
           }}
         >
           <Text
             style={{
               color: colors.black,
-              alignSelf: "center",
+              alignSelf: 'center',
               fontSize: fontSize.h1,
               marginTop: 30,
             }}
           >
-            Booking Requests ({BRcount})
+            Booking Requests ({count})
           </Text>
         </View>
       )}
     >
       <View style={[styles.body]}>
         <View style={[styles.mx3, styles.flex1]}>
-          <WorkerScheduleFlatlist DATA={DATA} />
-          <View
-            style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
-          >
+          <WorkerScheduleFlatlist DATA={acceptedRequests} />
+          <View style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}>
             <View style={[styles.flex1]} />
             <TouchableOpacity
-              onPress={() => navigation.navigate("WorkerBookingRequests")}
+              onPress={() => navigation.navigate('WorkerBookingRequests')}
             >
               <Text
                 style={[
@@ -137,7 +74,7 @@ const WorkerSchedule = ({ navigation }) => {
                   styles.px3,
                 ]}
               >
-                Booking Requests ({BRcount})
+                Booking Requests ({count})
               </Text>
             </TouchableOpacity>
           </View>
@@ -148,3 +85,74 @@ const WorkerSchedule = ({ navigation }) => {
 };
 
 export default WorkerSchedule;
+
+// const DATA = [
+//   {
+//     id: '1',
+//     date: 'date1',
+//     serviceType: 'Electrical',
+//     clientName: 'Soy Lebumfacil',
+//     address: 'Bogo City, Cebu',
+//     timeStart: '11:00 AM',
+//     timeEnd: '10:00 PM',
+//     bookStatus: 'Accepted',
+//   },
+//   {
+//     id: '2',
+//     date: 'date1',
+//     serviceType: 'Mechanical',
+//     clientName: 'James Karl Sia',
+//     address: 'Talamban, Cebu',
+//     timeStart: '10:00 AM',
+//     timeEnd: '2:00 PM',
+//     bookStatus: 'Cancelled',
+//   },
+//   {
+//     id: '3',
+//     date: 'date2',
+//     serviceType: 'Electrical',
+//     clientName: 'Mary Therese Sun Alegre',
+//     address: 'Lapu-lapu City, Cebu',
+//     timeStart: '10:00 AM',
+//     timeEnd: '1:00 PM',
+//     bookStatus: 'Accepted',
+//   },
+//   {
+//     id: '4',
+//     date: 'date3',
+//   },
+//   {
+//     id: '5',
+//     date: 'date4',
+//     serviceType: 'Electrical',
+//     clientName: 'Soy Lebumfacil',
+//     address: 'Bogo City, Cebu',
+//     timeStart: '5:00 PM',
+//     timeEnd: '8:00 PM',
+//     bookStatus: 'Ongoing',
+//   },
+//   {
+//     id: '6',
+//     date: 'date4',
+//     serviceType: 'Mechanical',
+//     clientName: 'Hosea Barriga',
+//     address: 'Danao City, Cebu',
+//     timeStart: '12:00 AM',
+//     timeEnd: '3:00 PM',
+//     bookStatus: 'Cancelled',
+//   },
+//   {
+//     id: '7',
+//     date: 'date5',
+//     serviceType: 'Mechanical',
+//     clientName: 'Hosea Barriga',
+//     address: 'Danao City, Cebu',
+//     timeStart: '12:00 AM',
+//     timeEnd: '3:00 PM',
+//     bookStatus: 'Finished',
+//   },
+//   {
+//     id: '8',
+//     date: 'date6',
+//   },
+// ];

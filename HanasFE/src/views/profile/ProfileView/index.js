@@ -1,46 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, TouchableOpacity, FlatList } from "react-native";
-import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { Icon } from "react-native-elements";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useContext } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Text, View, TouchableOpacity, FlatList } from 'react-native';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import { Icon } from 'react-native-elements';
+import { useDispatch, useSelector } from 'react-redux';
 
-import styles from "./style";
-import CircularProfileImage from "@components/CircularProfileImage";
-import ButtonHallowGray from "@components/ButtonHallowGray";
-import SampleWorks from "@components/SampleWorks";
-import Certificates from "@components/Certificates";
-import Loading from "@components/Loading";
-import WorkerProfileReviewFlatlist from "@components/flatlist/WorkerProfileReviewFlatlist";
-import { colors, fontSize, margin, padding } from "@constants";
-import { fetchData } from "@redux/actions/clientWorkerViewActions";
-import {
-  addToFavorites,
-  resetAddedError,
-} from "@redux/actions/favoritesActions";
-import { ToastComponent, showToast } from "@helpers/toast";
+import styles from './style';
+import { SocketContext } from '../../../context/socketContext';
+import CircularProfileImage from '@components/CircularProfileImage';
+import ButtonHallowGray from '@components/ButtonHallowGray';
+import SampleWorks from '@components/SampleWorks';
+import Certificates from '@components/Certificates';
+import Loading from '@components/Loading';
+import WorkerProfileReviewFlatlist from '@components/flatlist/WorkerProfileReviewFlatlist';
+import { colors, fontSize, margin, padding } from '@constants';
+import { fetchData } from '@redux/actions/clientWorkerViewActions';
+import { addToFavorites, resetAddedError } from '@redux/actions/favoritesActions';
+import { getMessages } from '@redux/actions/conversationAction';
+import { ToastComponent, showToast } from '@helpers/toast';
 
 const ProfileView = ({ navigation, route }) => {
-  const { worker_id, service_id, serviceName, jobs } = route.params;
-
   const dispatch = useDispatch();
+  const { socket } = useContext(SocketContext);
+  const { worker_id, service_id, serviceName, jobs } = route.params;
   const { loading, profileData, success } = useSelector(
-    (state) => state.clientWorkerView
+    (state) => state.clientWorkerView,
   );
-
   const { user } = useSelector((state) => state.userDetails);
-  const { addedSuccess, addedError } = useSelector(
-    (state) => state.addFavorites
-  );
+  const { addedSuccess, addedError } = useSelector((state) => state.addFavorites);
+
+  const [messages, setMessages] = useState([]);
+  const [fetchMessages, setFetchMessages] = useState(false);
 
   const errorToast = (mess) => {
-    showToast("error", mess, "Please try again", () =>
-      dispatch(resetAddedError())
-    );
+    showToast('error', mess, 'Please try again', () => dispatch(resetAddedError()));
   };
 
   const successToast = (mess) => {
-    showToast("success", mess, "Successful", () => dispatch(resetAddedError()));
+    showToast('success', mess, 'Successful', () => dispatch(resetAddedError()));
   };
 
   const handleAddToFavorites = () => {
@@ -54,13 +51,13 @@ const ProfileView = ({ navigation, route }) => {
 
   useEffect(() => {
     if (addedError) {
-      errorToast("Worker already added");
+      errorToast('Worker already added');
     }
   }, [addedError]);
 
   useEffect(() => {
     if (addedSuccess) {
-      successToast("Worker added to favorites");
+      successToast('Worker added to favorites');
     }
   }, [addedSuccess]);
 
@@ -68,11 +65,25 @@ const ProfileView = ({ navigation, route }) => {
     dispatch(fetchData(worker_id, service_id));
   }, [worker_id, service_id]);
 
+  useEffect(() => {
+    if (profileData._id) {
+      getMessages(profileData._id).then((data) => {
+        setMessages(data);
+      });
+    }
+  }, [fetchMessages, profileData]);
+
+  useEffect(() => {
+    socket.current.on('conversationUpdate', () => {
+      setFetchMessages(!fetchMessages);
+    });
+  }, []);
+
   return (
     <>
       {loading ? (
         <View style={styles.loadingContainer}>
-          <Loading title="Fetching Worker Data" />
+          <Loading title='Fetching Worker Data' />
         </View>
       ) : (
         success && (
@@ -80,8 +91,8 @@ const ProfileView = ({ navigation, route }) => {
             <FlatList
               ListHeaderComponent={
                 <ParallaxScrollView
-                  backgroundColor="#FF6D8F"
-                  contentBackgroundColor="#FF6D8F"
+                  backgroundColor='#FF6D8F'
+                  contentBackgroundColor='#FF6D8F'
                   contentContainerStyle={styles.h100}
                   parallaxHeaderHeight={180}
                   renderForeground={() => (
@@ -100,18 +111,18 @@ const ProfileView = ({ navigation, route }) => {
                         <View style={styles.flexedContainer}>
                           <View style={styles.nameContainer}>
                             <Text style={styles.name}>
-                              {`${profileData.first_name} ${profileData.family_name}`}{" "}
+                              {`${profileData.first_name} ${profileData.family_name}`}{' '}
                               {profileData.is_verified ? (
                                 <Icon
-                                  color="green"
+                                  color='green'
                                   size={fontSize.h3}
-                                  name="verified"
+                                  name='verified'
                                 />
                               ) : (
                                 <Icon
-                                  color="red"
+                                  color='red'
                                   size={fontSize.h3}
-                                  name="Unverified"
+                                  name='Unverified'
                                 />
                               )}
                             </Text>
@@ -119,7 +130,7 @@ const ProfileView = ({ navigation, route }) => {
                               <ButtonHallowGray
                                 title={serviceName}
                                 onPress={() =>
-                                  navigation.navigate("ServicesNearYou", {
+                                  navigation.navigate('ServicesNearYou', {
                                     service_type: serviceName,
                                   })
                                 }
@@ -129,13 +140,20 @@ const ProfileView = ({ navigation, route }) => {
 
                           <View>
                             <TouchableOpacity
-                              onPress={() => navigation.navigate("Messages")}
+                              onPress={() =>
+                                navigation.navigate('Chatroom', {
+                                  receiverID: profileData._id,
+                                  receiverName: `${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`,
+                                  receiverProfile: '',
+                                  messages,
+                                })
+                              }
                             >
                               <View style={styles.messageButton}>
                                 <Icon
                                   color={colors.secondary}
                                   size={35}
-                                  name="mail-outline"
+                                  name='mail-outline'
                                 />
                               </View>
                             </TouchableOpacity>
@@ -151,9 +169,9 @@ const ProfileView = ({ navigation, route }) => {
                         style={styles.stickyName}
                       >{`${profileData.first_name} ${profileData.last_name}`}</Text>
                       <Icon
-                        color="green"
+                        color='green'
                         size={fontSize.h3}
-                        name="verified"
+                        name='verified'
                         style={styles.iconAdjusted}
                       ></Icon>
                     </View>
@@ -168,12 +186,10 @@ const ProfileView = ({ navigation, route }) => {
                       </View>
                       <View style={styles.snippetDetails}>
                         <Text style={[styles.blackText, { paddingLeft: 30 }]}>
-                          <Icon color="#FFD706" size={15} name="star" />
-                          {profileData.myServicesData[0].feedbacksData[0] ==
-                          null
+                          <Icon color='#FFD706' size={15} name='star' />
+                          {profileData.myServicesData[0].feedbacksData[0] == null
                             ? `0`
-                            : profileData.myServicesData[0].feedbacksData[0]
-                                .rate}
+                            : profileData.myServicesData[0].feedbacksData[0].rate}
                           /5
                         </Text>
                         <Text
@@ -196,13 +212,11 @@ const ProfileView = ({ navigation, route }) => {
                     </View>
                     <View style={{ marginTop: margin.m5, padding: padding.p3 }}>
                       <View>
-                        <Text style={{ fontSize: fontSize.h1 }}>
-                          Description
-                        </Text>
+                        <Text style={{ fontSize: fontSize.h1 }}>Description</Text>
                         <Text
                           style={{
                             marginVertical: margin.m3,
-                            textAlign: "justify",
+                            textAlign: 'justify',
                           }}
                         >
                           {profileData.myServicesData[0].description}
@@ -214,14 +228,12 @@ const ProfileView = ({ navigation, route }) => {
                           style={styles.whiteButton}
                           onPress={handleAddToFavorites}
                         >
-                          <Text style={styles.buttonText}>
-                            ADD TO FAVORITES
-                          </Text>
+                          <Text style={styles.buttonText}>ADD TO FAVORITES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.pinkButton}
                           onPress={() =>
-                            navigation.navigate("BookSkilledWorker", {
+                            navigation.navigate('BookSkilledWorker', {
                               serviceName,
                             })
                           }
@@ -230,8 +242,7 @@ const ProfileView = ({ navigation, route }) => {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.mtMargin}>
-                        {profileData.myServicesData[0].sample_works.length >
-                        0 ? (
+                        {profileData.myServicesData[0].sample_works.length > 0 ? (
                           <Text style={[styles.labelText]}>
                             Sample Works (
                             {profileData.myServicesData[0].sample_works.length})
@@ -240,19 +251,14 @@ const ProfileView = ({ navigation, route }) => {
                           <View>
                             <Text style={styles.labelText}>Sample Works</Text>
                             <View style={styles.centerView}>
-                              <Text style={styles.mtMargin}>
-                                No sample works added
-                              </Text>
+                              <Text style={styles.mtMargin}>No sample works added</Text>
                             </View>
                           </View>
                         )}
                       </View>
-                      <SampleWorks
-                        DATA={profileData.myServicesData[0].sample_works}
-                      />
+                      <SampleWorks DATA={profileData.myServicesData[0].sample_works} />
                       <View style={{ marginTop: margin.m5 }}>
-                        {profileData.myServicesData[0].certificates.length >
-                        0 ? (
+                        {profileData.myServicesData[0].certificates.length > 0 ? (
                           <Text style={[styles.labelText]}>
                             Certificates (
                             {profileData.myServicesData[0].certificates.length})
@@ -261,30 +267,23 @@ const ProfileView = ({ navigation, route }) => {
                           <View>
                             <Text style={styles.labelText}>Certificates</Text>
                             <View style={styles.centerView}>
-                              <Text style={styles.mtMargin}>
-                                No certficates added
-                              </Text>
+                              <Text style={styles.mtMargin}>No certficates added</Text>
                             </View>
                           </View>
                         )}
                       </View>
-                      <Certificates
-                        DATA={profileData.myServicesData[0].certificates}
-                      />
+                      <Certificates DATA={profileData.myServicesData[0].certificates} />
                       {/* <View style={styles.flexedBetween}> */}
-                      {profileData.myServicesData[0].feedbacksData.length >
-                      0 ? (
+                      {profileData.myServicesData[0].feedbacksData.length > 0 ? (
                         <Text style={[styles.labelText]}>
-                          Feedback (
-                          {profileData.myServicesData[0].feedbacksData.length})
+                          Feedback ({profileData.myServicesData[0].feedbacksData.length}
+                          )
                         </Text>
                       ) : (
                         <View>
                           <Text style={styles.labelText}>Feedback</Text>
                           <View style={styles.centerView}>
-                            <Text
-                              style={[styles.mtMargin, { marginBottom: 25 }]}
-                            >
+                            <Text style={[styles.mtMargin, { marginBottom: 25 }]}>
                               No feedbacks received
                             </Text>
                           </View>
@@ -295,7 +294,7 @@ const ProfileView = ({ navigation, route }) => {
                   </View>
                 </ParallaxScrollView>
               }
-              ListFooterComponentStyle={{ marginTop: "-35%" }}
+              ListFooterComponentStyle={{ marginTop: '-35%' }}
               ListFooterComponent={
                 <WorkerProfileReviewFlatlist
                   navigation={navigation}

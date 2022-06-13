@@ -7,13 +7,26 @@ export const getUserConversations = () => async (dispatch) => {
     let token = await getItem('token');
 
     let { data } = await axios.get('/api/conversations', {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     dispatch({
       type: ConversationActions.FETCH_CONVERSATIONS,
-      payload: data.conversations
+      payload: data.conversations,
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getMessages = async (receiverID) => {
+  try {
+    let token = await getItem('token');
+    let { data } = await axios.get(`/api/conversations/${receiverID}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return data.messages;
   } catch (err) {
     console.log(err);
   }
@@ -27,11 +40,11 @@ export const storeNewMessage = async (receiverID, newMessage) => {
       '/api/conversations',
       {
         receiverID: receiverID,
-        newMessage: newMessage
+        newMessage: newMessage,
       },
       {
-        headers: { Authorization: `Bearer ${token}` }
-      }
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
 
     console.log(data.message);

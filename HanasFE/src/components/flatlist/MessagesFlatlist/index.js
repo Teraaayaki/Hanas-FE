@@ -53,7 +53,7 @@ const MessagesFlatlist = ({ navigation }) => {
 
   const getReceiverInfo = (participants) => {
     const info = participants.filter(
-      (participant) => participant.user._id !== user.id
+      (participant) => participant.user._id !== user.id,
     );
 
     return info[0].user;

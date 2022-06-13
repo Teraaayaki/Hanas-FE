@@ -1,18 +1,20 @@
-import { combineReducers } from "redux";
-import userLoginReducer from "./userLoginReducer";
-import userRegisterReducer from "./userRegisterReducer";
-import userDetailReducer from "./userDetailsReducer";
-import workerServicesReducer from "./workerServicesReducer";
-import clientWorkerViewReducer from "./clientWorkerViewReducer";
-import clientBookingReducer from "./clientBookingReducer";
-import conversationReducer from "./conversationReducer";
-import scheduleReducer from "./scheduleReducer";
+import { combineReducers } from 'redux';
+import userLoginReducer from './userLoginReducer';
+import userRegisterReducer from './userRegisterReducer';
+import userDetailReducer from './userDetailsReducer';
+import workerServicesReducer from './workerServicesReducer';
+import clientWorkerViewReducer from './clientWorkerViewReducer';
+import clientBookingReducer from './clientBookingReducer';
+import conversationReducer from './conversationReducer';
+import scheduleReducer from './scheduleReducer';
 import favoritesReducer, {
   addfavoritesReducer,
   removefavoritesReducer,
-} from "./favoritesReducer";
-import servicesNearYouReducer from "./servicesNearYouReducer";
-import editPasswordReducer from "./editPasswordReducer";
+} from './favoritesReducer';
+import servicesNearYouReducer from './servicesNearYouReducer';
+import editPasswordReducer from './editPasswordReducer';
+import workerBookingReducer from './workerBookingReducer';
+import workerScheduleReducer from './workerScheduleReducer';
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -28,4 +30,6 @@ export default combineReducers({
   schedule: scheduleReducer,
   servicesNearYou: servicesNearYouReducer,
   editPassword: editPasswordReducer,
+  workerBookingRequests: workerBookingReducer,
+  workerSchedules: workerScheduleReducer,
 });

@@ -1,10 +1,10 @@
-import React from "react";
-import { View } from "react-native";
-import { Icon } from "react-native-elements";
+import React from 'react';
+import { View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-import styles from "./styles";
-import { colors } from "@constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import styles from './styles';
+import { colors } from '@constants';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ContainedIcon = ({
   check, //Check Icon
@@ -23,18 +23,18 @@ const ContainedIcon = ({
 }) => {
   const iconName = ({ check, xMark, customIconName }) => {
     if (check) {
-      return "check";
+      return 'check';
     } else if (xMark) {
-      return "x";
+      return 'x';
     }
     return customIconName;
   };
 
   const iconType = ({ check, xMark, customIconType }) => {
     if (check) {
-      return "ant-design";
+      return 'ant-design';
     } else if (xMark) {
-      return "feather";
+      return 'feather';
     }
     return customIconType;
   };
@@ -98,11 +98,7 @@ const ContainedIcon = ({
 
   const isButtonHandler = ({ pressable, onPress }) => {
     if (pressable) {
-      return (
-        <TouchableOpacity onPress={onPress}>
-          {renderIcon()}
-        </TouchableOpacity>
-      );
+      return <TouchableOpacity onPress={onPress}>{renderIcon()}</TouchableOpacity>;
     }
     return renderIcon();
   };

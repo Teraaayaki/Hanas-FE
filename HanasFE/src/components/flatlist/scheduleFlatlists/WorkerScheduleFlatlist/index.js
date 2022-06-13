@@ -1,71 +1,62 @@
-import React, { useState } from "react";
-import { FlatList, View, Text } from "react-native";
-import { Icon } from "react-native-elements";
+import React from 'react';
+import { FlatList, View, Text } from 'react-native';
+import { Icon } from 'react-native-elements';
+import moment from 'moment';
 
 import {
   PinkSidedCardHeader,
   PinkSidedCardItem,
-} from "@components/card/PinkSidedCardList";
-import ContainedIcon from "@components/icons/ContainedIcon";
-import styles from "./style";
-import { colors } from "@constants";
-import { padding } from "@constants";
+} from '@components/card/PinkSidedCardList';
+import ContainedIcon from '@components/icons/ContainedIcon';
+import styles from './style';
+import { colors } from '@constants';
+import { padding } from '@constants';
 
 const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
-  let date = "_";
+  let date = '_';
 
   const renderCard = ({ item }) => {
     return (
-      <View
-        style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
-      >
+      <View style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}>
         <View style={[styles.flex1, styles.pl3]}>
           <View style={[styles.flex1, styles.flexRow, styles.mb2]}>
             <Text style={[styles.flex1, styles.mx1, styles.h3, styles.bold]}>
               Type of Service:
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.h3]}>
-              {item.serviceType}
+              {item.service_availed.service.service_type}
             </Text>
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.my1]}>
             <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
               Client Name
             </Text>
-            <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.clientName}
-            </Text>
+            <Text
+              style={[styles.flex1, styles.mx1, styles.p]}
+            >{`${item.client.first_name} ${item.client.middle_name} ${item.client.family_name} ${item.client.suffix}`}</Text>
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.my1]}>
             <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
               Address
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.address}
+              {item.client.address}
             </Text>
           </View>
-          <View
-            style={[
-              styles.flex1,
-              styles.flexRow,
-              styles.mt2,
-              styles.alignCenter,
-            ]}
-          >
+          <View style={[styles.flex1, styles.flexRow, styles.mt2, styles.alignCenter]}>
             <Icon
-              name="calendar-clock"
-              type="material-community"
+              name='calendar-clock'
+              type='material-community'
               color={colors.secondary}
             />
-            <Text
-              style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
-            >
-              {item.timeStart} - {item.timeEnd}
+            <Text style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}>
+              {moment(item.booked_dateTimeStart).format('LT')} -
+              {moment(item.booked_dateTimeEnd).format('LT')}
             </Text>
           </View>
         </View>
         <View style={[styles.mx5]}>
-          {item.bookStatus == "Finished" ? (
+          {item.bookStatus === 'Finished' ? (
             <ContainedIcon check disabled />
           ) : (
             <ContainedIcon check success pressable />
@@ -76,11 +67,11 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (item.date != date) {
-      date = item.date;
+    if (moment(item.booked_dateTimeStart).format('LL') !== date) {
+      date = moment(item.booked_dateTimeStart).format('LL');
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={item.date} />
+          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format('LL')} />
         </View>
       );
     }
@@ -91,7 +82,7 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
       <View>
         {renderTitle({ item })}
 
-        {item.serviceType ? (
+        {item.service_availed.service.service_type ? (
           <PinkSidedCardItem content={renderCard({ item })} />
         ) : (
           <PinkSidedCardItem
