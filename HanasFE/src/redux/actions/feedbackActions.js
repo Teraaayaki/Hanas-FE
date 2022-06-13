@@ -18,7 +18,7 @@ export const addFeedback = (DATA) => async (dispatch) => {
   console.log("DATA", DATA);
 
   try {
-    let { data } = await axios.post(
+    let { data } = await axios.patch(
       "/api/client/give-feedback",
       { DATA },
       { headers: { authorization: `Bearer ${token}` } }
