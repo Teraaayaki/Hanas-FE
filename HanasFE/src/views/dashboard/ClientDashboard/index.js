@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
+  Image,
   View,
   Text,
   ScrollView,
@@ -127,7 +128,26 @@ const ClientDashboard = ({ navigation }) => {
             <View style={styles.textContainer}>
               <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
             </View>
-            <CardContainerFlatlist navigation={navigation} data={data.user} />
+            {data.user.length === 0 ? (
+              <>
+                <Image
+                  style={styles.noWorkerImage}
+                  source={require("@images/steve.png")}
+                ></Image>
+                <View style={styles.noWorkerTextBox}>
+                  <Text style={styles.noWorkerText}>
+                    Sorry, No workers available in the area
+                  </Text>
+                </View>
+              </>
+            ) : (
+              <>
+                <CardContainerFlatlist
+                  navigation={navigation}
+                  data={data.user}
+                />
+              </>
+            )}
           </View>
         }
       ></FlatList>

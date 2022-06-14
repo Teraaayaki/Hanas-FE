@@ -27,17 +27,19 @@ const ServicesNearYou = ({ navigation, route }) => {
 
   useEffect(() => {
     const Data = {
-      service_type: service_type,
+      service_type,
+      address,
     };
     dispatch(getServicesNearYou(Data));
   }, []);
 
   useEffect(() => {
     const Data = {
-      service_type: service_type,
+      service_type,
+      address,
     };
     dispatch(getServicesNearYou(Data));
-  }, [service_type]);
+  }, [service_type, address]);
 
   return (
     <View style={styles.container}>
