@@ -16,19 +16,19 @@ import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import { fetcher } from "@helpers/fetcher";
 import services from "@helpers/services";
 import LocationBar from "@components/LocationBar";
 import LocationModal from "@components/LocationModal";
 
 const ClientDashboard = ({ navigation }) => {
-  const { data, error } = useSWR(
+  // SWR
+  const [queryParams, setQueryParams] = useState(null);
+  const { data, error } = useSWR([
     `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
-    fetcher
-  );
+    queryParams,
+  ]);
   const { data: servicesData, error: topServicesError } = useSWR(
-    `${process.env.LOCALHOST}/api/client/get-top-services`,
-    fetcher
+    `${process.env.LOCALHOST}/api/client/get-top-services`
   );
   // LOCATION STATE
   const { address, setAddress } = useContext(AddressContext);
@@ -42,6 +42,7 @@ const ClientDashboard = ({ navigation }) => {
   const [topRatedServices, setTopRatedServices] = useState([]);
 
   useEffect(() => {
+    setQueryParams(address);
     console.log("Booking Data Populated");
     dispatch(getBooking());
 
@@ -55,9 +56,13 @@ const ClientDashboard = ({ navigation }) => {
       topRatedTemp.includes(service.service_type)
     );
 
-    //set the new
+    //set the new data
     setTopRatedServices([...filteredServices]);
   }, []);
+
+  useEffect(() => {
+    setQueryParams(address);
+  }, [address]);
 
   return (
     <View style={styles.container}>

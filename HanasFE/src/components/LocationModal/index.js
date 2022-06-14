@@ -26,12 +26,12 @@ const LocationModal = ({ visible, onBackdropPress, setAddress }) => {
         activeScale={0.95}
         bottomDivider
         onPress={() => {
-          setNewAddress(item.full_municipality);
+          setNewAddress(item.municipality);
         }}
       >
         {/* <Avatar /> */}
         <ListItem.Content>
-          <ListItem.Title>{item.full_municipality}</ListItem.Title>
+          <ListItem.Title>{item.municipality}</ListItem.Title>
           {/* <ListItem.Subtitle>{item.municipality}</ListItem.Subtitle> */}
         </ListItem.Content>
         <ListItem.Chevron />
