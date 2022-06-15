@@ -11,6 +11,7 @@ import TypeOfService from "@components/TypeOfService";
 import LocationBar from "@components/LocationBar";
 import LocationModal from "@components/LocationModal";
 import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
+import NoWorkerGraphic from "@components/NoWorkerGraphic";
 
 const ServicesNearYou = ({ navigation, route }) => {
   const { servicesData, loading } = useSelector(
@@ -62,9 +63,10 @@ const ServicesNearYou = ({ navigation, route }) => {
         ) : (
           <>
             {servicesData.length == 0 ? (
-              <Text style={styles.selfCenter}>
-                No workers offering the service yet
-              </Text>
+              <NoWorkerGraphic
+                model="steff"
+                text="More workers coming soon in your area..."
+              />
             ) : (
               servicesData.map((workerInfo) => (
                 <CardContainer

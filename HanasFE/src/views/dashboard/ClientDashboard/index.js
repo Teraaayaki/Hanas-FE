@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import LightHeader from "@components/LightHeaderWithHanas";
 import CircularImage from "@components/CircularImage";
 import {
-  Image,
   View,
   Text,
   ScrollView,
@@ -20,6 +19,7 @@ import { getBooking } from "@redux/actions/clientBookingActions";
 import services from "@helpers/services";
 import LocationBar from "@components/LocationBar";
 import LocationModal from "@components/LocationModal";
+import NoWorkerGraphic from "@components/NoWorkerGraphic";
 
 const ClientDashboard = ({ navigation }) => {
   // SWR
@@ -129,17 +129,7 @@ const ClientDashboard = ({ navigation }) => {
               <Text style={styles.labelText}>Top Rated Skilled Workers</Text>
             </View>
             {data.user.length === 0 ? (
-              <>
-                <Image
-                  style={styles.noWorkerImage}
-                  source={require("@images/steve.png")}
-                ></Image>
-                <View style={styles.noWorkerTextBox}>
-                  <Text style={styles.noWorkerText}>
-                    Sorry, No workers available in the area
-                  </Text>
-                </View>
-              </>
+              <NoWorkerGraphic text="Sorry, No workers available in the area yet" />
             ) : (
               <>
                 <CardContainerFlatlist
