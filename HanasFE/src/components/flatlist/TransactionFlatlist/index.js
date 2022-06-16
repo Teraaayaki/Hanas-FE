@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 import {
   View,
   FlatList,
@@ -7,97 +8,70 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
-import { colors, fontWeight, fontSize, margin } from '@constants';
-import styles from './style';
+import { colors, fontWeight, fontSize, margin } from "@constants";
+import styles from "./style";
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-    name: 'James Sia',
-    amount: '300.00',
-    date: '09 - 20 - 21 | 08:00:12',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-    name: 'Therese Sun',
-    amount: '1000.00',
-    date: '09 - 21 - 21 | 08:00:12',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-    name: 'Renzo Pradilla',
-    amount: '600.00',
-    date: '09 - 23 - 21 | 08:00:12',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d71',
-    title: 'Third Item',
-    name: 'Soy Lebumfacil',
-    amount: '500.00',
-    date: '09 - 26 - 21 | 08:00:12',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d73',
-    title: 'Third Item',
-    name: 'Hosea Barriga',
-    amount: '100.00',
-    date: '09 - 27 - 21 | 08:00:12',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d74',
-    title: 'Third Item',
-    name: 'Hosea Barriga',
-    amount: '100.00',
-    date: '09 - 30 - 21 | 08:00:12',
-  },
-];
+import { getTransactions } from "@redux/actions/transactionActions";
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
+const Item = ({ item, onPress, backgroundColor, textColor, isWorker }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <View style={styles.container}>
-      <Text style={styles.name}>Payment Sent to {item.name}</Text>
+      <Text style={styles.name}>
+        {isWorker
+          ? `Payment Received for ${item.service_availed.service.service_type} Service`
+          : `Payment Sent to ${item.worker.first_name} ${item.worker.family_name} ${item.worker.suffix}`}
+      </Text>
       <View style={styles.viewButtonContainerFlex}>
-        <Text style={styles.boldText}>Php {item.amount}</Text>
+        <Text style={styles.boldText}>Php {item.total_cost}</Text>
         <TouchableOpacity onPress={onPress}>
           <Text style={styles.viewText} onPress={onPress}>
             View
           </Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.dateText}>{item.date}</Text>
+      <Text style={styles.dateText}>
+        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
+      </Text>
     </View>
   </TouchableOpacity>
 );
 
 const TransactionFlatlist = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { transactions } = useSelector((state) => state.transactions);
   const { isWorker } = useSelector((state) => state.userLogin);
   const [selectedId, setSelectedId] = useState(null);
 
+  useEffect(() => {
+    dispatch(getTransactions());
+  }, []);
+
   const renderItem = ({ item }) => {
     const backgroundColor =
-      item.id === selectedId ? colors.borderGrey : colors.background;
-    const color = item.id === selectedId ? 'white' : 'black';
+      item._id === selectedId ? colors.borderGrey : colors.background;
+    const color = item.id === selectedId ? "white" : "black";
 
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate('TransactionReport')}
+        onPress={() => {
+          setSelectedId(item._id);
+          navigation.navigate("TransactionReport");
+        }}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
+        isWorker={isWorker}
       />
     );
   };
 
   return (
     <FlatList
-      data={DATA}
+      data={transactions}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       extraData={selectedId}
       contentContainerStyle={{
         flexGrow: 1,

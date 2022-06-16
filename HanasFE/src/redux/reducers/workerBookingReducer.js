@@ -1,4 +1,4 @@
-import { WorkerBookingActions } from '../actions/types';
+import { WorkerBookingActions } from "../actions/types";
 
 export const bookingRequestsInitialValue = {
   bookingRequests: [],
@@ -14,7 +14,9 @@ const workerBookingReducer = (state = bookingRequestsInitialValue, action) => {
         count: action.payload.length,
       };
     case WorkerBookingActions.REMOVE_BOOKING_REQUEST:
-      const requests = state.bookingRequests.filter((request) => request._id !== action.payload);
+      const requests = state.bookingRequests.filter(
+        (request) => request._id !== action.payload,
+      );
 
       return { ...state, bookingRequests: requests, count: state.count - 1 };
     default:

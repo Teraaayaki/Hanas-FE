@@ -1,12 +1,12 @@
-import axios from '@helpers/axios';
-import { getItem } from '@helpers/asyncStorage';
-import { ConversationActions } from './types';
+import axios from "@helpers/axios";
+import { getItem } from "@helpers/asyncStorage";
+import { ConversationActions } from "./types";
 
 export const getUserConversations = () => async (dispatch) => {
   try {
-    let token = await getItem('token');
+    let token = await getItem("token");
 
-    let { data } = await axios.get('/api/conversations', {
+    let { data } = await axios.get("/api/conversations", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -21,7 +21,7 @@ export const getUserConversations = () => async (dispatch) => {
 
 export const getMessages = async (receiverID) => {
   try {
-    let token = await getItem('token');
+    let token = await getItem("token");
     let { data } = await axios.get(`/api/conversations/${receiverID}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -34,10 +34,10 @@ export const getMessages = async (receiverID) => {
 
 export const storeNewMessage = async (receiverID, newMessage) => {
   try {
-    let token = await getItem('token');
+    let token = await getItem("token");
 
     let { data } = await axios.post(
-      '/api/conversations',
+      "/api/conversations",
       {
         receiverID: receiverID,
         newMessage: newMessage,

@@ -1,19 +1,19 @@
-import React from 'react';
-import { FlatList, View, Text } from 'react-native';
-import { Icon } from 'react-native-elements';
-import moment from 'moment';
+import React from "react";
+import { FlatList, View, Text } from "react-native";
+import { Icon } from "react-native-elements";
+import moment from "moment";
 
 import {
   PinkSidedCardHeader,
   PinkSidedCardItem,
-} from '@components/card/PinkSidedCardList';
-import ContainedIcon from '@components/icons/ContainedIcon';
-import styles from './style';
-import { colors } from '@constants';
-import { padding } from '@constants';
+} from "@components/card/PinkSidedCardList";
+import ContainedIcon from "@components/icons/ContainedIcon";
+import styles from "./style";
+import { colors } from "@constants";
+import { padding } from "@constants";
 
 const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
-  let date = '_';
+  let date = "_";
 
   const renderCard = ({ item }) => {
     return (
@@ -45,18 +45,18 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.mt2, styles.alignCenter]}>
             <Icon
-              name='calendar-clock'
-              type='material-community'
+              name="calendar-clock"
+              type="material-community"
               color={colors.secondary}
             />
             <Text style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}>
-              {moment(item.booked_dateTimeStart).format('LT')} -
-              {moment(item.booked_dateTimeEnd).format('LT')}
+              {moment(item.booked_dateTimeStart).format("LT")} -
+              {moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
           </View>
         </View>
         <View style={[styles.mx5]}>
-          {item.bookStatus === 'Finished' ? (
+          {item.bookStatus === "Finished" ? (
             <ContainedIcon check disabled />
           ) : (
             <ContainedIcon check success pressable />
@@ -67,11 +67,11 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (moment(item.booked_dateTimeStart).format('LL') !== date) {
-      date = moment(item.booked_dateTimeStart).format('LL');
+    if (moment(item.booked_dateTimeStart).format("LL") !== date) {
+      date = moment(item.booked_dateTimeStart).format("LL");
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format('LL')} />
+          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format("LL")} />
         </View>
       );
     }
@@ -102,7 +102,7 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
     <FlatList
       data={DATA}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
     />
   );

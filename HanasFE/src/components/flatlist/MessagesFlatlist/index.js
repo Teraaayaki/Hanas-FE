@@ -52,9 +52,7 @@ const MessagesFlatlist = ({ navigation }) => {
   }, [doneFetching]);
 
   const getReceiverInfo = (participants) => {
-    const info = participants.filter(
-      (participant) => participant.user._id !== user.id,
-    );
+    const info = participants.filter((participant) => participant.user._id !== user.id);
 
     return info[0].user;
   };

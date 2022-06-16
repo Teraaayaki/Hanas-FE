@@ -1,12 +1,12 @@
-import { WorkerBookingActions } from './types';
-import axios from '@axios';
-import { getItem } from '@helpers/asyncStorage';
+import { WorkerBookingActions } from "./types";
+import axios from "@axios";
+import { getItem } from "@helpers/asyncStorage";
 
 export const getBookingRequests = () => async (dispatch) => {
-  let token = await getItem('token');
+  let token = await getItem("token");
 
   try {
-    let { data } = await axios.get('/api/worker/booking-requests', {
+    let { data } = await axios.get("/api/worker/booking-requests", {
       headers: { authorization: `Bearer ${token}` },
     });
 
@@ -20,11 +20,11 @@ export const getBookingRequests = () => async (dispatch) => {
 };
 
 export const acceptBookingRequest = (bookingID) => async (dispatch) => {
-  let token = await getItem('token');
+  let token = await getItem("token");
 
   try {
     axios({
-      method: 'patch',
+      method: "patch",
       url: `/api/worker/accept-booking/${bookingID}`,
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -39,11 +39,11 @@ export const acceptBookingRequest = (bookingID) => async (dispatch) => {
 };
 
 export const declineBookingRequest = (bookingID) => async (dispatch) => {
-  let token = await getItem('token');
+  let token = await getItem("token");
 
   try {
     axios({
-      method: 'patch',
+      method: "patch",
       url: `/api/worker/decline-booking/${bookingID}`,
       headers: { Authorization: `Bearer ${token}` },
     });

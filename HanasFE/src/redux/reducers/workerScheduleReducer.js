@@ -1,4 +1,4 @@
-import { WorkerSchedule } from '../actions/types';
+import { WorkerScheduleActions } from "../actions/types";
 
 export const scheduleInitialValue = {
   acceptedRequests: [],
@@ -6,7 +6,7 @@ export const scheduleInitialValue = {
 
 const workingScheduleReducer = (state = scheduleInitialValue, action) => {
   switch (action.type) {
-    case WorkerSchedule.FETCH_SCHEDULES:
+    case WorkerScheduleActions.FETCH_SCHEDULES:
       return {
         ...state,
         acceptedRequests: action.payload,

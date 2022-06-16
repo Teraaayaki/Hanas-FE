@@ -1,26 +1,26 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { FlatList, View, Text } from 'react-native';
-import { Icon } from 'react-native-elements';
-import moment from 'moment';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { FlatList, View, Text } from "react-native";
+import { Icon } from "react-native-elements";
+import moment from "moment";
 
 import {
   PinkSidedCardHeader,
   PinkSidedCardItem,
-} from '@components/card/PinkSidedCardList';
-import ContainedIcon from '@components/icons/ContainedIcon';
-import styles from './style';
-import { colors } from '@constants';
-import { padding } from '@constants';
+} from "@components/card/PinkSidedCardList";
+import ContainedIcon from "@components/icons/ContainedIcon";
+import styles from "./style";
+import { colors } from "@constants";
+import { padding } from "@constants";
 
 import {
   acceptBookingRequest,
   declineBookingRequest,
-} from '@redux/actions/workerBookingActions';
+} from "@redux/actions/workerBookingActions";
 
 const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
   const dispatch = useDispatch();
-  let date = '_';
+  let date = "_";
 
   const renderContent = ({ item }) => {
     return (
@@ -52,17 +52,17 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.mt2, styles.alignCenter]}>
             <Icon
-              name='calendar-clock'
-              type='material-community'
-              color={item.book_status == 'Pending' ? colors.secondary : colors.muted75}
+              name="calendar-clock"
+              type="material-community"
+              color={item.book_status == "Pending" ? colors.secondary : colors.muted75}
             />
             <Text style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}>
-              {moment(item.booked_dateTimeStart).format('LT')} -
-              {moment(item.booked_dateTimeEnd).format('LT')}
+              {moment(item.booked_dateTimeStart).format("LT")} -
+              {moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
           </View>
         </View>
-        {item.book_status === 'Pending' ? (
+        {item.book_status === "Pending" ? (
           <View style={[styles.mx5, styles.h100, styles.justifyContentSpaceBetween]}>
             <ContainedIcon
               check
@@ -88,7 +88,7 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
               disabled
               pressable
               onPress={() => {
-                console.log('Decline Request');
+                console.log("Decline Request");
               }}
             />
           </View>
@@ -98,20 +98,20 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (moment(item.booked_dateTimeStart).format('LL') !== date) {
-      date = moment(item.booked_dateTimeStart).format('LL');
+    if (moment(item.booked_dateTimeStart).format("LL") !== date) {
+      date = moment(item.booked_dateTimeStart).format("LL");
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format('LL')} />
+          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format("LL")} />
         </View>
       );
     }
   };
 
   const renderCard = ({ item }) => {
-    if (item.book_status === 'Pending') {
+    if (item.book_status === "Pending") {
       return <PinkSidedCardItem content={renderContent({ item })} />;
-    } else if (item.bookStatus === 'Declined') {
+    } else if (item.bookStatus === "Declined") {
       return <PinkSidedCardItem disabled content={renderContent({ item })} />;
     }
     return (

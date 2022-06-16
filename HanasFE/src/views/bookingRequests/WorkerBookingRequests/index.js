@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { View } from 'react-native';
-import styles from './style';
-import Header from '@components/Header';
-import WorkerBookingRequestsFlatlist from '@components/flatlist/bookingRequestsFlatlists/WorkerBookingRequestsFlatlist';
+import React, { Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { View } from "react-native";
+import styles from "./style";
+import Header from "@components/Header";
+import WorkerBookingRequestsFlatlist from "@components/flatlist/bookingRequestsFlatlists/WorkerBookingRequestsFlatlist";
 
-import { getBookingRequests } from '../../../redux/actions/workerBookingActions';
+import { getBookingRequests } from "../../../redux/actions/workerBookingActions";
 
 const WorkerBookingRequests = ({ navigation }) => {
   const dispatch = useDispatch();
