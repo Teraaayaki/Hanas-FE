@@ -1,16 +1,35 @@
-import { View, Text, Image } from "react-native";
-import React, { useState } from "react";
+import { View, Image } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { SearchBar } from "react-native-elements";
-import styles from "./style";
-import { colors, fontSize } from "@constants";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const LightHeader = () => {
+import styles from "./style";
+import { colors } from "@constants";
+
+const LightHeader = ({ setQueryParams }) => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const searchBar = useRef();
+
   const [search, setSearch] = useState("");
 
-  const updateSearch = (search) => {
-    setSearch(search);
+  const updateSearch = (e) => {
+    setSearch(e);
   };
+
+  const triggerSearch = () => {
+    if (search === "") {
+      setQueryParams(null);
+      return;
+    }
+    setQueryParams(search);
+  };
+
+  useEffect(() => {
+    route.name === "Search" && searchBar.current.focus();
+  }, []);
+
   return (
     <View>
       <LinearGradient
@@ -28,16 +47,22 @@ const LightHeader = () => {
       </LinearGradient>
 
       <SearchBar
+        ref={searchBar}
         placeholder="Search for a service or a skilled worker..."
         lightTheme
         autoCapitalize="none"
         onChangeText={updateSearch}
         value={search}
+        editable={true}
         containerStyle={styles.searchContainer}
         inputContainerStyle={styles.searchInputContainer}
         inputStyle={styles.inputStyle}
         rightIconContainerStyle={styles.rightIconStyle}
         showLoading={true}
+        onPressIn={
+          route.name === "Search" ? null : () => navigation.navigate("Search")
+        }
+        onSubmitEditing={triggerSearch}
       />
     </View>
   );

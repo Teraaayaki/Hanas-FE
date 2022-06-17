@@ -6,15 +6,22 @@ import styles from "./style";
 const NoWorkerGraphic = ({ model = "steve", text }) => {
   return (
     <View>
-      {model === "steve" ? (
+      {model === "steve" && (
         <Image
           style={styles.noWorkerImage}
           source={require("@images/steve.png")}
         />
-      ) : (
+      )}
+      {model === "steff" && (
         <Image
           style={styles.noWorkerImage}
           source={require("@images/steff.png")}
+        />
+      )}
+      {model === "steve2" && (
+        <Image
+          style={styles.noWorkerImage}
+          source={require("@images/steve2.png")}
         />
       )}
       <View style={styles.noWorkerTextBox}>
