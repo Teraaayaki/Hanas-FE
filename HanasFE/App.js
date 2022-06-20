@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { AppState, Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import Geocoder from "react-native-geocoding";
 import { SWRConfig } from "swr";
 import AppLoading from "expo-app-loading";
 
-import { SocketProvider } from "./src/context/socketContext";
+import AddressProvider from "./src/context/addressContext";
+import { fetcher } from "@helpers/fetcher";
 import HanasStack from "@routes";
-import store from "./src/redux";
+import Loading from "@components/Loading";
 import { MAPS_API_KEY } from "@env";
 import { Suspense } from "react";
-import Loading from "@components/Loading";
+import { SocketProvider } from "./src/context/socketContext";
+import store from "./src/redux";
 import useFonts from "@hooks/useFonts";
 
 Geocoder.init(MAPS_API_KEY);
@@ -36,9 +38,7 @@ export default function App() {
   return (
     <SWRConfig
       value={{
-        fetcher: (...args) => fetch(...args).then((res) => res.json()),
-        topServicesFetcher: (...args) =>
-          fetch(...args).then((res) => res.json()),
+        fetcher,
         suspense: true,
       }}
     >
@@ -51,9 +51,11 @@ export default function App() {
       >
         <Provider store={store}>
           <NavigationContainer>
-            <SocketProvider>
-              <HanasStack />
-            </SocketProvider>
+            <AddressProvider>
+              <SocketProvider>
+                <HanasStack />
+              </SocketProvider>
+            </AddressProvider>
           </NavigationContainer>
         </Provider>
       </Suspense>
