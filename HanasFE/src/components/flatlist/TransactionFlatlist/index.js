@@ -32,7 +32,8 @@ const Item = ({ item, onPress, backgroundColor, textColor, isWorker }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
+        {moment(item.updatedAt).format("LL")} |{" "}
+        {moment(item.updatedAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -58,7 +59,7 @@ const TransactionFlatlist = ({ navigation }) => {
         item={item}
         onPress={() => {
           setSelectedId(item._id);
-          navigation.navigate("TransactionReport");
+          navigation.navigate("TransactionReport", { item });
         }}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}

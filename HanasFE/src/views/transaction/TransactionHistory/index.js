@@ -11,8 +11,8 @@ const Transactions = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Transaction History" />
       <View style={styles.textContainer}>
-        <TypeOfService title="" />
-        <DropdownPicker />
+        {/* <TypeOfService title="" /> */}
+        {/* <DropdownPicker /> */}
       </View>
       <TransactionFlatlist navigation={navigation} />
     </View>

@@ -95,4 +95,7 @@ export default StyleSheet.create({
     fontSize: fontSize.h5,
     color: colors.black,
   },
+  success: {
+    color: colors.success,
+  },
 });

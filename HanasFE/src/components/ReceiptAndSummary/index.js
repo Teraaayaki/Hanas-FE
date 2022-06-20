@@ -75,7 +75,7 @@ const ReceiptAndSummary = ({
         <View style={styles.serviceContainer}>
           <View style={styles.valuesContainer}>
             <Text style={styles.boldHeadings}>Service Status</Text>
-            <Text style={styles.h3}>{status}</Text>
+            <Text style={[styles.h3, styles.success]}>{status}</Text>
           </View>
           <View style={styles.valuesContainer}>
             <Text style={styles.boldHeadings}>Book Type</Text>
