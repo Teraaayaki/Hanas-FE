@@ -31,6 +31,15 @@ const userDetailReducer = (state = userDetailsInitialValues, action) => {
           email: action.payload.email,
         },
       };
+    case UserDetailActions.USER_DETAILS_CHANGE_PENDING_VERIFICATION:
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          pending_verification: action.payload,
+        },
+      };
     case UserDetailActions.USER_DETAILS_CHANGE_SUCCESS:
       return {
         ...state,

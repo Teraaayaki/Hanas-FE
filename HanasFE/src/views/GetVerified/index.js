@@ -7,6 +7,8 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon } from "react-native-elements";
+import * as ImagePicker from "expo-image-picker";
+import { useDispatch } from "react-redux";
 
 import {
   pickImage,
@@ -18,13 +20,23 @@ import {
 import AttachImage from "@components/AttachImage";
 import Button from "@components/Button";
 import styles from "./style";
-import { getItem } from "@helpers/asyncStorage";
+import { showToast, ToastComponent } from "@helpers/toast";
+import { changePendingVerification } from "@redux/actions/userDetailActions";
 
 const GetVerified = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [validId, setValidId] = useState([]);
   const [validIdUri, setValidIdUri] = useState([]);
   const [clearance, setClearance] = useState([]);
   const [clearanceUri, setClearanceUri] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const resetState = () => {
+    setValidId([]);
+    setValidIdUri([]);
+    setClearance([]);
+    setClearanceUri([]);
+  };
 
   const handleInputValidId = async () => {
     // setTouchedProfile(true);
@@ -67,7 +79,18 @@ const GetVerified = ({ navigation }) => {
   };
 
   const handleSubmit = async () => {
-    let token = await getItem("token");
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    if (validIdUri.length === 0 || clearanceUri.length === 0) {
+      setLoading(false);
+      showToast("error", "Missing or Incomplete Data", "Please try again.");
+      return;
+    }
+
     console.log(validIdUri);
     console.log(clearanceUri);
 
@@ -81,12 +104,33 @@ const GetVerified = ({ navigation }) => {
       const response = await uploadImage(clearanceFormdata);
 
       if (response.ok) {
-        console.log("Successfully uploaded files");
+        const { message } = await response.json();
+        setLoading(false);
+        resetState();
+        dispatch(changePendingVerification());
+        showToast("success", message, "Redirecting in 4 seconds", () => {
+          navigation.navigate("Dashboard");
+        });
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
+      showToast("error", "Failed to send request", "Please try again.");
     }
   };
+
+  // HANDLE PERMISSIONS AND GET TOKEN
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Permission Denied, Cannot add a service");
+        }
+      }
+    })();
+  }, []);
 
   return (
     <View styles={styles.container}>
@@ -207,7 +251,7 @@ const GetVerified = ({ navigation }) => {
         </View>
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="SUBMIT" onPress={handleSubmit} />
+            <Button title="SUBMIT" onPress={handleSubmit} loading={loading} />
             <View style={styles.textLinkContainer}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Dashboard")}
@@ -218,6 +262,7 @@ const GetVerified = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+      <ToastComponent />
     </View>
   );
 };

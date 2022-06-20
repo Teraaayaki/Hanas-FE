@@ -72,6 +72,15 @@ const Profile = ({ navigation }) => {
                   <Icon color="green" size={fontSize.h3} name="verified" />{" "}
                   Verified
                 </Text>
+              ) : user.pending_verification ? (
+                <TouchableOpacity
+                // onPress={() => navigation.navigate("GetVerified")}
+                >
+                  <Text style={styles.verified}>
+                    <Icon color="orange" size={fontSize.h3} name="verified" />{" "}
+                    Pending Verification
+                  </Text>
+                </TouchableOpacity>
               ) : (
                 <TouchableOpacity
                   onPress={() => navigation.navigate("GetVerified")}
@@ -96,6 +105,13 @@ const Profile = ({ navigation }) => {
           {user.is_verified ? (
             <Icon
               color="green"
+              size={fontSize.h3}
+              name="verified"
+              style={styles.iconAdjusted}
+            />
+          ) : user.pending_verification ? (
+            <Icon
+              color="orange"
               size={fontSize.h3}
               name="verified"
               style={styles.iconAdjusted}
