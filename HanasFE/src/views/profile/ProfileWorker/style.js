@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   },
   profileDetailsContainer: {
     backgroundColor: colors.white,
-    marginVertical: 50,
+    marginTop: 50,
+    marginBottom: 25,
     padding: padding.p5,
     borderRadius: 10,
   },
@@ -106,7 +107,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: colors.background,
-    marginBottom: margin.m5,
   },
   singleButtonContainer: { marginVertical: 4 },
   buttonRow: {

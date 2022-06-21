@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     marginBottom: 120,
   },
   profileDetailsContainer: {
-    marginVertical: 50,
+    marginTop: 50,
+    marginBottom: 25,
     padding: padding.p5,
     backgroundColor: colors.white,
     borderRadius: 10,
@@ -93,7 +94,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: colors.background,
-    marginBottom: margin.m5,
   },
   buttonRow: {
     marginTop: margin.m5,
