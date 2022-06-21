@@ -98,3 +98,10 @@ export const changeAccountInfo = (profile_pic, email) => async (dispatch) => {
     });
   }
 };
+
+export const changePendingVerification = () => (dispatch) => {
+  dispatch({
+    type: UserDetailActions.USER_DETAILS_CHANGE_PENDING_VERIFICATION,
+    payload: true,
+  });
+};

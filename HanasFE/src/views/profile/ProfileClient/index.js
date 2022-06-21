@@ -6,7 +6,6 @@ import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 
 import Alert from "@helpers/alert";
-import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import CircularProfileImage from "@components/CircularProfileImage";
 import { colors, fontSize, margin } from "@constants";
@@ -114,54 +113,62 @@ const ProfileClient = ({ navigation }) => {
             <Text style={styles.label}>Mobile Number</Text>
             <Text style={styles.values}>{`+63${user.mobile_no}`}</Text>
           </View>
-          <View style={styles.profileInfoContainer}>
-            <TextLinkPink
-              title="Edit Account Info"
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <View style={styles.singleButtonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("Favorites")}
+            >
+              <Icon type="material" name="bookmark" color={colors.secondary} />
+              <View style={styles.adjustedButton}>
+                <Text style={styles.buttonText}>PREFERRED SKILLED WORKERS</Text>
+                <Text style={{ fontSize: fontSize.h5, marginLeft: margin.m3 }}>
+                  Your favorites and previously booked skilled workers
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Edit Account"
+              iconName="account-circle"
               onPress={() => navigation.navigate("EditAccount")}
             />
-            <TextLinkPink
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
               title="Edit Password"
+              iconName="vpn-key"
               onPress={() => navigation.navigate("EditPassword")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Requests"
+              iconName="description"
+              onPress={() => navigation.navigate("ClientBookingRequests")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Transactions"
+              iconName="credit-card"
+              onPress={() => navigation.navigate("TransactionHistory")}
             />
           </View>
         </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Favorites")}
-          >
-            <Icon type="material" name="bookmark" color={colors.secondary} />
-            <View style={styles.adjustedButton}>
-              <Text style={styles.buttonText}>PREFERRED SKILLED WORKERS</Text>
-              <Text style={{ fontSize: fontSize.h5, marginLeft: margin.m3 }}>
-                Your favorites and previously booked skilled workers
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.buttonRow}>
-            <View style={styles.flexedView}>
-              <ButtonWhite
-                title="Requests"
-                iconName="description"
-                onPress={() => navigation.navigate("ClientBookingRequests")}
-              />
-            </View>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <ButtonWhite
-                title="Transactions"
-                iconName="credit-card"
-                onPress={() => navigation.navigate("TransactionHistory")}
-              />
-            </View>
-          </View>
+        <View style={styles.logout}></View>
+        <View style={styles.singleButtonContainer}>
+          <View style={styles.hr}></View>
         </View>
-        <View style={styles.logout}>
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text style={styles.logoutText}>LOGOUT</Text>
-          </TouchableOpacity>
+
+        <View style={styles.singleButtonContainer}>
+          <ButtonWhite title="Logout" iconName="home" onPress={handleSubmit} />
         </View>
-        <View style={styles.hr}></View>
       </View>
     </ParallaxScrollView>
   );

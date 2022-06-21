@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
+import { Icon, Button } from "react-native-elements";
 
 import Alert from "@helpers/alert";
-import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import styles from "./style";
 import CircularProfileImage from "@components/CircularProfileImage";
@@ -72,6 +71,11 @@ const Profile = ({ navigation }) => {
                   <Icon color="green" size={fontSize.h3} name="verified" />{" "}
                   Verified
                 </Text>
+              ) : user.pending_verification ? (
+                <Text style={styles.verified}>
+                  <Icon color="orange" size={fontSize.h3} name="verified" />{" "}
+                  Pending Verification
+                </Text>
               ) : (
                 <TouchableOpacity
                   onPress={() => navigation.navigate("GetVerified")}
@@ -100,6 +104,13 @@ const Profile = ({ navigation }) => {
               name="verified"
               style={styles.iconAdjusted}
             />
+          ) : user.pending_verification ? (
+            <Icon
+              color="orange"
+              size={fontSize.h3}
+              name="verified"
+              style={styles.iconAdjusted}
+            />
           ) : (
             <Icon
               color="red"
@@ -112,6 +123,29 @@ const Profile = ({ navigation }) => {
       )}
     >
       <View style={styles.parallaxContentContainer}>
+        {!user.is_verified && !user.pending_verification && (
+          <View style={styles.getVerifiedContainer}>
+            <View style={styles.getVerifiedTextContainer}>
+              <Text style={styles.headingText}>Get Verified Now! </Text>
+              <Text style={styles.getVerifiedTextBody}>
+                Only 1 Valid ID and an NBI or Brgy. Clearance needed! Verified
+                users can perform services and earn money.
+              </Text>
+              <Button
+                buttonStyle={{ backgroundColor: colors.secondary }}
+                title="Get Verified Now"
+                onPress={() => navigation.navigate("GetVerified")}
+              />
+            </View>
+            <View>
+              <Image
+                style={styles.getVerifiedImageContainer}
+                source={require("@images/steff2.png")}
+              />
+            </View>
+          </View>
+        )}
+
         <View style={styles.profileDetailsContainer}>
           <Text style={styles.headingText}>Account Info</Text>
           <View style={styles.hr}></View>
@@ -133,47 +167,53 @@ const Profile = ({ navigation }) => {
             <Text style={styles.label}>Mobile Number</Text>
             <Text style={styles.values}>{`+63${user.mobile_no}`}</Text>
           </View>
-          <View style={styles.profileInfoContainer}>
-            <TextLinkPink
-              title="Edit Account Info"
-              onPress={() => navigation.navigate("EditAccount")}
-            />
-            <TextLinkPink
-              title="Edit Password"
-              onPress={() => navigation.navigate("EditPassword")}
-            />
-          </View>
         </View>
 
         <View style={styles.buttonContainer}>
-          <ButtonWhite
-            title="View services"
-            iconName="shopping-cart"
-            onPress={() => navigation.navigate("MyServices")}
-          />
-          <View style={styles.buttonRow}>
-            <View style={styles.flexedView}>
-              <ButtonWhite
-                title="Reviews"
-                iconName="description"
-                onPress={() => navigation.navigate("Reviews")}
-              />
-            </View>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <ButtonWhite
-                title="Transactions"
-                iconName="credit-card"
-                onPress={() => navigation.navigate("TransactionHistory")}
-              />
-            </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Edit Account"
+              iconName="account-circle"
+              onPress={() => navigation.navigate("EditAccount")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Edit Password"
+              iconName="vpn-key"
+              onPress={() => navigation.navigate("EditPassword")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="View Services"
+              iconName="shopping-cart"
+              onPress={() => navigation.navigate("MyServices")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Reviews"
+              iconName="description"
+              onPress={() => navigation.navigate("Reviews")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Transactions"
+              iconName="credit-card"
+              onPress={() => navigation.navigate("TransactionHistory")}
+            />
           </View>
         </View>
-        <View style={styles.logout}>
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text style={styles.logoutText}>LOGOUT</Text>
-          </TouchableOpacity>
+        <View style={styles.logout}></View>
+        <View style={styles.singleButtonContainer}>
+          <View style={styles.hr}></View>
         </View>
-        <View style={styles.hr}></View>
+
+        <View style={styles.singleButtonContainer}>
+          <ButtonWhite title="Logout" iconName="home" onPress={handleSubmit} />
+        </View>
       </View>
     </ParallaxScrollView>
   );

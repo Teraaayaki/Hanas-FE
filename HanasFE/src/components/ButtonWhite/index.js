@@ -12,7 +12,7 @@ const ButtonWhite = ({ title, iconName, onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Icon type="material" name={iconName} color={colors.secondary} />
-      <Text style={styles.buttonText}>{title.toUpperCase()}</Text>
+      <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
 };

@@ -15,29 +15,29 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   fixedSize: {
-      width: 75,
-      height: 75,
+    width: 75,
+    height: 75,
   },
-  searchInput:{
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: "-10%",
-      width: "100%",
+  searchInput: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "-10%",
+    width: "100%",
   },
   searchContainer: {
-    marginHorizontal: margin.m6, 
-    marginTop: "-8%", 
-    backgroundColor: "transparent", 
+    marginHorizontal: margin.m6,
+    marginTop: "-8%",
+    backgroundColor: "transparent",
     borderTopColor: "transparent",
   },
   searchInputContainer: {
     backgroundColor: "white",
-    flexDirection: 'row-reverse',
+    flexDirection: "row-reverse",
     paddingHorizontal: 8,
   },
   inputStyle: {
-    fontSize: fontSize.textInput, 
-    textAlign: "left", 
+    fontSize: fontSize.textInput,
+    textAlign: "left",
     marginLeft: "-2%",
   },
   rightIconStyle: {

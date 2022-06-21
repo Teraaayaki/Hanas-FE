@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey,
     padding: padding.p2,
     borderRadius: 5,
+    height: 35,
   },
   browseText: {
     color: colors.dark,
@@ -115,6 +116,12 @@ const styles = StyleSheet.create({
     color: colors.dark,
     fontSize: fontSize.h4,
     fontWeight: "bold",
+  },
+  attachment: {
+    padding: padding.p1,
+    width: "60%",
+    // backgroundColor: "grey",
+    marginLeft: margin.m10,
   },
 });
 

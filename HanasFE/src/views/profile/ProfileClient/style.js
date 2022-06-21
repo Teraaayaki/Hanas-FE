@@ -53,12 +53,11 @@ const styles = StyleSheet.create({
     marginBottom: 120,
   },
   profileDetailsContainer: {
-    marginVertical: 50,
+    marginTop: 50,
+    marginBottom: 25,
     padding: padding.p5,
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.borderGrey,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   profileInfoContainer: {
     flex: 1,
@@ -80,9 +79,8 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   valuesEditable: {
-    fontSize: fontSize.p,
+    fontSize: fontSize.h4,
     color: colors.blue,
-    textDecorationLine: "underline",
   },
   hr: {
     borderBottomColor: colors.borderGrey,
@@ -96,13 +94,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: colors.background,
-    marginBottom: margin.m5,
   },
   buttonRow: {
     marginTop: margin.m5,
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  singleButtonContainer: { marginVertical: 4 },
   flexedView: {
     flex: 1,
     alignItems: "center",

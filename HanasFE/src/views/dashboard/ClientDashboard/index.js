@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import LightHeader from "@components/LightHeaderWithHanas";
-import CircularImage from "@components/CircularImage";
 import {
   View,
   Text,
@@ -12,6 +10,8 @@ import useSWR from "swr";
 import { useDispatch } from "react-redux";
 
 import { AddressContext } from "../../../context/addressContext";
+import LightHeader from "@components/LightHeaderWithHanas";
+import CircularImage from "@components/CircularImage";
 import styles from "./style";
 import HorizontalCarousel from "@components/Carousel";
 import CardContainerFlatlist from "@components/flatlist/dashboardFlatlists/CardContainerFlatlist";

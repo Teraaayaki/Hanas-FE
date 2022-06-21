@@ -54,18 +54,30 @@ const styles = StyleSheet.create({
   },
   profileDetailsContainer: {
     backgroundColor: colors.white,
-    marginVertical: 50,
+    marginTop: 50,
+    marginBottom: 25,
     padding: padding.p5,
-    borderWidth: 1,
-    borderColor: colors.borderGrey,
-    borderRadius: 5,
+    borderRadius: 10,
   },
+  getVerifiedContainer: {
+    backgroundColor: colors.white,
+    padding: padding.p5,
+    borderRadius: 10,
+    flexDirection: "row",
+    marginBottom: "-5%",
+    marginTop: "5%",
+  },
+  getVerifiedTextContainer: {
+    width: "50%",
+  },
+  getVerifiedImageContainer: { width: 200, height: 200 },
   profileInfoContainer: {
     flex: 1,
     flexDirection: "row",
     padding: padding.p5,
     justifyContent: "space-between",
   },
+  getVerifiedTextBody: { marginVertical: 25 },
   headingText: {
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h3,
@@ -80,9 +92,8 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   valuesHyperlink: {
-    fontSize: fontSize.p,
+    fontSize: fontSize.h4,
     color: colors.blue,
-    textDecorationLine: "underline",
   },
   hr: {
     borderBottomColor: colors.borderGrey,
@@ -96,8 +107,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: colors.background,
-    marginBottom: margin.m5,
   },
+  singleButtonContainer: { marginVertical: 4 },
   buttonRow: {
     marginTop: margin.m5,
     flexDirection: "row",

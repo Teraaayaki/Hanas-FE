@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: padding.p5,
     flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "center",
     width: "100%",
-    height: 60
+    height: 60,
   },
   buttonText: {
     marginLeft: margin.m3,

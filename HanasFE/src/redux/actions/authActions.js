@@ -33,16 +33,27 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
           payload: data.user,
         });
 
-        if (isWorker) {
-          if (data.user.is_verified) {
-            console.log("User is Verified");
-            navigation.navigate("Dashboard");
-          } else {
-            console.log("User is not Verified");
-            navigation.navigate("GetVerified");
-          }
-        } else {
+        // IF USER NOT WORKER REDIRECT TO DASHBOARD
+        if (!isWorker) {
           navigation.navigate("Dashboard");
+          return;
+        }
+
+        // IF USER IS WORKER
+        if (data.user.is_verified) {
+          console.log("User is Verified");
+          navigation.navigate("Dashboard");
+          return;
+        }
+
+        // IF WORKER NOT VERIFIED AND HAS PENDING REQUEST
+        if (data.user.pending_verification) {
+          console.log("User has pending request");
+          navigation.navigate("Dashboard");
+        } else {
+          // IF WORKER NOT VERIFIED AND HAS NO PENDING REQUEST
+          console.log("User is not Verified");
+          navigation.navigate("GetVerified");
         }
       }
     } catch (err) {
@@ -110,18 +121,26 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
       payload: data.user,
     });
 
-    // IF USER IS A WORKER
-    if (data.is_worker) {
-      // IF WORKER IS VERIFIED
-      if (data.user.is_verified) {
-        console.log("User is Verified");
-        navigation.navigate("Dashboard");
-      } else {
-        console.log("User is not Verified");
-        navigation.navigate("GetVerified");
-      }
-    } else {
+    // IF USER IS A CLIENT
+    if (!data.is_worker) {
       navigation.navigate("Dashboard");
+      return;
+    }
+
+    // IF WORKER IS VERIFIED
+    if (data.user.is_verified) {
+      console.log("User is Verified");
+      navigation.navigate("Dashboard");
+      return;
+    }
+
+    // IF WORKER HAS PENDING VERIFICATION REQUEST
+    if (data.user.pending_verification) {
+      console.log("User has verification request");
+      navigation.navigate("Dashboard");
+    } else {
+      console.log("User is not Verified");
+      navigation.navigate("GetVerified");
     }
   } catch (err) {
     console.log(err);
