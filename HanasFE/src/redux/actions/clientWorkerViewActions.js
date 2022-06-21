@@ -15,6 +15,7 @@ export const fetchData = (worker_id, service_id) => async (dispatch) => {
       { worker_id, service_id },
       { headers: { Authorization: `Bearer ${token}` } }
     );
+
     if (data) {
       dispatch({
         type: ClientWorkerViewActions.CLIENT_WORKER_DETAILS,
