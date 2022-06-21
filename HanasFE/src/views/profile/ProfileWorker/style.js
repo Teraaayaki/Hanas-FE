@@ -56,14 +56,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     marginVertical: 50,
     padding: padding.p5,
-    // borderWidth: 1,
-    borderColor: colors.borderGrey,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   getVerifiedContainer: {
     backgroundColor: colors.white,
     padding: padding.p5,
-    borderRadius: 5,
+    borderRadius: 10,
     flexDirection: "row",
     marginBottom: "-5%",
     marginTop: "5%",
@@ -95,7 +93,6 @@ const styles = StyleSheet.create({
   valuesHyperlink: {
     fontSize: fontSize.h4,
     color: colors.blue,
-    // textDecorationLine: "underline",
   },
   hr: {
     borderBottomColor: colors.borderGrey,
@@ -111,6 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     marginBottom: margin.m5,
   },
+  singleButtonContainer: { marginVertical: 4 },
   buttonRow: {
     marginTop: margin.m5,
     flexDirection: "row",

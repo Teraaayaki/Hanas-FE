@@ -56,9 +56,7 @@ const styles = StyleSheet.create({
     marginVertical: 50,
     padding: padding.p5,
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.borderGrey,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   profileInfoContainer: {
     flex: 1,
@@ -82,7 +80,6 @@ const styles = StyleSheet.create({
   valuesEditable: {
     fontSize: fontSize.h4,
     color: colors.blue,
-    // textDecorationLine: "underline",
   },
   hr: {
     borderBottomColor: colors.borderGrey,
@@ -103,6 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  singleButtonContainer: { marginVertical: 4 },
   flexedView: {
     flex: 1,
     alignItems: "center",

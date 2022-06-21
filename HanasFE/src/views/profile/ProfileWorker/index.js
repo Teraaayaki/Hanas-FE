@@ -170,47 +170,53 @@ const Profile = ({ navigation }) => {
             <Text style={styles.label}>Mobile Number</Text>
             <Text style={styles.values}>{`+63${user.mobile_no}`}</Text>
           </View>
-          <View style={styles.profileInfoContainer}>
-            <TextLinkPink
-              title="Edit Account Info"
-              onPress={() => navigation.navigate("EditAccount")}
-            />
-            <TextLinkPink
-              title="Edit Password"
-              onPress={() => navigation.navigate("EditPassword")}
-            />
-          </View>
         </View>
 
         <View style={styles.buttonContainer}>
-          <ButtonWhite
-            title="View services"
-            iconName="shopping-cart"
-            onPress={() => navigation.navigate("MyServices")}
-          />
-          <View style={styles.buttonRow}>
-            <View style={styles.flexedView}>
-              <ButtonWhite
-                title="Reviews"
-                iconName="description"
-                onPress={() => navigation.navigate("Reviews")}
-              />
-            </View>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <ButtonWhite
-                title="Transactions"
-                iconName="credit-card"
-                onPress={() => navigation.navigate("TransactionHistory")}
-              />
-            </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Edit Account"
+              iconName="account-circle"
+              onPress={() => navigation.navigate("EditAccount")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Edit Password"
+              iconName="vpn-key"
+              onPress={() => navigation.navigate("EditPassword")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="View Services"
+              iconName="shopping-cart"
+              onPress={() => navigation.navigate("MyServices")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Reviews"
+              iconName="description"
+              onPress={() => navigation.navigate("Reviews")}
+            />
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Transactions"
+              iconName="credit-card"
+              onPress={() => navigation.navigate("TransactionHistory")}
+            />
           </View>
         </View>
-        <View style={styles.logout}>
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text style={styles.logoutText}>LOGOUT</Text>
-          </TouchableOpacity>
+        <View style={styles.logout}></View>
+        <View style={styles.singleButtonContainer}>
+          <View style={styles.hr}></View>
         </View>
-        <View style={styles.hr}></View>
+
+        <View style={styles.singleButtonContainer}>
+          <ButtonWhite title="Logout" iconName="home" onPress={handleSubmit} />
+        </View>
       </View>
     </ParallaxScrollView>
   );
