@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-import {
-  View,
-  FlatList,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
-import { colors, fontWeight, fontSize, margin } from "@constants";
 import styles from "./style";
 
 import { getTransactions } from "@redux/actions/transactionActions";
 
-const Item = ({ item, onPress, backgroundColor, textColor, isWorker }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+const Item = ({ item, onPress, isWorker }) => (
+  <TouchableOpacity onPress={onPress} style={styles.item}>
     <View style={styles.container}>
       <Text style={styles.name}>
         {isWorker
@@ -50,10 +42,6 @@ const TransactionFlatlist = ({ navigation }) => {
   }, []);
 
   const renderItem = ({ item }) => {
-    const backgroundColor =
-      item._id === selectedId ? colors.borderGrey : colors.background;
-    const color = item.id === selectedId ? "white" : "black";
-
     return (
       <Item
         item={item}
@@ -61,8 +49,6 @@ const TransactionFlatlist = ({ navigation }) => {
           setSelectedId(item._id);
           navigation.navigate("TransactionReport", { item });
         }}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
         isWorker={isWorker}
       />
     );
