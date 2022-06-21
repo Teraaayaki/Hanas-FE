@@ -35,9 +35,9 @@ export default StyleSheet.create({
     color: colors.borderGrey,
   },
   pinkText: {
-    color: colors.dark, 
-    fontSize: fontSize.h5, 
-    alignSelf: "center"
+    color: colors.dark,
+    fontSize: fontSize.h5,
+    alignSelf: "center",
   },
   btnPress: {
     borderRadius: 10,
@@ -45,5 +45,20 @@ export default StyleSheet.create({
   },
   adjustedTop: {
     marginTop: margin.m5,
-  }
+  },
+  noWorkerImage: {
+    width: 300,
+    height: 300,
+    alignSelf: "center",
+  },
+  noWorkerTextBox: {
+    alignItems: "center",
+    marginBottom: margin.m5,
+  },
+  noWorkerText: {
+    color: colors.dark,
+    fontFamily: "sans-serif-medium",
+    // backgroundColor: "white",
+    fontStyle: "italic",
+  },
 });
