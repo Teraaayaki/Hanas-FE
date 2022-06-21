@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
-import { Icon } from "react-native-elements";
+import { Icon, Button } from "react-native-elements";
 
 import Alert from "@helpers/alert";
-import TextLinkPink from "@components/TextLinkPink";
 import ButtonWhite from "@components/ButtonWhite";
 import styles from "./style";
 import CircularProfileImage from "@components/CircularProfileImage";
@@ -132,13 +131,11 @@ const Profile = ({ navigation }) => {
                 Only 1 Valid ID and an NBI or Brgy. Clearance needed! Verified
                 users can perform services and earn money.
               </Text>
-              <TouchableOpacity
+              <Button
+                buttonStyle={{ backgroundColor: colors.secondary }}
+                title="Get Verified Now"
                 onPress={() => navigation.navigate("GetVerified")}
-              >
-                <Text style={styles.valuesHyperlink}>
-                  Click here to Get Verified
-                </Text>
-              </TouchableOpacity>
+              />
             </View>
             <View>
               <Image
