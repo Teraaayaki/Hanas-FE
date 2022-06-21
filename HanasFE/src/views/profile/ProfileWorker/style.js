@@ -56,16 +56,29 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     marginVertical: 50,
     padding: padding.p5,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: colors.borderGrey,
     borderRadius: 5,
   },
+  getVerifiedContainer: {
+    backgroundColor: colors.white,
+    padding: padding.p5,
+    borderRadius: 5,
+    flexDirection: "row",
+    marginBottom: "-5%",
+    marginTop: "5%",
+  },
+  getVerifiedTextContainer: {
+    width: "50%",
+  },
+  getVerifiedImageContainer: { width: 200, height: 200 },
   profileInfoContainer: {
     flex: 1,
     flexDirection: "row",
     padding: padding.p5,
     justifyContent: "space-between",
   },
+  getVerifiedTextBody: { marginVertical: 25 },
   headingText: {
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h3,
@@ -80,9 +93,9 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   valuesHyperlink: {
-    fontSize: fontSize.p,
+    fontSize: fontSize.h4,
     color: colors.blue,
-    textDecorationLine: "underline",
+    // textDecorationLine: "underline",
   },
   hr: {
     borderBottomColor: colors.borderGrey,

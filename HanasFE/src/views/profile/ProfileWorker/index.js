@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
+import { Icon } from "react-native-elements";
 
 import Alert from "@helpers/alert";
 import TextLinkPink from "@components/TextLinkPink";
@@ -73,14 +73,10 @@ const Profile = ({ navigation }) => {
                   Verified
                 </Text>
               ) : user.pending_verification ? (
-                <TouchableOpacity
-                // onPress={() => navigation.navigate("GetVerified")}
-                >
-                  <Text style={styles.verified}>
-                    <Icon color="orange" size={fontSize.h3} name="verified" />{" "}
-                    Pending Verification
-                  </Text>
-                </TouchableOpacity>
+                <Text style={styles.verified}>
+                  <Icon color="orange" size={fontSize.h3} name="verified" />{" "}
+                  Pending Verification
+                </Text>
               ) : (
                 <TouchableOpacity
                   onPress={() => navigation.navigate("GetVerified")}
@@ -128,6 +124,31 @@ const Profile = ({ navigation }) => {
       )}
     >
       <View style={styles.parallaxContentContainer}>
+        {!user.is_verified && !user.pending_verification && (
+          <View style={styles.getVerifiedContainer}>
+            <View style={styles.getVerifiedTextContainer}>
+              <Text style={styles.headingText}>Get Verified Now! </Text>
+              <Text style={styles.getVerifiedTextBody}>
+                Only 1 Valid ID and an NBI or Brgy. Clearance needed! Verified
+                users can perform services and earn money.
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("GetVerified")}
+              >
+                <Text style={styles.valuesHyperlink}>
+                  Click here to Get Verified
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Image
+                style={styles.getVerifiedImageContainer}
+                source={require("@images/steff2.png")}
+              />
+            </View>
+          </View>
+        )}
+
         <View style={styles.profileDetailsContainer}>
           <Text style={styles.headingText}>Account Info</Text>
           <View style={styles.hr}></View>
