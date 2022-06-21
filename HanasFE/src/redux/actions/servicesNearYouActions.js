@@ -4,14 +4,16 @@ import { getItem } from "@helpers/asyncStorage";
 
 export const getServicesNearYou = (DATA) => async (dispatch) => {
   let token = await getItem("token");
+  const { service_type, address } = DATA;
 
   dispatch({ type: ServicesNearYouActions.SERVICES_NEAR_YOU_LOADING });
 
   try {
-    let { data } = await axios.post(
-      "/api/client/get-worker-with-specific-service",
-      { DATA },
-      { headers: { Authorization: `Bearer ${token}` } }
+    let { data } = await axios.get(
+      `/api/client/get-worker-with-specific-service/${service_type}/${address}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
 
     if (data.service_worker) {

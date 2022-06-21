@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
+import moment from "moment";
 
 import {
   PinkSidedCardHeader,
@@ -11,71 +13,84 @@ import styles from "./style";
 import { colors } from "@constants";
 import { padding } from "@constants";
 
+import {
+  acceptBookingRequest,
+  declineBookingRequest,
+} from "@redux/actions/workerBookingActions";
+
 const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
+  const dispatch = useDispatch();
   let date = "_";
 
   const renderContent = ({ item }) => {
     return (
-      <View
-        style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
-      >
+      <View style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}>
         <View style={[styles.flex1, styles.pl3]}>
           <View style={[styles.flex1, styles.flexRow, styles.mb2]}>
             <Text style={[styles.flex1, styles.mx1, styles.h3, styles.bold]}>
               Type of Service:
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.h3]}>
-              {item.serviceType}
+              {item.service_availed.service.service_type}
             </Text>
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.my1]}>
             <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
               Client Name
             </Text>
-            <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.clientName}
-            </Text>
+            <Text
+              style={[styles.flex1, styles.mx1, styles.p]}
+            >{`${item.client.first_name} ${item.client.middle_name} ${item.client.family_name} ${item.client.suffix}`}</Text>
           </View>
           <View style={[styles.flex1, styles.flexRow, styles.my1]}>
             <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
               Address
             </Text>
             <Text style={[styles.flex1, styles.mx1, styles.p]}>
-              {item.address}
+              {item.client.address}
             </Text>
           </View>
-          <View
-            style={[
-              styles.flex1,
-              styles.flexRow,
-              styles.mt2,
-              styles.alignCenter,
-            ]}
-          >
+          <View style={[styles.flex1, styles.flexRow, styles.mt2, styles.alignCenter]}>
             <Icon
               name="calendar-clock"
               type="material-community"
-              color={
-                item.bookStatus == "pending" ? colors.secondary : colors.muted75
-              }
+              color={item.book_status == "Pending" ? colors.secondary : colors.muted75}
             />
-            <Text
-              style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
-            >
-              {item.timeStart} - {item.timeEnd}
+            <Text style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}>
+              {moment(item.booked_dateTimeStart).format("LT")} -
+              {moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
           </View>
         </View>
-        {item.bookStatus == "Pending" ? (
-          <View
-            style={[styles.mx5, styles.h100, styles.justifyContentSpaceBetween]}
-          >
-            <ContainedIcon check success pressable onPress={() => {}} />
-            <ContainedIcon xMark danger pressable onPress={() => {}} />
+        {item.book_status === "Pending" ? (
+          <View style={[styles.mx5, styles.h100, styles.justifyContentSpaceBetween]}>
+            <ContainedIcon
+              check
+              success
+              pressable
+              onPress={() => {
+                dispatch(acceptBookingRequest(item._id));
+              }}
+            />
+            <ContainedIcon
+              xMark
+              danger
+              pressable
+              onPress={() => {
+                dispatch(declineBookingRequest(item._id));
+              }}
+            />
           </View>
         ) : (
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-            <ContainedIcon xMark disabled pressable onPress={() => {}} />
+            <ContainedIcon
+              xMark
+              disabled
+              pressable
+              onPress={() => {
+                console.log("Decline Request");
+              }}
+            />
           </View>
         )}
       </View>
@@ -83,20 +98,20 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   const renderTitle = ({ item }) => {
-    if (item.date != date) {
-      date = item.date;
+    if (moment(item.booked_dateTimeStart).format("LL") !== date) {
+      date = moment(item.booked_dateTimeStart).format("LL");
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={item.date} />
+          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format("LL")} />
         </View>
       );
     }
   };
 
   const renderCard = ({ item }) => {
-    if (item.bookStatus == "Pending") {
+    if (item.book_status === "Pending") {
       return <PinkSidedCardItem content={renderContent({ item })} />;
-    } else if (item.bookStatus == "Declined") {
+    } else if (item.bookStatus === "Declined") {
       return <PinkSidedCardItem disabled content={renderContent({ item })} />;
     }
     return (
@@ -104,8 +119,8 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
         disabled
         content={
           <Text style={[styles.px4, styles.textJustify]}>
-            <Text style={[styles.bold]}>Error:</Text> This Card is accessing
-            Data that is not a Booking Request.
+            <Text style={[styles.bold]}>Error:</Text> This Card is accessing Data that
+            is not a Booking Request.
           </Text>
         }
       />
@@ -125,7 +140,7 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
     <FlatList
       data={DATA}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
     />
   );

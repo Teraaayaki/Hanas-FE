@@ -14,6 +14,9 @@ import favoritesReducer, {
 import servicesNearYouReducer from "./servicesNearYouReducer";
 import editPasswordReducer from "./editPasswordReducer";
 import feedbackReducer from "./feedbackReducer";
+import workerBookingReducer from "./workerBookingReducer";
+import workerScheduleReducer from "./workerScheduleReducer";
+import transactionReducer from "./transactionReducer";
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -30,4 +33,7 @@ export default combineReducers({
   servicesNearYou: servicesNearYouReducer,
   editPassword: editPasswordReducer,
   addFeedback: feedbackReducer,
+  workerBookingRequests: workerBookingReducer,
+  workerSchedules: workerScheduleReducer,
+  transactions: transactionReducer,
 });

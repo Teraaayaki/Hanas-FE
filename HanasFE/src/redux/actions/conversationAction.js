@@ -1,19 +1,32 @@
-import axios from '@helpers/axios';
-import { getItem } from '@helpers/asyncStorage';
-import { ConversationActions } from './types';
+import axios from "@helpers/axios";
+import { getItem } from "@helpers/asyncStorage";
+import { ConversationActions } from "./types";
 
 export const getUserConversations = () => async (dispatch) => {
   try {
-    let token = await getItem('token');
+    let token = await getItem("token");
 
-    let { data } = await axios.get('/api/conversations', {
-      headers: { Authorization: `Bearer ${token}` }
+    let { data } = await axios.get("/api/conversations", {
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     dispatch({
       type: ConversationActions.FETCH_CONVERSATIONS,
-      payload: data.conversations
+      payload: data.conversations,
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getMessages = async (receiverID) => {
+  try {
+    let token = await getItem("token");
+    let { data } = await axios.get(`/api/conversations/${receiverID}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return data.messages;
   } catch (err) {
     console.log(err);
   }
@@ -21,17 +34,17 @@ export const getUserConversations = () => async (dispatch) => {
 
 export const storeNewMessage = async (receiverID, newMessage) => {
   try {
-    let token = await getItem('token');
+    let token = await getItem("token");
 
     let { data } = await axios.post(
-      '/api/conversations',
+      "/api/conversations",
       {
         receiverID: receiverID,
-        newMessage: newMessage
+        newMessage: newMessage,
       },
       {
-        headers: { Authorization: `Bearer ${token}` }
-      }
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
 
     console.log(data.message);
