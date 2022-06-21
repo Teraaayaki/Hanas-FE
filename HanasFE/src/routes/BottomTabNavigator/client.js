@@ -21,6 +21,7 @@ import BookSkilledWorkerMultipleDays from "@screens/skilledWorkerBooking/BookSki
 import ProfileView from "@screens/profile/ProfileView";
 import Favorites from "@screens/Favorites";
 import Search from "@screens/Search";
+import Feedback from "@screens/Feedback";
 
 const Tab = createBottomTabNavigator();
 
@@ -226,6 +227,14 @@ const Tabs = () => {
       <Tab.Screen
         name="Search"
         component={Search}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="Feedback"
+        component={Feedback}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
