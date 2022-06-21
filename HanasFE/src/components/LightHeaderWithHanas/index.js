@@ -11,7 +11,6 @@ const LightHeader = ({ setQueryParams }) => {
   const navigation = useNavigation();
   const route = useRoute();
   const searchBar = useRef();
-
   const [search, setSearch] = useState("");
 
   const updateSearch = (e) => {
@@ -29,6 +28,11 @@ const LightHeader = ({ setQueryParams }) => {
   useEffect(() => {
     route.name === "Search" && searchBar.current.focus();
   }, []);
+
+  // Passed value route params to enable focus on press of searchbar
+  useEffect(() => {
+    route.name === "Search" && searchBar.current.focus();
+  }, [route.params]);
 
   return (
     <View>
@@ -60,7 +64,9 @@ const LightHeader = ({ setQueryParams }) => {
         rightIconContainerStyle={styles.rightIconStyle}
         showLoading={true}
         onPressIn={
-          route.name === "Search" ? null : () => navigation.navigate("Search")
+          route.name === "Search"
+            ? null
+            : () => navigation.navigate("Search", { value: "Focus Search Bar" })
         }
         onSubmitEditing={triggerSearch}
       />
