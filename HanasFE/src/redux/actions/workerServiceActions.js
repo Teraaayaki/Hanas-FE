@@ -24,7 +24,7 @@ export const getServiceType = () => async (dispatch) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.log("Failed to fetch service type (User not logged in)");
 
     dispatch({
       type: WorkerServiceActions.WORKER_SERVICE_FAIL,

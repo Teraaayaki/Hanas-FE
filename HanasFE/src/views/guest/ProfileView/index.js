@@ -75,7 +75,11 @@ const GuestProfileView = ({ navigation, route }) => {
                     </View>
 
                     <View>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("RegisterClientWorker")
+                        }
+                      >
                         <View style={styles.messageButton}>
                           <Icon
                             color={colors.secondary}
@@ -163,6 +167,7 @@ const GuestProfileView = ({ navigation, route }) => {
                   <ButtonWhite
                     iconName="assignment-ind"
                     title="Register now to book this worker"
+                    onPress={() => navigation.navigate("RegisterClientWorker")}
                   />
                 </View>
                 <View style={styles.mtMargin}>

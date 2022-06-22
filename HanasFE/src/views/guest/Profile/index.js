@@ -1,6 +1,6 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Icon } from "react-native-elements";
 
@@ -13,6 +13,10 @@ const ProfileGuest = ({ navigation }) => {
   // LOGOUT
   const handleSubmit = () => {
     navigation.navigate("Landing");
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate("RegisterClientWorker");
   };
 
   return (
@@ -55,8 +59,26 @@ const ProfileGuest = ({ navigation }) => {
       )}
     >
       <View style={styles.parallaxContentContainer}>
+        <View style={styles.profileDetailsContainer}>
+          {/* <Text>Sign up now!</Text> */}
+          <Image
+            style={{ width: 350, height: 350 }}
+            source={require("@images/anyaflyer.png")}
+          />
+        </View>
         <View style={styles.singleButtonContainer}>
-          <ButtonWhite title="Logout" iconName="home" onPress={handleSubmit} />
+          <ButtonWhite
+            title="Sign Up"
+            iconName="assignment-ind"
+            onPress={handleSignUp}
+          />
+        </View>
+        <View style={styles.singleButtonContainer}>
+          <ButtonWhite
+            title="Back to Home"
+            iconName="home"
+            onPress={handleSubmit}
+          />
         </View>
       </View>
     </ParallaxScrollView>

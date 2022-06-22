@@ -55,8 +55,7 @@ const styles = StyleSheet.create({
   profileDetailsContainer: {
     marginTop: 50,
     marginBottom: 25,
-    padding: padding.p5,
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white,
     borderRadius: 10,
   },
   profileInfoContainer: {
