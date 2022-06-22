@@ -4,7 +4,10 @@ import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useDispatch } from "react-redux";
-import { removeCancelledBookSchedule, cancelBookingSchedule } from "@redux/actions/scheduleActions";
+import {
+  removeCancelledBookSchedule,
+  cancelBookingSchedule,
+} from "@redux/actions/scheduleActions";
 
 import {
   PinkSidedCardHeader,
@@ -23,26 +26,25 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
   const dispatch = useDispatch();
 
-  const handleRemoveCancelled = () => {
-
+  const handleRemoveCancelled = (id) => {
     const Data = {
-      _id: DATA[0]._id,
-    }
+      _id: id,
+    };
 
     dispatch(removeCancelledBookSchedule(Data));
+  };
 
-  }
-
-  const cancelBooking = () => {
+  const cancelBooking = (id) => {
     const Data = {
-      _id: DATA[0]._id,
-    }
+      _id: id,
+    };
 
     dispatch(cancelBookingSchedule(Data));
-  }
+  };
 
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
+      console.log("ITEM", item._id);
       if (item.book_status == "Declined") {
         return colors.muted75;
       }
@@ -55,12 +57,14 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
         >
           <View style={[styles.flex4, styles.pl3]}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("ProfileView" , {
-                worker_id: item.workerData[0]._id,
+              onPress={() =>
+                navigation.navigate("ProfileView", {
+                  worker_id: item.workerData[0]._id,
                   service_id: item.workerServiceData[0]._id,
                   serviceName:
                     item.workerServiceData[0].serviceNameData[0].service_type,
-              })}
+                })
+              }
             >
               <Text
                 style={[
@@ -144,9 +148,19 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
           </View>
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
             {item.book_status == "Pending" ? (
-              <ContainedIcon xMark danger pressable onPress={cancelBooking} />
+              <ContainedIcon
+                xMark
+                danger
+                pressable
+                onPress={() => cancelBooking(item._id)}
+              />
             ) : (
-              <ContainedIcon xMark disabled pressable onPress={handleRemoveCancelled} />
+              <ContainedIcon
+                xMark
+                disabled
+                pressable
+                onPress={() => handleRemoveCancelled(item._id)}
+              />
             )}
           </View>
         </View>
