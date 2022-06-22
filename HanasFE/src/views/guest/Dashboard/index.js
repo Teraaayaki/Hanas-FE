@@ -22,11 +22,12 @@ import NoWorkerGraphic from "@components/NoWorkerGraphic";
 const GuestDashboard = ({ navigation }) => {
   // SWR
   const [queryParams, setQueryParams] = useState(null);
-  const { data, error } = useSWR([
+  // const [data, setData] = useState({ user: [] });
+  const { data } = useSWR([
     `${process.env.LOCALHOST}/api/guest/get-top-rated-workers`,
     queryParams,
   ]);
-  const { data: servicesData, error: topServicesError } = useSWR(
+  const { data: servicesData } = useSWR(
     `${process.env.LOCALHOST}/api/guest/get-top-services`
   );
   // LOCATION STATE
@@ -40,8 +41,6 @@ const GuestDashboard = ({ navigation }) => {
   const [topRatedServices, setTopRatedServices] = useState([]);
 
   useEffect(() => {
-    setQueryParams(address);
-
     //map the fetched data
     let topRatedTemp = servicesData.top_rated_services.map(
       (serviceData) => serviceData.service_type
@@ -57,7 +56,12 @@ const GuestDashboard = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    setQueryParams(address);
+    if (address === undefined) {
+      setAddress("Cebu City");
+      setQueryParams("Cebu City");
+    } else {
+      setQueryParams(address);
+    }
   }, [address]);
 
   return (

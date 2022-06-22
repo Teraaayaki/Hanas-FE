@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, ScrollView, Modal, ActivityIndicator } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import useSWR from "swr";
 
 import { AddressContext } from "../../../context/addressContext";
 import LightHeader from "@components/LightHeaderWithHanas";
@@ -10,37 +10,21 @@ import CardContainer from "@components/CardContainer";
 import TypeOfService from "@components/TypeOfService";
 import LocationBar from "@components/LocationBar";
 import LocationModal from "@components/LocationModal";
-import { getServicesNearYou } from "@redux/actions/servicesNearYouActions";
 import NoWorkerGraphic from "@components/NoWorkerGraphic";
 
 const ServicesNearYou = ({ navigation, route }) => {
-  const { servicesData, loading } = useSelector(
-    (state) => state.servicesNearYou
-  );
-  const dispatch = useDispatch();
   const { service_type } = route.params;
   const { address, setAddress } = useContext(AddressContext);
   const [visible, setVisible] = useState(false);
 
+  const { data } = useSWR([
+    `${process.env.LOCALHOST}/api/guest/get-worker-with-specific-service`,
+    `${service_type}/${address}`,
+  ]);
+
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-
-  useEffect(() => {
-    const Data = {
-      service_type,
-      address,
-    };
-    dispatch(getServicesNearYou(Data));
-  }, []);
-
-  useEffect(() => {
-    const Data = {
-      service_type,
-      address,
-    };
-    dispatch(getServicesNearYou(Data));
-  }, [service_type, address]);
 
   return (
     <View style={styles.container}>
@@ -58,17 +42,17 @@ const ServicesNearYou = ({ navigation, route }) => {
         <View style={styles.textContainer}>
           <TypeOfService title={`${service_type} Services`} />
         </View>
-        {loading ? (
+        {!data.service_worker ? (
           <ActivityIndicator size="large" color={colors.secondary} />
         ) : (
           <>
-            {servicesData.length == 0 ? (
+            {data.service_worker.length == 0 ? (
               <NoWorkerGraphic
                 model="steff"
                 text="More workers coming soon in your area..."
               />
             ) : (
-              servicesData.map((workerInfo) => (
+              data.service_worker.map((workerInfo) => (
                 <CardContainer
                   key={workerInfo._id}
                   name={workerInfo.workerDetails[0].name}

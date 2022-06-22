@@ -8,6 +8,7 @@ import GuestBrowseServices from "@screens/guest/BrowseServices";
 import GuestServicesNearYou from "@screens/guest/ServicesNearYou";
 import GuestSearch from "@screens/guest/Search";
 import GuestProfile from "@screens/guest/Profile";
+import GuestProfileView from "@screens/guest/ProfileView";
 
 const Tab = createBottomTabNavigator();
 
@@ -117,7 +118,7 @@ const Tabs = () => {
 
       <Tab.Screen
         name="ServicesNearYou"
-        component={GuestProfile}
+        component={GuestServicesNearYou}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
@@ -136,6 +137,14 @@ const Tabs = () => {
       <Tab.Screen
         name="Search"
         component={GuestSearch}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="ProfileView"
+        component={GuestProfileView}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,

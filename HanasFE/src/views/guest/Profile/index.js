@@ -12,7 +12,7 @@ import styles from "./style";
 const ProfileGuest = ({ navigation }) => {
   // LOGOUT
   const handleSubmit = () => {
-    console.log("logging out");
+    navigation.navigate("Landing");
   };
 
   return (
@@ -30,7 +30,7 @@ const ProfileGuest = ({ navigation }) => {
             <Text style={styles.text}>Your Profile</Text>
           </View>
           <View style={styles.headContainer}>
-            <CircularProfileImage style={styles.image} />
+            <CircularProfileImage style={styles.image} imageSource="none" />
             <View style={styles.nameContainer}>
               <Text style={styles.name}>Guest User</Text>
               <Text style={styles.verified}>
