@@ -16,6 +16,7 @@ import { Button, Icon } from "react-native-elements";
 
 const CardContainer = ({
   name,
+  address,
   profession,
   image,
   rating,
@@ -48,12 +49,13 @@ const CardContainer = ({
         <View style={styles.flexedRow}>
           <View style={styles.profileContainer}>
             <Text style={styles.name}>{name}</Text>
+            <Text style={styles.address}>{address}</Text>
             <TouchableHighlight {...touchPropsServices}>
               <Text style={styles.profession} onPress={onPressServices}>
                 {profession}
               </Text>
             </TouchableHighlight>
-            <View style={styles.detailsContainer}>
+            <View style={[styles.gapMargin, styles.detailsContainer]}>
               <Text style={[styles.fadeText, { marginLeft: "2%" }]}>
                 Rating
               </Text>

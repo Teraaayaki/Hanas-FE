@@ -15,6 +15,7 @@ import { Icon } from "react-native-elements";
 
 const CardContainer = ({
   name,
+  address,
   profession,
   image,
   rating,
@@ -43,12 +44,13 @@ const CardContainer = ({
         <CircularProfileImage imageSource={image} onPress={onPress} />
         <View style={styles.profileContainer}>
           <Text style={styles.name}>{name}</Text>
+          <Text style={styles.address}>{address}</Text>
           <TouchableHighlight {...touchPropsServices}>
             <Text style={styles.profession} onPress={onPressServices}>
               {profession}
             </Text>
           </TouchableHighlight>
-          <View style={styles.detailsContainer}>
+          <View style={[styles.gapMargin, styles.detailsContainer]}>
             <Text style={[styles.fadeText, { marginLeft: "2%" }]}>Rating</Text>
             <Text style={[styles.fadeText]}>Jobs Done</Text>
             <Text style={[styles.fadeText, { marginLeft: "5%" }]}>Rate</Text>

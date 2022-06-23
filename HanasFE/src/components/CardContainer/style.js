@@ -30,6 +30,9 @@ export default StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
   },
+  gapMargin: {
+    marginVertical: 5,
+  },
   fadeText: {
     flex: 1,
     fontSize: fontSize.h5,
@@ -45,6 +48,11 @@ export default StyleSheet.create({
   name: {
     fontSize: fontSize.h4,
     fontFamily: "Bold",
+  },
+  address: {
+    fontSize: fontSize.h5,
+    fontFamily: "Regular",
+    maxWidth: 250,
   },
   profession: {
     fontSize: fontSize.h5,

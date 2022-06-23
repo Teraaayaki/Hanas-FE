@@ -162,6 +162,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
         total_hours: totalMultipleHours,
         book_status: "Pending",
         conv_fee: convenienceFee,
+        hourly_rate: profileData.myServicesData[0].hourly_rate,
+        address: profileData.address,
       };
       dispatch(bookSkilledWorker(data, navigation));
     }

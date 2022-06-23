@@ -9,6 +9,7 @@ const Item = ({ item, onPress, onPressServices }) => (
     name={item.workerDetails.name}
     profession={item.serviceNameData.service_type}
     rating={item.feedbackData.rateAvg}
+    address={item.workerDetails.address}
     jobs={item.feedbackData.jobs}
     image={item.workerDetails.profile_pic}
     rate={item.hourly_rate}

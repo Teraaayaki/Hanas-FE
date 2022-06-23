@@ -15,6 +15,7 @@ const Item = ({
 }) => (
   <CardContainer
     name={item.name}
+    address={item.address}
     profession={item.myServicesData[0].serviceNameData[0].service_type}
     rating={item.myServicesData[0].feedbackData[0].rateAvg}
     jobs={item.myServicesData[0].feedbackData[0].jobs}
@@ -31,6 +32,8 @@ const CardContainerFlatlist = ({ navigation, data }) => {
     const backgroundColor =
       item.id === selectedId ? colors.borderGrey : colors.background;
     const color = item.id === selectedId ? "white" : "black";
+
+    console.log("ITEM", item);
 
     return (
       <Item

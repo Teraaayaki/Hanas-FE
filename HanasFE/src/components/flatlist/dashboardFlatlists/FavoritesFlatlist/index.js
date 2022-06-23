@@ -28,6 +28,7 @@ const Item = ({
     rating={
       item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg
     }
+    address={item.clientNameData[0].address}
     jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
     image={item.clientNameData[0].profile_pic}
     rate={item.hourly_rate}
