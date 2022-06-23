@@ -23,9 +23,9 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.schedule);
 
-  const handleRemove = () => {
+  const handleRemove = (id) => {
     const Data = {
-      _id: DATA[0]._id,
+      _id: id,
     };
     console.log("Clicked Remove");
     dispatch(removeSchedule(Data));
@@ -83,7 +83,7 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
     const message = ({ item }) => {
       if (item.book_status == "Finished" || item.book_status == "Cancelled") {
         return (
-          <Text style={[styles.h5]} onPress={handleRemove}>
+          <Text style={[styles.h5]} onPress={() => handleRemove(item._id)}>
             Remove
           </Text>
         );
