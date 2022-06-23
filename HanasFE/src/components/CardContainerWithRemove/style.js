@@ -22,12 +22,15 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     elevation: 1,
   },
+  gapMargin: {
+    marginVertical: 5,
+  },
   profileContainer: {
     flex: 1,
   },
   flexedRow: {
-      flex: 1, 
-      flexDirection: 'row'
+    flex: 1,
+    flexDirection: "row",
   },
   detailsContainer: {
     flex: 1,
@@ -49,6 +52,11 @@ export default StyleSheet.create({
   name: {
     fontSize: fontSize.h4,
     fontWeight: fontWeight.bold,
+  },
+  address: {
+    fontSize: fontSize.h5,
+    fontFamily: "Regular",
+    maxWidth: 250,
   },
   profession: {
     fontSize: fontSize.h5,

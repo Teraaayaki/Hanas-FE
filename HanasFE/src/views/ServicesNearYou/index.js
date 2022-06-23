@@ -85,6 +85,7 @@ const ServicesNearYou = ({ navigation, route }) => {
                   }
                   image={workerInfo.workerDetails[0].profile_pic}
                   rate={workerInfo.hourly_rate}
+                  address={workerInfo.workerDetails[0].address}
                   onPress={() =>
                     navigation.navigate("ProfileView", {
                       worker_id: workerInfo.worker,
