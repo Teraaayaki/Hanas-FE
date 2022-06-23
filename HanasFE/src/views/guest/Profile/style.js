@@ -55,41 +55,8 @@ const styles = StyleSheet.create({
   profileDetailsContainer: {
     marginTop: 50,
     marginBottom: 25,
-    // backgroundColor: colors.white,
+    backgroundColor: colors.white,
     borderRadius: 10,
-  },
-  profileInfoContainer: {
-    flex: 1,
-    flexDirection: "row",
-    padding: padding.p5,
-    justifyContent: "space-between",
-  },
-  headingText: {
-    fontWeight: fontWeight.bold,
-    fontSize: fontSize.h3,
-    padding: padding.p1,
-  },
-  label: {
-    fontSize: fontSize.p,
-    fontWeight: fontWeight.bold,
-  },
-  values: {
-    fontSize: fontSize.p,
-    color: colors.black,
-  },
-  valuesEditable: {
-    fontSize: fontSize.h4,
-    color: colors.blue,
-  },
-  hr: {
-    borderBottomColor: colors.borderGrey,
-    borderWidth: 1,
-  },
-  hrFaded: {
-    borderBottomColor: colors.borderGrey,
-    borderWidth: 1,
-    opacity: 0.3,
-    marginHorizontal: margin.m5,
   },
   buttonContainer: {
     backgroundColor: colors.background,
@@ -100,31 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   singleButtonContainer: { marginVertical: 4 },
-  flexedView: {
-    flex: 1,
-    alignItems: "center",
-    marginHorizontal: margin.m1,
-  },
-  logout: {
-    marginVertical: margin.m5,
-    flexDirection: "row-reverse",
-  },
-  button: {
-    alignItems: "center",
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    padding: padding.p5,
-    flexDirection: "row",
-    justifyContent: "center",
-    width: "100%",
-    height: 80,
-  },
-  buttonText: {
-    marginLeft: margin.m3,
-    fontSize: fontSize.h3,
-    fontWeight: "bold",
-    justifyContent: "flex-start",
-  },
+  homeButtonContainer: { marginTop: 10 },
   stickyHeaderContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -140,10 +83,6 @@ const styles = StyleSheet.create({
   iconAdjusted: {
     marginTop: 42,
     marginLeft: 5,
-  },
-  adjustedButton: {
-    flexDirection: "column",
-    justifyContent: "flex-start",
   },
   h100: {
     height: "100%",

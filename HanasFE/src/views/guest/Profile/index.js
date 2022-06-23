@@ -8,15 +8,12 @@ import ButtonWhite from "@components/ButtonWhite";
 import CircularProfileImage from "@components/CircularProfileImage";
 import { colors, fontSize } from "@constants";
 import styles from "./style";
+import CarouselPromo from "@components/CarouselPromo";
 
 const ProfileGuest = ({ navigation }) => {
   // LOGOUT
   const handleSubmit = () => {
     navigation.navigate("Landing");
-  };
-
-  const handleSignUp = () => {
-    navigation.navigate("RegisterClientWorker");
   };
 
   return (
@@ -59,27 +56,15 @@ const ProfileGuest = ({ navigation }) => {
       )}
     >
       <View style={styles.parallaxContentContainer}>
-        <View style={styles.profileDetailsContainer}>
-          {/* <Text>Sign up now!</Text> */}
-          <Image
-            style={{ width: 350, height: 350 }}
-            source={require("@images/anyaflyer.png")}
-          />
-        </View>
-        <View style={styles.singleButtonContainer}>
-          <ButtonWhite
-            title="Sign Up"
-            iconName="assignment-ind"
-            onPress={handleSignUp}
-          />
-        </View>
-        <View style={styles.singleButtonContainer}>
+        <View style={styles.homeButtonContainer}>
           <ButtonWhite
             title="Back to Home"
             iconName="home"
             onPress={handleSubmit}
           />
         </View>
+        <CarouselPromo />
+        {/* <View style={styles.profileDetailsContainer}> */}
       </View>
     </ParallaxScrollView>
   );
