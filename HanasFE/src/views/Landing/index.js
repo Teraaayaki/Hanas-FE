@@ -17,6 +17,10 @@ const Landing = ({ navigation }) => {
   const { bookingData } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
+  const handleGuestNavigate = async () => {
+    navigation.navigate("GuestDashboard");
+  };
+
   useEffect(() => {
     dispatch(resetError());
 
@@ -65,10 +69,7 @@ const Landing = ({ navigation }) => {
           </View>
 
           <View style={styles.textContainer}>
-            <Text
-              style={styles.text}
-              onPress={() => navigation.navigate("Dashboard")}
-            >
+            <Text style={styles.text} onPress={handleGuestNavigate}>
               Skip for now
             </Text>
           </View>

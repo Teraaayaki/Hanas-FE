@@ -22,6 +22,7 @@ import EditService from "@screens/services/EditService";
 
 import ClientTabs from "@routes/BottomTabNavigator/client";
 import WorkerTabs from "@routes/BottomTabNavigator/worker";
+import GuestTabs from "@routes/BottomTabNavigator/guest";
 
 const Stack = createStackNavigator();
 
@@ -78,6 +79,7 @@ export default HanasStack = () => {
           <Stack.Screen name="Chatroom" component={Chatroom} />
         </Stack.Group>
       )}
+      <Stack.Screen name="GuestDashboard" component={GuestTabs} />
     </Stack.Navigator>
   );
 };
