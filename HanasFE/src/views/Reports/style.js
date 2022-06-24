@@ -5,7 +5,7 @@ import { colors, padding, margin, fontSize } from "@constants";
 export default StyleSheet.create({
   textStyle: {
     fontFamily: "Bold",
-    fontSize: fontSize.label,
+    fontSize: fontSize.h2,
   },
   inputContainer: {
     backgroundColor: colors.white,

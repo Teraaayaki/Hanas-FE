@@ -120,7 +120,7 @@ const Reports = () => {
       if (response.ok) {
         const { publicUrls } = await response.json();
         const { data } = await createReport(publicUrls);
-
+        console.log(publicUrls);
         if (data) {
           setLoading(false);
           showToast("success", data.message, "Redirecting you in 4 seconds");
@@ -158,7 +158,7 @@ const Reports = () => {
         <Text style={styles.headerTextStyle}>Found something unpleasant?</Text>
         <Text>
           We highly encourage you to submit a report. It will be reviewed by our
-          team comprehensively. Expect a reply within 3-4 business days.
+          team comprehensively. Expect a reply within 2-3 business days.
         </Text>
       </View>
       <View style={styles.inputContainer}>
