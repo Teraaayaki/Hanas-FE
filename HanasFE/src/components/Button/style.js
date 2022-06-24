@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignItems: "center",
     textAlignVertical: "center",
     justifyContent: "center",
-    borderRadius: 15,
+    borderRadius: 10,
   },
   white: {
     color: colors.white,

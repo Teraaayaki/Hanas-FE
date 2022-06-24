@@ -22,6 +22,7 @@ import ProfileView from "@screens/profile/ProfileView";
 import Favorites from "@screens/Favorites";
 import Search from "@screens/Search";
 import Feedback from "@screens/Feedback";
+import Reports from "@screens/Reports";
 
 const Tab = createBottomTabNavigator();
 
@@ -235,6 +236,14 @@ const Tabs = () => {
       <Tab.Screen
         name="Feedback"
         component={Feedback}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="Reports"
+        component={Reports}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,

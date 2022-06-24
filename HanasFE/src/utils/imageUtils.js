@@ -74,3 +74,15 @@ export const uploadImage = async (formdata) => {
     }
   );
 };
+
+export const uploadImageWithUrl = async (formdata, url) => {
+  let token = await getItem("token");
+  return await fetch(`${process.env.LOCALHOST}/${url}`, {
+    method: "POST",
+    body: formdata,
+    headers: {
+      "content-type": "multipart/form-data",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
