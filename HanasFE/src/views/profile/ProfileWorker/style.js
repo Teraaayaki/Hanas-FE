@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
   },
   profileDetailsContainer: {
     backgroundColor: colors.white,
-    marginTop: 50,
+    marginTop: 25,
     marginBottom: 25,
-    padding: padding.p5,
+    paddingHorizontal: padding.p5,
     borderRadius: 10,
   },
   getVerifiedContainer: {
@@ -82,28 +82,6 @@ const styles = StyleSheet.create({
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h3,
     padding: padding.p1,
-  },
-  label: {
-    fontSize: fontSize.p,
-    fontWeight: fontWeight.bold,
-  },
-  values: {
-    fontSize: fontSize.p,
-    color: colors.black,
-  },
-  valuesHyperlink: {
-    fontSize: fontSize.h4,
-    color: colors.blue,
-  },
-  hr: {
-    borderBottomColor: colors.borderGrey,
-    borderWidth: 1,
-  },
-  hrFaded: {
-    borderBottomColor: colors.borderGrey,
-    borderWidth: 1,
-    opacity: 0.3,
-    marginHorizontal: margin.m5,
   },
   buttonContainer: {
     backgroundColor: colors.background,
@@ -157,9 +135,6 @@ const styles = StyleSheet.create({
   },
   h100: {
     height: "100%",
-  },
-  controlledWidth: {
-    maxWidth: 180,
   },
 });
 

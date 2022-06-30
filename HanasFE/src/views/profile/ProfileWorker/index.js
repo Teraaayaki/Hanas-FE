@@ -9,6 +9,7 @@ import Alert from "@helpers/alert";
 import ButtonWhite from "@components/ButtonWhite";
 import styles from "./style";
 import CircularProfileImage from "@components/CircularProfileImage";
+import ProfileDetails from "@components/ProfileDetails";
 import { colors, fontSize } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 import { changeAddress } from "@redux/actions/userDetailActions";
@@ -147,26 +148,12 @@ const Profile = ({ navigation }) => {
         )}
 
         <View style={styles.profileDetailsContainer}>
-          <Text style={styles.headingText}>Account Info</Text>
-          <View style={styles.hr}></View>
-          <View style={styles.profileInfoContainer}>
-            <Text style={styles.label}>Address</Text>
-            <TouchableOpacity onPress={editLocation}>
-              <Text
-                style={[styles.valuesHyperlink, styles.controlledWidth]}
-              >{`${user.address}`}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.hrFaded}></View>
-          <View style={styles.profileInfoContainer}>
-            <Text style={styles.label}>Email</Text>
-            <Text style={styles.values}>{`${user.email}`}</Text>
-          </View>
-          <View style={styles.hrFaded}></View>
-          <View style={styles.profileInfoContainer}>
-            <Text style={styles.label}>Mobile Number</Text>
-            <Text style={styles.values}>{`+63${user.mobile_no}`}</Text>
-          </View>
+          <ProfileDetails
+            editLocation={editLocation}
+            address={user.address}
+            email={user.email}
+            mobile_no={user.mobile_no}
+          />
         </View>
 
         <View style={styles.buttonContainer}>
