@@ -15,6 +15,8 @@ import WorkerSchedule from "@screens/schedules/WorkerSchedule";
 import WorkerBookingRequests from "@screens/bookingRequests/WorkerBookingRequests";
 import Achievements from "@screens/Achievements";
 import SetLocation from "@screens/SetLocation";
+import Reports from "@screens/Reports";
+
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -172,6 +174,14 @@ const Tabs = () => {
       <Tab.Screen
         name="SetLocation"
         component={SetLocation}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="Reports"
+        component={Reports}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,

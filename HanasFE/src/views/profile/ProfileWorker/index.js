@@ -205,6 +205,13 @@ const Profile = ({ navigation }) => {
               onPress={() => navigation.navigate("TransactionHistory")}
             />
           </View>
+          <View style={styles.singleButtonContainer}>
+            <ButtonWhite
+              title="Send Report"
+              iconName="flag"
+              onPress={() => navigation.navigate("Reports")}
+            />
+          </View>
         </View>
         <View style={styles.logout}></View>
         <View style={styles.singleButtonContainer}>
