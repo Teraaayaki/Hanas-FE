@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     marginBottom: "1%",
-    marginTop: "5%",
+    marginTop: "8%",
   },
   getVerifiedTextContainer: {
     width: "50%",
