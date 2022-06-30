@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
-import { Icon, Button } from "react-native-elements";
+import { Icon, Button, Divider } from "react-native-elements";
 
 import Alert from "@helpers/alert";
 import ButtonWhite from "@components/ButtonWhite";
@@ -202,7 +202,7 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={styles.logout}></View>
         <View style={styles.singleButtonContainer}>
-          <View style={styles.hr}></View>
+          <Divider orientation="horizontal" />
         </View>
 
         <View style={styles.singleButtonContainer}>

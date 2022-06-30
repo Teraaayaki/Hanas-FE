@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { Icon } from "react-native-elements";
+import { Icon, Divider } from "react-native-elements";
 
 import Alert from "@helpers/alert";
 import ButtonWhite from "@components/ButtonWhite";
@@ -157,7 +157,7 @@ const ProfileClient = ({ navigation }) => {
 
         <View style={styles.logout}></View>
         <View style={styles.singleButtonContainer}>
-          <View style={styles.hr}></View>
+          <Divider orientation="horizontal" />
         </View>
 
         <View style={styles.singleButtonContainer}>
