@@ -71,12 +71,6 @@ const styles = StyleSheet.create({
     width: "50%",
   },
   getVerifiedImageContainer: { width: 200, height: 200 },
-  profileInfoContainer: {
-    flex: 1,
-    flexDirection: "row",
-    padding: padding.p5,
-    justifyContent: "space-between",
-  },
   getVerifiedTextBody: { marginVertical: 25 },
   headingText: {
     fontWeight: fontWeight.bold,

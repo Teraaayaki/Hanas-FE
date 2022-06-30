@@ -14,13 +14,13 @@ export default StyleSheet.create({
     paddingVertical: padding.p5,
   },
   values: {
-    fontSize: fontSize.h3,
+    fontSize: fontSize.label,
     color: colors.black,
     paddingLeft: padding.p3,
     fontFamily: "Regular",
   },
   valuesEditable: {
-    fontSize: fontSize.h3,
+    fontSize: fontSize.label,
     color: colors.blue,
     paddingLeft: padding.p3,
     fontFamily: "Regular",
