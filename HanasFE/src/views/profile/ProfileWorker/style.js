@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     padding: padding.p5,
     borderRadius: 10,
     flexDirection: "row",
-    marginBottom: "-5%",
+    marginBottom: "1%",
     marginTop: "5%",
   },
   getVerifiedTextContainer: {
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
   getVerifiedImageContainer: { width: 200, height: 200 },
   getVerifiedTextBody: { marginVertical: 25 },
   headingText: {
-    fontWeight: fontWeight.bold,
-    fontSize: fontSize.h3,
+    fontFamily: "Bold",
+    fontSize: fontSize.h2,
     padding: padding.p1,
   },
   buttonContainer: {
