@@ -3,6 +3,14 @@ import { StyleSheet } from "react-native";
 import { colors, padding, margin, fontSize } from "@constants";
 
 export default StyleSheet.create({
+  successView: { flex: 1 },
+  successContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  successEnvelope: { width: "100%", height: "70%" },
+  successText: { fontSize: fontSize.h1, fontFamily: "Bold" },
+  successInfoText: { fontSize: fontSize.h3, fontFamily: "Regular" },
   textStyle: {
     fontFamily: "Bold",
     fontSize: fontSize.h2,

@@ -1,14 +1,9 @@
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  View,
-} from "react-native";
+import { Text, TextInput, ScrollView, Image, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { Button as ElemButton } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   pickImage,
@@ -39,12 +34,16 @@ const Reports = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [prevPage, setPrevPage] = useState("");
+  const navigation = useNavigation();
 
   const resetState = () => {
     setImages([]);
     setImagesUri([]);
     setMessage([]);
     setConcern([]);
+    setSuccess(false);
   };
 
   const createReport = (images) =>
@@ -104,7 +103,16 @@ const Reports = () => {
 
         if (data) {
           setLoading(false);
-          showToast("success", data.message, "Redirecting you in 4 seconds");
+          setSuccess(true);
+          showToast(
+            "success",
+            data.message,
+            "Redirecting you in 4 seconds",
+            () => {
+              resetState();
+              navigation.navigate(prevPage);
+            }
+          );
         }
         return;
       }
@@ -122,8 +130,17 @@ const Reports = () => {
         const { data } = await createReport(publicUrls);
         console.log(publicUrls);
         if (data) {
+          setSuccess(true);
           setLoading(false);
-          showToast("success", data.message, "Redirecting you in 4 seconds");
+          showToast(
+            "success",
+            data.message,
+            "Redirecting you in 4 seconds",
+            () => {
+              resetState();
+              navigation.navigate(prevPage);
+            }
+          );
         }
       }
     } catch (error) {
@@ -150,6 +167,35 @@ const Reports = () => {
       }
     })();
   }, []);
+
+  // CHECK IF CLIENT OR WORKER
+  useEffect(async () => {
+    const isWorker = JSON.parse(await getItem("is_worker"));
+    if (isWorker) {
+      setPrevPage("Profile");
+    } else {
+      setPrevPage("ProfileClient");
+    }
+  }, []);
+
+  if (success)
+    return (
+      <View style={styles.successView}>
+        <Header title="Report" />
+        <View style={styles.successContainer}>
+          <Image
+            style={styles.successEnvelope}
+            source={require("@images/envelope.png")}
+          />
+          <Text style={styles.successText}>You have submitted report!</Text>
+          <Text style={styles.successInfoText}>
+            You will be redirected automatically.
+          </Text>
+        </View>
+
+        <ToastComponent />
+      </View>
+    );
 
   return (
     <ScrollView>
