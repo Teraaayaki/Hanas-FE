@@ -8,9 +8,9 @@ const Item = ({ item, onPress, onPressServices }) => (
   <CardContainer
     name={item.workerDetails.name}
     profession={item.serviceNameData.service_type}
-    rating={item.feedbackData.rateAvg}
+    rating={item.feedbackData === undefined ? 0 : item.feedbackData.rateAvg}
     address={item.workerDetails.address}
-    jobs={item.feedbackData.jobs}
+    jobs={item.feedbackData === undefined ? 0 : item.feedbackData.jobs}
     image={item.workerDetails.profile_pic}
     rate={item.hourly_rate}
     onPress={onPress}
