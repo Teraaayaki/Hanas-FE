@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     marginBottom: 120,
   },
   profileDetailsContainer: {
-    marginTop: 50,
+    marginTop: 25,
     marginBottom: 25,
-    padding: padding.p5,
+    paddingHorizontal: padding.p5,
     backgroundColor: colors.white,
     borderRadius: 10,
   },
