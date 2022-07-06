@@ -9,6 +9,7 @@ import styles from "./style";
 import { colors } from "@constants";
 import { padding } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import currencyFormat from "@utils/currencyFormat";
 
 const AchievemntsFlatlist = ({
   AchievementsDATA,
@@ -18,10 +19,18 @@ const AchievemntsFlatlist = ({
   const renderContent = ({ item }) => {
     return (
       <View style={[styles.flex1, styles.w100, styles.justifyContentCenter]}>
-        <Text style={[styles.p, styles.textCenter, styles.mb3]}>
-          PHP{" "}
-          {item.goal.toLocaleString(undefined, { maximumFractionDigits: 2 })} in
-          Total earnings
+        <Text
+          style={[
+            styles.h4,
+            styles.robotoRegFont,
+            styles.textCenter,
+            styles.mb3,
+          ]}
+        >
+          PHP {currencyFormat(item.goal)} in Total earnings
+        </Text>
+        <Text style={[styles.h4, styles.robotoFont, styles.textCenter]}>
+          {item.title}
         </Text>
         <CompletionBar
           goal={item.goal}
@@ -80,9 +89,7 @@ const AchievemntsFlatlist = ({
         <Text style={[styles.totalEarnings]}>Total Earnings:</Text>
         <Text style={[styles.bold, styles.totalEarningsVal, styles.textCenter]}>
           {"₱ "}
-          {totalEarnings.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          })}
+          {currencyFormat(totalEarnings)}
         </Text>
         <View
           style={[
@@ -119,6 +126,23 @@ const AchievemntsFlatlist = ({
                 >
                   Contact Hanas to Claim Rewards
                 </Text>
+                <View
+                  style={[
+                    styles.flexRow,
+                    styles.justifyContentCenter,
+                    styles.alignCenter,
+                  ]}
+                >
+                  <Icon
+                    name="email"
+                    type="material-icons"
+                    size={22}
+                    color={colors.secondary}
+                  />
+                  <Text style={[styles.h3, styles.ml2]}>
+                    hanas.app.services@gmail.com
+                  </Text>
+                </View>
                 <View
                   style={[
                     styles.flexRow,

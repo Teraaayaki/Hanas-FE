@@ -6,6 +6,9 @@ export default StyleSheet.create({
   pinkCard: {
     backgroundColor: "#FFA7BB",
   },
+  elevation1: {
+    elevation: 3,
+  },
   imageHeight: {
     height: 120,
   },
@@ -88,6 +91,9 @@ export default StyleSheet.create({
   //Height---------------------------------------
   h100: {
     height: "100%",
+  },
+  h85: {
+    height: "85%",
   },
   h75: {
     height: "75%",
