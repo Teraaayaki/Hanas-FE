@@ -37,7 +37,7 @@ const AchievementsDATA = [
   },
   {
     id: "5",
-    title: "Fifth Item",
+    title: "LPG Tank",
     image: require("@images/lpg.jpg"),
     goal: 49000,
     claimed: false,
@@ -51,7 +51,7 @@ const AchievementsDATA = [
   },
 ];
 const totalEarnings = 16000;
-const paymentOverdue = true;
+const paymentOverdue = false;
 
 const Achievements = ({ navigation }) => {
   const [totalEarned, setTotalEarned] = useState(0);
