@@ -20,7 +20,7 @@ export default getMultipleDays = (dateTimeStart, dateTimeEnd) => {
       i <= parseInt(dayjs(dateTimeEnd).format("DD"));
       i++
     ) {
-      console.log(i);
+      // console.log(i);
       myBookedDateArray.push(new Date(tempDate.setDate(i)));
     }
   } else {
@@ -29,12 +29,12 @@ export default getMultipleDays = (dateTimeStart, dateTimeEnd) => {
       i <= getLastDay(dateTimeStart.getFullYear(), dateTimeStart.getMonth());
       i++
     ) {
-      console.log(i);
+      // console.log(i);
       myBookedDateArray.push(new Date(tempDate.setDate(i)));
     }
 
     for (let i = 1; i <= dateTimeEnd.getDate(); i++) {
-      console.log(i);
+      // console.log(i);
       myBookedDateArray2.push(new Date(tempDateNewMonth.setDate(i)));
     }
   }

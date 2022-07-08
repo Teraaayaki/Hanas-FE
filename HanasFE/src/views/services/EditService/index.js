@@ -60,7 +60,7 @@ const EditService = ({ route, navigation }) => {
       (myService) => myService._id === service_id
     );
 
-    console.log(serviceData);
+    // console.log(serviceData);
     let sample_works = serviceData.sample_works.map((sample_work) =>
       sample_work.split("/").pop()
     );
@@ -268,7 +268,7 @@ const EditService = ({ route, navigation }) => {
         certificateImgUrl,
         lastUpdated: new Date(),
       };
-      console.log(serviceDetails);
+      // console.log(serviceDetails);
       dispatch(editService(serviceDetails, navigation));
     } else {
       setErrMessage(true);

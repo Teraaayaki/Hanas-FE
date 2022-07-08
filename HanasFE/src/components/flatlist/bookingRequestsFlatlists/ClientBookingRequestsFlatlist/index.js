@@ -44,7 +44,7 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
 
   const renderContentv2 = ({ item }) => {
     const scheduleIconColorStyle = ({ item }) => {
-      console.log("ITEM", item._id);
+      // console.log("ITEM", item._id);
       if (item.book_status == "Declined") {
         return colors.muted75;
       }

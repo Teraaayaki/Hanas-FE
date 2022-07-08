@@ -14,6 +14,11 @@ import AttachImage from "@components/AttachImage";
 import DropdownList from "@components/modal/DropdownList";
 import { getItem } from "@helpers/asyncStorage";
 import { addServiceWorker } from "@redux/actions/workerServiceActions";
+import {
+  pickImage as pickSampleImage,
+  filterUri,
+  createFormdata,
+} from "@utils/imageUtils";
 
 const AddService = ({ navigation }) => {
   const [showVerifyGuide, setShowVerifyGuide] = useState(false);
@@ -46,7 +51,7 @@ const AddService = ({ navigation }) => {
         return service.service_type;
       }
     });
-    console.log(filteredService);
+    // console.log(filteredService);
     setFilteredServices(filteredService);
   };
 
@@ -54,25 +59,12 @@ const AddService = ({ navigation }) => {
   const pickImage = async () => {
     let token = await getItem("token");
     setUploadingImage(true);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
+    let result = await pickSampleImage();
 
     if (!result.cancelled) {
-      let localUri = result.uri;
-      let filename = localUri.split("/").pop();
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
+      const { filename, type } = filterUri(result.uri);
+      const formData = createFormdata(result.uri, type, filename, "sample");
 
-      const formData = new FormData();
-      formData.append("sample", {
-        uri: result.uri,
-        type: type,
-        name: filename,
-      });
       if (result) {
         console.log("uploading sample work picture");
         let response = await fetch(
@@ -93,6 +85,7 @@ const AddService = ({ navigation }) => {
           setSampleWorkImg([...sampleWorkImg, filename]);
           setUploadingImage(false);
         } else {
+          setUploadingImage(false);
         }
       }
     } else {
@@ -130,25 +123,18 @@ const AddService = ({ navigation }) => {
   const pickCertificate = async () => {
     let token = await getItem("token");
     setUploadingCertificate(true);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
+    let result = await pickSampleImage();
 
     if (!result.cancelled) {
-      let localUri = result.uri;
-      let filename = localUri.split("/").pop();
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
+      const { filename, type } = filterUri(result.uri);
 
-      const formData = new FormData();
-      formData.append("certificate", {
-        uri: result.uri,
-        type: type,
-        name: filename,
-      });
+      const formData = createFormdata(
+        result.uri,
+        type,
+        filename,
+        "certificate"
+      );
+
       if (result) {
         console.log("uploading work certificate");
         let response = await fetch(
@@ -169,6 +155,7 @@ const AddService = ({ navigation }) => {
           setCertificateImgUrl([...certificateImgUrl, publicUrl]);
           setUploadingCertificate(false);
         } else {
+          setUploadingCertificate(false);
         }
       }
     } else {
