@@ -58,7 +58,7 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
       }
     } catch (err) {
       console.log("Error On Refresh");
-      let { error } = err.response.data;
+      let error = err.response?.data.error || err;
       dispatch({
         type: UserLoginActions.USER_LOGIN_FAIL,
         payload: error,
@@ -143,10 +143,9 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
       navigation.navigate("GetVerified");
     }
   } catch (err) {
-    console.log(err);
-    const { error } = err.response.data;
+    const error = err.response?.data.error || err;
     console.log(error);
-    dispatch({ type: UserLoginActions.USER_LOGIN_FAIL, payload: error });
+    dispatch({ type: UserLoginActions.USER_LOGIN_FAIL, payload: `${error}` });
   }
 };
 

@@ -25,7 +25,7 @@ export const getBooking = () => async (dispatch) => {
       });
     }
   } catch (err) {
-    let error = err.response.data ? err.response.data : err;
+    let error = err.response?.data.error || err;
     dispatch({
       type: ClientBookingActions.CLIENT_BOOKING_FAIL,
       payload: error,

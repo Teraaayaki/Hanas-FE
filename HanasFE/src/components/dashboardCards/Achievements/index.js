@@ -10,6 +10,8 @@ import CompletionBar from "@components/CompletionBar";
 import styles from "./styles";
 
 const Achievements = ({ navigation, AchievementsDATA }) => {
+  const [showText, setShowText] = useState(false);
+
   const renderContent = () => {
     return (
       <View style={[styles.flex1]}>
@@ -39,28 +41,21 @@ const Achievements = ({ navigation, AchievementsDATA }) => {
           <Text style={[styles.h3]}>
             PHP {AchievementsDATA.goal} Total Sales
           </Text>
-          <Tooltip
-            containerStyle={{ backgroundColor: "lightgrey" }}
-            width={300}
-            height={75}
-            overlayColor={styles.bgGrey}
-            pointerColor="lightgrey"
-            popover={
-              <Text>
-                You will earn rewards if you complete jobs. Please make sure to
-                pay your monthly convenience fee.
-              </Text>
-            }
-          >
-            <Icon
-              name="info-circle"
-              type="font-awesome-5"
-              size={22}
-              color={colors.success}
-              style={[styles.mb5, styles.pb5]}
-            />
-          </Tooltip>
+          <Icon
+            onPress={() => setShowText(!showText)}
+            name="info-circle"
+            type="font-awesome-5"
+            size={22}
+            color={colors.success}
+            style={[styles.mb5, styles.pb5]}
+          />
         </View>
+        {showText && (
+          <Text style={[styles.textSecondary]}>
+            You will earn rewards if you complete jobs. Please make sure to pay
+            your monthly convenience fee.
+          </Text>
+        )}
         <CompletionBar
           goal={AchievementsDATA.goal}
           completion={AchievementsDATA.completion}
