@@ -18,7 +18,7 @@ export default getTimeDifference = (start, end) => {
   if (minutes < 10) {
     minutes = "0" + minutes;
   }
-  console.log(minutes);
+  // console.log(minutes);
 
   if (hours < 0) hours = hours + 24;
 

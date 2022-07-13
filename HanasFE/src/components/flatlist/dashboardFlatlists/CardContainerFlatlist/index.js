@@ -33,7 +33,7 @@ const CardContainerFlatlist = ({ navigation, data }) => {
       item.id === selectedId ? colors.borderGrey : colors.background;
     const color = item.id === selectedId ? "white" : "black";
 
-    console.log("ITEM", item);
+    // console.log("ITEM", item);
 
     return (
       <Item

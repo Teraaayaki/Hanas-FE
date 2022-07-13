@@ -1,22 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
-import { Icon } from "react-native-elements";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { colors, fontSize } from "@constants";
+import { colors } from "@constants";
 import styles from "./style";
 
 // {disabled} renders the card Greyed out. Used for Schedule Screen.
 // {hideCard} renders the Hide Card button on the header.
 
 // Function for 1 Pink Sided Card ////////////////////////////////////
-const PinkImageCard = ({
-  success,
-  disabled,
-  imageSource,
-  imageName,
-  content,
-}) => {
+const PinkImageCard = ({ success, disabled, imageSource, content }) => {
   const pinkSideCard = ({ imageSource }) => {
     const backgroundColorStyle = () => {
       return disabled
@@ -33,9 +25,10 @@ const PinkImageCard = ({
           styles.px3,
           styles.pb2,
           styles.rounded,
+          styles.elevation1,
         ]}
       >
-        <Text style={[]}>Reward:</Text>
+        <Text style={[styles.bold]}>Reward:</Text>
         {pinkSideImage({ imageSource })}
       </View>
     );
@@ -43,27 +36,13 @@ const PinkImageCard = ({
 
   const pinkSideImage = ({ imageSource }) => {
     return (
-      <View
-        style={[
-          styles.bgWhite,
-          styles.imageHeight,
-          styles.rounded,
-          styles.mb5,
-          styles.pt5,
-          styles.pb2,
-        ]}
-      >
-        <View
-          style={[
-            styles.flex1,
-            styles.my4,
-            styles.alignCenter,
-            styles.justifyContentCenter,
-          ]}
-        >
-          <Image source={imageSource} style={[styles.h100, styles.mw100]} />
+      <View style={[styles.imageHeight, styles.rounded, styles.mb5]}>
+        <View>
+          <Image
+            source={imageSource}
+            style={[styles.h100, styles.w100, styles.rounded, styles.bgWhite]}
+          />
         </View>
-        <Text style={[styles.textCenter]}>{imageName}</Text>
       </View>
     );
   };
@@ -79,11 +58,7 @@ const PinkImageCard = ({
           backgroundColorStyle(),
           styles.p3,
           styles.roundedRight20,
-          styles.h75,
-          styles.borderTop,
-          styles.borderRight,
-          styles.borderBottom,
-          styles.borderMuted20,
+          styles.h85,
         ]}
       >
         {content}

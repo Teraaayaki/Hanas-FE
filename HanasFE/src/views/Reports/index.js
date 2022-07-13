@@ -237,12 +237,14 @@ const Reports = () => {
         </View>
         <Text style={styles.textStyle}>Attachments</Text>
         <View style={styles.imageContainer}>
-          <ElemButton
-            buttonStyle={{ borderRadius: 10 }}
-            title="Add Image"
-            type="outline"
-            onPress={handleSubmitPhoto}
-          />
+          {images.length < 5 && (
+            <ElemButton
+              buttonStyle={{ borderRadius: 10 }}
+              title="Add Image"
+              type="outline"
+              onPress={handleSubmitPhoto}
+            />
+          )}
 
           <View style={styles.imagesContainer}>
             {images.length > 0 &&

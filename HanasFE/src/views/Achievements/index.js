@@ -1,65 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import useSWR from "swr";
+import { useSelector } from "react-redux";
 
 import Header from "@components/Header";
 import AchievementsFlatlist from "@components/flatlist/AchievementsFlatlist";
 import styles from "./style";
+import AchievementsDATA from "@helpers/achievements";
+import getTotalEarnings from "@utils/getTotalEarnings";
+
+const totalEarnings = 16000;
+const paymentOverdue = false;
 
 const Achievements = ({ navigation }) => {
-  const AchievementsDATA = [
-    {
-      id: "3",
-      title: "Third Item",
-      image: require("@images/mullet.jpg"),
-      goal: 14000,
-      claimed: false,
-    },
-    {
-      id: "4",
-      title: "Fourth Item",
-      image: require("@images/mullet.jpg"),
-      goal: 24000,
-      claimed: false,
-    },
-    {
-      id: "5",
-      title: "Fifth Item",
-      image: require("@images/mullet.jpg"),
-      goal: 49000,
-      claimed: false,
-    },
-    {
-      id: "6",
-      title: "Sixth Item",
-      image: require("@images/mullet.jpg"),
-      goal: 99000,
-      claimed: false,
-    },
-    {
-      id: "1",
-      title: "First Item",
-      image: require("@images/dashboard1.png"),
-      goal: 4000,
-      claimed: true,
-    },
-    {
-      id: "2",
-      title: "Second Item",
-      image: require("@images/mullet.jpg"),
-      goal: 9000,
-      claimed: true,
-    },
-  ];
-  const totalEarnings = 16000;
-  const paymentOverdue = true;
+  const { transactions } = useSelector((state) => state.transactions);
+  const [totalEarned, setTotalEarned] = useState(0);
+  const [achievementsDATA, setAchievementsData] = useState(AchievementsDATA());
+  const { data: fetchedClaimedData } = useSWR(
+    `${process.env.LOCALHOST}/api/worker/get-achievements`
+  );
+
+  const claimedData = () => {
+    const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
+    setAchievementsData([...filteredAchievementsData]);
+  };
+
+  useEffect(() => {
+    const finishedTransacs = getTotalEarnings(transactions);
+    setTotalEarned(finishedTransacs);
+  }, [transactions]);
+
+  useEffect(() => {
+    claimedData();
+  }, [fetchedClaimedData]);
 
   return (
     <View style={[styles.body]}>
       <Header title={"Achievements"} />
       <View style={[styles.flex1, styles.mx3]}>
         <AchievementsFlatlist
-          AchievementsDATA={AchievementsDATA}
-          totalEarnings={totalEarnings}
+          AchievementsDATA={achievementsDATA}
+          totalEarnings={totalEarned}
           paymentOverdue={paymentOverdue}
         />
       </View>

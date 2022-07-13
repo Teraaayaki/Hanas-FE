@@ -57,7 +57,7 @@ export const bookSkilledWorker = (DATA, navigation) => async (dispatch) => {
           type: ClientBookingActions.CLIENT_BOOKING_DETAILS,
           payload: response.data.bookings,
         });
-        console.log(booking_data);
+        // console.log(booking_data);
         navigation.navigate("BookingSummary", { booking_data });
       }
     }

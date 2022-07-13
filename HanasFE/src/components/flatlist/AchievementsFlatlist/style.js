@@ -7,6 +7,13 @@ export default StyleSheet.create({
     fontSize: 23,
   },
 
+  robotoFont: {
+    fontFamily: "Bold",
+  },
+  robotoRegFont: {
+    fontFamily: "Regular",
+  },
+
   totalEarningsVal: {
     fontSize: 42,
   },

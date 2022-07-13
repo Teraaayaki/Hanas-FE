@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 
 import styles from "./style";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { colors } from "react-native-elements";
+import currencyFormat from "@utils/currencyFormat";
 
 const CompletionBar = ({ goal, completion, success, disabled }) => {
   const [type, setType] = useState(false);
@@ -75,10 +75,7 @@ const CompletionBar = ({ goal, completion, success, disabled }) => {
         <Text style={[styles.completion, styles.h4, styles.mb1]}>
           {type
             ? remainingBalance > 0
-              ? "Earn PHP " +
-                remainingBalance.toLocaleString(undefined, {
-                  maximumFractionDigits: 2,
-                })
+              ? "Earn PHP " + currencyFormat(remainingBalance) + " more"
               : "Earn PHP 0.00"
             : percentage > 100
             ? "100% completed "
