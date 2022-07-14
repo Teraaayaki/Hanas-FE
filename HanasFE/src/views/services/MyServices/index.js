@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
-import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 
+import styles from "./style";
 import Header from "@components/Header";
 import MyServicesFlatlist from "@components/flatlist/myServicesFlatlists/MyServicesFlatlist";
 import { getMyServices, resetError } from "@redux/actions/workerServiceActions";
 import { showToast, ToastComponent } from "@helpers/toast";
+import { colors } from "@constants";
 
 const MyServices = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -28,16 +29,28 @@ const MyServices = ({ navigation }) => {
     }
   }, [success]);
 
+  if (loading)
+    return (
+      <View style={[styles.flex1]}>
+        <Header title="Services" />
+        <View
+          style={[
+            styles.flex1,
+            styles.justifyContentCenter,
+            styles.alignCenter,
+          ]}
+        >
+          <ActivityIndicator size="large" color={colors.secondary} />
+        </View>
+      </View>
+    );
+
   return (
     <View style={[styles.flex1]}>
       <MyServicesFlatlist
         navigation={navigation}
         DATA={myServices}
-        ListHeaderComponent={
-          <View style={[styles.mb5]}>
-            <Header title="Services" />
-          </View>
-        }
+        ListHeaderComponent={<Header title="Services" />}
       />
       <ToastComponent />
     </View>
