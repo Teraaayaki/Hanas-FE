@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  BackHandler,
+} from "react-native";
 import { Icon } from "react-native-elements";
 import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +24,13 @@ import {
   pickImage as pickSampleImage,
   filterUri,
   createFormdata,
+  uploadImageWithUrl,
 } from "@utils/imageUtils";
 
 const AddService = ({ navigation }) => {
   const [showVerifyGuide, setShowVerifyGuide] = useState(false);
+  const [handleBackHandler, setHandleBackHandler] = useState(false);
+  const [backErrorMsg, setBackErrorMsg] = useState(false);
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -57,7 +66,6 @@ const AddService = ({ navigation }) => {
 
   // Upload sample work image
   const pickImage = async () => {
-    let token = await getItem("token");
     setUploadingImage(true);
     let result = await pickSampleImage();
 
@@ -67,18 +75,13 @@ const AddService = ({ navigation }) => {
 
       if (result) {
         console.log("uploading sample work picture");
-        let response = await fetch(
-          `${process.env.HANAS_ENDPOINT}api/worker/upload-image-service`,
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              "content-type": "multipart/form-data",
-              authorization: `Bearer ${token}`,
-            },
-          }
+        let response = await uploadImageWithUrl(
+          formData,
+          "api/worker/upload-image-service"
         );
+
         if (response.ok) {
+          setHandleBackHandler(true);
           let { publicUrl } = await response.json();
           console.log(publicUrl);
           setSampleWorkImgUrl([...sampleWorkImgUrl, publicUrl]);
@@ -90,6 +93,44 @@ const AddService = ({ navigation }) => {
       }
     } else {
       setUploadingImage(false);
+    }
+  };
+
+  // Upload certificate
+  const pickCertificate = async () => {
+    setUploadingCertificate(true);
+    let result = await pickSampleImage();
+
+    if (!result.cancelled) {
+      const { filename, type } = filterUri(result.uri);
+
+      const formData = createFormdata(
+        result.uri,
+        type,
+        filename,
+        "certificate"
+      );
+
+      if (result) {
+        console.log("uploading work certificate");
+        let response = await uploadImageWithUrl(
+          formData,
+          "api/worker/upload-image-certificate"
+        );
+
+        if (response.ok) {
+          setHandleBackHandler(true);
+          let { publicUrl } = await response.json();
+          console.log(publicUrl);
+          setCertificateImg([...certificateImg, filename]);
+          setCertificateImgUrl([...certificateImgUrl, publicUrl]);
+          setUploadingCertificate(false);
+        } else {
+          setUploadingCertificate(false);
+        }
+      }
+    } else {
+      setUploadingCertificate(false);
     }
   };
 
@@ -116,50 +157,6 @@ const AddService = ({ navigation }) => {
     } catch (err) {
       console.log(err);
       setUploadingImage(false);
-    }
-  };
-
-  // Upload certificate
-  const pickCertificate = async () => {
-    let token = await getItem("token");
-    setUploadingCertificate(true);
-    let result = await pickSampleImage();
-
-    if (!result.cancelled) {
-      const { filename, type } = filterUri(result.uri);
-
-      const formData = createFormdata(
-        result.uri,
-        type,
-        filename,
-        "certificate"
-      );
-
-      if (result) {
-        console.log("uploading work certificate");
-        let response = await fetch(
-          `${process.env.HANAS_ENDPOINT}api/worker/upload-image-certificate`,
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              "content-type": "multipart/form-data",
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          let { publicUrl } = await response.json();
-          console.log(publicUrl);
-          setCertificateImg([...certificateImg, filename]);
-          setCertificateImgUrl([...certificateImgUrl, publicUrl]);
-          setUploadingCertificate(false);
-        } else {
-          setUploadingCertificate(false);
-        }
-      }
-    } else {
-      setUploadingCertificate(false);
     }
   };
 
@@ -209,6 +206,7 @@ const AddService = ({ navigation }) => {
     }
 
     if (description !== "" && ratePerHourValue !== "") {
+      setHandleBackHandler(false);
       console.log("Dispatched Action in Addservice");
       const serviceDetails = {
         service,
@@ -228,6 +226,17 @@ const AddService = ({ navigation }) => {
   };
 
   useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        setBackErrorMsg(handleBackHandler);
+        return handleBackHandler;
+      }
+    );
+    return () => backHandler.remove();
+  }, [handleBackHandler]);
+
+  useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
         const { status } =
@@ -238,6 +247,13 @@ const AddService = ({ navigation }) => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (sampleWorkImg.length === 0 && certificateImg.length === 0) {
+      setHandleBackHandler(false);
+      setBackErrorMsg(false);
+    }
+  }, [sampleWorkImg, certificateImg]);
 
   useEffect(() => {
     filterServices();
@@ -333,7 +349,7 @@ const AddService = ({ navigation }) => {
         </View>
         <View>
           <Text style={[styles.h3, styles.bold, styles.mt5]}>Sample Works</Text>
-          {!uploadingImage && (
+          {!uploadingImage && sampleWorkImg.length < 5 ? (
             <TouchableOpacity style={[styles.my2]} onPress={pickImage}>
               <Text
                 style={[
@@ -348,7 +364,7 @@ const AddService = ({ navigation }) => {
                 Click Here to Add Photos
               </Text>
             </TouchableOpacity>
-          )}
+          ) : null}
         </View>
 
         {uploadingImage ? (
@@ -398,7 +414,7 @@ const AddService = ({ navigation }) => {
             Upload your Certificates to get Verified.
           </Text>
         )}
-        {!uploadingCertificate && (
+        {!uploadingCertificate && certificateImg.length < 3 && (
           <TouchableOpacity style={[styles.my2]} onPress={pickCertificate}>
             <Text
               style={[
@@ -446,6 +462,18 @@ const AddService = ({ navigation }) => {
           <ActivityIndicator size="large" color={colors.secondary} />
         ) : null}
         <View style={[styles.mx5, styles.px5]}>
+          {backErrorMsg && (
+            <Text
+              style={[
+                styles.textDanger,
+                styles.bold,
+                styles.mb3,
+                styles.textCenter,
+              ]}
+            >
+              Please submit changes or Remove all images.
+            </Text>
+          )}
           <Button title={"Submit"} onPress={handleSubmit} />
         </View>
         <View style={[styles.my5]}></View>

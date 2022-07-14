@@ -19,10 +19,17 @@ import Button from "@components/Button";
 import AttachImage from "@components/AttachImage";
 import { getItem } from "@helpers/asyncStorage";
 import { editService } from "@redux/actions/workerServiceActions";
+import {
+  pickImage as pickSampleImage,
+  filterUri,
+  createFormdata,
+  uploadImageWithUrl,
+} from "@utils/imageUtils";
 
-let sampleImgUri = "https://storage.googleapis.com/hanas/sample-work-images/";
+let sampleImgUri =
+  "https://storage.googleapis.com/hanas-storage/sample-work-images/";
 let certificateImgUri =
-  "https://storage.googleapis.com/hanas/service-certificates/";
+  "https://storage.googleapis.com/hanas-storage/service-certificates/";
 
 const EditService = ({ route, navigation }) => {
   const [showVerifyGuide, setShowVerifyGuide] = useState(false);
@@ -42,25 +49,12 @@ const EditService = ({ route, navigation }) => {
   const [certificateImg, setCertificateImg] = useState([]);
   const [certificateImgUrl, setCertificateImgUrl] = useState([]);
 
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        setBackErrorMsg(handleBackHandler);
-        return handleBackHandler;
-      }
-    );
-    return () => backHandler.remove();
-  }, [handleBackHandler]);
-
   const dispatch = useDispatch();
 
   const getServiceData = () => {
     let serviceData = myServices.find(
       (myService) => myService._id === service_id
     );
-
-    // console.log(serviceData);
     let sample_works = serviceData.sample_works.map((sample_work) =>
       sample_work.split("/").pop()
     );
@@ -82,57 +76,79 @@ const EditService = ({ route, navigation }) => {
 
   // Upload sample work image
   const pickImage = async () => {
-    let token = await getItem("token");
     setUploadingImage(true);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
+    let result = await pickSampleImage();
 
-    if (!result.cancelled) {
-      let localUri = result.uri;
-      let filename = localUri.split("/").pop();
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
+    if (result.cancelled) {
+      setUploadingImage(false);
+      return;
+    }
 
-      const formData = new FormData();
-      formData.append("sample", {
-        uri: result.uri,
-        type: type,
-        name: filename,
-      });
-      if (result) {
-        let response = await fetch(
-          `${process.env.HANAS_ENDPOINT}api/worker/upload-image-service`,
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              "content-type": "multipart/form-data",
-              authorization: `Bearer ${token}`,
-            },
-          }
+    if (result) {
+      const { filename, type } = filterUri(result.uri);
+      const formData = createFormdata(result.uri, type, filename, "sample");
+      try {
+        let response = await uploadImageWithUrl(
+          formData,
+          "api/worker/upload-image-service"
+        );
+
+        if (response.ok) {
+          setHandleBackHandler(true);
+          let { publicUrl } = await response.json();
+          // console.log(publicUrl);
+          setSampleWorkImgUrl([...sampleWorkImgUrl, publicUrl]);
+          setSampleWorkImg([...sampleWorkImg, filename]);
+          setUploadingImage(false);
+        }
+      } catch (err) {
+        setHandleBackHandler(false);
+        setUploadingImage(false);
+      }
+    }
+  };
+
+  // Upload certificate
+  const pickCertificate = async () => {
+    setUploadingCertificate(true);
+    let result = await pickSampleImage();
+
+    if (result.cancelled) {
+      setUploadingCertificate(false);
+      return;
+    }
+
+    if (result) {
+      const { filename, type } = filterUri(result.uri);
+      const formData = createFormdata(
+        result.uri,
+        type,
+        filename,
+        "certificate"
+      );
+      console.log("uploading work certificate");
+      try {
+        let response = await uploadImageWithUrl(
+          formData,
+          "api/worker/upload-image-certificate"
         );
         if (response.ok) {
           setHandleBackHandler(true);
           let { publicUrl } = await response.json();
-          console.log(publicUrl);
-          setSampleWorkImgUrl([...sampleWorkImgUrl, publicUrl]);
-          setSampleWorkImg([...sampleWorkImg, filename]);
-          setUploadingImage(false);
-        } else {
+          // console.log(publicUrl);
+          setCertificateImg([...certificateImg, filename]);
+          setCertificateImgUrl([...certificateImgUrl, publicUrl]);
+          setUploadingCertificate(false);
         }
+      } catch (err) {
+        setUploadingCertificate(false);
       }
-    } else {
-      setUploadingImage(false);
     }
   };
 
   // Remove sample work image
   const handleRemoveSampleWorkImg = async (imgName) => {
-    console.log("deleting " + imgName);
+    // console.log("deleting " + imgName);
     let token = await getItem("token");
     setUploadingImage(true);
     try {
@@ -148,13 +164,13 @@ const EditService = ({ route, navigation }) => {
       if (data) {
         setHandleBackHandler(true);
         setUploadingImage(false);
-        console.log(imgName);
+        // console.log(imgName);
         let filteredImg = sampleWorkImg.filter((img) => img !== imgName);
         let filteredImgUrl = sampleWorkImgUrl.filter(
           (img) => img !== `${sampleImgUri}${imgName}`
         );
-        console.log(filteredImg);
-        console.log(filteredImgUrl);
+        // console.log(filteredImg);
+        // console.log(filteredImgUrl);
         setSampleWorkImg([...filteredImg]);
         setSampleWorkImgUrl([...filteredImgUrl]);
       }
@@ -164,60 +180,9 @@ const EditService = ({ route, navigation }) => {
     }
   };
 
-  // Upload certificate
-  const pickCertificate = async () => {
-    let token = await getItem("token");
-    setUploadingCertificate(true);
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
-
-    if (!result.cancelled) {
-      let localUri = result.uri;
-      let filename = localUri.split("/").pop();
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
-
-      const formData = new FormData();
-      formData.append("certificate", {
-        uri: result.uri,
-        type: type,
-        name: filename,
-      });
-      if (result) {
-        console.log("uploading work certificate");
-        let response = await fetch(
-          `${process.env.HANAS_ENDPOINT}api/worker/upload-image-certificate`,
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              "content-type": "multipart/form-data",
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          setHandleBackHandler(true);
-          let { publicUrl } = await response.json();
-          console.log(publicUrl);
-          setCertificateImg([...certificateImg, filename]);
-          setCertificateImgUrl([...certificateImgUrl, publicUrl]);
-          setUploadingCertificate(false);
-        } else {
-        }
-      }
-    } else {
-      setUploadingCertificate(false);
-    }
-  };
-
   // Remove Certificate
   const handleRemoveCertificate = async (imgName) => {
-    console.log("deleting " + imgName);
+    // console.log("deleting " + imgName);
     let token = await getItem("token");
     setUploadingCertificate(true);
     try {
@@ -298,6 +263,17 @@ const EditService = ({ route, navigation }) => {
     getServiceData();
   }, [service_id]);
 
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        setBackErrorMsg(handleBackHandler);
+        return handleBackHandler;
+      }
+    );
+    return () => backHandler.remove();
+  }, [handleBackHandler]);
+
   return (
     <ScrollView style={[styles.body]}>
       <Header title={"Edit Service"} />
@@ -346,7 +322,7 @@ const EditService = ({ route, navigation }) => {
         </View>
         <View>
           <Text style={[styles.h3, styles.bold, styles.mt5]}>Sample Works</Text>
-          {!uploadingImage && (
+          {!uploadingImage && sampleWorkImg.length < 5 && (
             <TouchableOpacity style={[styles.my2]} onPress={pickImage}>
               <Text
                 style={[
@@ -411,7 +387,7 @@ const EditService = ({ route, navigation }) => {
             Upload your Certificates to get Verified.
           </Text>
         )}
-        {!uploadingCertificate && (
+        {!uploadingCertificate && certificateImg.length < 3 && (
           <TouchableOpacity style={[styles.my2]} onPress={pickCertificate}>
             <Text
               style={[
