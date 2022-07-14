@@ -28,12 +28,13 @@ export default StyleSheet.create({
 
   //MyServices 1.0 styles-----------------------------
   infoCard: {
-    borderColor: "#BBB",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderColor: "#BBB",
+    // borderWidth: 1,
+    borderRadius: 10,
     backgroundColor: colors.white,
     minHeight: 140,
     padding: padding.p3,
+    elevation: 1,
   },
 
   addButton: {
@@ -212,6 +213,10 @@ export default StyleSheet.create({
   textMuted50: { color: colors.muted50 },
   textMuted25: { color: colors.muted25 },
   textMuted20: { color: colors.muted20 },
+  textPending: { color: "orange" },
+  textRejected: { color: colors.danger },
+  textAccepted: { color: "yellowgreen" },
+  textDark: { color: colors.black },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,

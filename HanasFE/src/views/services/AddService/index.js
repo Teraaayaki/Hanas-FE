@@ -69,11 +69,15 @@ const AddService = ({ navigation }) => {
     setUploadingImage(true);
     let result = await pickSampleImage();
 
-    if (!result.cancelled) {
-      const { filename, type } = filterUri(result.uri);
-      const formData = createFormdata(result.uri, type, filename, "sample");
+    if (result.cancelled) {
+      setUploadingImage(false);
+      return;
+    }
 
-      if (result) {
+    if (result) {
+      try {
+        const { filename, type } = filterUri(result.uri);
+        const formData = createFormdata(result.uri, type, filename, "sample");
         console.log("uploading sample work picture");
         let response = await uploadImageWithUrl(
           formData,
@@ -87,12 +91,10 @@ const AddService = ({ navigation }) => {
           setSampleWorkImgUrl([...sampleWorkImgUrl, publicUrl]);
           setSampleWorkImg([...sampleWorkImg, filename]);
           setUploadingImage(false);
-        } else {
-          setUploadingImage(false);
         }
+      } catch (err) {
+        setUploadingImage(false);
       }
-    } else {
-      setUploadingImage(false);
     }
   };
 
@@ -102,16 +104,19 @@ const AddService = ({ navigation }) => {
     let result = await pickSampleImage();
 
     if (!result.cancelled) {
-      const { filename, type } = filterUri(result.uri);
+      setUploadingCertificate(false);
+      return;
+    }
 
-      const formData = createFormdata(
-        result.uri,
-        type,
-        filename,
-        "certificate"
-      );
-
-      if (result) {
+    if (result) {
+      try {
+        const { filename, type } = filterUri(result.uri);
+        const formData = createFormdata(
+          result.uri,
+          type,
+          filename,
+          "certificate"
+        );
         console.log("uploading work certificate");
         let response = await uploadImageWithUrl(
           formData,
@@ -125,12 +130,10 @@ const AddService = ({ navigation }) => {
           setCertificateImg([...certificateImg, filename]);
           setCertificateImgUrl([...certificateImgUrl, publicUrl]);
           setUploadingCertificate(false);
-        } else {
-          setUploadingCertificate(false);
         }
+      } catch (err) {
+        setUploadingCertificate(false);
       }
-    } else {
-      setUploadingCertificate(false);
     }
   };
 
