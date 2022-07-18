@@ -60,6 +60,7 @@ export const createFormdataArrayFromExisting = (
   return existingFormdata;
 };
 
+// used by get verified (SW Screen)
 export const uploadImage = async (formdata) => {
   let token = await getItem("token");
   return await fetch(

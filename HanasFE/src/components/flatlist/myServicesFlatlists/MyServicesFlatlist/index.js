@@ -64,18 +64,38 @@ const MyServicesFlatlist = ({ navigation, DATA, ListHeaderComponent }) => {
     return (
       <View style={[styles.infoCard, styles.mt3, styles.mx4, styles.p4]}>
         <View style={[styles.flex1]}>
-          <Text style={[styles.text10, styles.textMuted50, styles.mb1]}>
+          <Text style={[styles.h2, styles.textMuted50, styles.mb1]}>
             Rate Per Hour
           </Text>
-          <Text style={styles.text12}>{item.hourly_rate} PHP</Text>
+          <Text style={styles.h3}>{item.hourly_rate} PHP</Text>
         </View>
         <View style={[styles.flex5, styles.mt3]}>
-          <Text style={[styles.text10, styles.textMuted50, styles.mb1]}>
+          <Text style={[styles.h2, styles.textMuted50, styles.mb1]}>
             Description
           </Text>
-          <Text style={[styles.text12, styles.textJustify]}>
+          <Text style={[styles.h3, styles.textJustify]}>
             {item.description}
           </Text>
+        </View>
+        <View style={[styles.flex5, styles.mt3]}>
+          <Text style={[styles.h2, styles.textMuted50, styles.mb1]}>
+            Status
+          </Text>
+          {item.is_certified === "Pending" && (
+            <Text style={[styles.h3, styles.textJustify, styles.textPending]}>
+              {item.is_certified} Verification
+            </Text>
+          )}
+          {item.is_certified === "Accepted" && (
+            <Text style={[styles.h3, styles.textJustify, styles.textAccepted]}>
+              {item.is_certified}
+            </Text>
+          )}
+          {item.is_certified === "Rejected" && (
+            <Text style={[styles.h3, styles.textJustify, styles.textRejected]}>
+              {item.is_certified}
+            </Text>
+          )}
         </View>
       </View>
     );

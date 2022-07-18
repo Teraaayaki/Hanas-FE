@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   attachment: {
     padding: padding.p1,
     width: "60%",
-    // backgroundColor: "grey",
     marginLeft: margin.m10,
   },
 });
