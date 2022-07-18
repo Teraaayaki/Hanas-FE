@@ -74,8 +74,8 @@ const CertificatesFlatlist = ({
               styles.rounded,
               styles.h100,
               styles.sampleWorksIMGWidth,
-              styles.border,
-              styles.borderMuted20,
+              // styles.border,
+              // styles.borderMuted20,
               styles.p4,
             ]}
           >
@@ -106,8 +106,8 @@ const CertificatesFlatlist = ({
     <View style={[styles.mt4, styles.w100]}>
       <Text
         style={[
-          styles.h3,
-          styles.textMuted50,
+          styles.h2,
+          styles.textDark,
           styles.bold,
           styles.mx4,
           styles.mb3,

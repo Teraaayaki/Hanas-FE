@@ -91,8 +91,8 @@ const GetVerified = ({ navigation }) => {
       return;
     }
 
-    console.log(validIdUri);
-    console.log(clearanceUri);
+    // console.log(validIdUri);
+    // console.log(clearanceUri);
 
     let validIdFormdata = createFormdataArray(validIdUri, "validId");
     let clearanceFormdata = createFormdataArrayFromExisting(
@@ -182,13 +182,16 @@ const GetVerified = ({ navigation }) => {
             <Text style={styles.label}>Valid ID</Text>
             <View style={styles.fileInputContainer}>
               {/* INPUT VALID ID */}
-              <TouchableOpacity
-                style={styles.regularButton}
-                title="Browse"
-                onPress={handleInputValidId}
-              >
-                <Text style={styles.browseText}>Browse</Text>
-              </TouchableOpacity>
+              {validId.length < 2 && (
+                <TouchableOpacity
+                  style={styles.regularButton}
+                  title="Browse"
+                  onPress={handleInputValidId}
+                >
+                  <Text style={styles.browseText}>Browse</Text>
+                </TouchableOpacity>
+              )}
+
               {validId.length > 0 ? (
                 <View style={styles.attachment}>
                   {validId.map((validId) => (
@@ -217,13 +220,16 @@ const GetVerified = ({ navigation }) => {
             <Text style={styles.label}>NBI or Barangay Clearance</Text>
             <View style={styles.fileInputContainer}>
               {/* INPUT CLEARANCE */}
-              <TouchableOpacity
-                style={styles.regularButton}
-                title="Browse"
-                onPress={handleInputClearance}
-              >
-                <Text style={styles.browseText}>Browse</Text>
-              </TouchableOpacity>
+              {clearance.length < 2 && (
+                <TouchableOpacity
+                  style={styles.regularButton}
+                  title="Browse"
+                  onPress={handleInputClearance}
+                >
+                  <Text style={styles.browseText}>Browse</Text>
+                </TouchableOpacity>
+              )}
+
               {clearance.length > 0 ? (
                 <View style={styles.attachment}>
                   {clearance.map((clearance) => (

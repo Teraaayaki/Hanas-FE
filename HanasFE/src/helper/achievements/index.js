@@ -36,8 +36,8 @@ const AchievementsDATA = [
   },
   {
     id: "6",
-    title: "Sixth Item",
-    image: require("@images/gas.jpg"),
+    title: "Mystery Item",
+    image: require("@images/question.png"),
     goal: 99000,
     claimed: false,
   },
