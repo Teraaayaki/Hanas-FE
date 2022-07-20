@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "HanasFE",
-    "slug": "HanasFE",
+    "name": "Hanas",
+    "slug": "hanas",
+    "owner": "soybeinz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon2.png",
@@ -18,6 +19,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.hanas.hanasApp",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon2.png",
         "backgroundColor": "#FF5E84"
@@ -25,6 +28,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
