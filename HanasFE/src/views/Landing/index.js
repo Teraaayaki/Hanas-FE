@@ -17,7 +17,7 @@ const Landing = ({ navigation }) => {
   const { bookingData } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
-  const handleGuestNavigate = async () => {
+  const handleGuestNavigate = () => {
     navigation.navigate("GuestDashboard");
   };
 

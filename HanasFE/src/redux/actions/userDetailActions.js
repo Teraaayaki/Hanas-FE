@@ -61,7 +61,7 @@ export const changeAddress = (address) => async (dispatch) => {
       console.log(data.message);
     }
   } catch (err) {
-    console.log(err);
+    console.log("changeAddress error");
     dispatch({ type: UserDetailActions.USER_DETAILS_FAIL, error: err });
   }
 };

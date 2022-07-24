@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  ActivityIndicator,
   View,
   KeyboardAvoidingView,
   TextInput,
@@ -17,7 +16,6 @@ import { userLogin } from "@redux/actions/authActions";
 import styles from "./style";
 import { SafeAreaView } from "react-navigation";
 import { showToast, ToastComponent } from "@helpers/toast";
-import { colors } from "@constants";
 
 const initialValues = {
   email: "",
@@ -117,16 +115,16 @@ export default function Login({ navigation }) {
                     <Text style={styles.text}>{errors.password}</Text>
                   )}
                   <View style={styles.buttonContainer}>
-                    <Button onPress={handleSubmit} title="LOGIN" />
+                    <Button
+                      onPress={handleSubmit}
+                      loading={loading}
+                      title="LOGIN"
+                    />
                   </View>
                 </>
               )}
             </Formik>
-            {loading && (
-              <View style={styles.spinner}>
-                <ActivityIndicator size="large" color={colors.secondary} />
-              </View>
-            )}
+
             <TextLink
               title="Don't have an account?"
               linkTitle="Register here"
