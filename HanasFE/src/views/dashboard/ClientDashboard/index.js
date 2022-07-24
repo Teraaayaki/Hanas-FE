@@ -25,11 +25,11 @@ const ClientDashboard = ({ navigation }) => {
   // SWR
   const [queryParams, setQueryParams] = useState(null);
   const { data, error } = useSWR([
-    `${process.env.LOCALHOST}/api/client/get-top-rated-workers`,
+    `api/client/get-top-rated-workers`,
     queryParams,
   ]);
   const { data: servicesData, error: topServicesError } = useSWR(
-    `${process.env.LOCALHOST}/api/client/get-top-services`
+    `api/client/get-top-services`
   );
   // LOCATION STATE
   const { address, setAddress } = useContext(AddressContext);
