@@ -18,7 +18,7 @@ const ServicesNearYou = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
 
   const { data } = useSWR([
-    `${process.env.LOCALHOST}/api/guest/get-worker-with-specific-service`,
+    `api/guest/get-worker-with-specific-service`,
     `${service_type}/${address}`,
   ]);
 

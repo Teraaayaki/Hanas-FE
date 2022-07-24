@@ -18,7 +18,7 @@ const GuestProfileView = ({ navigation, route }) => {
   const { worker_id, service_id, serviceName, jobs } = route.params;
 
   const { data: profileData } = useSWR([
-    `${process.env.LOCALHOST}/api/guest/get-worker-details`,
+    `api/guest/get-worker-details`,
     `${worker_id}/${service_id}`,
   ]);
 

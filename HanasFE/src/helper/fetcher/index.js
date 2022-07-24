@@ -5,11 +5,14 @@ import { getItem } from "@helpers/asyncStorage";
 export const fetcher = async (url, queryParams = "") => {
   let token = await getItem("token");
 
-  let { data } = await axios.get(`${url}/${queryParams}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  let { data } = await axios.get(
+    `${process.env.LOCALHOST}/${url}/${queryParams}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return data;
 };

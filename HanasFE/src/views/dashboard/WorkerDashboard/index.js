@@ -97,9 +97,7 @@ const WorkerDashboard = ({ navigation }) => {
   const [achievementsCardData, setAchievementsCardData] = useState(
     InitialAchievementsData
   );
-  const { data: fetchedClaimedData } = useSWR(
-    `${process.env.LOCALHOST}/api/worker/get-achievements`
-  );
+  const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
