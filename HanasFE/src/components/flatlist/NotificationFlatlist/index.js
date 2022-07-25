@@ -1,8 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
+import moment from "moment";
 
+import { SocketContext } from "../../../context/socketContext";
+import {
+  getNotifications,
+  changeNotificationStatus,
+} from "../../../redux/actions/notificationActions";
 import { colors, fontWeight, fontSize, margin } from "@constants";
 import styles from "./style";
+import style from "./style";
+
+const Item = ({ item, onPress, backgroundColor, textColorW }) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+    <View style={styles.container}>
+      <View style={styles.viewContainerFlex}>
+        <Text style={item.isOpened ? style.openedTitle : styles.title}>
+          {item.description}
+        </Text>
+
+        <Text style={styles.time_elapsed}>{moment(item.createdAt).fromNow()}</Text>
+      </View>
+
+      <View style={styles.viewButtonContainerFlex}>
+        <TouchableOpacity>
+          <Text style={styles.boldText}>View {item.type}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
+          <Text style={!item.isOpened ? styles.new_notif : ""} />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.dateText}>
+        {moment(item.createdAt).format("LL")} | {moment(item.createdAt).format("LT")}
+      </Text>
+    </View>
+  </TouchableOpacity>
+);
+
+const NotificationFlatlist = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [selectedId, setSelectedId] = useState(null);
+  const { socket } = useContext(SocketContext);
+  const { notifications } = useSelector((state) => state.notifications);
+
+  useEffect(() => {
+    dispatch(getNotifications());
+  }, []);
+
+  const renderItem = ({ item }) => {
+    const backgroundColor =
+      item._id === selectedId ? colors.borderGrey : colors.background;
+    const color = item._id === selectedId ? "white" : "black";
+
+    return (
+      <Item
+        item={item}
+        onPress={() => {
+          if (!item.isOpened) {
+            dispatch(changeNotificationStatus(item._id));
+          }
+
+          navigation.navigate(item.route);
+        }}
+        backgroundColor={{ backgroundColor }}
+        textColor={{ color }}
+      />
+    );
+  };
+
+  return (
+    <FlatList
+      data={notifications}
+      renderItem={renderItem}
+      keyExtractor={(item) => item._id}
+      extraData={selectedId}
+      contentContainerStyle={{
+        flexGrow: 1,
+      }}
+    />
+  );
+};
+
+export default NotificationFlatlist;
 
 const DATA = [
   {
@@ -56,61 +136,3 @@ const DATA = [
     date: "9 - 30 - 21 | 08:00:12",
   },
 ];
-
-const Item = ({ item, onPress, backgroundColor, textColor, notif }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <View style={styles.container}>
-      <View style={styles.viewContainerFlex}>
-        {item.title != "" ? (
-          <Text style={styles.title}>{item.title}</Text>
-        ) : (
-          <Text style={styles.sub_title}>{item.sub_title}</Text>
-        )}
-        <Text style={styles.time_elapsed}>{item.time_elapsed} ago</Text>
-      </View>
-
-      <View style={styles.viewButtonContainerFlex}>
-        <TouchableOpacity>
-          <Text style={styles.boldText}>{item.action}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onPress}>
-          <Text style={styles.new_notif} notif={item.setNew}></Text>
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.dateText}>{item.date}</Text>
-    </View>
-  </TouchableOpacity>
-);
-
-const NotificationFlatlist = ({ navigation }) => {
-  const [selectedId, setSelectedId] = useState(null);
-
-  const renderItem = ({ item }) => {
-    const backgroundColor =
-      item.id === selectedId ? colors.borderGrey : colors.background;
-    const color = item.id === selectedId ? "white" : "black";
-
-    return (
-      <Item
-        item={item}
-        onPress={() => navigation.navigate("BrowseServices")}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
-    );
-  };
-
-  return (
-    <FlatList
-      data={DATA}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      extraData={selectedId}
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
-    />
-  );
-};
-
-export default NotificationFlatlist;

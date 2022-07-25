@@ -38,9 +38,7 @@ const Achievements = ({ navigation, AchievementsDATA }) => {
             styles.mt2,
           ]}
         >
-          <Text style={[styles.h3]}>
-            PHP {AchievementsDATA.goal} Total Sales
-          </Text>
+          <Text style={[styles.h3]}>PHP {AchievementsDATA.goal} Total Sales</Text>
           <Icon
             onPress={() => setShowText(!showText)}
             name="info-circle"
@@ -52,8 +50,8 @@ const Achievements = ({ navigation, AchievementsDATA }) => {
         </View>
         {showText && (
           <Text style={[styles.textSecondary]}>
-            You will earn rewards if you complete jobs. Please make sure to pay
-            your monthly convenience fee.
+            You will earn rewards if you complete jobs. Please make sure to pay your
+            monthly convenience fee.
           </Text>
         )}
         <CompletionBar

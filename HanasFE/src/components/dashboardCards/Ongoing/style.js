@@ -57,6 +57,9 @@ export default StyleSheet.create({
   justifyContentCenter: {
     justifyContent: "center",
   },
+  justifyContentSpaceBetween: {
+    justifyContent: "space-between",
+  },
   //Height---------------------------------------
   h100: {
     height: "100%",

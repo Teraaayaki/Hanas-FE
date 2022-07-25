@@ -24,8 +24,7 @@ const Item = ({ item, onPress, isWorker }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.updatedAt).format("LL")} |{" "}
-        {moment(item.updatedAt).format("LT")}
+        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>

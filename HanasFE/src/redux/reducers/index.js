@@ -17,6 +17,8 @@ import feedbackReducer from "./feedbackReducer";
 import workerBookingReducer from "./workerBookingReducer";
 import workerScheduleReducer from "./workerScheduleReducer";
 import transactionReducer from "./transactionReducer";
+import notificationReducer from "./notificationReducer";
+import workerDashboardReducer from "./workerDashboardReducer";
 
 export default combineReducers({
   userLogin: userLoginReducer,
@@ -36,4 +38,6 @@ export default combineReducers({
   workerBookingRequests: workerBookingReducer,
   workerSchedules: workerScheduleReducer,
   transactions: transactionReducer,
+  notifications: notificationReducer,
+  workerDashboard: workerDashboardReducer,
 });
