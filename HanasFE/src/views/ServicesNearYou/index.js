@@ -75,12 +75,12 @@ const ServicesNearYou = ({ navigation, route }) => {
                   profession={`${service_type} Services`}
                   rating={
                     workerInfo.feedbackData[0] === undefined
-                      ? `0`
+                      ? 0
                       : workerInfo.feedbackData[0].rateAvg
                   }
                   jobs={
                     workerInfo.feedbackData[0] === undefined
-                      ? `0`
+                      ? 0
                       : workerInfo.feedbackData[0].jobs
                   }
                   image={workerInfo.workerDetails[0].profile_pic}
@@ -93,7 +93,7 @@ const ServicesNearYou = ({ navigation, route }) => {
                       serviceName: service_type,
                       jobs:
                         workerInfo.feedbackData[0] === undefined
-                          ? `0`
+                          ? 0
                           : workerInfo.feedbackData[0].jobs,
                     })
                   }
