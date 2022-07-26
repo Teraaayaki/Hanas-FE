@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-import {
-  ActivityIndicator,
-  View,
-  FlatList,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import styles from "./style";
-import { colors } from "@constants";
 import { getTransactions } from "@redux/actions/transactionActions";
+import usePaginate from "@custom-hooks/usePaginate";
 
 const Item = ({ item, onPress, isWorker }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -30,7 +24,8 @@ const Item = ({ item, onPress, isWorker }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
+        {moment(item.updatedAt).format("LL")} |{" "}
+        {moment(item.updatedAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -38,55 +33,13 @@ const Item = ({ item, onPress, isWorker }) => (
 
 const TransactionFlatlist = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { transactions } = useSelector((state) => state.transactions);
   const { isWorker } = useSelector((state) => state.userLogin);
   const [selectedId, setSelectedId] = useState(null);
-  const [transactionList, setTransactionList] = useState([...transactions]);
+  const [refresh, setRefresh] = useState(false);
 
-  const [limit, setLimit] = useState(0);
-  const [loading, setLoading] = useState(false);
-
-  const handleOnEndReach = () => {
-    console.log("End Reached");
-    if (limit === transactions.length) return;
-
-    setLoading(true);
-    setTimeout(() => {
-      paginateItems(transactions);
-      setLoading(false);
-    }, 2000);
-  };
-
-  const paginateItems = (item) => {
-    console.log("Paginate");
-    let slicedArray = [];
-    if (limit + 10 > item.length) {
-      slicedArray = item.slice(limit);
-      setLimit(item.length);
-    } else {
-      slicedArray = item.slice(limit, limit + 10);
-      setLimit(limit + 10);
-    }
-    setTransactionList([...transactionList, ...slicedArray]);
-  };
-
-  const limitArray = (item) => {
-    setLimit(10);
-    return item.slice(0, 10);
-  };
-
-  const renderFooter = () => {
-    if (loading)
-      return <ActivityIndicator size="large" color={colors.secondary} />;
-
-    return limit !== transactions.length ? (
-      <View></View>
-    ) : (
-      <View>
-        <Text>End of Page</Text>
-      </View>
-    );
-  };
+  const { transactions } = useSelector((state) => state.transactions);
+  const [paginatedData, handleOnEndReach, renderFooter] =
+    usePaginate(transactions);
 
   const renderItem = ({ item }) => {
     return (
@@ -105,24 +58,11 @@ const TransactionFlatlist = ({ navigation }) => {
     dispatch(getTransactions());
   }, []);
 
-  useEffect(() => {
-    const limitedArray = limitArray(transactions);
-    setTransactionList([...limitedArray]);
-  }, [transactions]);
-
-  useEffect(() => {
-    transactionList.map((transaction) =>
-      console.log(transaction.booked_dateTimeEnd)
-    );
-  }, [transactionList]);
-
-  useEffect(() => {
-    console.log("LIMIT:", limit);
-  }, [limit]);
+  useEffect(() => {}, [transactions]);
 
   return (
     <FlatList
-      data={transactionList}
+      data={paginatedData}
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       extraData={selectedId}
@@ -132,6 +72,12 @@ const TransactionFlatlist = ({ navigation }) => {
       ListFooterComponent={renderFooter}
       onEndReached={handleOnEndReach}
       onEndReachedThreshold={0}
+      refreshing={refresh}
+      onRefresh={() => {
+        dispatch(getTransactions()).then((result) => {
+          setRefresh(false);
+        });
+      }}
     />
   );
 };
