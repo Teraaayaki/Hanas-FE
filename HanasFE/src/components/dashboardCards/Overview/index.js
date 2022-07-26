@@ -10,24 +10,29 @@ const Overview = ({ OverviewDATA }) => {
   const renderContent = ({ OverviewDATA }) => {
     const [toggle, setToggle] = useState(0);
 
-    const handleWeeklyToggle = () => {
-      return setToggle(0);
-    };
+    const handleWeeklyToggle = () => setToggle(0);
 
-    const handleMonthlyToggle = () => {
-      return setToggle(1);
-    };
+    const handleMonthlyToggle = () => setToggle(1);
 
-    const handleYearlyToggle = () => {
-      return setToggle(2);
-    };
+    const handleYearlyToggle = () => setToggle(2);
 
+    const displayDays = () => {
+      switch (toggle) {
+        case 0:
+          return "Last 7 days";
+        case 1:
+          return "Last 31 days";
+        case 2:
+          return "Last 366 days";
+      }
+    };
     return (
       <View style={[styles.flex1]}>
-        <View
-          style={[styles.flex1, styles.flexRow, styles.mb3, styles.alignCenter]}
-        >
+        <View style={[styles.flex1, styles.flexRow, styles.mb3, styles.alignCenter]}>
           <Text style={[styles.h2, styles.bold, styles.mr2]}>Total Earned</Text>
+          <Text style={[styles.textRight, styles.textMuted50, styles.mr2]}>
+            ({displayDays()})
+          </Text>
           <Icon
             name="bank"
             type="font-awesome"
@@ -44,17 +49,17 @@ const Overview = ({ OverviewDATA }) => {
           ]}
         >
           <TextToggle
-            title="Weekly"
+            title="Week"
             active={toggle == 0 ? true : false}
             onPress={handleWeeklyToggle}
           />
           <TextToggle
-            title="Monthly"
+            title="Month"
             active={toggle == 1 ? true : false}
             onPress={handleMonthlyToggle}
           />
           <TextToggle
-            title="Yearly"
+            title="Year"
             active={toggle == 2 ? true : false}
             onPress={handleYearlyToggle}
           />
@@ -69,9 +74,12 @@ const Overview = ({ OverviewDATA }) => {
               styles.justifyContentSpaceBetween,
             ]}
           >
-            <Text style={[styles.h2, styles.textMuted50]}>Average Earned:</Text>
+            <Text style={[styles.h2, styles.textMuted50]}>Income:</Text>
             <Text style={[styles.h3]}>
-              PHP {OverviewDATA[toggle].AverageEarned}
+              PHP{" "}
+              {OverviewDATA[toggle]?.income
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </Text>
           </View>
           <View
@@ -82,9 +90,9 @@ const Overview = ({ OverviewDATA }) => {
               styles.justifyContentSpaceBetween,
             ]}
           >
-            <Text style={[styles.h2, styles.textMuted50]}>Highest Single:</Text>
+            <Text style={[styles.h2, styles.textMuted50]}>Services:</Text>
             <Text style={[styles.h3]}>
-              PHP {OverviewDATA[toggle].HighestSingle}
+              {OverviewDATA[toggle]?.services} Transactions
             </Text>
           </View>
         </View>

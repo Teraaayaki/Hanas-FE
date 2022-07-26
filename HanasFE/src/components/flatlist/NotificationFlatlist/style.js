@@ -16,6 +16,11 @@ export default StyleSheet.create({
     fontWeight: fontWeight.bold,
     fontSize: fontSize.h3,
   },
+  openedTitle: {
+    color: colors.grey,
+    fontWeight: fontWeight.bold,
+    fontSize: fontSize.h3,
+  },
   viewButtonContainerFlex: {
     flex: 1,
     flexDirection: "row",

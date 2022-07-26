@@ -6,15 +6,15 @@ import NotificationFlatlist from "@components/flatlist/NotificationFlatlist";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropdownPickerNotification";
 
-const Notification = ({navigation}) => {
+const Notification = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Notification" />
-        <View style={styles.textContainer}>
-          <TypeOfService title={"October, 2021"} />
-          <DropdownPicker />
-        </View>
-        <NotificationFlatlist navigation={navigation}/>
+      {/* <View style={styles.textContainer}> */}
+      {/* <TypeOfService title={"October, 2021"} /> */}
+      {/* <DropdownPicker /> */}
+      {/* </View> */}
+      <NotificationFlatlist navigation={navigation} />
     </View>
   );
 };
