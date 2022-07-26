@@ -17,7 +17,12 @@ import { padding } from "@constants";
 
 dayjs.extend(utc);
 
-const ClientScheduleFlatlist = ({ navigation, DATA }) => {
+const ClientScheduleFlatlist = ({
+  navigation,
+  DATA,
+  renderFooter,
+  handleOnEndReach,
+}) => {
   let date = new Date(1990, 1, 20);
 
   const dispatch = useDispatch();
@@ -345,6 +350,9 @@ const ClientScheduleFlatlist = ({ navigation, DATA }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         contentContainerStyle={{ paddingBottom: padding.p5 }}
+        ListFooterComponent={renderFooter}
+        onEndReached={handleOnEndReach}
+        onEndReachedThreshold={0}
       />
       <ToastComponent />
     </>
