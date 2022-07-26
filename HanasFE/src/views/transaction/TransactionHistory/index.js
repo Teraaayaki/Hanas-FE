@@ -8,10 +8,10 @@ const Transactions = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Transaction History" />
-      <View style={styles.textContainer}>
-        {/* <TypeOfService title="" /> */}
-        {/* <DropdownPicker /> */}
-      </View>
+      {/* <View style={styles.textContainer}> */}
+      {/* <TypeOfService title="" /> */}
+      {/* <DropdownPicker /> */}
+      {/* </View> */}
       <TransactionFlatlist navigation={navigation} />
     </View>
   );

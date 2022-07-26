@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
@@ -15,11 +15,16 @@ import { Suspense } from "react";
 import { SocketProvider } from "./src/context/socketContext";
 import store from "./src/redux";
 import useFonts from "@hooks/useFonts";
+// import { getPermissions } from "@helpers/notifications";
 
 Geocoder.init(MAPS_API_KEY);
 
 export default function App() {
   const [IsReady, setIsReady] = useState(false);
+
+  // useEffect(() => {
+  //   getPermissions();
+  // }, []);
 
   const LoadFonts = async () => {
     await useFonts();
