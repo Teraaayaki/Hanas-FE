@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: "column-reverse",
     marginBottom: "15%",
   },
-  text: { color: colors.secondary, fontWeight: "900", fontSize: fontSize.h2 },
+  text: { color: colors.secondary, fontSize: fontSize.h2 },
   loadingContainer: {
     flexDirection: "column",
     flex: 1,

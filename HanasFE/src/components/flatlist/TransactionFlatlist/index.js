@@ -4,8 +4,10 @@ import moment from "moment";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import styles from "./style";
+import Loading from "@components/Loading";
 import { getTransactions } from "@redux/actions/transactionActions";
 import usePaginate from "@custom-hooks/usePaginate";
+import { loadingStyle } from "@constants";
 
 const Item = ({ item, onPress, isWorker }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -37,7 +39,7 @@ const TransactionFlatlist = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const [refresh, setRefresh] = useState(false);
 
-  const { transactions } = useSelector((state) => state.transactions);
+  const { transactions, loading } = useSelector((state) => state.transactions);
   const [paginatedData, handleOnEndReach, renderFooter] =
     usePaginate(transactions);
 
@@ -58,7 +60,12 @@ const TransactionFlatlist = ({ navigation }) => {
     dispatch(getTransactions());
   }, []);
 
-  useEffect(() => {}, [transactions]);
+  if (loading)
+    return (
+      <View style={loadingStyle.position}>
+        <Loading title="Calculating Transactions" />
+      </View>
+    );
 
   return (
     <FlatList
@@ -74,7 +81,7 @@ const TransactionFlatlist = ({ navigation }) => {
       onEndReachedThreshold={0}
       refreshing={refresh}
       onRefresh={() => {
-        dispatch(getTransactions()).then((result) => {
+        dispatch(getTransactions()).then(() => {
           setRefresh(false);
         });
       }}
