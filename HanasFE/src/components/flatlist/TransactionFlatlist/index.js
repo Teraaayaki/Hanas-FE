@@ -5,6 +5,7 @@ import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import styles from "./style";
 import Loading from "@components/Loading";
+import NoDataImage from "@components/NoDataImage";
 import { getTransactions } from "@redux/actions/transactionActions";
 import usePaginate from "@custom-hooks/usePaginate";
 import { loadingStyle } from "@constants";
@@ -56,6 +57,10 @@ const TransactionFlatlist = ({ navigation }) => {
     );
   };
 
+  const handleOnPress = () => {
+    dispatch(getTransactions());
+  };
+
   useEffect(() => {
     dispatch(getTransactions());
   }, []);
@@ -68,24 +73,34 @@ const TransactionFlatlist = ({ navigation }) => {
     );
 
   return (
-    <FlatList
-      data={paginatedData}
-      renderItem={renderItem}
-      keyExtractor={(item) => item._id}
-      extraData={selectedId}
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
-      ListFooterComponent={renderFooter}
-      onEndReached={handleOnEndReach}
-      onEndReachedThreshold={0}
-      refreshing={refresh}
-      onRefresh={() => {
-        dispatch(getTransactions()).then(() => {
-          setRefresh(false);
-        });
-      }}
-    />
+    <>
+      {transactions.length === 0 ? (
+        <>
+          <NoDataImage refresh={true} onPress={handleOnPress} />
+        </>
+      ) : (
+        <>
+          <FlatList
+            data={paginatedData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item._id}
+            extraData={selectedId}
+            contentContainerStyle={{
+              flexGrow: 1,
+            }}
+            ListFooterComponent={renderFooter}
+            onEndReached={handleOnEndReach}
+            onEndReachedThreshold={0}
+            refreshing={refresh}
+            onRefresh={() => {
+              dispatch(getTransactions()).then(() => {
+                setRefresh(false);
+              });
+            }}
+          />
+        </>
+      )}
+    </>
   );
 };
 

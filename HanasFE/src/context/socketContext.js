@@ -6,7 +6,7 @@ export const SocketContext = createContext();
 export function SocketProvider({ children }) {
   const socket = useRef();
 
-  socket.current = io(`${process.env.HANAS_ENDPOINT}/api/socket`);
+  socket.current = io(`${process.env.LOCALHOST}/api/socket`);
 
   return (
     <SocketContext.Provider value={{ socket }}>

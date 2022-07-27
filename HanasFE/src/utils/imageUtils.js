@@ -64,7 +64,7 @@ export const createFormdataArrayFromExisting = (
 export const uploadImage = async (formdata) => {
   let token = await getItem("token");
   return await fetch(
-    `${process.env.HANAS_ENDPOINT}/api/worker/create-verification-request`,
+    `${process.env.LOCALHOST}/api/worker/create-verification-request`,
     {
       method: "POST",
       body: formdata,
@@ -78,7 +78,7 @@ export const uploadImage = async (formdata) => {
 
 export const uploadImageWithUrl = async (formdata, url) => {
   let token = await getItem("token");
-  return await fetch(`${process.env.HANAS_ENDPOINT}/${url}`, {
+  return await fetch(`${process.env.LOCALHOST}/${url}`, {
     method: "POST",
     body: formdata,
     headers: {

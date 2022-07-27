@@ -42,11 +42,8 @@ const MyServices = ({ navigation }) => {
 
   return (
     <View style={[styles.flex1]}>
-      <MyServicesFlatlist
-        navigation={navigation}
-        DATA={myServices}
-        ListHeaderComponent={<Header title="Services" />}
-      />
+      <Header title="Services" />
+      <MyServicesFlatlist navigation={navigation} DATA={myServices} />
       <ToastComponent />
     </View>
   );
