@@ -44,10 +44,10 @@ const Favorites = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Favorites" />
-      {/* <View style={styles.textContainer}>
-        <TypeOfService title={"Electrical Services"} />
-        <DropdownPicker />
-      </View> */}
+      {/* <View style={styles.textContainer}> */}
+      {/* <TypeOfService title={"Electrical Services"} />
+        <DropdownPicker /> */}
+      {/* </View> */}
       {favoritesData.length == 0 ? (
         <NoDataImage />
       ) : (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, FlatList, TouchableOpacity, Animated } from "react-native";
+import { View, FlatList, TouchableOpacity, Animated, Text } from "react-native";
 
 import { colors } from "@constants";
 import CardContainer from "@components/CardContainerWithRemove";
@@ -21,12 +21,16 @@ const Item = ({ item, onPress, onPressServices }) => (
     name={item.clientNameData[0].name}
     profession={item.serviceNameData[0].service_type}
     rating={
-      item.feedbackData[0] === undefined
+      item.feedbacksAveragedData?.rating === undefined
         ? 0
-        : item.feedbackData[0].rateAvg.toFixed(2)
+        : item.feedbacksAveragedData.rating.toFixed(2)
     }
     address={item.clientNameData[0].address}
-    jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
+    jobs={
+      item.bookingsAveragedData?.jobs === undefined
+        ? 0
+        : item.bookingsAveragedData.jobs
+    }
     image={item.clientNameData[0].profile_pic}
     rate={item.hourly_rate}
     item={item}
@@ -57,6 +61,17 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     };
 
     dispatch(removeFavorites(Data));
+  };
+
+  const renderHeader = () => {
+    return (
+      <View style={styles.textContainer}>
+        <Text style={styles.headerLightText}>
+          Total Workers
+          <Text style={styles.headerText}> ({data?.length})</Text>
+        </Text>
+      </View>
+    );
   };
 
   const renderLeftActions = (progress, dragX, id) => {
@@ -127,6 +142,7 @@ const FavoritesFlatlist = ({ navigation, data }) => {
         contentContainerStyle={{
           flexGrow: 1,
         }}
+        ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
         onEndReached={handleOnEndReach}
         onEndReachedThreshold={0}

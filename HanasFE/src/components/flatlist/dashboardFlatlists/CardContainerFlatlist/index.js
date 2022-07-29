@@ -17,8 +17,16 @@ const Item = ({
     name={item.name}
     address={item.address}
     profession={item.myServicesData[0].serviceNameData[0].service_type}
-    rating={item.myServicesData[0].feedbackData[0]?.rateAvg || 0}
-    jobs={item.myServicesData[0].feedbackData[0]?.jobs || 0}
+    rating={
+      item.myServicesData[0].feedbacksAveragedData?.rating === undefined
+        ? 0
+        : item.myServicesData[0].feedbacksAveragedData.rating
+    }
+    jobs={
+      item.myServicesData[0].bookingsAveragedData?.jobs === undefined
+        ? 0
+        : item.myServicesData[0].bookingsAveragedData.jobs
+    }
     image={item.profile_pic}
     rate={item.myServicesData[0].hourly_rate}
     onPress={onPress}

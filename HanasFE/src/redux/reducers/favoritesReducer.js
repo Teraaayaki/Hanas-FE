@@ -35,7 +35,7 @@ const favoritesReducer = (state = favoritesInitialValues, action) => {
         error: action.payload,
       };
     case FavoritesActions.CLIENT_FAVORITES_DETAILS:
-      return { ...state, loading: false, favoritesData: action.payload };
+      return { ...state, loading: false, favoritesData: [...action.payload] };
     case FavoritesActions.CLIENT_FAVORITES_RESET:
       return { ...state, loading: false, success: false, error: undefined };
     default:

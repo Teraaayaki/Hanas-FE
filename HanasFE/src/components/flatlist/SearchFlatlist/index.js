@@ -8,9 +8,17 @@ const Item = ({ item, onPress, onPressServices }) => (
   <CardContainer
     name={item.workerDetails.name}
     profession={item.serviceNameData.service_type}
-    rating={item.feedbackData === undefined ? 0 : item.feedbackData.rateAvg}
+    rating={
+      item.feedbacksAveragedData?.rating === undefined
+        ? 0
+        : item.feedbacksAveragedData?.rating
+    }
     address={item.workerDetails.address}
-    jobs={item.feedbackData === undefined ? 0 : item.feedbackData.jobs}
+    jobs={
+      item.bookingsAveragedData?.jobs === undefined
+        ? 0
+        : item.bookingsAveragedData?.jobs
+    }
     image={item.workerDetails.profile_pic}
     rate={item.hourly_rate}
     onPress={onPress}
@@ -33,7 +41,6 @@ const SearchFlatlist = ({ navigation, data }) => {
             worker_id: item.workerDetails._id,
             service_id: item._id,
             serviceName: item.serviceNameData.service_type,
-            jobs: item.feedbackData.jobs,
           })
         }
         // onPressServices={() => navigation.navigate("ServicesNearYou")}
