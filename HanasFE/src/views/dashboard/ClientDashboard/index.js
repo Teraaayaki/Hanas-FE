@@ -113,7 +113,7 @@ const ClientDashboard = ({ navigation }) => {
                           })
                         }
                       />
-                      <Text style={styles.pinkText}>
+                      <Text style={styles.pinkText} numberOfLines={1}>
                         {topRatedServiceInfo.service_type}
                       </Text>
                     </View>
