@@ -57,7 +57,9 @@ const CardContainer = ({
           </View>
           <View style={styles.detailsContainer}>
             <Icon color="#FFD706" size={18} name="star" />
-            <Text style={styles.fadeTextValues}>{rating}/5</Text>
+            <Text style={styles.fadeTextValues}>
+              {rating === 0 ? rating : rating.toFixed(2)}/5
+            </Text>
             <Text style={styles.fadeTextValues}>{jobs}</Text>
             <Text style={styles.fadeTextValues}>{rate} Php/hr</Text>
           </View>

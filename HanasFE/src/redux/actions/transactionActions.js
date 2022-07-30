@@ -17,6 +17,10 @@ export const downloadSuccess = () => async (dispatch) => {
 export const getTransactions = () => async (dispatch) => {
   let token = await getItem("token");
 
+  dispatch({
+    type: TransactionActions.LOAD_TRANSACTIONS,
+  });
+
   try {
     let { data } = await axios.get("/api/transactions", {
       headers: { authorization: `Bearer ${token}` },
@@ -24,6 +28,10 @@ export const getTransactions = () => async (dispatch) => {
 
     dispatch({
       type: TransactionActions.FETCH_TRANSACTIONS,
+      payload: data.transactions,
+    });
+    dispatch({
+      type: TransactionActions.RESET_TRANSACTION_DOWNLOAD_SUCCESS,
       payload: data.transactions,
     });
   } catch (err) {

@@ -7,6 +7,14 @@ const button = StyleSheet.create({
   },
 });
 
+export const loadingStyle = StyleSheet.create({
+  position: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
 const colors = {
   primary: "#e69fb4",
   secondary: "#ff5e84",

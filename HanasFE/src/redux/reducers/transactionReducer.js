@@ -4,6 +4,7 @@ export const transactionInitialValue = {
   transactions: [],
   success: false,
   successMessage: "",
+  loading: false,
 };
 
 const transactionReducer = (state = transactionInitialValue, action) => {
@@ -11,11 +12,20 @@ const transactionReducer = (state = transactionInitialValue, action) => {
     case TransactionActions.FETCH_TRANSACTIONS:
       return {
         ...state,
+        loading: false,
         transactions: action.payload,
       };
     case TransactionActions.RESET_TRANSACTION_DOWNLOAD_SUCCESS:
       return {
         ...state,
+        loading: false,
+        success: false,
+        successMessage: "",
+      };
+    case TransactionActions.LOAD_TRANSACTIONS:
+      return {
+        ...state,
+        loading: true,
         success: false,
         successMessage: "",
       };

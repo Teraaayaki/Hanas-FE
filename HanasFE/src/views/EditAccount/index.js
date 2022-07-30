@@ -19,7 +19,12 @@ import IconField from "@components/form/IconField";
 import Button from "@components/Button";
 import CircularProfileImage from "@components/CircularProfileImage";
 import { colors } from "@constants";
-import { pickImage, filterUri, createFormdata } from "@utils/imageUtils";
+import {
+  pickImage,
+  filterUri,
+  createFormdata,
+  uploadImageWithUrl,
+} from "@utils/imageUtils";
 import {
   changeAccountInfo,
   changeSuccessState,

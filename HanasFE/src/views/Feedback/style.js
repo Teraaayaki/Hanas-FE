@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     height: 100,
     textAlignVertical: "top",
     borderColor: "black",
-    borderWidth: 1,
+    borderWidth: 0.5,
     marginHorizontal: 30,
     marginTop: 10,
     borderRadius: 15,

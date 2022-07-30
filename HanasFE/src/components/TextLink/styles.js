@@ -9,12 +9,12 @@ export default StyleSheet.create({
     paddingTop: padding.p3,
   },
   title: {
-    fontSize: fontSize.p,
+    fontSize: fontSize.h4,
     color: colors.dark,
     paddingRight: padding.p2,
   },
   linkTitle: {
-    fontSize: fontSize.p,
+    fontSize: fontSize.h4,
     color: colors.secondary,
   },
 });

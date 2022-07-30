@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { View, FlatList, Text, TouchableOpacity, Animated } from "react-native";
+import React, { useState } from "react";
+import { View, FlatList, TouchableOpacity, Animated, Text } from "react-native";
 
-import { colors, fontWeight, fontSize, margin } from "@constants";
+import { colors } from "@constants";
 import CardContainer from "@components/CardContainerWithRemove";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { Icon } from "react-native-elements";
@@ -12,29 +12,29 @@ import {
 } from "@redux/actions/favoritesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFavorites } from "@redux/actions/favoritesActions";
-import { showToast } from "@helpers/toast";
+import usePaginate from "@hooks/usePaginate";
+import Loading from "@components/Loading";
+import { loadingStyle } from "@constants";
 
-const Item = ({
-  item,
-  onPress,
-  onPressServices,
-  backgroundColor,
-  textColor,
-  notif,
-}) => (
+const Item = ({ item, onPress, onPressServices }) => (
   <CardContainer
     name={item.clientNameData[0].name}
     profession={item.serviceNameData[0].service_type}
     rating={
-      item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].rateAvg
+      item.feedbacksAveragedData?.rating === undefined
+        ? 0
+        : item.feedbacksAveragedData.rating.toFixed(2)
     }
     address={item.clientNameData[0].address}
-    jobs={item.feedbackData[0] === undefined ? 0 : item.feedbackData[0].jobs}
+    jobs={
+      item.bookingsAveragedData?.jobs === undefined
+        ? 0
+        : item.bookingsAveragedData.jobs
+    }
     image={item.clientNameData[0].profile_pic}
     rate={item.hourly_rate}
     item={item}
     onPress={onPress}
-    onPressServices={onPressServices}
   />
 );
 
@@ -42,14 +42,16 @@ const FavoritesFlatlist = ({ navigation, data }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userDetails);
   const { error, success } = useSelector((state) => state.favorites);
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(data);
 
   const [selectedId, setSelectedId] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const _onRefresh = () => {
     setIsRefreshing(true);
-    dispatch(getFavorites());
-    setIsRefreshing(false);
+    dispatch(getFavorites()).then(() => {
+      setIsRefreshing(false);
+    });
   };
 
   const handleRemove = (id) => {
@@ -59,6 +61,17 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     };
 
     dispatch(removeFavorites(Data));
+  };
+
+  const renderHeader = () => {
+    return (
+      <View style={styles.textContainer}>
+        <Text style={styles.headerLightText}>
+          Total Workers
+          <Text style={styles.headerText}> ({data?.length})</Text>
+        </Text>
+      </View>
+    );
   };
 
   const renderLeftActions = (progress, dragX, id) => {
@@ -103,13 +116,8 @@ const FavoritesFlatlist = ({ navigation, data }) => {
               worker_id: item.clientNameData[0]._id,
               service_id: item._id,
               serviceName: item.serviceNameData[0].service_type,
-              jobs:
-                item.feedbackData[0] === undefined
-                  ? 0
-                  : item.feedbackData[0].jobs,
             })
           }
-          // onPressServices={() => navigation.navigate("ServicesNearYou")}
           backgroundColor={{ backgroundColor }}
           textColor={{ color }}
         />
@@ -117,16 +125,27 @@ const FavoritesFlatlist = ({ navigation, data }) => {
     );
   };
 
+  if (isRefreshing)
+    return (
+      <View style={loadingStyle.position}>
+        <Loading title="Fetching Favorites" />
+      </View>
+    );
+
   return (
     <>
       <FlatList
-        data={data}
+        data={paginatedData}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         extraData={selectedId}
         contentContainerStyle={{
           flexGrow: 1,
         }}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderFooter}
+        onEndReached={handleOnEndReach}
+        onEndReachedThreshold={0}
         onRefresh={_onRefresh}
         refreshing={isRefreshing}
       />

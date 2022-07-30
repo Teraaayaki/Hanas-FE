@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-import { colors } from "@constants";
 import CircularImage from "@components/CircularImage";
 import styles from "./style";
 
 const ReviewsFlatlist = ({ data, navigation }) => {
-  const [selectedId, setSelectedId] = useState(null);
-
   const renderItem = ({ item }) => {
     return <Item item={item} image={item.profile_pic} rate={item.rate} />;
   };
@@ -28,12 +25,14 @@ const ReviewsFlatlist = ({ data, navigation }) => {
 const Item = ({ item }) => (
   <TouchableOpacity style={[styles.item]}>
     <View style={{ flex: 1, flexDirection: "row" }}>
-      <CircularImage style={{ borderRadius: 50 }} />
+      <CircularImage
+        imageSource={{ uri: item.clientNameData[0].profile_pic }}
+        style={{ borderRadius: 50 }}
+      />
       <View style={styles.container}>
-        <Text
-          style={styles.name}
-          numberOfLines={1}
-        >{`${item.clientNameData[0].name}`}</Text>
+        <Text style={styles.name} numberOfLines={1}>
+          {`${item.clientNameData[0].name}`}
+        </Text>
         <View style={styles.hallowContainer}>
           <Text style={styles.serviceName}>
             {item.myServicesData[0].serviceNameData[0].service_type} Services
