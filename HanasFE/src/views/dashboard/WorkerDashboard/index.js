@@ -21,11 +21,11 @@ const InitialAchievementsData = {
   completion: 0,
 };
 //Convenience Fee-------------------------------------
-const ConvenienceFeeDATA = {
-  remainingBalance: "499.00",
-  dueDate: "07/23/22",
-  address: "Brgy, Lourdes Bogo City, Cebu",
-};
+// const ConvenienceFeeDATA = {
+//   remainingBalance: "499.00",
+//   dueDate: "07/23/22",
+//   address: "Brgy, Lourdes Bogo City, Cebu",
+// };
 
 const WorkerDashboard = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -38,6 +38,8 @@ const WorkerDashboard = ({ navigation }) => {
     InitialAchievementsData
   );
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
+
+  const { data: convFeeData } = useSWR(`api/worker/get-conv-fee`);
 
   useEffect(() => {
     dispatch(getTransactions());
@@ -69,7 +71,7 @@ const WorkerDashboard = ({ navigation }) => {
           ServicesDATA={upcomingServices}
           OverviewDATA={overview}
           AchievementsDATA={achievementsCardData}
-          ConvenienceFeeDATA={ConvenienceFeeDATA}
+          ConvenienceFeeDATA={convFeeData.convFeeData}
         />
       </View>
     </View>

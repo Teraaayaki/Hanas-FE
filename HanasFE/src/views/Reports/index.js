@@ -95,7 +95,6 @@ const Reports = () => {
 
     try {
       setLoading(true);
-      const token = await getItem("token");
 
       //   If no image attachement
       if (imagesUri.length === 0) {
@@ -128,7 +127,7 @@ const Reports = () => {
       if (response.ok) {
         const { publicUrls } = await response.json();
         const { data } = await createReport(publicUrls);
-        console.log(publicUrls);
+        // console.log(publicUrls);
         if (data) {
           setSuccess(true);
           setLoading(false);
@@ -144,7 +143,7 @@ const Reports = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setLoading(false);
       showToast(
         "error",
