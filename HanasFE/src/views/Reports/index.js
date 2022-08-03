@@ -153,6 +153,17 @@ const Reports = () => {
     }
   };
 
+  // CHECK IF CLIENT OR WORKER
+  useEffect(async () => {
+    const isWorkerToken = JSON.parse(await getItem("is_worker"));
+
+    if (isWorkerToken) {
+      setPrevPage("Profile");
+    } else {
+      setPrevPage("ProfileClient");
+    }
+  }, []);
+
   useEffect(() => {
     (async () => {
       const fetchedToken = await getItem("token");
@@ -165,16 +176,6 @@ const Reports = () => {
         }
       }
     })();
-  }, []);
-
-  // CHECK IF CLIENT OR WORKER
-  useEffect(async () => {
-    const isWorker = JSON.parse(await getItem("is_worker"));
-    if (isWorker) {
-      setPrevPage("Profile");
-    } else {
-      setPrevPage("ProfileClient");
-    }
   }, []);
 
   if (success)

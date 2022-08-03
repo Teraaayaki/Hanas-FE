@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,7 +15,6 @@ import { ToastComponent, showToast } from "@helpers/toast";
 
 const Favorites = ({ navigation }) => {
   const { favoritesData } = useSelector((state) => state.favorites);
-
   const { removedSuccess, removedError } = useSelector(
     (state) => state.removeFavorites
   );

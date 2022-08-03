@@ -32,6 +32,7 @@ import {
 } from "@redux/actions/userDetailActions";
 import { showToast, ToastComponent } from "@helpers/toast";
 import axios from "@helpers/axios";
+import useAlertBackHandler from "@hooks/useAlertBackHandler";
 
 const EditAccount = ({ navigation }) => {
   const { user, changeSuccess, error } = useSelector(
@@ -40,12 +41,12 @@ const EditAccount = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const [token, setToken] = useState("");
-  const [prevPage, setPrevPage] = useState("");
   const [inputEmail, setInputEmail] = useState(user.email);
   const [inputProfilePic, setInputProfilePic] = useState(user.profile_pic);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedProfile, setTouchedProfile] = useState(false);
+  const [prevPage, setPrevPage] = useAlertBackHandler();
 
   const resetState = () => {
     setTouchedEmail(false);
@@ -162,35 +163,14 @@ const EditAccount = ({ navigation }) => {
 
   // CHECK IF CLIENT OR WORKER
   useEffect(async () => {
-    const isWorker = JSON.parse(await getItem("is_worker"));
-    if (isWorker) {
+    const isWorkerToken = JSON.parse(await getItem("is_worker"));
+
+    if (isWorkerToken) {
       setPrevPage("Profile");
     } else {
       setPrevPage("ProfileClient");
     }
   }, []);
-
-  // HANDLE BACK NAVIGATION
-  useEffect(() => {
-    const backAction = () => {
-      Alert(
-        "Hold on!",
-        "You have unsaved changes. Are you sure you want to go back?",
-        "Cancel",
-        "YES",
-        () => null,
-        () => navigation.navigate(prevPage)
-      );
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, [prevPage]);
 
   // HANDLE PERMISSIONS AND GET TOKEN
   useEffect(() => {
@@ -198,6 +178,7 @@ const EditAccount = ({ navigation }) => {
       const fetchedToken = await getItem("token");
       setToken(fetchedToken);
     })();
+
     (async () => {
       if (Platform.OS !== "web") {
         const { status } =

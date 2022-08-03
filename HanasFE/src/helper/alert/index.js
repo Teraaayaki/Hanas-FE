@@ -11,12 +11,12 @@ import { Alert } from "react-native";
  * @param acceptFunction CALLBACK FUNCTION - function for accept
  */
 export default (
-  title,
-  mess,
-  cancel,
-  accept,
-  cancelFunction,
-  acceptFunction
+  acceptFunction,
+  title = "Hold on!",
+  mess = "You have unsaved changes. Are you sure you want to continue?",
+  cancel = "CANCEL",
+  accept = "YES",
+  cancelFunction = () => null
 ) => {
   Alert.alert(title, mess, [
     {

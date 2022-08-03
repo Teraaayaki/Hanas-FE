@@ -1,5 +1,6 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import styles from "./style";
 import Header from "@components/Header";
 import TransactionFlatlist from "@components/flatlist/TransactionFlatlist";
