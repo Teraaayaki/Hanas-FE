@@ -25,64 +25,63 @@ const WorkerSchedule = ({ navigation }) => {
   }, []);
 
   return (
-    <ParallaxScrollView
-      backgroundColor="#FF6D8F"
-      contentBackgroundColor={colors.background}
-      contentContainerStyle={{ height: "100%" }}
-      parallaxHeaderHeight={80}
-      renderForeground={() => <Header title={"Schedule"} />}
-      stickyHeaderHeight={70}
-      renderStickyHeader={() => (
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#FF6D8F",
-            height: "100%",
-          }}
-        >
-          <Text
-            style={{
-              color: colors.black,
-              alignSelf: "center",
-              fontSize: fontSize.h1,
-              marginTop: 30,
-            }}
+    // <ParallaxScrollView
+    //   backgroundColor="#FF6D8F"
+    //   contentBackgroundColor={colors.background}
+    //   contentContainerStyle={{ height: "100%" }}
+    //   parallaxHeaderHeight={80}
+    //   renderForeground={() => <Header title={"Schedule"} />}
+    //   stickyHeaderHeight={70}
+    //   renderStickyHeader={() => (
+    //     <View
+    //       style={{
+    //         flexDirection: "row",
+    //         justifyContent: "center",
+    //         backgroundColor: "#FF6D8F",
+    //         height: "100%",
+    //       }}
+    //     >
+    //       <Text
+    //         style={{
+    //           color: colors.black,
+    //           alignSelf: "center",
+    //           fontSize: fontSize.h1,
+    //           marginTop: 30,
+    //         }}
+    //       >
+    //         Booking Requests ({count})
+    //       </Text>
+    //     </View>
+    //   )}
+    // >
+    <View style={[styles.body]}>
+      <Header title={"Schedule"} />
+      <View style={[styles.mx3, styles.flex1]}>
+        <WorkerScheduleFlatlist DATA={acceptedRequests} />
+        <View style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}>
+          <View style={[styles.flex1]} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("WorkerBookingRequests")}
           >
-            Booking Requests ({count})
-          </Text>
-        </View>
-      )}
-    >
-      <View style={[styles.body]}>
-        <View style={[styles.mx3, styles.flex1]}>
-          <WorkerScheduleFlatlist DATA={acceptedRequests} />
-          <View
-            style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
-          >
-            <View style={[styles.flex1]} />
-            <TouchableOpacity
-              onPress={() => navigation.navigate("WorkerBookingRequests")}
+            <Text
+              style={[
+                styles.flex1,
+                styles.textRight,
+                styles.textSecondary,
+                styles.h3,
+                styles.bold,
+                styles.underline,
+                styles.bgBG,
+                styles.px3,
+              ]}
             >
-              <Text
-                style={[
-                  styles.flex1,
-                  styles.textRight,
-                  styles.textSecondary,
-                  styles.h3,
-                  styles.bold,
-                  styles.underline,
-                  styles.bgBG,
-                  styles.px3,
-                ]}
-              >
-                Booking Requests ({count})
-              </Text>
-            </TouchableOpacity>
-          </View>
+              Booking Requests ({count})
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-    </ParallaxScrollView>
+    </View>
+    // </ParallaxScrollView>
   );
 };
 
