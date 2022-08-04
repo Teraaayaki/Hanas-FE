@@ -9,8 +9,10 @@ import MyServicesFlatlist from "@components/flatlist/myServicesFlatlists/MyServi
 import { getMyServices, resetError } from "@redux/actions/workerServiceActions";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { loadingStyle } from "@constants";
+import useIsWorker from "@hooks/useIsWorker";
 
 const MyServices = ({ navigation }) => {
+  const [prevPage, setPrevPage, handleBackButton] = useIsWorker();
   const dispatch = useDispatch();
   const { success, loading, myServices } = useSelector(
     (state) => state.workerServices
@@ -33,7 +35,7 @@ const MyServices = ({ navigation }) => {
   if (loading)
     return (
       <View style={[styles.flex1]}>
-        <Header title="Services" />
+        <Header title="Services" showButton={true} onPress={handleBackButton} />
         <View style={loadingStyle.position}>
           <Loading title="Fetching Services" />
         </View>
@@ -42,7 +44,7 @@ const MyServices = ({ navigation }) => {
 
   return (
     <View style={[styles.flex1]}>
-      <Header title="Services" />
+      <Header title="Services" showButton={true} onPress={handleBackButton} />
       <MyServicesFlatlist navigation={navigation} DATA={myServices} />
       <ToastComponent />
     </View>

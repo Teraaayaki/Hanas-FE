@@ -18,6 +18,7 @@ import Header from "@components/Header";
 import styles from "./style";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { getItem } from "@helpers/asyncStorage";
+import useIsWorker from "@hooks/useIsWorker";
 
 const concernData = [
   "Report a bug",
@@ -35,7 +36,7 @@ const Reports = () => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
   const [success, setSuccess] = useState(false);
-  const [prevPage, setPrevPage] = useState("");
+  const [prevPage, setPrevPage, handleBackButton] = useIsWorker();
   const navigation = useNavigation();
 
   const resetState = () => {
@@ -153,17 +154,6 @@ const Reports = () => {
     }
   };
 
-  // CHECK IF CLIENT OR WORKER
-  useEffect(async () => {
-    const isWorkerToken = JSON.parse(await getItem("is_worker"));
-
-    if (isWorkerToken) {
-      setPrevPage("Profile");
-    } else {
-      setPrevPage("ProfileClient");
-    }
-  }, []);
-
   useEffect(() => {
     (async () => {
       const fetchedToken = await getItem("token");
@@ -199,7 +189,7 @@ const Reports = () => {
 
   return (
     <ScrollView>
-      <Header title="Report" />
+      <Header title="Report" showButton={true} onPress={handleBackButton} />
       <View style={styles.inputContainer}>
         <Text style={styles.headerTextStyle}>Found something unpleasant?</Text>
         <Text>
