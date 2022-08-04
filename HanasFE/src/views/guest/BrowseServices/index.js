@@ -13,7 +13,7 @@ const GuestBrowseServices = ({ navigation }) => {
   const [allFilteredImageServices, setAllFilteredImageServices] = useState([]);
 
   const { data: servicesData, error: allServicesError } = useSWR(
-    `${process.env.LOCALHOST}/api/guest/get-all-services`,
+    `api/guest/get-all-services`,
     fetcher
   );
 

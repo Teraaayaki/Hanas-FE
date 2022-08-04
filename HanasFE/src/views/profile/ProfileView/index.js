@@ -25,7 +25,7 @@ import { ToastComponent, showToast } from "@helpers/toast";
 const ProfileView = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const { socket } = useContext(SocketContext);
-  const { worker_id, service_id, serviceName, jobs } = route.params;
+  const { worker_id, service_id, serviceName } = route.params;
   const { loading, profileData, success } = useSelector(
     (state) => state.clientWorkerView
   );
@@ -76,13 +76,14 @@ const ProfileView = ({ navigation, route }) => {
     if (profileData._id) {
       getMessages(profileData._id).then((data) => {
         setMessages(data);
+        setFetchMessages(false);
       });
     }
   }, [fetchMessages, profileData]);
 
   useEffect(() => {
     socket.current.on("conversationUpdate", () => {
-      setFetchMessages(!fetchMessages);
+      setFetchMessages(true);
     });
   }, []);
 
@@ -194,11 +195,12 @@ const ProfileView = ({ navigation, route }) => {
                       <View style={styles.snippetDetails}>
                         <Text style={[styles.blackText, { paddingLeft: 30 }]}>
                           <Icon color="#FFD706" size={15} name="star" />
-                          {profileData.myServicesData[0].feedbacksData[0] ==
-                          null
-                            ? `0`
-                            : profileData.myServicesData[0].feedbacksData[0]
-                                .rate}
+                          {profileData.myServicesData[0]
+                            .feedbacksAveragedData === undefined
+                            ? 0
+                            : profileData.myServicesData[0].feedbacksAveragedData.rating.toFixed(
+                                2
+                              )}
                           /5
                         </Text>
                         <Text
@@ -207,7 +209,11 @@ const ProfileView = ({ navigation, route }) => {
                             { marginLeft: 30, paddingLeft: 30 },
                           ]}
                         >
-                          {jobs === undefined ? `0` : jobs}
+                          {profileData.myServicesData[0]
+                            .bookingsAveragedData === undefined
+                            ? 0
+                            : profileData.myServicesData[0].bookingsAveragedData
+                                .jobs}
                         </Text>
                         <Text
                           style={[

@@ -19,7 +19,12 @@ import IconField from "@components/form/IconField";
 import Button from "@components/Button";
 import CircularProfileImage from "@components/CircularProfileImage";
 import { colors } from "@constants";
-import { pickImage, filterUri, createFormdata } from "@utils/imageUtils";
+import {
+  pickImage,
+  filterUri,
+  createFormdata,
+  uploadImageWithUrl,
+} from "@utils/imageUtils";
 import {
   changeAccountInfo,
   changeSuccessState,
@@ -75,16 +80,9 @@ const EditAccount = ({ navigation }) => {
         await deleteLastProfilePicture(fileName);
       }
 
-      const response = await fetch(
-        `${process.env.LOCALHOST}/api/edit/upload-profile-image`,
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            "content-type": "multipart/form-data",
-            authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await uploadImageWithUrl(
+        formData,
+        "api/edit/upload-profile-image"
       );
 
       if (response.ok) {
@@ -148,7 +146,7 @@ const EditAccount = ({ navigation }) => {
       if (user.profile_pic !== "none") {
         console.log("User removed profile pic");
         const fileName = lastProfileFilename();
-        (async () => await deleteLastProfilePicture(fileName))();
+        await deleteLastProfilePicture(fileName);
         resetState();
         setUploadingImage(false);
         dispatch(changeAccountInfo(inputProfilePic, inputEmail));

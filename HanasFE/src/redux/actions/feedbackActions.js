@@ -15,7 +15,7 @@ export const addFeedback = (DATA) => async (dispatch) => {
 
   dispatch({ type: FeedbackActions.FEEDBACK_LOADING });
 
-  console.log("DATA", DATA);
+  // console.log("DATA", DATA);
 
   try {
     let { data } = await axios.patch(

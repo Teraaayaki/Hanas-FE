@@ -2,8 +2,9 @@
 
 ### Environment Variables
 ```
-MAPS_API_KEY=AIzaSyCyvd8BRYr-qZm7bNKEUWBpmAGj9RLwVlQ
+MAPS_API_KEY=AIzaSyARE1u8nAte5SFOElEL9YeaSFDmEbbF-w4
 HANAS_ENDPOINT=https://hanas-be-express-api.herokuapp.com/
+LOCALHOST=http://192.168.1.4:8000
 ```
 
 ### 1. Clone repository in your local

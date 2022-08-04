@@ -4,8 +4,11 @@ import moment from "moment";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import styles from "./style";
-
+import Loading from "@components/Loading";
+import NoDataImage from "@components/NoDataImage";
 import { getTransactions } from "@redux/actions/transactionActions";
+import usePaginate from "@custom-hooks/usePaginate";
+import { loadingStyle } from "@constants";
 
 const Item = ({ item, onPress, isWorker }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -13,7 +16,7 @@ const Item = ({ item, onPress, isWorker }) => (
       <Text style={styles.name}>
         {isWorker
           ? `Payment Received for ${item.service_availed.service.service_type} Service`
-          : `Payment Sent to ${item.worker.first_name} ${item.worker.family_name} ${item.worker.suffix}`}
+          : `Payment Sent to ${item.worker?.first_name} ${item.worker?.family_name} ${item.worker?.suffix}`}
       </Text>
       <View style={styles.viewButtonContainerFlex}>
         <Text style={styles.boldText}>Php {item.total_cost}</Text>
@@ -33,13 +36,13 @@ const Item = ({ item, onPress, isWorker }) => (
 
 const TransactionFlatlist = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { transactions } = useSelector((state) => state.transactions);
   const { isWorker } = useSelector((state) => state.userLogin);
   const [selectedId, setSelectedId] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
-  useEffect(() => {
-    dispatch(getTransactions());
-  }, []);
+  const { transactions, loading } = useSelector((state) => state.transactions);
+  const [paginatedData, handleOnEndReach, renderFooter] =
+    usePaginate(transactions);
 
   const renderItem = ({ item }) => {
     return (
@@ -54,16 +57,50 @@ const TransactionFlatlist = ({ navigation }) => {
     );
   };
 
+  const handleOnPress = () => {
+    dispatch(getTransactions());
+  };
+
+  useEffect(() => {
+    dispatch(getTransactions());
+  }, []);
+
+  if (loading)
+    return (
+      <View style={loadingStyle.position}>
+        <Loading title="Calculating Transactions" />
+      </View>
+    );
+
   return (
-    <FlatList
-      data={transactions}
-      renderItem={renderItem}
-      keyExtractor={(item) => item._id}
-      extraData={selectedId}
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
-    />
+    <>
+      {transactions.length === 0 ? (
+        <>
+          <NoDataImage refresh={true} onPress={handleOnPress} />
+        </>
+      ) : (
+        <>
+          <FlatList
+            data={paginatedData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item._id}
+            extraData={selectedId}
+            contentContainerStyle={{
+              flexGrow: 1,
+            }}
+            ListFooterComponent={renderFooter}
+            onEndReached={handleOnEndReach}
+            onEndReachedThreshold={0}
+            refreshing={refresh}
+            onRefresh={() => {
+              dispatch(getTransactions()).then(() => {
+                setRefresh(false);
+              });
+            }}
+          />
+        </>
+      )}
+    </>
   );
 };
 

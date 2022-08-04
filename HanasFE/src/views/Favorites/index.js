@@ -1,13 +1,16 @@
 import { View, Text, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import styles from "./style";
 import Header from "@components/Header";
+import NoDataImage from "@components/NoDataImage";
 import FavoritesFlatlist from "@components/flatlist/dashboardFlatlists/FavoritesFlatlist";
 import TypeOfService from "@components/TypeOfService";
 import DropdownPicker from "@components/modal/DropDownPickerServicesNearYou";
 import { getFavorites } from "@redux/actions/favoritesActions";
 import { resetRemoveError } from "@redux/actions/favoritesActions";
-import { useSelector, useDispatch } from "react-redux";
+
 import { ToastComponent, showToast } from "@helpers/toast";
 
 const Favorites = ({ navigation }) => {
@@ -41,17 +44,12 @@ const Favorites = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Favorites" />
-      {/* <View style={styles.textContainer}>
-        <TypeOfService title={"Electrical Services"} />
-        <DropdownPicker />
-      </View> */}
-
+      {/* <View style={styles.textContainer}> */}
+      {/* <TypeOfService title={"Electrical Services"} />
+        <DropdownPicker /> */}
+      {/* </View> */}
       {favoritesData.length == 0 ? (
-        <View style={styles.centeredEmptyText}>
-          <Text style={styles.emptyText}>
-            No workers added to favorites yet.
-          </Text>
-        </View>
+        <NoDataImage />
       ) : (
         <FavoritesFlatlist navigation={navigation} data={favoritesData} />
       )}

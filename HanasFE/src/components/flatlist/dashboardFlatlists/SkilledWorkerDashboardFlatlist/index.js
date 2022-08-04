@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import CircularImage from "@components/CircularImage";
-import { FlatList, View, Text, Fragment } from "react-native";
+import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
+import moment from "moment";
 
 import styles from "./styles";
+import Button from "@components/Button";
 import PinkSidedCard from "@components/card/PinkSidedCard";
 import {
   PinkSidedCardHeader,
@@ -13,6 +16,8 @@ import Ongoing from "@components/dashboardCards/Ongoing";
 import Overview from "@components/dashboardCards/Overview";
 import Achievements from "@components/dashboardCards/Achievements";
 import ConvenienceFee from "@components/dashboardCards/ConvenienceFee";
+import { serviceImage } from "../../../../helper/serviceImage";
+import { startService } from "../../../../redux/actions/workerDashboardActions";
 
 const SkilledWorkerDashboardFlatlist = ({
   navigation,
@@ -22,56 +27,48 @@ const SkilledWorkerDashboardFlatlist = ({
   AchievementsDATA,
   ConvenienceFeeDATA,
 }) => {
+  const dispatch = useDispatch();
+
   const [hideCard, setHideCard] = useState(false);
 
   const renderFlatlist = ({ OngoingDATA, hideCard }) => {
-    const renderCard = ({ item }) => {
+    const renderCard = ({ item, index }) => {
       return (
         <PinkSidedCardItem
           hideCard={hideCard}
-          content={renderUpcomingBody({ item })}
+          content={renderUpcomingBody({ item, index })}
         />
       );
     };
 
-    const renderUpcomingBody = ({ item }) => {
+    const renderUpcomingBody = ({ item, index }) => {
       return (
         <View style={[styles.flex1, styles.w100]}>
           {/* Card Body */}
           <View style={[styles.flex1, styles.w100, styles.flexRow]}>
             {/* Body Left */}
-            <View
-              style={[
-                styles.ml3,
-                styles.justifyContentCenter,
-                styles.alignCenter,
-              ]}
-            >
-              <CircularImage imageSource={item.image} />
+            <View style={[styles.ml3, styles.justifyContentCenter, styles.alignCenter]}>
+              <CircularImage
+                imageSource={serviceImage(item.service_availed.service.service_type)}
+              />
             </View>
             {/* Body Right */}
             {renderItem({ item })}
           </View>
           {/* Card Footer */}
           <View style={[styles.flex1, styles.w100, styles.flexRow]}>
-            {footerMessage()}
+            {index === 0 ? footerMessage(item) : <></>}
           </View>
         </View>
       );
     };
 
-    const footerMessage = () => {
-      const renderServiceEnd = () => {
-        return "2" + " hrs " + "38" + " mins";
-      };
-
+    const footerMessage = (item) => {
       return (
         <View
           style={[
             styles.w100,
             styles.flex1,
-            styles.borderTop,
-            styles.borderMuted20,
             styles.mx5,
             styles.flexRow,
             styles.justifyContentCenter,
@@ -79,10 +76,10 @@ const SkilledWorkerDashboardFlatlist = ({
             styles.mt1,
           ]}
         >
-          <Text style={[styles.h1, styles.bold, styles.textMuted50]}>
-            Service starts in:{" "}
-          </Text>
-          <Text style={[styles.h1, styles.bold]}>{renderServiceEnd()}</Text>
+          <Button
+            title="Start Service"
+            onPress={() => dispatch(startService(item._id))}
+          />
         </View>
       );
     };
@@ -90,59 +87,38 @@ const SkilledWorkerDashboardFlatlist = ({
     const renderItem = ({ item }) => {
       return (
         <View style={[styles.w100, styles.flex1, styles.mr5]}>
-          <Text
-            style={[
-              styles.h2,
-              styles.bold,
-              styles.textCenter,
-              styles.borderBottom,
-              styles.borderMuted20,
-              styles.mb2,
-              styles.pb3,
-            ]}
-          >
-            {item.title}
-          </Text>
           <View
             style={[
               styles.w100,
               styles.flexRow,
-              styles.justifyContentCenter,
               styles.alignCenter,
-              styles.mb2,
+              styles.justifyContentSpaceBetween,
+              styles.mr5,
+              styles.mb5,
             ]}
           >
+            <Text style={[styles.h2, styles.bold]}>
+              {item.service_availed.service.service_type} Service
+            </Text>
+            <Text>{moment(item.booked_dateTimeStart).format("LL")}</Text>
+          </View>
+          <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
             <Icon name="alarm" type="material-community-icons" size={18} />
             <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
-              {item.timeStart} - {item.timeEnd}
+              {moment(item.booked_dateTimeStart).format("LT")} -
+              {moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
           </View>
-          <View
-            style={[
-              styles.w100,
-              styles.flexRow,
-              styles.justifyContentCenter,
-              styles.alignCenter,
-              styles.mb2,
-            ]}
-          >
+          <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
             <Icon name="person-outline" type="material-icons" size={18} />
-            <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
-              {item.name}
-            </Text>
+            <Text
+              style={[styles.h4, styles.textCenter, styles.ml1]}
+            >{`${item.client.first_name} ${item.client.family_name} ${item.client.suffix}`}</Text>
           </View>
-          <View
-            style={[
-              styles.w100,
-              styles.flexRow,
-              styles.justifyContentCenter,
-              styles.alignCenter,
-              styles.mb2,
-            ]}
-          >
+          <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
             <Icon name="location-sharp" type="ionicon" size={18} />
             <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
-              {item.address}
+              {item.client.address}
             </Text>
           </View>
         </View>
@@ -153,7 +129,7 @@ const SkilledWorkerDashboardFlatlist = ({
       <FlatList
         data={ServicesDATA}
         renderItem={renderCard}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         extraData={[hideCard]}
         ListHeaderComponent={
           <View>
@@ -169,10 +145,7 @@ const SkilledWorkerDashboardFlatlist = ({
         ListFooterComponent={
           <View style={[styles.flex1, styles.mb5, styles.pb5]}>
             <Overview OverviewDATA={OverviewDATA} />
-            <Achievements
-              navigation={navigation}
-              AchievementsDATA={AchievementsDATA}
-            />
+            <Achievements navigation={navigation} AchievementsDATA={AchievementsDATA} />
             <ConvenienceFee ConvenienceFeeDATA={ConvenienceFeeDATA} />
           </View>
         }

@@ -80,16 +80,11 @@ export default function RegisterNumber({ navigation }) {
                   <Text style={styles.text}>{errors.number}</Text>
                 )}
               </View>
-              <Button title="SEND" onPress={handleSubmit} />
+              <Button title="SEND" loading={loading} onPress={handleSubmit} />
             </>
           )}
         </Formik>
 
-        {loading && (
-          <View style={styles.spinner}>
-            <ActivityIndicator size="large" color={colors.secondary} />
-          </View>
-        )}
         <TextLink
           title="Already have an account?"
           linkTitle="Login here"

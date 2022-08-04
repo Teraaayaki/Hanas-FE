@@ -15,6 +15,7 @@ import { colors } from "@constants";
 import { SocketContext } from "../../../context/socketContext";
 import { getBooking } from "@redux/actions/clientBookingActions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import usePaginate from "@custom-hooks/usePaginate";
 
 const filterBookingData = (bookingDataArray) => {
   let filteredArrayData = [];
@@ -63,6 +64,16 @@ const ClientSchedule = ({ navigation }) => {
     []
   );
 
+  const [paginatedBookingData, handleOnEndReachBooking, renderBookingFooter] =
+    usePaginate(filteredBookingData);
+  const [
+    paginatedCompletedData,
+    handleOnEndReachCompleted,
+    renderCompletedFooter,
+  ] = usePaginate(filteredCompleteBookingData);
+  const [paginatedOngoingData, handleOnEndReachOngoing, renderOngoingFooter] =
+    usePaginate(filteredOngoingBookingData);
+
   const layout = useWindowDimensions();
 
   const [index, setIndex] = useState(0);
@@ -82,7 +93,9 @@ const ClientSchedule = ({ navigation }) => {
             ) : (
               <ClientScheduleFlatlist
                 navigation={navigation}
-                DATA={filteredBookingData}
+                DATA={paginatedBookingData}
+                renderFooter={renderBookingFooter}
+                handleOnEndReach={handleOnEndReachBooking}
               />
             )}
             <View
@@ -128,7 +141,9 @@ const ClientSchedule = ({ navigation }) => {
             ) : (
               <ClientScheduleFlatlist
                 navigation={navigation}
-                DATA={filteredOngoingBookingData}
+                DATA={paginatedOngoingData}
+                renderFooter={renderOngoingFooter}
+                handleOnEndReach={handleOnEndReachOngoing}
               />
             )}
             <View
@@ -174,7 +189,9 @@ const ClientSchedule = ({ navigation }) => {
             ) : (
               <ClientScheduleFlatlist
                 navigation={navigation}
-                DATA={filteredCompleteBookingData}
+                DATA={paginatedCompletedData}
+                renderFooter={renderCompletedFooter}
+                handleOnEndReach={handleOnEndReachCompleted}
               />
             )}
             <View

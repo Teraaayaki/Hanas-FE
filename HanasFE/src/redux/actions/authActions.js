@@ -144,7 +144,8 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
     }
   } catch (err) {
     const error = err.response?.data.error || err;
-    console.log(error);
+    // console.log(error);
+    console.log("Do user login error");
     dispatch({ type: UserLoginActions.USER_LOGIN_FAIL, payload: `${error}` });
   }
 };

@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
-import { Icon, Button, Divider } from "react-native-elements";
+import { Icon, Divider } from "react-native-elements";
 
 import Alert from "@helpers/alert";
 import ButtonWhite from "@components/ButtonWhite";
 import styles from "./style";
 import CircularProfileImage from "@components/CircularProfileImage";
 import ProfileDetails from "@components/ProfileDetails";
+import GetVerified from "@components/GetVerified";
 import { colors, fontSize } from "@constants";
 import { userLogout } from "@redux/actions/authActions";
 import { changeAddress } from "@redux/actions/userDetailActions";
@@ -125,26 +126,7 @@ const Profile = ({ navigation }) => {
     >
       <View style={styles.parallaxContentContainer}>
         {!user.is_verified && !user.pending_verification && (
-          <View style={styles.getVerifiedContainer}>
-            <View style={styles.getVerifiedTextContainer}>
-              <Text style={styles.headingText}>Get Verified Now! </Text>
-              <Text style={styles.getVerifiedTextBody}>
-                Only 1 Valid ID and an NBI or Brgy. Clearance needed! Verified
-                users can perform services and earn money.
-              </Text>
-              <Button
-                buttonStyle={{ backgroundColor: colors.secondary }}
-                title="Get Verified Now"
-                onPress={() => navigation.navigate("GetVerified")}
-              />
-            </View>
-            <View>
-              <Image
-                style={styles.getVerifiedImageContainer}
-                source={require("@images/steff2.png")}
-              />
-            </View>
-          </View>
+          <GetVerified navigation={navigation} />
         )}
 
         <View style={styles.profileDetailsContainer}>

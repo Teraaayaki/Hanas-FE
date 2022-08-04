@@ -15,7 +15,7 @@ const BrowseServices = ({ navigation }) => {
   const [allFilteredImageServices, setAllFilteredImageServices] = useState([]);
 
   const { data: servicesData, error: allServicesError } = useSWR(
-    `${process.env.LOCALHOST}/api/client/get-all-services`,
+    `api/client/get-all-services`,
     fetcher
   );
 

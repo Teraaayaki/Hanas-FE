@@ -37,7 +37,8 @@ export default StyleSheet.create({
   pinkText: {
     color: colors.dark,
     fontSize: fontSize.h5,
-    alignSelf: "center",
+    textAlign: "center",
+    maxWidth: 100,
   },
   btnPress: {
     borderRadius: 10,

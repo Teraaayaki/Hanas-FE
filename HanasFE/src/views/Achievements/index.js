@@ -16,9 +16,7 @@ const Achievements = ({ navigation }) => {
   const { transactions } = useSelector((state) => state.transactions);
   const [totalEarned, setTotalEarned] = useState(0);
   const [achievementsDATA, setAchievementsData] = useState(AchievementsDATA());
-  const { data: fetchedClaimedData } = useSWR(
-    `${process.env.LOCALHOST}/api/worker/get-achievements`
-  );
+  const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);

@@ -23,13 +23,8 @@ const GuestDashboard = ({ navigation }) => {
   // SWR
   const [queryParams, setQueryParams] = useState(null);
   // const [data, setData] = useState({ user: [] });
-  const { data } = useSWR([
-    `${process.env.LOCALHOST}/api/guest/get-top-rated-workers`,
-    queryParams,
-  ]);
-  const { data: servicesData } = useSWR(
-    `${process.env.LOCALHOST}/api/guest/get-top-services`
-  );
+  const { data } = useSWR([`api/guest/get-top-rated-workers`, queryParams]);
+  const { data: servicesData } = useSWR(`api/guest/get-top-services`);
   // LOCATION STATE
   const { address, setAddress } = useContext(AddressContext);
   const [visible, setVisible] = useState(false);

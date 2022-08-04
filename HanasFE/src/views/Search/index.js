@@ -16,7 +16,7 @@ const Search = ({ navigation }) => {
 
   const [queryParams, setQueryParams] = useState(null);
   const { data } = useSWR([
-    `${process.env.LOCALHOST}/api/client/get-workers`,
+    `api/client/get-workers`,
     `${queryParams}/${address}`,
   ]);
 

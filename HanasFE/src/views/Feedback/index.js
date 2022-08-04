@@ -18,7 +18,6 @@ import {
 import { colors } from "@constants";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
-import IconField from "@components/form/IconField";
 import CircularProfileImage from "@components/CircularProfileImage";
 import Button from "@components/Button";
 import { Rating, AirbnbRating } from "react-native-ratings";
@@ -55,12 +54,11 @@ const Feedback = ({ navigation, route }) => {
         "success",
         "Succefully given a feedback",
         "Thank you for your feedback",
-        () => dispatch(resetSuccess())
+        () => {
+          dispatch(resetSuccess());
+          navigation.navigate("Calendar");
+        }
       );
-
-      setTimeout(() => {
-        navigation.navigate("Calendar");
-      }, 5000);
     }
   }, [success]);
 
@@ -122,13 +120,13 @@ const Feedback = ({ navigation, route }) => {
                     onChangeText={handleChange("comment")}
                   />
                 </View>
-                {loading && (
-                  <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={colors.secondary} />
-                  </View>
-                )}
+
                 <View style={styles.buttonStyle}>
-                  <Button title="Submit Feedback" onPress={handleSubmit} />
+                  <Button
+                    title="Submit Feedback"
+                    loading={loading}
+                    onPress={handleSubmit}
+                  />
                 </View>
                 <View style={styles.textContainer}>
                   <Text

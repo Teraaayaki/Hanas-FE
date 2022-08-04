@@ -1,7 +1,7 @@
-import { ConversationActions } from '../actions/types';
+import { ConversationActions } from "../actions/types";
 
 const initialValues = {
-  conversations: null
+  conversations: [],
 };
 
 const conversationReducer = (state = initialValues, action) => {
@@ -9,12 +9,12 @@ const conversationReducer = (state = initialValues, action) => {
     case ConversationActions.FETCH_CONVERSATIONS:
       return {
         ...state,
-        conversations: action.payload
+        conversations: action.payload,
       };
     case ConversationActions.STORE_NEW_MESSAGE:
       return {
         ...state,
-        conversations: action.payload
+        conversations: action.payload,
       };
 
     default:
