@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View, ActivityIndicator } from "react-native";
 
 import { colors } from "@constants";
 
-const usePaginate = (data) => {
+const usePaginate = (data, initialLimit = 10) => {
   const [paginatedData, setPaginatedData] = useState([...data]);
   const [limit, setLimit] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const handleOnEndReach = () => {
+  const handleOnEndReach = useCallback(() => {
     if (limit === data.length) return;
 
     setLoading(true);
@@ -16,16 +16,16 @@ const usePaginate = (data) => {
       paginateItems(data);
       setLoading(false);
     }, 2000);
-  };
+  }, [paginatedData]);
 
   const paginateItems = (item) => {
     let slicedArray = [];
-    if (limit + 10 > item.length) {
+    if (limit + initialLimit > item.length) {
       slicedArray = item.slice(limit);
       setLimit(item.length);
     } else {
-      slicedArray = item.slice(limit, limit + 10);
-      setLimit(limit + 10);
+      slicedArray = item.slice(limit, limit + initialLimit);
+      setLimit(limit + initialLimit);
     }
     setPaginatedData([...paginatedData, ...slicedArray]);
   };
@@ -42,8 +42,8 @@ const usePaginate = (data) => {
   };
 
   const limitArray = (item) => {
-    setLimit(10);
-    return item.slice(0, 10);
+    setLimit(initialLimit);
+    return item.slice(0, initialLimit);
   };
 
   useEffect(() => {
