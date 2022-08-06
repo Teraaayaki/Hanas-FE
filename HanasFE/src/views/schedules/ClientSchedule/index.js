@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
   useWindowDimensions,
 } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 
 import Header from "@components/Header";
@@ -20,7 +20,7 @@ import styles from "./style";
 import { colors } from "@constants";
 import { SocketContext } from "../../../context/socketContext";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { TabView, TabBar } from "react-native-tab-view";
 import usePaginate from "@custom-hooks/usePaginate";
 import NoDataImage from "@components/NoDataImage";
 
