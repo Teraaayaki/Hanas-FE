@@ -21,6 +21,7 @@ import {
 } from "@redux/actions/editPasswordActions";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { colors } from "@constants";
+import useAlertBackHandler from "@hooks/useAlertBackHandler";
 
 const password_details = {
   old_pass: "",
@@ -56,6 +57,7 @@ const EditPassword = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [isWorker, setIsWorker] = useState(false);
   const { user } = useSelector((state) => state.userDetails);
+  const [prevPage, setPrevPage] = useAlertBackHandler();
   const { success, error, loading } = useSelector(
     (state) => state.editPassword
   );
@@ -70,11 +72,18 @@ const EditPassword = ({ navigation, route }) => {
     dispatch(editPassword(Data));
   };
 
-  useEffect(() => {
-    setIsWorker(getItem("is_worker"));
+  useEffect(async () => {
+    const isWorkerToken = JSON.parse(await getItem("is_worker"));
+    setIsWorker(isWorkerToken);
+
+    if (isWorkerToken) {
+      setPrevPage("Profile");
+    } else {
+      setPrevPage("ProfileClient");
+    }
   }, []);
 
-  useEffect(async () => {
+  useEffect(() => {
     console.log("SUCCESS", success);
 
     if (success) {
@@ -84,14 +93,13 @@ const EditPassword = ({ navigation, route }) => {
         "You will receive an email for the confirmation",
         () => dispatch(resetSuccess())
       );
-
       if (!isWorker) {
         setTimeout(() => {
-          navigation.navigate("ProfileClient");
+          navigation.navigate(prevPage);
         }, 5000);
       } else if (isWorker) {
         setTimeout(() => {
-          navigation.navigate("Profile");
+          navigation.navigate(prevPage);
         }, 5000);
       }
     }

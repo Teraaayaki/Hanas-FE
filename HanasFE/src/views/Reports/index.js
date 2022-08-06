@@ -18,6 +18,7 @@ import Header from "@components/Header";
 import styles from "./style";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { getItem } from "@helpers/asyncStorage";
+import useIsWorker from "@hooks/useIsWorker";
 
 const concernData = [
   "Report a bug",
@@ -35,7 +36,7 @@ const Reports = () => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
   const [success, setSuccess] = useState(false);
-  const [prevPage, setPrevPage] = useState("");
+  const [prevPage, setPrevPage, handleBackButton] = useIsWorker();
   const navigation = useNavigation();
 
   const resetState = () => {
@@ -95,7 +96,6 @@ const Reports = () => {
 
     try {
       setLoading(true);
-      const token = await getItem("token");
 
       //   If no image attachement
       if (imagesUri.length === 0) {
@@ -128,7 +128,7 @@ const Reports = () => {
       if (response.ok) {
         const { publicUrls } = await response.json();
         const { data } = await createReport(publicUrls);
-        console.log(publicUrls);
+        // console.log(publicUrls);
         if (data) {
           setSuccess(true);
           setLoading(false);
@@ -144,7 +144,7 @@ const Reports = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setLoading(false);
       showToast(
         "error",
@@ -168,16 +168,6 @@ const Reports = () => {
     })();
   }, []);
 
-  // CHECK IF CLIENT OR WORKER
-  useEffect(async () => {
-    const isWorker = JSON.parse(await getItem("is_worker"));
-    if (isWorker) {
-      setPrevPage("Profile");
-    } else {
-      setPrevPage("ProfileClient");
-    }
-  }, []);
-
   if (success)
     return (
       <View style={styles.successView}>
@@ -199,7 +189,7 @@ const Reports = () => {
 
   return (
     <ScrollView>
-      <Header title="Report" />
+      <Header title="Report" showButton={true} onPress={handleBackButton} />
       <View style={styles.inputContainer}>
         <Text style={styles.headerTextStyle}>Found something unpleasant?</Text>
         <Text>

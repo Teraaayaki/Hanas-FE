@@ -47,9 +47,17 @@ const SkilledWorkerDashboardFlatlist = ({
           {/* Card Body */}
           <View style={[styles.flex1, styles.w100, styles.flexRow]}>
             {/* Body Left */}
-            <View style={[styles.ml3, styles.justifyContentCenter, styles.alignCenter]}>
+            <View
+              style={[
+                styles.ml3,
+                styles.justifyContentCenter,
+                styles.alignCenter,
+              ]}
+            >
               <CircularImage
-                imageSource={serviceImage(item.service_availed.service.service_type)}
+                imageSource={serviceImage(
+                  item.service_availed.service.service_type
+                )}
               />
             </View>
             {/* Body Right */}
@@ -102,20 +110,41 @@ const SkilledWorkerDashboardFlatlist = ({
             </Text>
             <Text>{moment(item.booked_dateTimeStart).format("LL")}</Text>
           </View>
-          <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
+          <View
+            style={[
+              styles.w100,
+              styles.flexRow,
+              styles.alignCenter,
+              styles.mb2,
+            ]}
+          >
             <Icon name="alarm" type="material-community-icons" size={18} />
             <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
               {moment(item.booked_dateTimeStart).format("LT")} -
               {moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
           </View>
-          <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
+          <View
+            style={[
+              styles.w100,
+              styles.flexRow,
+              styles.alignCenter,
+              styles.mb2,
+            ]}
+          >
             <Icon name="person-outline" type="material-icons" size={18} />
             <Text
               style={[styles.h4, styles.textCenter, styles.ml1]}
             >{`${item.client.first_name} ${item.client.family_name} ${item.client.suffix}`}</Text>
           </View>
-          <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
+          <View
+            style={[
+              styles.w100,
+              styles.flexRow,
+              styles.alignCenter,
+              styles.mb2,
+            ]}
+          >
             <Icon name="location-sharp" type="ionicon" size={18} />
             <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
               {item.client.address}
@@ -145,7 +174,10 @@ const SkilledWorkerDashboardFlatlist = ({
         ListFooterComponent={
           <View style={[styles.flex1, styles.mb5, styles.pb5]}>
             <Overview OverviewDATA={OverviewDATA} />
-            <Achievements navigation={navigation} AchievementsDATA={AchievementsDATA} />
+            <Achievements
+              navigation={navigation}
+              AchievementsDATA={AchievementsDATA}
+            />
             <ConvenienceFee ConvenienceFeeDATA={ConvenienceFeeDATA} />
           </View>
         }

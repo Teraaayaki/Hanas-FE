@@ -1,10 +1,11 @@
-import * as Notifications from "expo-notfications";
-import Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
 import { setItem } from "@helpers/asyncStorage";
 
 export const getPermissions = async () => {
   if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();

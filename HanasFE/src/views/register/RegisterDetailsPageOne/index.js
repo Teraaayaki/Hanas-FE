@@ -9,6 +9,7 @@ import IconField from "@components/form/IconField";
 import styles from "./style";
 import { setUserDetails } from "@redux/actions/registerActions";
 import { showToast, ToastComponent } from "@helpers/toast";
+import useAlertBackHandler from "@hooks/useAlertBackHandler";
 
 const details = {
   firstName: "",
@@ -55,8 +56,10 @@ export default function RegisterDetailsPageOne({ navigation }) {
     console.log("SetUser Dispatch Called");
     dispatch(setUserDetails(values, navigation));
   };
+  const [prevPage, setPrevPage] = useAlertBackHandler();
 
   useEffect(() => {
+    setPrevPage("RegisterNumber");
     showToast(
       "success",
       `Successfully Verified +63${number}`,
