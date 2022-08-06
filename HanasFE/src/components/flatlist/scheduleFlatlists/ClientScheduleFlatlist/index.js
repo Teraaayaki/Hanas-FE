@@ -4,6 +4,7 @@ import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useDispatch, useSelector } from "react-redux";
+import { Avatar, Divider } from "react-native-elements";
 
 import { removeSchedule, resetError } from "@redux/actions/scheduleActions";
 import { ToastComponent, showToast } from "@helpers/toast";
@@ -38,16 +39,22 @@ const ClientScheduleFlatlist = ({
 
   const renderTopButton = ({ item }) => {
     const renderIcon = ({ item }) => {
-      if (item.book_status == "Finished") {
+      if (item.book_status == "Finished")
         return (
-          <Icon name="checkmark-circle-outline" type="ionicon" size={18} />
+          <Icon
+            name="checkmark-circle-outline"
+            type="ionicon"
+            size={20}
+            // color={colors.success}
+          />
         );
-      }
-      if (item.book_status == "Cancelled") {
-        return <Icon name="x-circle" type="feather" size={18} />;
-      }
-      return <Icon name="calendar-clock" type="material-community" size={18} />;
+
+      if (item.book_status == "Cancelled")
+        return <Icon name="x-circle" type="feather" size={20} />;
+
+      return <Icon name="calendar-clock" type="material-community" size={20} />;
     };
+
     const topBorderStyle = ({ item }) => {
       switch (item.book_status) {
         case "Finished":
@@ -61,11 +68,11 @@ const ClientScheduleFlatlist = ({
           return styles.borderMuted50;
       }
     };
+
     return (
       <View
         style={[
           styles.w100,
-          styles.border2,
           topBorderStyle({ item }),
           styles.bgLightGrey,
           styles.flexRow,
@@ -76,7 +83,7 @@ const ClientScheduleFlatlist = ({
         ]}
       >
         {renderIcon({ item })}
-        <Text style={[styles.h5, styles.textBlack]}>
+        <Text style={[styles.h3, styles.textBlack]}>
           {" "}
           {item.book_status === "Finished" ? "Completed" : item.book_status}
         </Text>
@@ -85,64 +92,27 @@ const ClientScheduleFlatlist = ({
   };
 
   const renderBottomButton = ({ item }) => {
-    const message = ({ item }) => {
+    const message = () => {
       if (item.book_status == "Finished" || item.book_status == "Cancelled") {
         return (
-          <Text style={[styles.h5]} onPress={() => handleRemove(item._id)}>
-            Remove
-          </Text>
+          <>
+            <Text style={[styles.h3, styles.textDanger]}> Remove</Text>
+          </>
         );
       }
-      // return <Text style={[styles.h5]}>Cancel</Text>;
     };
 
-    const feedback = ({ item }) => {
-      if (item.isFeedbacked == true) {
-        return (
-          <Text
-            style={[styles.h5, styles.textWhite]}
-            onPress={() =>
-              showToast(
-                "error",
-                "Feedback already made",
-                "You already added a feedback on this booking",
-                () => dispatch(resetError())
-              )
-            }
-          >
-            Feedback Done
-          </Text>
-        );
-      } else {
-        return (
-          <Text
-            style={[styles.h5, styles.textWhite]}
-            onPress={() =>
-              navigation.navigate("Feedback", {
-                workerData: item.workerData[0],
-                serviceData: item.workerServiceData[0],
-                booking_id: item._id,
-              })
-            }
-          >
-            Feedback
-          </Text>
-        );
-      }
-      // return <Text style={[styles.h5]}>Cancel</Text>;
-    };
-
-    if (item.book_status == "Finished") {
+    if (item.book_status === "Finished") {
       //Missing Condition: This button must only appear when Current Date is more than 3 days away from Booked Date & Time Start
       // item.bookStatus == "Finished" || item.bookStatus == "Cancelled" || (item.bookStatus == "Accepted" && currentDate > BookedDate + 3Days)
       return (
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleRemove(item._id)}>
             <View
               style={[
                 styles.w100,
-                styles.border,
-                styles.borderMuted50,
+                styles.borderSlim,
+                styles.borderMuted20,
                 styles.bgLightGrey,
                 styles.flexRow,
                 styles.justifyContentCenter,
@@ -155,25 +125,63 @@ const ClientScheduleFlatlist = ({
               {message({ item })}
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <View
-              style={[
-                styles.w100,
-                styles.border,
-                styles.borderMuted50,
-                styles.borderInfo,
-                styles.bgFeedback,
-                styles.flexRow,
-                styles.justifyContentCenter,
-                styles.alignCenter,
-                styles.py5,
-                styles.rounded5,
-                { marginTop: 15 },
-              ]}
+          {item.isFeedbacked ? (
+            <TouchableOpacity
+              onPress={() =>
+                showToast(
+                  "error",
+                  "Feedback already made",
+                  "You already added a feedback on this booking",
+                  () => dispatch(resetError())
+                )
+              }
             >
-              {feedback({ item })}
-            </View>
-          </TouchableOpacity>
+              <View
+                style={[
+                  styles.w100,
+                  styles.borderMuted20,
+                  styles.borderSlim,
+                  styles.bgLightGrey,
+                  styles.flexRow,
+                  styles.justifyContentCenter,
+                  styles.alignCenter,
+                  styles.py5,
+                  styles.rounded5,
+                  { marginTop: 15 },
+                ]}
+              >
+                <Text style={[styles.h3, styles.textBlack]}>Done</Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Feedback", {
+                  workerData: item.workerData[0],
+                  serviceData: item.workerServiceData[0],
+                  booking_id: item._id,
+                })
+              }
+            >
+              <View
+                style={[
+                  styles.w100,
+                  styles.border,
+                  styles.borderMuted50,
+                  styles.borderInfo,
+                  styles.bgFeedback,
+                  styles.flexRow,
+                  styles.justifyContentCenter,
+                  styles.alignCenter,
+                  styles.py5,
+                  styles.rounded5,
+                  { marginTop: 15 },
+                ]}
+              >
+                <Text style={[styles.h3, styles.textWhite]}>Feedback</Text>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
       );
     }
@@ -192,34 +200,44 @@ const ClientScheduleFlatlist = ({
           style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
         >
           <View style={[styles.flex4, styles.pl3]}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ProfileView", {
-                  worker_id: item.workerData[0]._id,
-                  service_id: item.workerServiceData[0]._id,
-                  serviceName:
-                    item.workerServiceData[0].serviceNameData[0].service_type,
-                })
-              }
-            >
-              <Text
-                style={[
-                  styles.mx1,
-                  styles.h3,
-                  styles.textInfo,
-                  styles.bold,
-                  styles.underline,
-                  styles.mb2,
-                ]}
+            <View style={[styles.flexRow]}>
+              <Avatar
+                rounded
+                source={{
+                  uri: item.workerData[0].profile_pic,
+                }}
+                containerStyle={styles.m1}
+              />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("ProfileView", {
+                    worker_id: item.workerData[0]._id,
+                    service_id: item.workerServiceData[0]._id,
+                    serviceName:
+                      item.workerServiceData[0].serviceNameData[0].service_type,
+                  })
+                }
               >
-                {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
-              </Text>
-            </TouchableOpacity>
-            <Text style={[styles.flex1, styles.mx1, styles.p, styles.my1]}>
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.h1,
+                    styles.textInfo,
+                    styles.bold,
+                    // styles.underline,
+                    styles.mt3,
+                  ]}
+                >
+                  {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={[styles.flex1, styles.mx1, styles.h3, styles.my1]}>
               {item.workerServiceData[0].serviceNameData[0].service_type}{" "}
               Service
             </Text>
-            <Text style={[styles.flex1, styles.mx1, styles.h4, styles.bold]}>
+            <Text style={[styles.flex1, styles.mx1, styles.h3, styles.bold]}>
               {item.book_type} Day Booking
             </Text>
             <View
