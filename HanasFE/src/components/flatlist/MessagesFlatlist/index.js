@@ -4,6 +4,7 @@ import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import { SocketContext } from "../../../context/socketContext";
 import CircularProfileImage from "@components/CircularProfileImage";
+import NoDataImage from "@components/NoDataImage";
 import { getUserConversations } from "@redux/actions/conversationAction";
 import styles from "./style";
 
@@ -79,6 +80,10 @@ const MessagesFlatlist = ({ navigation }) => {
       />
     );
   };
+
+  if (conversations?.length <= 0) {
+    return <NoDataImage refresh={true} onPress={() => setFetchData(true)} />;
+  }
 
   return (
     <FlatList

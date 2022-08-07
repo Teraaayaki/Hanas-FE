@@ -6,82 +6,83 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Header from "@components/Header";
 import WorkerScheduleFlatlist from "@components/flatlist/scheduleFlatlists/WorkerScheduleFlatlist";
-import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { colors, fontSize } from "@constants";
+import NoDataImage from "@components/NoDataImage";
 import styles from "./style";
 
 import { getSchedules } from "../../../redux/actions/workerScheduleActions";
+import { getBookingRequests } from "../../../redux/actions/workerBookingActions";
 
 LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]); //ignore ni niya nga message
 
 const WorkerSchedule = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const { count } = useSelector((state) => state.workerBookingRequests);
   const { acceptedRequests } = useSelector((state) => state.workerSchedules);
+  const { count } = useSelector((state) => state.workerBookingRequests);
 
   useEffect(() => {
     dispatch(getSchedules());
+    dispatch(getBookingRequests());
   }, []);
 
-  return (
-    // <ParallaxScrollView
-    //   backgroundColor="#FF6D8F"
-    //   contentBackgroundColor={colors.background}
-    //   contentContainerStyle={{ height: "100%" }}
-    //   parallaxHeaderHeight={80}
-    //   renderForeground={() => <Header title={"Schedule"} />}
-    //   stickyHeaderHeight={70}
-    //   renderStickyHeader={() => (
-    //     <View
-    //       style={{
-    //         flexDirection: "row",
-    //         justifyContent: "center",
-    //         backgroundColor: "#FF6D8F",
-    //         height: "100%",
-    //       }}
-    //     >
-    //       <Text
-    //         style={{
-    //           color: colors.black,
-    //           alignSelf: "center",
-    //           fontSize: fontSize.h1,
-    //           marginTop: 30,
-    //         }}
-    //       >
-    //         Booking Requests ({count})
-    //       </Text>
-    //     </View>
-    //   )}
-    // >
-    <View style={[styles.body]}>
-      <Header title={"Schedule"} />
-      <View style={[styles.mx3, styles.flex1]}>
-        <WorkerScheduleFlatlist DATA={acceptedRequests} />
-        <View style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}>
-          <View style={[styles.flex1]} />
-          <TouchableOpacity
-            onPress={() => navigation.navigate("WorkerBookingRequests")}
-          >
-            <Text
-              style={[
-                styles.flex1,
-                styles.textRight,
-                styles.textSecondary,
-                styles.h3,
-                styles.bold,
-                styles.underline,
-                styles.bgBG,
-                styles.px3,
-              ]}
+  if (acceptedRequests.length > 0) {
+    return (
+      <View style={[styles.body]}>
+        <Header title={"Schedule"} />
+        <View style={[styles.mx3, styles.flex1]}>
+          <WorkerScheduleFlatlist DATA={acceptedRequests} />
+          <View style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}>
+            <View style={[styles.flex1]} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("WorkerBookingRequests")}
             >
-              Booking Requests ({count})
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.flex1,
+                  styles.textRight,
+                  styles.textSecondary,
+                  styles.h3,
+                  styles.bold,
+                  styles.underline,
+                  styles.bgBG,
+                  styles.px3,
+                ]}
+              >
+                Booking Requests ({count})
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
-    // </ParallaxScrollView>
+    );
+  }
+
+  return (
+    <>
+      <Header title={"Schedule"} />
+      <View
+        style={[styles.flexRow, styles.py3, styles.px2, styles.absolute, styles.mt15]}
+      >
+        <View style={[styles.flex1]} />
+        <TouchableOpacity onPress={() => navigation.navigate("WorkerBookingRequests")}>
+          <Text
+            style={[
+              styles.flex1,
+              styles.textRight,
+              styles.textSecondary,
+              styles.h3,
+              styles.bold,
+              styles.underline,
+              styles.bgBG,
+              styles.px3,
+            ]}
+          >
+            Booking Requests ({count})
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <NoDataImage refresh={true} onPress={() => dispatch(getSchedules())} />
+    </>
   );
 };
 

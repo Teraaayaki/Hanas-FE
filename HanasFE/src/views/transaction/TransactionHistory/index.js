@@ -17,10 +17,6 @@ const Transactions = ({ navigation }) => {
         showButton={true}
         onPress={handleBackButton}
       />
-      {/* <View style={styles.textContainer}> */}
-      {/* <TypeOfService title="" /> */}
-      {/* <DropdownPicker /> */}
-      {/* </View> */}
       <TransactionFlatlist navigation={navigation} />
     </View>
   );

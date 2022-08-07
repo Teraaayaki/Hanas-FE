@@ -18,9 +18,9 @@ const BookingSummary = ({ route }) => {
     if (success) {
       showToast(
         "success",
-        "Succefully Booked Worker",
+        "Successfully Booked Worker",
         "Please review the booking information",
-        () => dispatch(resetLoading())
+        () => dispatch(resetLoading()),
       );
     }
   }, [success]);
@@ -45,14 +45,12 @@ const BookingSummary = ({ route }) => {
             address={booking_data.workerData[0].address}
             book_type={booking_data.book_type}
             booked_date={dayjs(booking_data.booked_dateTimeStart).format(
-              "MMMM D, YYYY (dddd)"
+              "MMMM D, YYYY (dddd)",
             )}
             booked_end={dayjs(booking_data.booked_dateTimeEnd).format(
-              "MMMM D, YYYY (dddd)"
+              "MMMM D, YYYY (dddd)",
             )}
-            time_start={dayjs(booking_data.booked_dateTimeStart).format(
-              "h:mm A"
-            )}
+            time_start={dayjs(booking_data.booked_dateTimeStart).format("h:mm A")}
             time_end={dayjs(booking_data.booked_dateTimeEnd).format("h:mm A")}
           />
         </ScrollView>
