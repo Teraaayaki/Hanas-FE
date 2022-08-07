@@ -5,6 +5,8 @@ import { View, FlatList, Text, TouchableOpacity } from "react-native";
 import { SocketContext } from "../../../context/socketContext";
 import CircularProfileImage from "@components/CircularProfileImage";
 import NoDataImage from "@components/NoDataImage";
+import Loading from "@components/Loading";
+import { loadingStyle } from "@constants";
 import { getUserConversations } from "@redux/actions/conversationAction";
 import styles from "./style";
 
@@ -24,7 +26,7 @@ const Item = ({ image, name, latestMessage, onPress }) => (
 
 const MessagesFlatlist = ({ navigation }) => {
   const { socket } = useContext(SocketContext);
-  const { conversations } = useSelector((state) => state.userConversations);
+  const { conversations, fetching } = useSelector((state) => state.userConversations);
   const { user } = useSelector((state) => state.userDetails);
   const [DATA, setDATA] = useState(null);
   const [fetchData, setFetchData] = useState(false);
@@ -80,6 +82,13 @@ const MessagesFlatlist = ({ navigation }) => {
       />
     );
   };
+
+  if (fetching)
+    return (
+      <View style={loadingStyle.position}>
+        <Loading title="Fetching Conversations..." />
+      </View>
+    );
 
   if (conversations?.length <= 0) {
     return <NoDataImage refresh={true} onPress={() => setFetchData(true)} />;

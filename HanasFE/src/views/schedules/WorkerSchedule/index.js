@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { View, Text, Flatlist } from "react-native";
+import { View, Text } from "react-native";
 import { LogBox } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Header from "@components/Header";
 import WorkerScheduleFlatlist from "@components/flatlist/scheduleFlatlists/WorkerScheduleFlatlist";
 import NoDataImage from "@components/NoDataImage";
+import Loading from "@components/Loading";
+import { loadingStyle } from "@constants";
 import styles from "./style";
 
 import { getSchedules } from "../../../redux/actions/workerScheduleActions";
@@ -17,13 +19,21 @@ LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]); //ignore 
 const WorkerSchedule = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const { acceptedRequests } = useSelector((state) => state.workerSchedules);
+  const { acceptedRequests, fetching } = useSelector((state) => state.workerSchedules);
   const { count } = useSelector((state) => state.workerBookingRequests);
 
   useEffect(() => {
     dispatch(getSchedules());
     dispatch(getBookingRequests());
   }, []);
+
+  if (fetching) {
+    return (
+      <View style={loadingStyle.position}>
+        <Loading title="Fetching Service Schedules..." />
+      </View>
+    );
+  }
 
   if (acceptedRequests.length > 0) {
     return (

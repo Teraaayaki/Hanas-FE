@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import moment from "moment";
@@ -14,13 +14,22 @@ import { colors } from "@constants";
 import { padding } from "@constants";
 
 import {
+  resetStatus,
   acceptBookingRequest,
   declineBookingRequest,
 } from "@redux/actions/workerBookingActions";
+import { ToastComponent, showToast } from "@helpers/toast";
 
 const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
+  const { status } = useSelector((state) => state.workerBookingRequests);
   const dispatch = useDispatch();
   let date = "_";
+
+  useEffect(() => {
+    if (status) {
+      showToast("success", status, " ", () => dispatch(resetStatus()));
+    }
+  }, [status]);
 
   const renderContent = ({ item }) => {
     return (
@@ -137,12 +146,15 @@ const WorkerBookingRequestsFlatlist = ({ navigation, DATA }) => {
   };
 
   return (
-    <FlatList
-      data={DATA}
-      renderItem={renderItem}
-      keyExtractor={(item) => item._id}
-      contentContainerStyle={{ paddingBottom: padding.p5 }}
-    />
+    <>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        contentContainerStyle={{ paddingBottom: padding.p5 }}
+      />
+      <ToastComponent />
+    </>
   );
 };
 
