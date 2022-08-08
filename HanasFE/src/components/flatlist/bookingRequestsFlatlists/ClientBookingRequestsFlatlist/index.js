@@ -8,6 +8,7 @@ import {
   removeCancelledBookSchedule,
   cancelBookingSchedule,
 } from "@redux/actions/scheduleActions";
+import { Avatar } from "react-native-elements";
 
 import {
   PinkSidedCardHeader,
@@ -21,7 +22,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 dayjs.extend(utc);
 
-const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
+const ClientBookingRequestsFlatlist = ({
+  navigation,
+  DATA,
+  handleOnEndreached,
+  renderFooter,
+}) => {
   let date = new Date(1990, 0, 21);
 
   const dispatch = useDispatch();
@@ -56,34 +62,43 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
           style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
         >
           <View style={[styles.flex4, styles.pl3]}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ProfileView", {
-                  worker_id: item.workerData[0]._id,
-                  service_id: item.workerServiceData[0]._id,
-                  serviceName:
-                    item.workerServiceData[0].serviceNameData[0].service_type,
-                })
-              }
-            >
-              <Text
-                style={[
-                  styles.mx1,
-                  styles.h3,
-                  styles.textInfo,
-                  styles.bold,
-                  styles.underline,
-                  styles.mb2,
-                ]}
+            <View style={[styles.flexRow]}>
+              <Avatar
+                rounded
+                source={{
+                  uri: item.workerData[0].profile_pic,
+                }}
+                containerStyle={styles.m1}
+              />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("ProfileView", {
+                    worker_id: item.workerData[0]._id,
+                    service_id: item.workerServiceData[0]._id,
+                    serviceName:
+                      item.workerServiceData[0].serviceNameData[0].service_type,
+                  })
+                }
               >
-                {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.mx1,
+                    styles.h1,
+                    styles.textInfo,
+                    styles.bold,
+                    styles.mt5,
+                  ]}
+                >
+                  {`${item.workerData[0].first_name} ${item.workerData[0].family_name}`}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
             <Text
               style={[
                 styles.flex1,
                 styles.mx1,
-                styles.p,
+                styles.h3,
                 styles.my1,
                 styles.bold,
               ]}
@@ -98,7 +113,7 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
               style={[
                 styles.flex1,
                 styles.mx1,
-                styles.p,
+                styles.h3,
                 styles.my1,
                 styles.bold,
               ]}
@@ -223,6 +238,9 @@ const ClientBookingRequestsFlatlist = ({ navigation, DATA }) => {
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
+      onEndReached={handleOnEndreached}
+      onEndReachedThreshold={0}
+      ListFooterComponent={renderFooter()}
     />
   );
 };

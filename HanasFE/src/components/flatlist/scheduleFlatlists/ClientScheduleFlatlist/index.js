@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View, Text, TouchableOpacity, Button } from "react-native";
-import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar, Divider } from "react-native-elements";
+import { Avatar, Icon } from "react-native-elements";
 
 import { removeSchedule, resetError } from "@redux/actions/scheduleActions";
 import { ToastComponent, showToast } from "@helpers/toast";
