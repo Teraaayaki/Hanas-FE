@@ -6,6 +6,10 @@ export const getNotifications = () => async (dispatch) => {
   try {
     let token = await getItem("token");
 
+    dispatch({
+      type: NotificationActions.FETCHING_NOTIFICATIONS,
+    });
+
     let { data } = await axios.get("/api/notifications", {
       headers: { Authorization: `Bearer ${token}` },
     });

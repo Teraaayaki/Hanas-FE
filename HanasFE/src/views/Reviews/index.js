@@ -68,9 +68,7 @@ const Reviews = ({ navigation }) => {
       <Header title="Reviews" showButton={true} onPress={handleBackButton} />
       <>
         {reviewData.length === 0 ? (
-          <>
-            <NoDataImage refresh={true} onPress={getReviews} />
-          </>
+          <NoDataImage refresh={true} onPress={getReviews} />
         ) : (
           <>
             <View style={styles.textContainer}>

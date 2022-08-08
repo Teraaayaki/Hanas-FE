@@ -27,8 +27,7 @@ const Item = ({ item, onPress, isWorker }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.updatedAt).format("LL")} |{" "}
-        {moment(item.updatedAt).format("LT")}
+        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -41,8 +40,7 @@ const TransactionFlatlist = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
 
   const { transactions, loading } = useSelector((state) => state.transactions);
-  const [paginatedData, handleOnEndReach, renderFooter] =
-    usePaginate(transactions);
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(transactions);
 
   const renderItem = ({ item }) => {
     return (
@@ -75,30 +73,26 @@ const TransactionFlatlist = ({ navigation }) => {
   return (
     <>
       {transactions.length === 0 ? (
-        <>
-          <NoDataImage refresh={true} onPress={handleOnPress} />
-        </>
+        <NoDataImage refresh={true} onPress={handleOnPress} />
       ) : (
-        <>
-          <FlatList
-            data={paginatedData}
-            renderItem={renderItem}
-            keyExtractor={(item) => item._id}
-            extraData={selectedId}
-            contentContainerStyle={{
-              flexGrow: 1,
-            }}
-            ListFooterComponent={renderFooter}
-            onEndReached={handleOnEndReach}
-            onEndReachedThreshold={0}
-            refreshing={refresh}
-            onRefresh={() => {
-              dispatch(getTransactions()).then(() => {
-                setRefresh(false);
-              });
-            }}
-          />
-        </>
+        <FlatList
+          data={paginatedData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+          extraData={selectedId}
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}
+          ListFooterComponent={renderFooter}
+          onEndReached={handleOnEndReach}
+          onEndReachedThreshold={0}
+          refreshing={refresh}
+          onRefresh={() => {
+            dispatch(getTransactions()).then(() => {
+              setRefresh(false);
+            });
+          }}
+        />
       )}
     </>
   );

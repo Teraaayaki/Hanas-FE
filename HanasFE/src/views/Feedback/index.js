@@ -1,20 +1,10 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  TextInput,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, ScrollView, TextInput, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { Formik } from "formik";
 import styles from "./style";
 import Header from "@components/Header";
-import {
-  addFeedback,
-  resetSuccess,
-  resetError,
-} from "@redux/actions/feedbackActions";
+import { addFeedback, resetSuccess, resetError } from "@redux/actions/feedbackActions";
 import { colors } from "@constants";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastComponent, showToast } from "@helpers/toast";
@@ -52,21 +42,19 @@ const Feedback = ({ navigation, route }) => {
     if (success) {
       showToast(
         "success",
-        "Succefully given a feedback",
+        "Successfully given a feedback",
         "Thank you for your feedback",
         () => {
           dispatch(resetSuccess());
           navigation.navigate("Calendar");
-        }
+        },
       );
     }
   }, [success]);
 
   useEffect(() => {
     if (error) {
-      showToast("error", "Something went wrong", error, () =>
-        dispatch(resetError())
-      );
+      showToast("error", "Something went wrong", error, () => dispatch(resetError()));
     }
   }, [error]);
 
@@ -89,14 +77,7 @@ const Feedback = ({ navigation, route }) => {
             initialValues={feedback_details}
             onSubmit={(values) => handleSubmit(values, rating)}
           >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
               <>
                 <Text style={styles.centeredText}>How was the work?</Text>
                 <Rating

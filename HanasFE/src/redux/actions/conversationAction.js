@@ -6,6 +6,10 @@ export const getUserConversations = () => async (dispatch) => {
   try {
     let token = await getItem("token");
 
+    dispatch({
+      type: ConversationActions.FETCHING_CONVERSATIONS,
+    });
+
     let { data } = await axios.get("/api/conversations", {
       headers: { Authorization: `Bearer ${token}` },
     });
