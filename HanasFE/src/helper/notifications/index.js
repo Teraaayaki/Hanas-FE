@@ -25,7 +25,7 @@ export const getPermissions = async () => {
   }
 
   if (Platform.OS === "android") {
-    Notifications.setNotificationsChannelAsync("default", {
+    Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.setNotifications.AndroidImportance.Max,
       vibrationPattern: [0, 250, 250, 250],
