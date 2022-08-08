@@ -111,38 +111,6 @@ const ClientBookingRequests = ({ navigation }) => {
     { key: "second", title: "Declined/Cancelled" },
   ]);
 
-  // const FirstRoute = () => (
-  //   <View style={[styles.body]}>
-  //     {console.log("First ROUTE RERENDER")}
-  //     <View style={[styles.mx3, styles.flex1]}>
-  //       {loading ? (
-  //         <ActivityIndicator size="large" color={colors.secondary} />
-  //       ) : (
-  //         <ClientBookingRequestsFlatlist
-  //           navigation={navigation}
-  //           DATA={filteredBookingData}
-  //         />
-  //       )}
-  //     </View>
-  //   </View>
-  // );
-
-  // const SecondRoute = () => (
-  //   <View style={[styles.body]}>
-  //     {console.log("SECOND ROUTE RERENDER")}
-  //     <View style={[styles.mx3, styles.flex1]}>
-  //       {loading ? (
-  //         <ActivityIndicator size="large" color={colors.secondary} />
-  //       ) : (
-  //         <ClientBookingRequestsFlatlist
-  //           navigation={navigation}
-  //           DATA={filteredDeclinedBookingData}
-  //         />
-  //       )}
-  //     </View>
-  //   </View>
-  // );
-
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
