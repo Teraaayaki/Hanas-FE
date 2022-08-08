@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
-import { Icon } from "react-native-elements";
+import { Divider, Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./style";
@@ -194,12 +194,12 @@ const ProfileView = ({ navigation, route }) => {
                       </View>
                       <View style={styles.snippetDetails}>
                         <Text style={[styles.blackText, { paddingLeft: 30 }]}>
-                          <Icon color="#FFD706" size={15} name="star" />
+                          <Icon color="#FFD706" size={15} name="star" />{" "}
                           {profileData.myServicesData[0]
                             .feedbacksAveragedData === undefined
                             ? 0
                             : profileData.myServicesData[0].feedbacksAveragedData.rating.toFixed(
-                                2
+                                1
                               )}
                           /5
                         </Text>
@@ -225,6 +225,7 @@ const ProfileView = ({ navigation, route }) => {
                         </Text>
                       </View>
                     </View>
+
                     <View style={{ marginTop: margin.m5, padding: padding.p3 }}>
                       <View>
                         <Text style={styles.boldText}>Location</Text>
@@ -247,7 +248,7 @@ const ProfileView = ({ navigation, route }) => {
                         >
                           {profileData.myServicesData[0].description}
                         </Text>
-                        <View style={styles.hr}></View>
+                        <Divider />
                       </View>
                       <View style={styles.flexedEvenly}>
                         <TouchableOpacity
@@ -269,13 +270,20 @@ const ProfileView = ({ navigation, route }) => {
                           <Text style={styles.buttonText}>BOOK</Text>
                         </TouchableOpacity>
                       </View>
+
                       <View style={styles.mtMargin}>
                         {profileData.myServicesData[0].sample_works.length >
                         0 ? (
-                          <Text style={[styles.labelText]}>
-                            Sample Works (
-                            {profileData.myServicesData[0].sample_works.length})
-                          </Text>
+                          <>
+                            <Text style={[styles.labelText]}>
+                              Sample Works (
+                              {
+                                profileData.myServicesData[0].sample_works
+                                  .length
+                              }
+                              )
+                            </Text>
+                          </>
                         ) : (
                           <View>
                             <Text style={styles.labelText}>Sample Works</Text>
@@ -287,6 +295,7 @@ const ProfileView = ({ navigation, route }) => {
                           </View>
                         )}
                       </View>
+
                       <SampleWorks
                         DATA={profileData.myServicesData[0].sample_works}
                       />
@@ -312,6 +321,7 @@ const ProfileView = ({ navigation, route }) => {
                         DATA={profileData.myServicesData[0].certificates}
                       />
                       {/* <View style={styles.flexedBetween}> */}
+
                       {profileData.myServicesData[0].feedbacksData.length >
                       0 ? (
                         <Text style={[styles.labelText]}>

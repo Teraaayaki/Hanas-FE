@@ -39,7 +39,7 @@ const filterCompletedData = (bookingDataArray) => {
   bookingDataArray.map((bookingDataItem) => {
     if (
       bookingDataItem.book_status === "Finished" &&
-      bookingDataItem.isRemovedClient != true
+      !bookingDataItem.isRemovedClient
     ) {
       filteredCompleteArrayData.push(bookingDataItem);
     }

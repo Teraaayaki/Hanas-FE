@@ -58,7 +58,7 @@ export const cancelBookingSchedule = (DATA) => async (dispatch) => {
   let token = await getItem("token");
 
   dispatch({ type: ScheduleActions.SCHEDULE_LOADING });
-
+  console.log("cancel");
   try {
     let { data } = await axios.post(
       "api/client/cancel-booking-schedule",

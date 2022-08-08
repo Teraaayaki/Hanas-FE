@@ -28,7 +28,7 @@ const filterDeclinedData = (bookingDataArray) => {
   bookingDataArray.map((bookingDataItem) => {
     if (
       bookingDataItem.book_status === "Declined" &&
-      bookingDataItem.isRemovedClient === false
+      !bookingDataItem.isRemovedClient
     ) {
       filteredDeclinedArrayData.push(bookingDataItem);
     }
@@ -44,7 +44,7 @@ const FirstRoute = memo(({ navigation, loading, data }) => {
 
   return (
     <View style={[styles.body]}>
-      {console.log("First ROUTE RERENDER")}
+      {/* {console.log("First ROUTE RERENDER")} */}
       <View style={[styles.mx3, styles.flex1]}>
         {loading ? (
           <ActivityIndicator
@@ -72,7 +72,7 @@ const SecondRoute = memo(({ navigation, loading, data }) => {
 
   return (
     <View style={[styles.body]}>
-      {console.log("SECOND ROUTE RERENDER")}
+      {/* {console.log("SECOND ROUTE RERENDER")} */}
       <View style={[styles.mx3, styles.flex1]}>
         {loading ? (
           <ActivityIndicator
@@ -143,11 +143,6 @@ const ClientBookingRequests = ({ navigation }) => {
   //   </View>
   // );
 
-  // const renderScene = SceneMap({
-  //   first: FirstRoute,
-  //   second: SecondRoute,
-  // });
-
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
@@ -203,6 +198,7 @@ const ClientBookingRequests = ({ navigation }) => {
   useEffect(() => {
     let filteredArrayData = filterBookingData(bookingData);
     let filteredDeclinedArrayData = filterDeclinedData(bookingData);
+
     if (
       JSON.stringify(filteredBookingData) !==
         JSON.stringify(filteredArrayData) ||
