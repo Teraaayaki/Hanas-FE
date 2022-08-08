@@ -6,6 +6,10 @@ export const getSchedules = () => async (dispatch) => {
   let token = await getItem("token");
 
   try {
+    dispatch({
+      type: WorkerScheduleActions.FETCHING_SCHEDULES,
+    });
+
     let { data } = await axios.get("/api/worker/accepted-bookings", {
       headers: { authorization: `Bearer ${token}` },
     });

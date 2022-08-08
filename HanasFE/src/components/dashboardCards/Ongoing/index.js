@@ -112,7 +112,7 @@ const SkilledWorkerDashboardFlatlist = ({ OngoingDATA }) => {
 
   return (
     <PinkSidedCard
-      title="Ongoing Services"
+      title="Ongoing Service"
       hideCardBtn
       content={renderOngoingBody()}
       success
