@@ -19,6 +19,7 @@ export const getPermissions = async () => {
     }
 
     const token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
     setItem("expopushtoken", token);
   } else {
     alert("Must use a physical device for Push Notifications");
@@ -27,7 +28,7 @@ export const getPermissions = async () => {
   if (Platform.OS === "android") {
     Notifications.setNotificationChannelAsync("default", {
       name: "default",
-      importance: Notifications.setNotifications.AndroidImportance.Max,
+      importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
     });

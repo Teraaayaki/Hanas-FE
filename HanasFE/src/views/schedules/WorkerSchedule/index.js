@@ -31,8 +31,11 @@ const WorkerSchedule = ({ navigation }) => {
 
   if (fetching) {
     return (
-      <View style={loadingStyle.position}>
-        <Loading title="Fetching Service Schedules..." />
+      <View style={[styles.body]}>
+        <Header title={"Schedule"} />
+        <View style={loadingStyle.position}>
+          <Loading title="Fetching Schedules..." />
+        </View>
       </View>
     );
   }
@@ -52,14 +55,6 @@ const WorkerSchedule = ({ navigation }) => {
             >
               <Text
                 style={[
-                  // styles.flex1,
-                  // styles.textRight,
-                  // styles.textSecondary,
-                  // styles.h3,
-                  // styles.bold,
-                  // styles.underline,
-                  // styles.bgBG,
-                  // styles.px3,
                   styles.flex1,
                   styles.textRight,
                   styles.textSecondary,
