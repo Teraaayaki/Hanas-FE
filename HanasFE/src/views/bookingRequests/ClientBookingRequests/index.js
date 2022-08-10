@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, memo, useContext } from "react";
 import { View, ActivityIndicator, useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./style";
-import { colors } from "@constants";
+import { colors, loadingStyle } from "@constants";
 import Header from "@components/Header";
 import ClientBookingRequestsFlatlist from "@components/flatlist/bookingRequestsFlatlists/ClientBookingRequestsFlatlist";
 import { SocketContext } from "../../../context/socketContext";
 import { getBooking } from "@redux/actions/clientBookingActions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import usePaginate from "@hooks/usePaginate";
+import NoDataImage from "@components/NoDataImage";
 
 const filterBookingData = (bookingDataArray) => {
   let filteredArrayData = [];
@@ -26,7 +28,7 @@ const filterDeclinedData = (bookingDataArray) => {
   bookingDataArray.map((bookingDataItem) => {
     if (
       bookingDataItem.book_status === "Declined" &&
-      bookingDataItem.isRemovedClient === false
+      !bookingDataItem.isRemovedClient
     ) {
       filteredDeclinedArrayData.push(bookingDataItem);
     }
@@ -34,6 +36,62 @@ const filterDeclinedData = (bookingDataArray) => {
 
   return filteredDeclinedArrayData;
 };
+
+const FirstRoute = memo(({ navigation, loading, data }) => {
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(data);
+
+  if (data.length === 0) return <NoDataImage />;
+
+  return (
+    <View style={[styles.body]}>
+      {/* {console.log("First ROUTE RERENDER")} */}
+      <View style={[styles.mx3, styles.flex1]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.secondary}
+            style={loadingStyle.position}
+          />
+        ) : (
+          <ClientBookingRequestsFlatlist
+            navigation={navigation}
+            DATA={paginatedData}
+            handleOnEndReach={handleOnEndReach}
+            renderFooter={renderFooter}
+          />
+        )}
+      </View>
+    </View>
+  );
+});
+
+const SecondRoute = memo(({ navigation, loading, data }) => {
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(data);
+
+  if (data.length === 0) return <NoDataImage />;
+
+  return (
+    <View style={[styles.body]}>
+      {/* {console.log("SECOND ROUTE RERENDER")} */}
+      <View style={[styles.mx3, styles.flex1]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.secondary}
+            style={loadingStyle.position}
+          />
+        ) : (
+          <ClientBookingRequestsFlatlist
+            navigation={navigation}
+            DATA={paginatedData}
+            handleOnEndReach={handleOnEndReach}
+            renderFooter={renderFooter}
+          />
+        )}
+      </View>
+    </View>
+  );
+});
 
 const ClientBookingRequests = ({ navigation }) => {
   const { loading, bookingData } = useSelector((state) => state.clientBooking);
@@ -53,40 +111,28 @@ const ClientBookingRequests = ({ navigation }) => {
     { key: "second", title: "Declined/Cancelled" },
   ]);
 
-  const FirstRoute = () => (
-    <View style={[styles.body]}>
-      <View style={[styles.mx3, styles.flex1]}>
-        {loading ? (
-          <ActivityIndicator size="large" color={colors.secondary} />
-        ) : (
-          <ClientBookingRequestsFlatlist
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+      case "first":
+        return (
+          <FirstRoute
+            data={filteredBookingData}
             navigation={navigation}
-            DATA={filteredBookingData}
+            loading={loading}
           />
-        )}
-      </View>
-    </View>
-  );
-
-  const SecondRoute = () => (
-    <View style={[styles.body]}>
-      <View style={[styles.mx3, styles.flex1]}>
-        {loading ? (
-          <ActivityIndicator size="large" color={colors.secondary} />
-        ) : (
-          <ClientBookingRequestsFlatlist
+        );
+      case "second":
+        return (
+          <SecondRoute
+            data={filteredDeclinedBookingData}
             navigation={navigation}
-            DATA={filteredDeclinedBookingData}
+            loading={loading}
           />
-        )}
-      </View>
-    </View>
-  );
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-  });
+        );
+      default:
+        return null;
+    }
+  };
 
   const renderTabBar = (props) => (
     <TabBar
@@ -120,6 +166,7 @@ const ClientBookingRequests = ({ navigation }) => {
   useEffect(() => {
     let filteredArrayData = filterBookingData(bookingData);
     let filteredDeclinedArrayData = filterDeclinedData(bookingData);
+
     if (
       JSON.stringify(filteredBookingData) !==
         JSON.stringify(filteredArrayData) ||

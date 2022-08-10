@@ -3,7 +3,7 @@ import { colors, margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
-
+  elevation: { elevation: 3 },
   //Unique===================================================================
   //Reusables================================================================
   temp1: {
@@ -156,7 +156,11 @@ export default StyleSheet.create({
   bgMuted25: { backgroundColor: colors.muted25 },
   bgMuted50: { backgroundColor: colors.muted50 },
   bgMuted75: { backgroundColor: colors.muted75 },
+  bgDanger: { backgroundColor: colors.danger },
   // Border Color -------------------------------
+  borderSlim: {
+    borderWidth: 0.5,
+  },
   border: {
     borderWidth: 1,
   },
@@ -179,6 +183,7 @@ export default StyleSheet.create({
   textBlack: { color: "#000" },
   textSecondary: { color: colors.secondary },
   textInfo: { color: colors.info },
+  textDanger: { color: colors.danger },
   textMuted50: { color: colors.muted50 },
   textMuted75: { color: colors.muted75 },
   //Size ----------------------------------------

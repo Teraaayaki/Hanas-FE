@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   fadedText: {
-    fontSize: fontSize.label,
+    fontSize: fontSize.h2,
     color: colors.borderGrey,
   },
   blackText: {
-    fontSize: fontSize.label,
+    fontSize: fontSize.h2,
     color: colors.black,
     fontWeight: fontWeight.bold,
   },
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   labelText: {
-    fontSize: fontSize.label,
-    color: "#433E3E",
+    fontSize: fontSize.h2,
+    color: colors.black,
     fontWeight: fontWeight.bold,
   },
   fadeText: {

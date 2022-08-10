@@ -13,6 +13,7 @@ import NoDataImage from "@components/NoDataImage";
 import Loading from "@components/Loading";
 import styles from "./style";
 import style from "./style";
+import usePaginate from "@hooks/usePaginate";
 
 const Item = ({ item, onPress, backgroundColor, textColorW }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -22,7 +23,9 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
           {item.description}
         </Text>
 
-        <Text style={styles.time_elapsed}>{moment(item.createdAt).fromNow()}</Text>
+        <Text style={styles.time_elapsed}>
+          {moment(item.createdAt).fromNow()}
+        </Text>
       </View>
 
       <View style={styles.viewButtonContainerFlex}>
@@ -34,7 +37,8 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.createdAt).format("LL")} | {moment(item.createdAt).format("LT")}
+        {moment(item.createdAt).format("LL")} |{" "}
+        {moment(item.createdAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -44,7 +48,11 @@ const NotificationFlatlist = ({ navigation }) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(null);
   const { socket } = useContext(SocketContext);
-  const { notifications, fetching } = useSelector((state) => state.notifications);
+  const { notifications, fetching } = useSelector(
+    (state) => state.notifications
+  );
+  const [paginatedData, handleOnEndReach, renderFooter] =
+    usePaginate(notifications);
 
   useEffect(() => {
     dispatch(getNotifications());
@@ -82,13 +90,16 @@ const NotificationFlatlist = ({ navigation }) => {
     <>
       {notifications?.length > 0 ? (
         <FlatList
-          data={notifications}
+          data={paginatedData}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
           extraData={selectedId}
           contentContainerStyle={{
             flexGrow: 1,
           }}
+          onEndReached={handleOnEndReach}
+          onEndReachedThreshold={0}
+          ListFooterComponent={renderFooter()}
         />
       ) : (
         <NoDataImage

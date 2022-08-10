@@ -4,24 +4,7 @@ import { Icon } from "react-native-elements";
 
 import CircularProfileImage from "@components/CircularProfileImage";
 import styles from "./style";
-
-const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
-  const renderItem = ({ item }) => {
-    let items = { ...item, serviceName };
-    return <Item item={items} />;
-  };
-
-  return (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item._id}
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
-    />
-  );
-};
+import usePaginate from "@custom-hooks/usePaginate";
 
 const Item = ({ item }) => (
   <TouchableOpacity style={[styles.item]}>
@@ -55,5 +38,28 @@ const Item = ({ item }) => (
     </View>
   </TouchableOpacity>
 );
+
+const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(data, 5);
+
+  const renderItem = ({ item }) => {
+    let items = { ...item, serviceName };
+    return <Item item={items} />;
+  };
+
+  return (
+    <FlatList
+      data={paginatedData}
+      renderItem={renderItem}
+      keyExtractor={(item) => item._id}
+      contentContainerStyle={{
+        flexGrow: 1,
+      }}
+      onEndReached={handleOnEndReach}
+      onEndReachedThreshold={0}
+      ListFooterComponent={renderFooter()}
+    />
+  );
+};
 
 export default WorkerProfileReviewsFlatlist;

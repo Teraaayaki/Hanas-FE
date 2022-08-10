@@ -22,12 +22,12 @@ const ProfileClient = ({ navigation }) => {
   // ROUTE TO SET LOCATION
   const editLocation = () => {
     Alert(
+      () => navigation.navigate("SetLocation", { nextPage: "ProfileClient" }),
       "Hold on!",
       "You are about to change your address. Continue?",
       "Cancel",
       "YES",
-      () => null,
-      () => navigation.navigate("SetLocation", { nextPage: "ProfileClient" })
+      () => null
     );
   };
 
