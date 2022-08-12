@@ -1,6 +1,7 @@
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import axios from "@helpers/axios";
+import { getItem } from "@helpers/asyncStorage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -11,28 +12,41 @@ Notifications.setNotificationHandler({
 });
 
 export const getPermissions = async () => {
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-
-    if (finalStatus !== "granted") {
-      alert(
-        "Enable push notifications for the best experience while using the app."
-      );
-      return;
-    }
-
-    const token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-
-    // Save to user database logic
-  } else {
+  if (!Device.isDevice) {
     alert("Must use a physical device for Push Notifications");
+  }
+
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  let finalStatus = existingStatus;
+  if (existingStatus !== "granted") {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
+  }
+
+  console.log(finalStatus);
+
+  if (finalStatus === "granted") {
+    // Save to user database logic
+    try {
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+
+      const jwt = await getItem("token");
+
+      await axios.post(
+        "/api/notifications/",
+        { token },
+        { headers: { Authorization: `Bearer ${jwt}` } }
+      );
+
+      return;
+    } catch (err) {
+      console.log(err);
+    }
+
+    alert(
+      "Enable push notifications for the best experience while using the app."
+    );
+    return;
   }
 
   if (Platform.OS === "android") {

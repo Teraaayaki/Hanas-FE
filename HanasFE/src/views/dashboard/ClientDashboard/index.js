@@ -20,6 +20,8 @@ import services from "@helpers/services";
 import LocationBar from "@components/LocationBar";
 import LocationModal from "@components/LocationModal";
 import NoWorkerGraphic from "@components/NoWorkerGraphic";
+import { getPermissions } from "@helpers/notifications";
+import { getImagePermissions } from "@utils/imageUtils";
 
 const ClientDashboard = ({ navigation }) => {
   // SWR
@@ -59,6 +61,9 @@ const ClientDashboard = ({ navigation }) => {
 
     //set the new data
     setTopRatedServices([...filteredServices]);
+
+    getPermissions();
+    getImagePermissions();
   }, []);
 
   useEffect(() => {

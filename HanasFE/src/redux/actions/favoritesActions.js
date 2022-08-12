@@ -2,8 +2,6 @@ import { FavoritesActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
-import { sendNotification } from "@helpers/notifications";
-
 export const resetError = () => (dispatch) => {
   dispatch({
     type: FavoritesActions.CLIENT_FAVORITES_RESET,
@@ -40,12 +38,6 @@ export const addToFavorites = (DATA) => async (dispatch) => {
         {
           headers: { Authorization: `Bearer ${token}` },
         }
-      );
-
-      await sendNotification(
-        "ExponentPushToken[K_A54HJwEBd3wnaWJryslV]",
-        "Good job!",
-        "A client has added you to their favorites"
       );
 
       if (favoritesDATA) {
