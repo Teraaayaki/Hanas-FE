@@ -119,19 +119,6 @@ const GetVerified = ({ navigation }) => {
     }
   };
 
-  // HANDLE PERMISSIONS AND GET TOKEN
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Permission Denied, Cannot add a service");
-        }
-      }
-    })();
-  }, []);
-
   return (
     <View styles={styles.container}>
       <ScrollView>

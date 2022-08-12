@@ -164,30 +164,13 @@ const EditAccount = ({ navigation }) => {
   // CHECK IF CLIENT OR WORKER
   useEffect(async () => {
     const isWorkerToken = JSON.parse(await getItem("is_worker"));
-
+    const fetchedToken = await getItem("token");
+    setToken(fetchedToken);
     if (isWorkerToken) {
       setPrevPage("Profile");
     } else {
       setPrevPage("ProfileClient");
     }
-  }, []);
-
-  // HANDLE PERMISSIONS AND GET TOKEN
-  useEffect(() => {
-    (async () => {
-      const fetchedToken = await getItem("token");
-      setToken(fetchedToken);
-    })();
-
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Permission Denied, Cannot add a service");
-        }
-      }
-    })();
   }, []);
 
   // HANDLES SUCCESS

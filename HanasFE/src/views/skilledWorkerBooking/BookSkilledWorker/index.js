@@ -460,7 +460,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
 
   return (
     <View style={{ flex: 1, flexDirection: "column" }}>
-      <Header title={"Book Skilled Worker (Single Day)"} />
+      <Header title={"Book (Single Day)"} />
       <View style={[styles.body]}>
         <ScrollView style={[styles.h100, styles.w100]}>
           <View style={[styles.m3, styles.pt3, styles.flex1]}>

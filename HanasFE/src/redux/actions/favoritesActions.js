@@ -2,6 +2,8 @@ import { FavoritesActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
+import { sendNotification } from "@helpers/notifications";
+
 export const resetError = () => (dispatch) => {
   dispatch({
     type: FavoritesActions.CLIENT_FAVORITES_RESET,
@@ -40,6 +42,12 @@ export const addToFavorites = (DATA) => async (dispatch) => {
         }
       );
 
+      await sendNotification(
+        "ExponentPushToken[K_A54HJwEBd3wnaWJryslV]",
+        "Good job!",
+        "A client has added you to their favorites"
+      );
+
       if (favoritesDATA) {
         dispatch({
           type: FavoritesActions.CLIENT_FAVORITES_DETAILS,
@@ -50,6 +58,7 @@ export const addToFavorites = (DATA) => async (dispatch) => {
       }
     }
   } catch (err) {
+    console.log(err);
     let error = err.response.data ? err.response.data : err;
     dispatch({
       type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR,

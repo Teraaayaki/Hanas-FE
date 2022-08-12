@@ -14,6 +14,8 @@ import {
   getOverview,
   getUpcomingServices,
 } from "../../../redux/actions/workerDashboardActions";
+import { getPermissions } from "@helpers/notifications";
+import { getImagePermissions } from "@utils/imageUtils";
 
 //Achievements----------------------------------------
 const InitialAchievementsData = {
@@ -31,11 +33,11 @@ const WorkerDashboard = ({ navigation }) => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.transactions);
   const { overview, upcomingServices, ongoingService } = useSelector(
-    (state) => state.workerDashboard,
+    (state) => state.workerDashboard
   );
 
   const [achievementsCardData, setAchievementsCardData] = useState(
-    InitialAchievementsData,
+    InitialAchievementsData
   );
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
@@ -46,12 +48,15 @@ const WorkerDashboard = ({ navigation }) => {
     dispatch(getOverview());
     dispatch(getUpcomingServices());
     dispatch(getOngoingService());
+
+    getPermissions();
+    getImagePermissions();
   }, []);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
     const { goal } = filteredAchievementsData.find(
-      (filteredAchievement) => filteredAchievement.claimed === false,
+      (filteredAchievement) => filteredAchievement.claimed === false
     );
     const totalEarned = getTotalEarnings(transactions);
     setAchievementsCardData({ goal, completion: totalEarned });

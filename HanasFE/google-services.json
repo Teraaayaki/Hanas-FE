@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "679256907776",
+    "project_id": "hanas-fcm",
+    "storage_bucket": "hanas-fcm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679256907776:android:f14e7953140ef53ba9f8e5",
+        "android_client_info": {
+          "package_name": "com.hanas.hanasApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679256907776-pd90pr2ng6p56bess5l7il8j1pkrevj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLqAfgFHh-7sS8kLqAV1SaB30j4g61x_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679256907776-pd90pr2ng6p56bess5l7il8j1pkrevj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
