@@ -240,18 +240,6 @@ const AddService = ({ navigation }) => {
   }, [handleBackHandler]);
 
   useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Permission Denied, Cannot add a service");
-        }
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
     if (sampleWorkImg.length === 0 && certificateImg.length === 0) {
       setHandleBackHandler(false);
       setBackErrorMsg(false);

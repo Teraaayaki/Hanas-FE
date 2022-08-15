@@ -1,7 +1,26 @@
 import * as ImagePicker from "expo-image-picker";
 import { getItem } from "@helpers/asyncStorage";
 
+export const getImagePermissions = async () => {
+  if (Platform.OS === "web") {
+    return;
+  }
+
+  let { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+  if (status !== "granted") {
+    // alert("Permission Denied, Cannot add images");
+    return false;
+  } else {
+    return true;
+  }
+};
+
 export const pickImage = async () => {
+  const granted = await getImagePermissions();
+
+  if (!granted) return { cancelled: true };
+
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     quality: 0.5,

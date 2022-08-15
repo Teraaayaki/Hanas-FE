@@ -158,13 +158,6 @@ const Reports = () => {
     (async () => {
       const fetchedToken = await getItem("token");
       setToken(fetchedToken);
-      if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Permission Denied, Cannot add a service");
-        }
-      }
     })();
   }, []);
 

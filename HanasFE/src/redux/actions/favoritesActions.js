@@ -50,6 +50,7 @@ export const addToFavorites = (DATA) => async (dispatch) => {
       }
     }
   } catch (err) {
+    console.log(err);
     let error = err.response.data ? err.response.data : err;
     dispatch({
       type: FavoritesActions.CLIENT_FAVORITES_ADDED_ERROR,
