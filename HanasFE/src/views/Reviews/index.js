@@ -10,11 +10,13 @@ import Header from "@components/Header";
 import ReviewsFlatlist from "@components/flatlist/ReviewsFlatlist";
 import { loadingStyle } from "@constants";
 import styles from "./style";
+import useIsWorker from "@hooks/useIsWorker";
 
 const Reviews = ({ navigation }) => {
   const [reviewData, setReviewData] = useState([]);
   const [overallRating, setOverallRating] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [prevPage, setPrevPage, handleBackButton] = useIsWorker();
 
   const getReviews = async () => {
     setLoading(true);
@@ -54,7 +56,7 @@ const Reviews = ({ navigation }) => {
   if (loading)
     return (
       <View style={styles.container}>
-        <Header title="Reviews" />
+        <Header title="Reviews" showButton={true} onPress={handleBackButton} />
         <View style={loadingStyle.position}>
           <Loading title="Fetching Reviews" />
         </View>
@@ -63,12 +65,10 @@ const Reviews = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header title="Reviews" />
+      <Header title="Reviews" showButton={true} onPress={handleBackButton} />
       <>
         {reviewData.length === 0 ? (
-          <>
-            <NoDataImage refresh={true} onPress={getReviews} />
-          </>
+          <NoDataImage refresh={true} onPress={getReviews} />
         ) : (
           <>
             <View style={styles.textContainer}>

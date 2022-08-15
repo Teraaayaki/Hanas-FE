@@ -2,6 +2,10 @@ import { WorkerBookingActions } from "./types";
 import axios from "@axios";
 import { getItem } from "@helpers/asyncStorage";
 
+export const resetStatus = () => async (dispatch) => {
+  dispatch({ type: WorkerBookingActions.RESET_STATUS });
+};
+
 export const getBookingRequests = () => async (dispatch) => {
   let token = await getItem("token");
 
@@ -31,7 +35,7 @@ export const acceptBookingRequest = (bookingID) => async (dispatch) => {
 
     dispatch({
       type: WorkerBookingActions.REMOVE_BOOKING_REQUEST,
-      payload: bookingID,
+      payload: { bookingID, status: "Successfully accepted booking request." },
     });
   } catch (err) {
     console.log(err);
@@ -50,7 +54,7 @@ export const declineBookingRequest = (bookingID) => async (dispatch) => {
 
     dispatch({
       type: WorkerBookingActions.REMOVE_BOOKING_REQUEST,
-      payload: bookingID,
+      payload: { bookingID, status: "Successfully declined booking request." },
     });
   } catch (err) {
     console.log(err);

@@ -47,11 +47,13 @@ export default StyleSheet.create({
     borderTopEndRadius: 100,
     borderBottomEndRadius: 100,
   },
-
+  headerElevation: { elevation: 1 },
   absolute: {
     position: "absolute",
   },
-
+  relative: {
+    position: "relative",
+  },
   square: {
     aspectRatio: 1,
   },
@@ -163,6 +165,9 @@ export default StyleSheet.create({
   // Border Color -------------------------------
   border: {
     borderWidth: 1,
+  },
+  borderSlim: {
+    borderWidth: 0.5,
   },
   borderTop: {
     borderTopWidth: 1,

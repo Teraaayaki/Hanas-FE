@@ -244,17 +244,8 @@ const EditService = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    console.log("Edit Service: ", service_id);
+    // console.log("Edit Service: ", service_id);
     getServiceData();
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Permission Denied, Cannot add a service");
-        }
-      }
-    })();
   }, []);
 
   useEffect(() => {

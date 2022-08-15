@@ -61,6 +61,7 @@ const margin = {
   m5: "5%",
   m6: "6%",
   m10: "10%",
+  m15: "15%",
 };
 
 const fontSize = {

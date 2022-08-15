@@ -6,6 +6,9 @@ export default StyleSheet.create({
   completion: {
     position: "absolute",
   },
+  borderSlim: {
+    borderWidth: 0.5,
+  },
   //Unique===================================================================
   //Reusables================================================================
   temp1: {
@@ -386,6 +389,9 @@ export default StyleSheet.create({
   },
   mt5: {
     marginTop: margin.m5,
+  },
+  mt15: {
+    marginTop: margin.m15,
   },
   //Margin Bottom -------------------------------
   mb1: {

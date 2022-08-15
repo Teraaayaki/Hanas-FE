@@ -31,6 +31,7 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        backBehavior: "history",
         tabBarShowLabel: false,
         tabBarStyle: {
           height: "8%",

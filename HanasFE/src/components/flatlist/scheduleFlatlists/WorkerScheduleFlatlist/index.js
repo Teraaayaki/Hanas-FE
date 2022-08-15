@@ -17,7 +17,9 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
 
   const renderCard = ({ item }) => {
     return (
-      <View style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}>
+      <View
+        style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
+      >
         <View style={[styles.flex1, styles.pl3]}>
           <View style={[styles.flex1, styles.flexRow, styles.mb2]}>
             <Text style={[styles.flex1, styles.mx1, styles.h3, styles.bold]}>
@@ -43,13 +45,22 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
               {item.client.address}
             </Text>
           </View>
-          <View style={[styles.flex1, styles.flexRow, styles.mt2, styles.alignCenter]}>
+          <View
+            style={[
+              styles.flex1,
+              styles.flexRow,
+              styles.mt2,
+              styles.alignCenter,
+            ]}
+          >
             <Icon
               name="calendar-clock"
               type="material-community"
               color={colors.secondary}
             />
-            <Text style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}>
+            <Text
+              style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
+            >
               {moment(item.booked_dateTimeStart).format("LT")} -
               {moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
@@ -71,7 +82,9 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
       date = moment(item.booked_dateTimeStart).format("LL");
       return (
         <View style={[styles.flex1, styles.mt2]}>
-          <PinkSidedCardHeader title={moment(item.booked_dateTimeStart).format("LL")} />
+          <PinkSidedCardHeader
+            title={moment(item.booked_dateTimeStart).format("LL")}
+          />
         </View>
       );
     }

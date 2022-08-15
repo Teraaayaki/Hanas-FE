@@ -9,6 +9,7 @@ import NoDataImage from "@components/NoDataImage";
 import { getTransactions } from "@redux/actions/transactionActions";
 import usePaginate from "@custom-hooks/usePaginate";
 import { loadingStyle } from "@constants";
+import currencyFormat from "@utils/currencyFormat";
 
 const Item = ({ item, onPress, isWorker }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -19,7 +20,9 @@ const Item = ({ item, onPress, isWorker }) => (
           : `Payment Sent to ${item.worker?.first_name} ${item.worker?.family_name} ${item.worker?.suffix}`}
       </Text>
       <View style={styles.viewButtonContainerFlex}>
-        <Text style={styles.boldText}>Php {item.total_cost}</Text>
+        <Text style={styles.boldText}>
+          Php {currencyFormat(item.total_cost)}
+        </Text>
         <TouchableOpacity onPress={onPress}>
           <Text style={styles.viewText} onPress={onPress}>
             View
@@ -75,30 +78,26 @@ const TransactionFlatlist = ({ navigation }) => {
   return (
     <>
       {transactions.length === 0 ? (
-        <>
-          <NoDataImage refresh={true} onPress={handleOnPress} />
-        </>
+        <NoDataImage refresh={true} onPress={handleOnPress} />
       ) : (
-        <>
-          <FlatList
-            data={paginatedData}
-            renderItem={renderItem}
-            keyExtractor={(item) => item._id}
-            extraData={selectedId}
-            contentContainerStyle={{
-              flexGrow: 1,
-            }}
-            ListFooterComponent={renderFooter}
-            onEndReached={handleOnEndReach}
-            onEndReachedThreshold={0}
-            refreshing={refresh}
-            onRefresh={() => {
-              dispatch(getTransactions()).then(() => {
-                setRefresh(false);
-              });
-            }}
-          />
-        </>
+        <FlatList
+          data={paginatedData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+          extraData={selectedId}
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}
+          ListFooterComponent={renderFooter}
+          onEndReached={handleOnEndReach}
+          onEndReachedThreshold={0}
+          refreshing={refresh}
+          onRefresh={() => {
+            dispatch(getTransactions()).then(() => {
+              setRefresh(false);
+            });
+          }}
+        />
       )}
     </>
   );

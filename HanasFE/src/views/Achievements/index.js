@@ -9,18 +9,23 @@ import styles from "./style";
 import AchievementsDATA from "@helpers/achievements";
 import getTotalEarnings from "@utils/getTotalEarnings";
 
-const totalEarnings = 16000;
-const paymentOverdue = false;
-
 const Achievements = ({ navigation }) => {
   const { transactions } = useSelector((state) => state.transactions);
   const [totalEarned, setTotalEarned] = useState(0);
+  const [paymentOverdue, setPaymentOverdue] = useState(false);
   const [achievementsDATA, setAchievementsData] = useState(AchievementsDATA());
+
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
+  const { data: fetchedConvFeeData } = useSWR(`api/worker/get-conv-fee`);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
     setAchievementsData([...filteredAchievementsData]);
+  };
+
+  const checkPaymentOverdue = () => {
+    fetchedConvFeeData?.convFeeData?.status === "OVERDUE" &&
+      setPaymentOverdue(true);
   };
 
   useEffect(() => {
@@ -31,6 +36,10 @@ const Achievements = ({ navigation }) => {
   useEffect(() => {
     claimedData();
   }, [fetchedClaimedData]);
+
+  useEffect(() => {
+    checkPaymentOverdue();
+  }, [fetchedConvFeeData]);
 
   return (
     <View style={[styles.body]}>

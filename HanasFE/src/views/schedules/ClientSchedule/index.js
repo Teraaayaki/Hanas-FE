@@ -1,11 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  memo,
+  useCallback,
+} from "react";
 import {
   View,
   Text,
   ActivityIndicator,
   useWindowDimensions,
 } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 
 import Header from "@components/Header";
@@ -14,8 +20,9 @@ import styles from "./style";
 import { colors } from "@constants";
 import { SocketContext } from "../../../context/socketContext";
 import { getBooking } from "@redux/actions/clientBookingActions";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { TabView, TabBar } from "react-native-tab-view";
 import usePaginate from "@custom-hooks/usePaginate";
+import NoDataImage from "@components/NoDataImage";
 
 const filterBookingData = (bookingDataArray) => {
   let filteredArrayData = [];
@@ -32,7 +39,7 @@ const filterCompletedData = (bookingDataArray) => {
   bookingDataArray.map((bookingDataItem) => {
     if (
       bookingDataItem.book_status === "Finished" &&
-      bookingDataItem.isRemovedClient != true
+      !bookingDataItem.isRemovedClient
     ) {
       filteredCompleteArrayData.push(bookingDataItem);
     }
@@ -50,6 +57,145 @@ const filterOngoingData = (bookingDataArray) => {
   return filteredOngoingArrayData;
 };
 
+const FirstRoute = memo(({ navigation, data, loading }) => {
+  const [paginatedBookingData, handleOnEndReachBooking, renderBookingFooter] =
+    usePaginate(data);
+
+  if (data.length === 0) return <NoDataImage />;
+
+  return (
+    <View style={[styles.body]}>
+      {/* {console.log("ACCEPTED TAB RERENDERED")} */}
+      <View style={[styles.mx3, styles.flex1]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.secondary}
+            style={[styles.flex1]}
+          />
+        ) : (
+          <ClientScheduleFlatlist
+            navigation={navigation}
+            DATA={paginatedBookingData}
+            renderFooter={renderBookingFooter}
+            handleOnEndReach={handleOnEndReachBooking}
+          />
+        )}
+      </View>
+    </View>
+  );
+});
+
+const SecondRoute = memo(({ navigation, data, loading }) => {
+  const [paginatedOngoingData, handleOnEndReachOngoing, renderOngoingFooter] =
+    usePaginate(data);
+
+  if (data.length === 0) return <NoDataImage />;
+
+  return (
+    <View style={[styles.body]}>
+      {/* {console.log("ONGOING TAB RERENDERED")} */}
+      <View style={[styles.mx3, styles.flex1]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.secondary}
+            style={[styles.flex1]}
+          />
+        ) : (
+          <ClientScheduleFlatlist
+            navigation={navigation}
+            DATA={paginatedOngoingData}
+            renderFooter={renderOngoingFooter}
+            handleOnEndReach={handleOnEndReachOngoing}
+          />
+        )}
+      </View>
+    </View>
+  );
+});
+
+const ThirdRoute = memo(({ navigation, data, loading }) => {
+  const [
+    paginatedCompletedData,
+    handleOnEndReachCompleted,
+    renderCompletedFooter,
+  ] = usePaginate(data);
+
+  if (data.length === 0) return <NoDataImage />;
+
+  return (
+    <View style={[styles.body]}>
+      {/* {console.log("COMPLETED TAB RERENDERED")} */}
+      <View style={[styles.mx3, styles.flex1]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.secondary}
+            style={[styles.flex1]}
+          />
+        ) : (
+          <ClientScheduleFlatlist
+            navigation={navigation}
+            DATA={paginatedCompletedData}
+            renderFooter={renderCompletedFooter}
+            handleOnEndReach={handleOnEndReachCompleted}
+          />
+        )}
+      </View>
+    </View>
+  );
+});
+
+const renderTabBar = (props) => (
+  <TabBar
+    {...props}
+    indicatorStyle={{ backgroundColor: "white" }}
+    style={{ backgroundColor: colors.secondary }}
+  />
+);
+
+const FloatingHeader = memo(({ bookingData, navigation }) => (
+  <View
+    style={[
+      styles.flexRow,
+      styles.absolute,
+      styles.px5,
+      styles.py3,
+      { marginTop: "30%" },
+    ]}
+  >
+    {/* {console.log("Floating header")} */}
+    <View style={[styles.flex1, styles.relative]} />
+    <TouchableOpacity
+      onPress={() => navigation.navigate("ClientBookingRequests")}
+    >
+      <Text
+        style={[
+          styles.flex1,
+          styles.textRight,
+          styles.textSecondary,
+          styles.h3,
+          styles.bold,
+          styles.underline,
+          styles.bgBG,
+          styles.py3,
+          styles.px3,
+          styles.rounded,
+          styles.borderMuted20,
+          styles.borderSlim,
+        ]}
+      >
+        {"Booking Requests(" +
+          bookingData.filter(
+            (bookingData) => bookingData.book_status === "Pending"
+          ).length +
+          ")"}
+      </Text>
+    </TouchableOpacity>
+  </View>
+));
+
 const ClientSchedule = ({ navigation }) => {
   const { bookingData, loading } = useSelector((state) => state.clientBooking);
   const { user } = useSelector((state) => state.userDetails);
@@ -64,16 +210,6 @@ const ClientSchedule = ({ navigation }) => {
     []
   );
 
-  const [paginatedBookingData, handleOnEndReachBooking, renderBookingFooter] =
-    usePaginate(filteredBookingData);
-  const [
-    paginatedCompletedData,
-    handleOnEndReachCompleted,
-    renderCompletedFooter,
-  ] = usePaginate(filteredCompleteBookingData);
-  const [paginatedOngoingData, handleOnEndReachOngoing, renderOngoingFooter] =
-    usePaginate(filteredOngoingBookingData);
-
   const layout = useWindowDimensions();
 
   const [index, setIndex] = useState(0);
@@ -83,165 +219,7 @@ const ClientSchedule = ({ navigation }) => {
     { key: "third", title: "Completed" },
   ]);
 
-  const FirstRoute = () => (
-    <FlatList
-      ListFooterComponent={
-        <View style={[styles.body]}>
-          <View style={[styles.mx3, styles.flex1]}>
-            {loading ? (
-              <ActivityIndicator size="large" color={colors.secondary} />
-            ) : (
-              <ClientScheduleFlatlist
-                navigation={navigation}
-                DATA={paginatedBookingData}
-                renderFooter={renderBookingFooter}
-                handleOnEndReach={handleOnEndReachBooking}
-              />
-            )}
-            <View
-              style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
-            >
-              <View style={[styles.flex1]} />
-              <TouchableOpacity
-                onPress={() => navigation.navigate("ClientBookingRequests")}
-              >
-                <Text
-                  style={[
-                    styles.flex1,
-                    styles.textRight,
-                    styles.textSecondary,
-                    styles.h3,
-                    styles.bold,
-                    styles.underline,
-                    styles.bgBG,
-                    styles.px3,
-                  ]}
-                >
-                  {"Booking Requests(" +
-                    bookingData.filter(
-                      (bookingData) => bookingData.book_status === "Pending"
-                    ).length +
-                    ")"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      }
-    />
-  );
-
-  const SecondRoute = () => (
-    <FlatList
-      ListFooterComponent={
-        <View style={[styles.body]}>
-          <View style={[styles.mx3, styles.flex1]}>
-            {loading ? (
-              <ActivityIndicator size="large" color={colors.secondary} />
-            ) : (
-              <ClientScheduleFlatlist
-                navigation={navigation}
-                DATA={paginatedOngoingData}
-                renderFooter={renderOngoingFooter}
-                handleOnEndReach={handleOnEndReachOngoing}
-              />
-            )}
-            <View
-              style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
-            >
-              <View style={[styles.flex1]} />
-              <TouchableOpacity
-                onPress={() => navigation.navigate("ClientBookingRequests")}
-              >
-                <Text
-                  style={[
-                    styles.flex1,
-                    styles.textRight,
-                    styles.textSecondary,
-                    styles.h3,
-                    styles.bold,
-                    styles.underline,
-                    styles.bgBG,
-                    styles.px3,
-                  ]}
-                >
-                  {"Booking Requests(" +
-                    bookingData.filter(
-                      (bookingData) => bookingData.book_status === "Pending"
-                    ).length +
-                    ")"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      }
-    />
-  );
-
-  const ThirdRoute = () => (
-    <FlatList
-      ListFooterComponent={
-        <View style={[styles.body]}>
-          <View style={[styles.mx3, styles.flex1]}>
-            {loading ? (
-              <ActivityIndicator size="large" color={colors.secondary} />
-            ) : (
-              <ClientScheduleFlatlist
-                navigation={navigation}
-                DATA={paginatedCompletedData}
-                renderFooter={renderCompletedFooter}
-                handleOnEndReach={handleOnEndReachCompleted}
-              />
-            )}
-            <View
-              style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
-            >
-              <View style={[styles.flex1]} />
-              <TouchableOpacity
-                onPress={() => navigation.navigate("ClientBookingRequests")}
-              >
-                <Text
-                  style={[
-                    styles.flex1,
-                    styles.textRight,
-                    styles.textSecondary,
-                    styles.h3,
-                    styles.bold,
-                    styles.underline,
-                    styles.bgBG,
-                    styles.px3,
-                  ]}
-                >
-                  {"Booking Requests(" +
-                    bookingData.filter(
-                      (bookingData) => bookingData.book_status === "Pending"
-                    ).length +
-                    ")"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      }
-    />
-  );
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-  });
-
-  const renderTabBar = (props) => (
-    <TabBar
-      {...props}
-      indicatorStyle={{ backgroundColor: "white" }}
-      style={{ backgroundColor: colors.secondary }}
-    />
-  );
-
-  useEffect(() => {
+  const filterAllData = () => {
     let filteredArrayData = filterBookingData(bookingData);
     let filteredCompleteArrayData = filterCompletedData(bookingData);
     let filteredOngoingArrayData = filterOngoingData(bookingData);
@@ -257,6 +235,47 @@ const ClientSchedule = ({ navigation }) => {
       setFilteredCompleteBookingData([...filteredCompleteArrayData]);
       setFilteredOngoingBookingData([...filteredOngoingArrayData]);
     }
+  };
+
+  // const renderScene = SceneMap({
+  //   first: FirstRoute,
+  //   second: SecondRoute,
+  //   third: ThirdRoute,
+  // });
+
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+      case "first":
+        return (
+          <FirstRoute
+            data={filteredBookingData}
+            navigation={navigation}
+            loading={loading}
+          />
+        );
+      case "second":
+        return (
+          <SecondRoute
+            data={filteredOngoingBookingData}
+            navigation={navigation}
+            loading={loading}
+          />
+        );
+      case "third":
+        return (
+          <ThirdRoute
+            data={filteredCompleteBookingData}
+            navigation={navigation}
+            loading={loading}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  useEffect(() => {
+    filterAllData();
   }, [bookingData]);
 
   useEffect(() => {
@@ -282,6 +301,7 @@ const ClientSchedule = ({ navigation }) => {
   return (
     <>
       <Header title={"Schedule"} />
+      {/* {console.log("Rerendering SCHDEULE")} */}
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -289,6 +309,7 @@ const ClientSchedule = ({ navigation }) => {
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
       />
+      <FloatingHeader bookingData={bookingData} navigation={navigation} />
     </>
   );
 };
