@@ -3,6 +3,10 @@ import { colors, margin, fontSize, padding, fontWeight } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
+  flexedButton: {
+    flex: 1,
+    paddingHorizontal: padding.p5,
+  },
   serviceName: {
     fontSize: 24,
   },

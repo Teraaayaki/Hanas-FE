@@ -5,6 +5,7 @@ import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import moment from "moment";
 
+import Alert from "@helpers/alert";
 import styles from "./styles";
 import Button from "@components/Button";
 import PinkSidedCard from "@components/card/PinkSidedCard";
@@ -28,6 +29,17 @@ const SkilledWorkerDashboardFlatlist = ({
   ConvenienceFeeDATA,
 }) => {
   const dispatch = useDispatch();
+
+  const startServiceAlert = (item) => {
+    Alert(
+      () => dispatch(startService(item._id)),
+      "Hold on!",
+      "Are you sure you want to start the service?",
+      "Cancel",
+      "YES",
+      () => null
+    );
+  };
 
   const [hideCard, setHideCard] = useState(false);
 
@@ -73,20 +85,10 @@ const SkilledWorkerDashboardFlatlist = ({
 
     const footerMessage = (item) => {
       return (
-        <View
-          style={[
-            styles.w100,
-            styles.flex1,
-            styles.mx5,
-            styles.flexRow,
-            styles.justifyContentCenter,
-            styles.pt1,
-            styles.mt1,
-          ]}
-        >
+        <View style={styles.flexedButton}>
           <Button
             title="Start Service"
-            onPress={() => dispatch(startService(item._id))}
+            onPress={() => startServiceAlert(item)}
           />
         </View>
       );
@@ -95,16 +97,7 @@ const SkilledWorkerDashboardFlatlist = ({
     const renderItem = ({ item }) => {
       return (
         <View style={[styles.w100, styles.flex1, styles.mr5]}>
-          <View
-            style={[
-              styles.w100,
-              styles.flexRow,
-              styles.alignCenter,
-              styles.justifyContentSpaceBetween,
-              styles.mr5,
-              styles.mb5,
-            ]}
-          >
+          <View style={[styles.w100, styles.mr5, styles.mb5]}>
             <Text style={[styles.h2, styles.bold]}>
               {item.service_availed.service.service_type} Service
             </Text>
@@ -146,9 +139,7 @@ const SkilledWorkerDashboardFlatlist = ({
             ]}
           >
             <Icon name="location-sharp" type="ionicon" size={18} />
-            <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
-              {item.client.address}
-            </Text>
+            <Text style={[styles.h4, styles.ml1]}>{item.client.address}</Text>
           </View>
         </View>
       );

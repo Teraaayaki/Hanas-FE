@@ -5,14 +5,27 @@ import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import moment from "moment";
 
+import Alert from "@helpers/alert";
 import styles from "./style";
 import Button from "@components/Button";
 import PinkSidedCard from "@components/card/PinkSidedCard";
 import { serviceImage } from "../../../helper/serviceImage";
 import { serviceFinished } from "../../../redux/actions/workerDashboardActions";
+import style from "./style";
 
 const SkilledWorkerDashboardFlatlist = ({ OngoingDATA }) => {
   const dispatch = useDispatch();
+
+  const finishService = () => {
+    Alert(
+      () => dispatch(serviceFinished(OngoingDATA?._id)),
+      "Hold on!",
+      "Are you sure you want to end the service?",
+      "Cancel",
+      "YES",
+      () => null
+    );
+  };
 
   const renderOngoingBody = () => {
     return (
@@ -23,11 +36,15 @@ const SkilledWorkerDashboardFlatlist = ({ OngoingDATA }) => {
             <View style={[styles.flex1, styles.w100, styles.flexRow]}>
               {/* Body Left */}
               <View
-                style={[styles.ml3, styles.justifyContentCenter, styles.alignCenter]}
+                style={[
+                  styles.ml3,
+                  styles.justifyContentCenter,
+                  styles.alignCenter,
+                ]}
               >
                 <CircularImage
                   imageSource={serviceImage(
-                    OngoingDATA.service_availed.service.service_type,
+                    OngoingDATA.service_availed.service.service_type
                   )}
                 />
               </View>
@@ -50,21 +67,8 @@ const SkilledWorkerDashboardFlatlist = ({ OngoingDATA }) => {
 
   const footerMessage = () => {
     return (
-      <View
-        style={[
-          styles.w100,
-          styles.flex1,
-          styles.mx5,
-          styles.flexRow,
-          styles.justifyContentCenter,
-          styles.pt1,
-          styles.mt1,
-        ]}
-      >
-        <Button
-          title="Service Finished"
-          onPress={() => dispatch(serviceFinished(OngoingDATA?._id))}
-        />
+      <View style={[styles.flexedButton]}>
+        <Button title="Service Finished" onPress={finishService} />
       </View>
     );
   };
@@ -72,37 +76,34 @@ const SkilledWorkerDashboardFlatlist = ({ OngoingDATA }) => {
   const renderItem = () => {
     return (
       <View style={[styles.w100, styles.flex1, styles.mr5]}>
-        <View
-          style={[
-            styles.w100,
-            styles.flexRow,
-            styles.alignCenter,
-            styles.justifyContentSpaceBetween,
-            styles.mr5,
-            styles.mb5,
-          ]}
-        >
+        <View style={[styles.w100, styles.mr5, styles.mb5]}>
           <Text style={[styles.h2, styles.bold]}>
             {OngoingDATA.service_availed.service.service_type} Service
           </Text>
           <Text>{moment(OngoingDATA.booked_dateTimeStart).format("LL")}</Text>
         </View>
-        <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
+        <View
+          style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}
+        >
           <Icon name="alarm" type="material-community-icons" size={18} />
           <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
             {moment(OngoingDATA.booked_dateTimeStart).format("LT")} -
             {moment(OngoingDATA.booked_dateTimeEnd).format("LT")}
           </Text>
         </View>
-        <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
+        <View
+          style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}
+        >
           <Icon name="person-outline" type="material-icons" size={18} />
           <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
             {`${OngoingDATA.client.first_name} ${OngoingDATA.client.family_name} ${OngoingDATA.client.suffix}`}
           </Text>
         </View>
-        <View style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}>
+        <View
+          style={[styles.w100, styles.flexRow, styles.alignCenter, styles.mb2]}
+        >
           <Icon name="location-sharp" type="ionicon" size={18} />
-          <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
+          <Text style={[styles.h4, styles.ml1]}>
             {OngoingDATA.client.address}
           </Text>
         </View>

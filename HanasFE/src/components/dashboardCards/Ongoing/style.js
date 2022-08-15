@@ -23,7 +23,9 @@ export default StyleSheet.create({
   temp6: {
     backgroundColor: "#CCF",
   },
-
+  flexedButton: {
+    flex: 1,
+  },
   body: {
     width: "100%",
     flex: 1,
