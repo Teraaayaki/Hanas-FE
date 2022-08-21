@@ -14,6 +14,7 @@ import Loading from "@components/Loading";
 import styles from "./style";
 import style from "./style";
 import usePaginate from "@hooks/usePaginate";
+import { sendNotification } from "../../../helper/notifications";
 
 const Item = ({ item, onPress, backgroundColor, textColorW }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -23,9 +24,7 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
           {item.description}
         </Text>
 
-        <Text style={styles.time_elapsed}>
-          {moment(item.createdAt).fromNow()}
-        </Text>
+        <Text style={styles.time_elapsed}>{moment(item.createdAt).fromNow()}</Text>
       </View>
 
       <View style={styles.viewButtonContainerFlex}>
@@ -37,8 +36,7 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.createdAt).format("LL")} |{" "}
-        {moment(item.createdAt).format("LT")}
+        {moment(item.createdAt).format("LL")} | {moment(item.createdAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -48,14 +46,19 @@ const NotificationFlatlist = ({ navigation }) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(null);
   const { socket } = useContext(SocketContext);
-  const { notifications, fetching } = useSelector(
-    (state) => state.notifications
-  );
-  const [paginatedData, handleOnEndReach, renderFooter] =
-    usePaginate(notifications);
+  const { user } = useSelector((state) => state.userDetails);
+  const { notifications, fetching } = useSelector((state) => state.notifications);
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(notifications);
 
   useEffect(() => {
     dispatch(getNotifications());
+
+    socket.current.on("newNotification", (data) => {
+      if (data.notifiedUser === user.id) {
+        dispatch(getNotifications());
+        sendNotification(user.push_token, data.type, data.description);
+      }
+    });
   }, []);
 
   const renderItem = ({ item }) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, TouchableOpacity } from "react-native";
 import useSWR from "swr";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import {
   getOverview,
   getUpcomingServices,
 } from "../../../redux/actions/workerDashboardActions";
+import { SocketContext } from "../../../context/socketContext";
 import { getPermissions } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
 
@@ -31,13 +32,15 @@ const InitialAchievementsData = {
 
 const WorkerDashboard = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { socket } = useContext(SocketContext);
+  const { user } = useSelector((state) => state.userDetails);
   const { transactions } = useSelector((state) => state.transactions);
   const { overview, upcomingServices, ongoingService } = useSelector(
-    (state) => state.workerDashboard
+    (state) => state.workerDashboard,
   );
 
   const [achievementsCardData, setAchievementsCardData] = useState(
-    InitialAchievementsData
+    InitialAchievementsData,
   );
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
@@ -51,12 +54,18 @@ const WorkerDashboard = ({ navigation }) => {
 
     getPermissions();
     getImagePermissions();
+
+    socket.current.on("bookingUpdate", (data) => {
+      if (user.id === data.worker && data.book_status === "Accepted") {
+        dispatch(getUpcomingServices());
+      }
+    });
   }, []);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
     const { goal } = filteredAchievementsData.find(
-      (filteredAchievement) => filteredAchievement.claimed === false
+      (filteredAchievement) => filteredAchievement.claimed === false,
     );
     const totalEarned = getTotalEarnings(transactions);
     setAchievementsCardData({ goal, completion: totalEarned });
