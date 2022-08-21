@@ -56,6 +56,7 @@ const NotificationFlatlist = ({ navigation }) => {
     socket.current.on("newNotification", (data) => {
       if (data.notifiedUser === user.id) {
         dispatch(getNotifications());
+        console.log("USER DETAILS", user);
         sendNotification(user.push_token, data.type, data.description);
       }
     });

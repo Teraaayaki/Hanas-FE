@@ -32,6 +32,8 @@ export const getPermissions = async () => {
 
       const jwt = await getItem("token");
 
+      console.log("PUSH NOTIF TOKEN REQUEST");
+
       await axios.post(
         "/api/notifications/",
         { token },
@@ -57,7 +59,9 @@ export const getPermissions = async () => {
   }
 };
 
-export const sendNotification = (expoToken, title, body) =>
+export const sendNotification = (expoToken, title, body) => {
+  console.log("EXPO TOKEN", expoToken);
+
   new Promise((res, rej) => {
     axios
       .post(
@@ -79,3 +83,4 @@ export const sendNotification = (expoToken, title, body) =>
       .then((response) => res(response))
       .catch((err) => rej(err));
   });
+};
