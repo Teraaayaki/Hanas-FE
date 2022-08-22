@@ -10,7 +10,12 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "HANAS_ENDPOINT": "https://hanas-be-express-api.herokuapp.com",
+        "MAPS_API_KEY": "AIzaSyARE1u8nAte5SFOElEL9YeaSFDmEbbF-w4"
+      }
+    }
   },
   "submit": {
     "production": {}
