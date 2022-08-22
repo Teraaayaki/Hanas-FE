@@ -23,9 +23,7 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
           {item.description}
         </Text>
 
-        <Text style={styles.time_elapsed}>
-          {moment(item.createdAt).fromNow()}
-        </Text>
+        <Text style={styles.time_elapsed}>{moment(item.createdAt).fromNow()}</Text>
       </View>
 
       <View style={styles.viewButtonContainerFlex}>
@@ -37,8 +35,7 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.createdAt).format("LL")} |{" "}
-        {moment(item.createdAt).format("LT")}
+        {moment(item.createdAt).format("LL")} | {moment(item.createdAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -48,14 +45,18 @@ const NotificationFlatlist = ({ navigation }) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(null);
   const { socket } = useContext(SocketContext);
-  const { notifications, fetching } = useSelector(
-    (state) => state.notifications
-  );
-  const [paginatedData, handleOnEndReach, renderFooter] =
-    usePaginate(notifications);
+  const { user } = useSelector((state) => state.userDetails);
+  const { notifications, fetching } = useSelector((state) => state.notifications);
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(notifications);
 
   useEffect(() => {
     dispatch(getNotifications());
+
+    socket.current.on("newNotification", ({ data, push_token }) => {
+      if (data.notifiedUser === user.id) {
+        dispatch(getNotifications());
+      }
+    });
   }, []);
 
   const renderItem = ({ item }) => {

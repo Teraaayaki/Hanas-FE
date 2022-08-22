@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, TouchableOpacity } from "react-native";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { useSelector, useDispatch } from "react-redux";
 
 import AchievementsDATA from "@helpers/achievements";
@@ -14,7 +14,8 @@ import {
   getOverview,
   getUpcomingServices,
 } from "../../../redux/actions/workerDashboardActions";
-import { getPermissions } from "@helpers/notifications";
+import { SocketContext } from "../../../context/socketContext";
+import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
 
 //Achievements----------------------------------------
@@ -31,13 +32,16 @@ const InitialAchievementsData = {
 
 const WorkerDashboard = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { socket } = useContext(SocketContext);
+  const { mutate } = useSWRConfig();
+  const { user } = useSelector((state) => state.userDetails);
   const { transactions } = useSelector((state) => state.transactions);
   const { overview, upcomingServices, ongoingService } = useSelector(
-    (state) => state.workerDashboard
+    (state) => state.workerDashboard,
   );
 
   const [achievementsCardData, setAchievementsCardData] = useState(
-    InitialAchievementsData
+    InitialAchievementsData,
   );
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
@@ -51,12 +55,23 @@ const WorkerDashboard = ({ navigation }) => {
 
     getPermissions();
     getImagePermissions();
+
+    socket.current.on("bookingUpdate", (data) => {
+      if (user.id === data.worker) {
+        dispatch(getUpcomingServices());
+        mutate("api/worker/get-conv-fee");
+      }
+    });
+
+    socket.current.on("newNotification", ({ data, push_token }) => {
+      sendNotification(push_token, data.type, data.description);
+    });
   }, []);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
     const { goal } = filteredAchievementsData.find(
-      (filteredAchievement) => filteredAchievement.claimed === false
+      (filteredAchievement) => filteredAchievement.claimed === false,
     );
     const totalEarned = getTotalEarnings(transactions);
     setAchievementsCardData({ goal, completion: totalEarned });
@@ -65,6 +80,8 @@ const WorkerDashboard = ({ navigation }) => {
   useEffect(() => {
     claimedData();
   }, [fetchedClaimedData, transactions]);
+
+  console.log(convFeeData);
 
   return (
     <View style={[styles.body]}>
