@@ -82,17 +82,8 @@ const Chatroom = ({ navigation, route }) => {
   function renderSend(props) {
     return (
       <Send {...props}>
-        <View
-          style={[styles.sendingContainer, styles.h100, styles.px3, styles.pr5]}
-        >
-          <Text
-            style={[
-              styles.sendButton,
-              styles.py1,
-              styles.px5,
-              styles.rounded100,
-            ]}
-          >
+        <View style={[styles.sendingContainer, styles.h100, styles.px3, styles.pr5]}>
+          <Text style={[styles.sendButton, styles.py1, styles.px5, styles.rounded100]}>
             SEND
           </Text>
         </View>

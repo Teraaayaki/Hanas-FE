@@ -14,7 +14,6 @@ import Loading from "@components/Loading";
 import styles from "./style";
 import style from "./style";
 import usePaginate from "@hooks/usePaginate";
-import { sendNotification } from "../../../helper/notifications";
 
 const Item = ({ item, onPress, backgroundColor, textColorW }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -53,11 +52,9 @@ const NotificationFlatlist = ({ navigation }) => {
   useEffect(() => {
     dispatch(getNotifications());
 
-    socket.current.on("newNotification", (data) => {
+    socket.current.on("newNotification", ({ data, push_token }) => {
       if (data.notifiedUser === user.id) {
         dispatch(getNotifications());
-        console.log("USER DETAILS", user);
-        sendNotification(user.push_token, data.type, data.description);
       }
     });
   }, []);

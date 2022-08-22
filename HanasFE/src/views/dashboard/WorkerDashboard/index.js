@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, TouchableOpacity } from "react-native";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { useSelector, useDispatch } from "react-redux";
 
 import AchievementsDATA from "@helpers/achievements";
@@ -15,7 +15,7 @@ import {
   getUpcomingServices,
 } from "../../../redux/actions/workerDashboardActions";
 import { SocketContext } from "../../../context/socketContext";
-import { getPermissions } from "@helpers/notifications";
+import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
 
 //Achievements----------------------------------------
@@ -33,6 +33,7 @@ const InitialAchievementsData = {
 const WorkerDashboard = ({ navigation }) => {
   const dispatch = useDispatch();
   const { socket } = useContext(SocketContext);
+  const { mutate } = useSWRConfig();
   const { user } = useSelector((state) => state.userDetails);
   const { transactions } = useSelector((state) => state.transactions);
   const { overview, upcomingServices, ongoingService } = useSelector(
@@ -56,9 +57,14 @@ const WorkerDashboard = ({ navigation }) => {
     getImagePermissions();
 
     socket.current.on("bookingUpdate", (data) => {
-      if (user.id === data.worker && data.book_status === "Accepted") {
+      if (user.id === data.worker) {
         dispatch(getUpcomingServices());
+        mutate("api/worker/get-conv-fee");
       }
+    });
+
+    socket.current.on("newNotification", ({ data, push_token }) => {
+      sendNotification(push_token, data.type, data.description);
     });
   }, []);
 
@@ -74,6 +80,8 @@ const WorkerDashboard = ({ navigation }) => {
   useEffect(() => {
     claimedData();
   }, [fetchedClaimedData, transactions]);
+
+  console.log(convFeeData);
 
   return (
     <View style={[styles.body]}>

@@ -32,7 +32,7 @@ const SkilledWorkerDashboardFlatlist = ({
   const { ongoingService } = useSelector((state) => state.workerDashboard);
 
   const startServiceAlert = (item) => {
-    if (ongoingService) {
+    if (ongoingService?._id) {
       Alert(
         () => {},
         "Message",
