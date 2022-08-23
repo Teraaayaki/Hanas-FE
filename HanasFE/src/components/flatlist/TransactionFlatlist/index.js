@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
@@ -6,10 +6,11 @@ import { View, FlatList, Text, TouchableOpacity } from "react-native";
 import styles from "./style";
 import Loading from "@components/Loading";
 import NoDataImage from "@components/NoDataImage";
+import { SocketContext } from "../../../context/socketContext";
 import { getTransactions } from "@redux/actions/transactionActions";
 import usePaginate from "@custom-hooks/usePaginate";
-import { loadingStyle } from "@constants";
 import currencyFormat from "@utils/currencyFormat";
+import { loadingStyle } from "@constants";
 
 const Item = ({ item, onPress, isWorker }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -20,9 +21,7 @@ const Item = ({ item, onPress, isWorker }) => (
           : `Payment Sent to ${item.worker?.first_name} ${item.worker?.family_name} ${item.worker?.suffix}`}
       </Text>
       <View style={styles.viewButtonContainerFlex}>
-        <Text style={styles.boldText}>
-          Php {currencyFormat(item.total_cost)}
-        </Text>
+        <Text style={styles.boldText}>Php {currencyFormat(item.total_cost)}</Text>
         <TouchableOpacity onPress={onPress}>
           <Text style={styles.viewText} onPress={onPress}>
             View
@@ -30,8 +29,7 @@ const Item = ({ item, onPress, isWorker }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.updatedAt).format("LL")} |{" "}
-        {moment(item.updatedAt).format("LT")}
+        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -39,13 +37,14 @@ const Item = ({ item, onPress, isWorker }) => (
 
 const TransactionFlatlist = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { socket } = useContext(SocketContext);
   const { isWorker } = useSelector((state) => state.userLogin);
   const [selectedId, setSelectedId] = useState(null);
   const [refresh, setRefresh] = useState(false);
 
+  const { user } = useSelector((state) => state.userDetails);
   const { transactions, loading } = useSelector((state) => state.transactions);
-  const [paginatedData, handleOnEndReach, renderFooter] =
-    usePaginate(transactions);
+  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(transactions);
 
   const renderItem = ({ item }) => {
     return (
@@ -66,6 +65,12 @@ const TransactionFlatlist = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getTransactions());
+
+    socket.current.on("bookingUpdate", (data) => {
+      if (user.id === data.worker || user.id === data.client) {
+        dispatch(getTransactions());
+      }
+    });
   }, []);
 
   if (loading)

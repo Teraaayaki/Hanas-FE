@@ -32,10 +32,12 @@ export const getPermissions = async () => {
 
       const jwt = await getItem("token");
 
+      console.log("PUSH NOTIF TOKEN REQUEST");
+
       await axios.post(
         "/api/notifications/",
         { token },
-        { headers: { Authorization: `Bearer ${jwt}` } }
+        { headers: { Authorization: `Bearer ${jwt}` } },
       );
 
       return;
@@ -43,9 +45,7 @@ export const getPermissions = async () => {
       console.log(err);
     }
 
-    alert(
-      "Enable push notifications for the best experience while using the app."
-    );
+    alert("Enable push notifications for the best experience while using the app.");
     return;
   }
 
@@ -59,7 +59,9 @@ export const getPermissions = async () => {
   }
 };
 
-export const sendNotification = (expoToken, title, body) =>
+export const sendNotification = (expoToken, title, body) => {
+  console.log("EXPO TOKEN", expoToken);
+
   new Promise((res, rej) => {
     axios
       .post(
@@ -76,8 +78,9 @@ export const sendNotification = (expoToken, title, body) =>
             "accept-encoding": "gzip, deflate",
             "content-type": "application/json",
           },
-        }
+        },
       )
       .then((response) => res(response))
       .catch((err) => rej(err));
   });
+};
