@@ -1,18 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 
 import { colors } from "@constants";
 
 const usePaginate = (data, initialLimit = 10) => {
-  const [paginatedData, setPaginatedData] = useState([...data]);
+  const [paginatedData, setPaginatedData] = useState(data);
   const [limit, setLimit] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const handleOnEndReach = useCallback(() => {
-    if (limit === data.length) {
-      console.log("limit reached");
-      return;
-    }
+    if (limit === data.length) return;
 
     setLoading(true);
     setTimeout(() => {
@@ -25,15 +22,15 @@ const usePaginate = (data, initialLimit = 10) => {
     let slicedArray = [];
 
     // if limit + initialLimit is greater than item length
+    // console.log(limit, item.length);
     if (limit + initialLimit > item.length) {
-      console.log(limit, initialLimit, item.length);
       slicedArray = item.slice(limit);
       setLimit(item.length);
     } else {
-      console.log(limit, initialLimit, item.length);
       slicedArray = item.slice(limit, limit + initialLimit);
       setLimit(limit + initialLimit);
     }
+
     setPaginatedData([...paginatedData, ...slicedArray]);
   };
 
@@ -45,7 +42,7 @@ const usePaginate = (data, initialLimit = 10) => {
         </View>
       );
 
-    return null;
+    return <View style={{ margin: "5%" }}>{/* <Text>End</Text> */}</View>;
   };
 
   const limitArray = (item) => {
@@ -57,10 +54,6 @@ const usePaginate = (data, initialLimit = 10) => {
     const limitedArray = limitArray(data);
     setPaginatedData([...limitedArray]);
   }, [data]);
-
-  // useEffect(() => {
-  //   console.log("paginatedData length", paginatedData.length);
-  // }, [paginatedData]);
 
   return [paginatedData, handleOnEndReach, renderFooter];
 };

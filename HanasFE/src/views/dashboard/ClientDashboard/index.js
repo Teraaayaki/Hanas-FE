@@ -23,6 +23,7 @@ import LocationModal from "@components/LocationModal";
 import NoWorkerGraphic from "@components/NoWorkerGraphic";
 import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
+import { getNotifications } from "@redux/actions/notificationActions";
 
 const ClientDashboard = ({ navigation }) => {
   // SWR
@@ -50,6 +51,7 @@ const ClientDashboard = ({ navigation }) => {
     setQueryParams(address);
     console.log("Booking Data Populated");
     dispatch(getBooking());
+    dispatch(getNotifications());
 
     //map the fetched data
     let topRatedTemp = servicesData.top_rated_services.map(

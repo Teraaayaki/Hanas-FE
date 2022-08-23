@@ -33,16 +33,11 @@ const Tabs = () => {
 
   const getUnopenedNotifications = useMemo(() => {
     const unOpenedNotifs = notifications.filter((notif) => !notif.isOpened);
-    console.log("Notifs UnOpened", unOpenedNotifs.length);
 
     if (unOpenedNotifs.length === 0) return false;
 
     return unOpenedNotifs.length;
   }, [notifications]);
-
-  // useEffect(() => {
-  //   getUnopenedNotifications();
-  // }, [notifications]);
 
   return (
     <Tab.Navigator

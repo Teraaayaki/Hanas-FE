@@ -105,7 +105,7 @@ const NotificationFlatlist = ({ navigation }) => {
             flexGrow: 1,
           }}
           onEndReached={handleOnEndReach}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.1}
           ListFooterComponent={renderFooter()}
         />
       ) : (
