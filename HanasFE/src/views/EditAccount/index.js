@@ -162,15 +162,19 @@ const EditAccount = ({ navigation }) => {
   };
 
   // CHECK IF CLIENT OR WORKER
-  useEffect(async () => {
-    const isWorkerToken = JSON.parse(await getItem("is_worker"));
-    const fetchedToken = await getItem("token");
-    setToken(fetchedToken);
-    if (isWorkerToken) {
-      setPrevPage("Profile");
-    } else {
-      setPrevPage("ProfileClient");
+  useEffect(() => {
+    async function getTokens() {
+      const isWorkerToken = JSON.parse(await getItem("is_worker"));
+      const fetchedToken = await getItem("token");
+      setToken(fetchedToken);
+      if (isWorkerToken) {
+        setPrevPage("Profile");
+      } else {
+        setPrevPage("ProfileClient");
+      }
     }
+
+    getTokens();
   }, []);
 
   // HANDLES SUCCESS

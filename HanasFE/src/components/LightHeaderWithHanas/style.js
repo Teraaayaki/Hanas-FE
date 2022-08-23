@@ -38,7 +38,6 @@ export default StyleSheet.create({
   inputStyle: {
     fontSize: fontSize.textInput,
     textAlign: "left",
-    marginLeft: "-2%",
   },
   rightIconStyle: {
     marginLeft: "-5%",

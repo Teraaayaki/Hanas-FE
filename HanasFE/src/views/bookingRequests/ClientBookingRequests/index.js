@@ -37,61 +37,61 @@ const filterDeclinedData = (bookingDataArray) => {
   return filteredDeclinedArrayData;
 };
 
-const FirstRoute = memo(({ navigation, loading, data }) => {
-  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(data);
+const FirstRoute = memo(
+  ({ navigation, loading, handleOnEndReach, renderFooter, data }) => {
+    if (data.length === 0) return <NoDataImage />;
 
-  if (data.length === 0) return <NoDataImage />;
-
-  return (
-    <View style={[styles.body]}>
-      {/* {console.log("First ROUTE RERENDER")} */}
-      <View style={[styles.mx3, styles.flex1]}>
-        {loading ? (
-          <ActivityIndicator
-            size="large"
-            color={colors.secondary}
-            style={loadingStyle.position}
-          />
-        ) : (
-          <ClientBookingRequestsFlatlist
-            navigation={navigation}
-            DATA={paginatedData}
-            handleOnEndReach={handleOnEndReach}
-            renderFooter={renderFooter}
-          />
-        )}
+    return (
+      <View style={[styles.body]}>
+        {/* {console.log("First ROUTE RERENDER")} */}
+        <View style={[styles.mx3, styles.flex1]}>
+          {loading ? (
+            <ActivityIndicator
+              size="large"
+              color={colors.secondary}
+              style={loadingStyle.position}
+            />
+          ) : (
+            <ClientBookingRequestsFlatlist
+              navigation={navigation}
+              DATA={data}
+              handleOnEndReach={handleOnEndReach}
+              renderFooter={renderFooter}
+            />
+          )}
+        </View>
       </View>
-    </View>
-  );
-});
+    );
+  }
+);
 
-const SecondRoute = memo(({ navigation, loading, data }) => {
-  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(data);
+const SecondRoute = memo(
+  ({ navigation, loading, handleOnEndReach, renderFooter, data }) => {
+    if (data.length === 0) return <NoDataImage />;
 
-  if (data.length === 0) return <NoDataImage />;
-
-  return (
-    <View style={[styles.body]}>
-      {/* {console.log("SECOND ROUTE RERENDER")} */}
-      <View style={[styles.mx3, styles.flex1]}>
-        {loading ? (
-          <ActivityIndicator
-            size="large"
-            color={colors.secondary}
-            style={loadingStyle.position}
-          />
-        ) : (
-          <ClientBookingRequestsFlatlist
-            navigation={navigation}
-            DATA={paginatedData}
-            handleOnEndReach={handleOnEndReach}
-            renderFooter={renderFooter}
-          />
-        )}
+    return (
+      <View style={[styles.body]}>
+        {/* {console.log("SECOND ROUTE RERENDER")} */}
+        <View style={[styles.mx3, styles.flex1]}>
+          {loading ? (
+            <ActivityIndicator
+              size="large"
+              color={colors.secondary}
+              style={loadingStyle.position}
+            />
+          ) : (
+            <ClientBookingRequestsFlatlist
+              navigation={navigation}
+              DATA={data}
+              handleOnEndReach={handleOnEndReach}
+              renderFooter={renderFooter}
+            />
+          )}
+        </View>
       </View>
-    </View>
-  );
-});
+    );
+  }
+);
 
 const ClientBookingRequests = ({ navigation }) => {
   const { loading, bookingData } = useSelector((state) => state.clientBooking);
@@ -102,6 +102,14 @@ const ClientBookingRequests = ({ navigation }) => {
   const { socket } = useContext(SocketContext);
   const [updateBookingData, setUpdateBookingData] = useState(false);
   const dispatch = useDispatch();
+
+  const [paginatedData, handleOnEndReach, renderFooter] =
+    usePaginate(filteredBookingData);
+  const [
+    paginatedDeclinedData,
+    handleOnEndReachDeclined,
+    renderFooterDeclined,
+  ] = usePaginate(filteredDeclinedBookingData);
 
   const layout = useWindowDimensions();
 
@@ -116,7 +124,9 @@ const ClientBookingRequests = ({ navigation }) => {
       case "first":
         return (
           <FirstRoute
-            data={filteredBookingData}
+            data={paginatedData}
+            handleOnEndReach={handleOnEndReach}
+            renderFooter={renderFooter}
             navigation={navigation}
             loading={loading}
           />
@@ -124,7 +134,9 @@ const ClientBookingRequests = ({ navigation }) => {
       case "second":
         return (
           <SecondRoute
-            data={filteredDeclinedBookingData}
+            data={paginatedDeclinedData}
+            handleOnEndReach={handleOnEndReachDeclined}
+            renderFooter={renderFooterDeclined}
             navigation={navigation}
             loading={loading}
           />

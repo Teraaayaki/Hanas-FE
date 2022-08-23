@@ -35,21 +35,21 @@ const PasswordSchema = yup.object().shape({
     .required("Please enter your current password")
     .matches(
       /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, and one number",
+      "Password must contain at least 8 characters, one uppercase, and one number"
     ),
   new_pass: yup
     .string()
     .required("Please enter your new password")
     .matches(
       /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, and one number",
+      "Password must contain at least 8 characters, one uppercase, and one number"
     ),
   confirm_pass: yup
     .string()
     .required("Confirm your new password")
     .matches(
       /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, and one number",
+      "Password must contain at least 8 characters, one uppercase, and one number"
     ),
 });
 
@@ -58,7 +58,9 @@ const EditPassword = ({ navigation, route }) => {
   const [isWorker, setIsWorker] = useState(false);
   const { user } = useSelector((state) => state.userDetails);
   const [prevPage, setPrevPage] = useAlertBackHandler();
-  const { success, error, loading } = useSelector((state) => state.editPassword);
+  const { success, error, loading } = useSelector(
+    (state) => state.editPassword
+  );
 
   const handleSubmit = (values) => {
     const Data = {
@@ -70,15 +72,19 @@ const EditPassword = ({ navigation, route }) => {
     dispatch(editPassword(Data));
   };
 
-  useEffect(async () => {
-    const isWorkerToken = JSON.parse(await getItem("is_worker"));
-    setIsWorker(isWorkerToken);
+  useEffect(() => {
+    async function getToken() {
+      const isWorkerToken = JSON.parse(await getItem("is_worker"));
+      setIsWorker(isWorkerToken);
 
-    if (isWorkerToken) {
-      setPrevPage("Profile");
-    } else {
-      setPrevPage("ProfileClient");
+      if (isWorkerToken) {
+        setPrevPage("Profile");
+      } else {
+        setPrevPage("ProfileClient");
+      }
     }
+
+    getToken();
   }, []);
 
   useEffect(() => {
@@ -89,7 +95,7 @@ const EditPassword = ({ navigation, route }) => {
         "success",
         "Successfully Changed Password",
         "You will receive an email for the confirmation",
-        () => dispatch(resetSuccess()),
+        () => dispatch(resetSuccess())
       );
       if (!isWorker) {
         setTimeout(() => {
@@ -105,19 +111,30 @@ const EditPassword = ({ navigation, route }) => {
 
   useEffect(() => {
     if (error) {
-      showToast("error", "Something went wrong", error, () => dispatch(resetError()));
+      showToast("error", "Something went wrong", error, () =>
+        dispatch(resetError())
+      );
     }
   }, [error]);
 
   return (
-    <View style={[styles.body, styles.alignCenter, styles.justifyContentCenter]}>
+    <View
+      style={[styles.body, styles.alignCenter, styles.justifyContentCenter]}
+    >
       <KeyboardAvoidingView style={[styles.w66]}>
         <Formik
           initialValues={password_details}
           onSubmit={(values) => handleSubmit(values)}
           validationSchema={PasswordSchema}
         >
-          {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
             <>
               <ScrollView>
                 <Text
@@ -180,7 +197,9 @@ const EditPassword = ({ navigation, route }) => {
                     autoComplete={"password"}
                     placeholder={"••••••••"}
                     value={values.confirm_pass}
-                    error={errors.confirm_pass && touched.confirm_pass ? true : null}
+                    error={
+                      errors.confirm_pass && touched.confirm_pass ? true : null
+                    }
                     onBlur={handleBlur("confirm_pass")}
                     onChangeText={handleChange("confirm_pass")}
                   />
