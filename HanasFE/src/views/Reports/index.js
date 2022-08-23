@@ -155,10 +155,16 @@ const Reports = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      const fetchedToken = await getItem("token");
-      setToken(fetchedToken);
-    })();
+    async function getItemToken() {
+      try {
+        const fetchedToken = await getItem("token");
+        setToken(fetchedToken);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getItemToken();
   }, []);
 
   if (success)

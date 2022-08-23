@@ -24,9 +24,13 @@ const ReceiptAndSummary = ({
 }) => {
   const [isWorker, setIsWorker] = useState(false);
 
-  useEffect(async () => {
-    let isWorker = await getItem("is_worker");
-    setIsWorker(JSON.parse(isWorker));
+  useEffect(() => {
+    async function getToken() {
+      let isWorker = await getItem("is_worker");
+      setIsWorker(JSON.parse(isWorker));
+    }
+
+    getToken();
   }, []);
 
   return (

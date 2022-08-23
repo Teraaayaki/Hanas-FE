@@ -12,14 +12,18 @@ const useIsWorker = () => {
   };
 
   // CHECK IF WORKER OR
-  useEffect(async () => {
-    const workerToken = JSON.parse(await getItem("is_worker"));
+  useEffect(() => {
+    async function getToken() {
+      let isWorker = await getItem("is_worker");
 
-    if (workerToken) {
-      setPrevPage("Profile");
-    } else {
-      setPrevPage("ProfileClient");
+      if (isWorker) {
+        setPrevPage("Profile");
+      } else {
+        setPrevPage("ProfileClient");
+      }
     }
+
+    getToken();
   }, [prevPage, setPrevPage]);
 
   return [prevPage, setPrevPage, handleBackButton];
