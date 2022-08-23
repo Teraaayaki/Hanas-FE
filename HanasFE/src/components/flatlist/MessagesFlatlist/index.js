@@ -26,7 +26,9 @@ const Item = ({ image, name, latestMessage, onPress }) => (
 
 const MessagesFlatlist = ({ navigation }) => {
   const { socket } = useContext(SocketContext);
-  const { conversations, fetching } = useSelector((state) => state.userConversations);
+  const { conversations, fetching } = useSelector(
+    (state) => state.userConversations
+  );
   const { user } = useSelector((state) => state.userDetails);
   const [DATA, setDATA] = useState(null);
   const [fetchData, setFetchData] = useState(false);
@@ -55,7 +57,9 @@ const MessagesFlatlist = ({ navigation }) => {
   }, [doneFetching]);
 
   const getReceiverInfo = (participants) => {
-    const info = participants.filter((participant) => participant.user._id !== user.id);
+    const info = participants.filter(
+      (participant) => participant.user._id !== user.id
+    );
 
     return info[0].user;
   };

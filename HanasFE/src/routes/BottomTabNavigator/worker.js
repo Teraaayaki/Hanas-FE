@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useSelector } from "react-redux";
+import { Badge } from "react-native-elements";
 
 import { colors } from "@constants";
 import WorkerDashboard from "@screens/dashboard/WorkerDashboard";
@@ -20,6 +22,16 @@ import Reports from "@screens/Reports";
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+  const { notifications } = useSelector((state) => state.notifications);
+
+  const getUnopenedNotifications = useMemo(() => {
+    const unOpenedNotifs = notifications.filter((notif) => !notif.isOpened);
+
+    if (unOpenedNotifs.length === 0) return false;
+
+    return unOpenedNotifs.length;
+  }, [notifications]);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -54,14 +66,27 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return (
-              <Image
-                source={require("@icons/Notification.png")}
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? colors.secondary : colors.primary,
-                }}
-              />
+              <>
+                {getUnopenedNotifications && (
+                  <Badge
+                    value={getUnopenedNotifications}
+                    status="error"
+                    containerStyle={{
+                      position: "absolute",
+                      top: 14,
+                      right: 18,
+                    }}
+                  />
+                )}
+                <Image
+                  source={require("@icons/Notification.png")}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    tintColor: focused ? colors.secondary : colors.primary,
+                  }}
+                />
+              </>
             );
           },
         }}

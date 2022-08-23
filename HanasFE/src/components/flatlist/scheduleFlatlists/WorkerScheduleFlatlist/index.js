@@ -61,8 +61,13 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
             <Text
               style={[styles.mx1, styles.bold, styles.p, styles.textMuted75]}
             >
-              {moment(item.booked_dateTimeStart).format("LT")} -
-              {moment(item.booked_dateTimeEnd).format("LT")}
+              {item.book_type === "Multiple" &&
+                `Until ${moment(item.booked_dateTimeEnd).format("LL")}`}
+
+              {item.book_type === "Single" &&
+                moment(item.booked_dateTimeStart).format("LT") +
+                  "-" +
+                  moment(item.booked_dateTimeEnd).format("LT")}
             </Text>
           </View>
         </View>

@@ -21,7 +21,9 @@ const Item = ({ item, onPress, isWorker }) => (
           : `Payment Sent to ${item.worker?.first_name} ${item.worker?.family_name} ${item.worker?.suffix}`}
       </Text>
       <View style={styles.viewButtonContainerFlex}>
-        <Text style={styles.boldText}>Php {currencyFormat(item.total_cost)}</Text>
+        <Text style={styles.boldText}>
+          Php {currencyFormat(item.total_cost)}
+        </Text>
         <TouchableOpacity onPress={onPress}>
           <Text style={styles.viewText} onPress={onPress}>
             View
@@ -29,7 +31,8 @@ const Item = ({ item, onPress, isWorker }) => (
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.updatedAt).format("LL")} | {moment(item.updatedAt).format("LT")}
+        {moment(item.updatedAt).format("LL")} |{" "}
+        {moment(item.updatedAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -44,7 +47,8 @@ const TransactionFlatlist = ({ navigation }) => {
 
   const { user } = useSelector((state) => state.userDetails);
   const { transactions, loading } = useSelector((state) => state.transactions);
-  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(transactions);
+  const [paginatedData, handleOnEndReach, renderFooter] =
+    usePaginate(transactions);
 
   const renderItem = ({ item }) => {
     return (
@@ -95,7 +99,7 @@ const TransactionFlatlist = ({ navigation }) => {
           }}
           ListFooterComponent={renderFooter}
           onEndReached={handleOnEndReach}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.1}
           refreshing={refresh}
           onRefresh={() => {
             dispatch(getTransactions()).then(() => {

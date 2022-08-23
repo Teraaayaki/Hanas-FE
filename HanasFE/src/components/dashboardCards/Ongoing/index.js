@@ -87,8 +87,12 @@ const SkilledWorkerDashboardFlatlist = ({ OngoingDATA }) => {
         >
           <Icon name="alarm" type="material-community-icons" size={18} />
           <Text style={[styles.h4, styles.textCenter, styles.ml1]}>
-            {moment(OngoingDATA.booked_dateTimeStart).format("LT")} -
-            {moment(OngoingDATA.booked_dateTimeEnd).format("LT")}
+            {OngoingDATA.book_type === "Multiple" &&
+              `Until ${moment(OngoingDATA.booked_dateTimeEnd).format("LL")}`}
+            {OngoingDATA.book_type === "Single" &&
+              moment(OngoingDATA.booked_dateTimeStart).format("LT") +
+                "-" +
+                moment(OngoingDATA.booked_dateTimeEnd).format("LT")}
           </Text>
         </View>
         <View

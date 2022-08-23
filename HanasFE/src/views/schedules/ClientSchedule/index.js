@@ -262,12 +262,6 @@ const ClientSchedule = ({ navigation }) => {
     }
   };
 
-  // const renderScene = SceneMap({
-  //   first: FirstRoute,
-  //   second: SecondRoute,
-  //   third: ThirdRoute,
-  // });
-
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
@@ -332,7 +326,6 @@ const ClientSchedule = ({ navigation }) => {
   return (
     <>
       <Header title={"Schedule"} />
-      {/* {console.log("Rerendering SCHDEULE")} */}
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

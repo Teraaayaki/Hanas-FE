@@ -14,7 +14,7 @@ const useIsWorker = () => {
   // CHECK IF WORKER OR
   useEffect(() => {
     async function getToken() {
-      let isWorker = await getItem("is_worker");
+      let isWorker = JSON.parse(await getItem("is_worker"));
 
       if (isWorker) {
         setPrevPage("Profile");
