@@ -15,13 +15,13 @@ import { SocketContext } from "../../../context/socketContext";
 import { getSchedules } from "../../../redux/actions/workerScheduleActions";
 import { getBookingRequests } from "../../../redux/actions/workerBookingActions";
 
-LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]); //ignore ni niya nga message
-
 const WorkerSchedule = ({ navigation }) => {
   const { socket } = useContext(SocketContext);
   const dispatch = useDispatch();
 
-  const { acceptedRequests, fetching } = useSelector((state) => state.workerSchedules);
+  const { acceptedRequests, fetching } = useSelector(
+    (state) => state.workerSchedules
+  );
   const { count } = useSelector((state) => state.workerBookingRequests);
   const { user } = useSelector((state) => state.userDetails);
 
@@ -38,7 +38,10 @@ const WorkerSchedule = ({ navigation }) => {
     });
 
     socket.current.on("bookingUpdate", (data) => {
-      if (user.id === data.worker && data.book_status === "Accepted") {
+      if (
+        user.id === data.worker &&
+        (data.book_status === "Accepted" || data.book_status === "Finished")
+      ) {
         dispatch(getSchedules());
       }
     });
@@ -61,7 +64,9 @@ const WorkerSchedule = ({ navigation }) => {
         <Header title={"Schedule"} />
         <View style={[styles.mx3, styles.flex1]}>
           <WorkerScheduleFlatlist DATA={acceptedRequests} />
-          <View style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}>
+          <View
+            style={[styles.flexRow, styles.py3, styles.px2, styles.absolute]}
+          >
             <View style={[styles.flex1]} />
             <TouchableOpacity
               onPress={() => navigation.navigate("WorkerBookingRequests")}
@@ -95,10 +100,18 @@ const WorkerSchedule = ({ navigation }) => {
     <>
       <Header title={"Schedule"} />
       <View
-        style={[styles.flexRow, styles.py3, styles.px2, styles.absolute, styles.mt15]}
+        style={[
+          styles.flexRow,
+          styles.py3,
+          styles.px2,
+          styles.absolute,
+          styles.mt15,
+        ]}
       >
         <View style={[styles.flex1]} />
-        <TouchableOpacity onPress={() => navigation.navigate("WorkerBookingRequests")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("WorkerBookingRequests")}
+        >
           <Text
             style={[
               styles.flex1,
