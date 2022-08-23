@@ -70,7 +70,6 @@ const ClientDashboard = ({ navigation }) => {
     getImagePermissions();
 
     socket.current.on("newNotification", ({ data, push_token }) => {
-      console.log("Client Send Push Notif");
       sendNotification(push_token, data.type, data.description);
     });
   }, []);

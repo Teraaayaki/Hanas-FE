@@ -65,14 +65,8 @@ const WorkerDashboard = ({ navigation }) => {
     });
 
     socket.current.on("newNotification", ({ data, push_token }) => {
-      console.log("Worker Send Push Notif");
       sendNotification(push_token, data.type, data.description);
     });
-
-    return () => {
-      socket.current.off("bookingUpdate");
-      socket.current.off("newNotification");
-    };
   }, []);
 
   const claimedData = () => {

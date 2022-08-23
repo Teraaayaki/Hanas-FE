@@ -41,11 +41,6 @@ const MessagesFlatlist = ({ navigation }) => {
       setDoneFetching(true);
       setFetchData(false);
     });
-
-    return () => {
-      setDoneFetching(false);
-      setFetchData(false);
-    };
   }, [fetchData]);
 
   useEffect(() => {
