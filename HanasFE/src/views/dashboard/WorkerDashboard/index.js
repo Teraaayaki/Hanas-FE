@@ -17,7 +17,7 @@ import {
 import { SocketContext } from "../../../context/socketContext";
 import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
-
+import { getNotifications } from "@redux/actions/notificationActions";
 //Achievements----------------------------------------
 const InitialAchievementsData = {
   goal: 99999,
@@ -52,6 +52,7 @@ const WorkerDashboard = ({ navigation }) => {
     dispatch(getOverview());
     dispatch(getUpcomingServices());
     dispatch(getOngoingService());
+    dispatch(getNotifications());
 
     getPermissions();
     getImagePermissions();
@@ -67,6 +68,11 @@ const WorkerDashboard = ({ navigation }) => {
       console.log("Worker Send Push Notif");
       sendNotification(push_token, data.type, data.description);
     });
+
+    return () => {
+      socket.current.off("bookingUpdate");
+      socket.current.off("newNotification");
+    };
   }, []);
 
   const claimedData = () => {
