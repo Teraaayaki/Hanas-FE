@@ -39,7 +39,4 @@ export default StyleSheet.create({
     fontSize: fontSize.textInput,
     textAlign: "left",
   },
-  rightIconStyle: {
-    marginLeft: "-5%",
-  },
 });

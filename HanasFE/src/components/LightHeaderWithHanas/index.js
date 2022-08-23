@@ -61,8 +61,6 @@ const LightHeader = ({ setQueryParams }) => {
         containerStyle={styles.searchContainer}
         inputContainerStyle={styles.searchInputContainer}
         inputStyle={styles.inputStyle}
-        rightIconContainerStyle={styles.rightIconStyle}
-        // showLoading={true}
         onPressIn={
           route.name === "Search"
             ? null
