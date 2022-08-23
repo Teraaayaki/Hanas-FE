@@ -9,7 +9,10 @@ const usePaginate = (data, initialLimit = 10) => {
   const [loading, setLoading] = useState(false);
 
   const handleOnEndReach = useCallback(() => {
-    if (limit === data.length) return;
+    if (limit === data.length) {
+      console.log("limit reached");
+      return;
+    }
 
     setLoading(true);
     setTimeout(() => {
@@ -20,10 +23,14 @@ const usePaginate = (data, initialLimit = 10) => {
 
   const paginateItems = (item) => {
     let slicedArray = [];
+
+    // if limit + initialLimit is greater than item length
     if (limit + initialLimit > item.length) {
+      console.log(limit, initialLimit, item.length);
       slicedArray = item.slice(limit);
       setLimit(item.length);
     } else {
+      console.log(limit, initialLimit, item.length);
       slicedArray = item.slice(limit, limit + initialLimit);
       setLimit(limit + initialLimit);
     }
@@ -50,6 +57,10 @@ const usePaginate = (data, initialLimit = 10) => {
     const limitedArray = limitArray(data);
     setPaginatedData([...limitedArray]);
   }, [data]);
+
+  // useEffect(() => {
+  //   console.log("paginatedData length", paginatedData.length);
+  // }, [paginatedData]);
 
   return [paginatedData, handleOnEndReach, renderFooter];
 };
