@@ -82,7 +82,7 @@ const WorkerDashboard = ({ navigation }) => {
     claimedData();
   }, [fetchedClaimedData, transactions]);
 
-  console.log(convFeeData);
+  // console.log(convFeeData);
 
   return (
     <View style={[styles.body]}>
