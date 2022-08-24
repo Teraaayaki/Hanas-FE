@@ -17,7 +17,9 @@ import Chatroom from "@screens/messages/Chatroom";
 import ProfileView from "@screens/profile/ProfileView";
 import AddService from "@screens/services/AddService";
 import EditService from "@screens/services/EditService";
-
+import EmailForm from "@screens/ForgotPassword/EmailForm";
+import OtpVerification from "@screens/ForgotPassword/OtpVerification";
+import ChangePassword from "@screens/ForgotPassword/ChangePassword";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import ClientTabs from "@routes/BottomTabNavigator/client";
@@ -60,6 +62,9 @@ export default HanasStack = () => {
           <Stack.Screen name="RegisterOTP" component={RegisterOTP} />
           <Stack.Screen name="SetLocation" component={SetLocation} />
           <Stack.Screen name="ProfileView" component={ProfileView} />
+          <Stack.Screen name="EmailForm" component={EmailForm} />
+          <Stack.Screen name="OtpVerification" component={OtpVerification} />
+          <Stack.Screen name="ChangePassword" component={ChangePassword} />
         </Stack.Group>
       ) : isWorker ? (
         <Stack.Group>
