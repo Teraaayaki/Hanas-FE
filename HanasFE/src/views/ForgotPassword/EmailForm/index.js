@@ -8,6 +8,8 @@ import TextLink from "@components/TextLink";
 import IconField from "@components/form/IconField";
 import styles from "./style";
 import { showToast, ToastComponent } from "@helpers/toast";
+import axios from "@helpers/axios";
+import { getItem } from "@helpers/asyncStorage";
 
 const emailSchema = yup.object().shape({
   email: yup
@@ -16,12 +18,26 @@ const emailSchema = yup.object().shape({
     .email("Invalid Email"),
 });
 
-export default function RegisterNumber({ navigation }) {
+export default function EmailForm({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = ({ email }) => {
+    if (loading) {
+      return;
+    }
+
     console.log("Submit Email!", email);
-    navigation.navigate("OtpVerification", { email });
+    setLoading(true);
+    axios
+      .post("/api/auth/forgot-pass-email", { email })
+      .then((res) => {
+        setLoading(false);
+        navigation.navigate("OtpVerification", { email });
+      })
+      .catch((err) => {
+        setLoading(false);
+        showToast("error", err.response?.data?.error || "Error", err.message);
+      });
   };
 
   return (

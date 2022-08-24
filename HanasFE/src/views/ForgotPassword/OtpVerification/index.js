@@ -14,7 +14,7 @@ import TextLinkTimer from "@components/TextLinkTimer";
 import styles from "./style";
 import { showToast, ToastComponent } from "@helpers/toast";
 
-export default function RegisterOTP({ navigation, route }) {
+export default function OtpVerification({ navigation, route }) {
   const { email } = route.params;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -29,68 +29,63 @@ export default function RegisterOTP({ navigation, route }) {
   const pin3Ref = useRef(null);
   const pin4Ref = useRef(null);
 
-  //prettier-ignore
-  const handleSubmit = () => {
-    if(loading){
-      return
-    }
-    // console.log(`${pin1}${pin2}${pin3}${pin4}`);
-    if ((pin1 === "") || (pin2 === "") || (pin3 === "") || (pin4 === "")) {
-      setErrorMessage(true);
-      return
-    } 
-    setErrorMessage(false);
-
-    navigation.navigate("ChangePassword",{ email})
-  };
-
-  const handleResendCode = useCallback(() => {
-    // let token = getItem("token").then((token) => token);
-    // setKey(key === 0 ? key + 1 : key - 1);
-    // axios
-    //   .post(
-    //     "api/auth/resend-code",
-    //     { number },
-    //     { headers: { authorization: `Bearer ${token}` } }
-    //   )
-    //   .then(
-    //     (response) =>
-    //       response.data?.success &&
-    //       showToast(
-    //         "success",
-    //         `Resent a verification code to 0${number}`,
-    //         "Please check your phone again"
-    //       )
-    //   )
-    //   .catch((err) =>
-    //     showToast("error", err, "Please try again", () =>
-    //       dispatch(resetError())
-    //     )
-    //   );
-  }, [setKey]);
-
-  useEffect(() => {
-    pin1Ref.current.focus();
+  const successToast = () =>
     showToast(
       "success",
       `Sent a verification code to ${email}`,
       "Please check your inbox"
     );
-  }, []);
 
-  //   useEffect(() => {
-  //     if (typeof error !== "undefined") {
-  //       pin4Ref.current.focus();
-  //       showToast("error", error, "Please try again", () =>
-  //         dispatch(resetError())
-  //       );
-  //     }
-  //   }, [error]);
+  const handleSubmit = () => {
+    if (loading) {
+      return;
+    }
+
+    //prettier-ignore
+    if ((pin1 === "") || (pin2 === "") || (pin3 === "") || (pin4 === "")) {
+      setErrorMessage(true);
+      return
+    }
+
+    // console.log(`${pin1}${pin2}${pin3}${pin4}`);
+    const otp = parseInt(`${pin1}${pin2}${pin3}${pin4}`);
+    setErrorMessage(false);
+
+    setLoading(true);
+    axios
+      .post("/api/auth/forgot-pass-otp", { otp, email })
+      .then(() => {
+        setLoading(false);
+        navigation.navigate("ChangePassword", { email });
+      })
+      .catch((err) => {
+        setLoading(false);
+        showToast("error", err.response?.data?.error || "Error", err.message);
+      });
+  };
+
+  const handleResendCode = useCallback(() => {
+    setKey(key === 0 ? key + 1 : key - 1);
+
+    axios
+      .post("/api/auth/forgot-pass-email", { email, resend: true })
+      .then(() => {
+        successToast();
+      })
+      .catch((err) => {
+        showToast("error", err.response?.data?.error || "Error", err.message);
+      });
+  }, [key, setKey]);
+
+  useEffect(() => {
+    pin1Ref.current.focus();
+    successToast();
+  }, []);
 
   return (
     <SafeAreaView style={styles.body}>
       <>
-        <Text style={styles.title}>Verify Email</Text>
+        <Text style={styles.title}>Verify Email (One-Time Pin)</Text>
         <View style={styles.formContainer}>
           <View style={styles.pinGroupContainer}>
             <View style={styles.pinContainer}>

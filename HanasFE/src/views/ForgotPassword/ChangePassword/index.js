@@ -1,4 +1,10 @@
-import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Image,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -7,6 +13,9 @@ import styles from "./style";
 import IconField from "@components/form/IconField";
 import Button from "@components/Button";
 import { showToast, ToastComponent } from "@helpers/toast";
+import useAlertBackHandler from "@hooks/useAlertBackHandler";
+import axios from "@helpers/axios";
+import { getItem } from "@helpers/asyncStorage";
 
 const password_details = {
   new_pass: "",
@@ -23,29 +32,74 @@ const PasswordSchema = yup.object().shape({
     ),
   confirm_pass: yup
     .string()
-    .required("Confirm your new password")
-    .matches(
-      /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, and one number"
-    ),
+    .required("Please retype your password.")
+    .oneOf([yup.ref("new_pass")], "Your passwords do not match."),
 });
 
-const EditPassword = ({ navigation, route }) => {
+const ChangePassword = ({ navigation, route }) => {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [prevPage, setPrevPage] = useAlertBackHandler(
+    undefined,
+    "You have not changed your password. You will lose your changes. Are you sure you want to continue?"
+  );
   const { email } = route.params;
-  const handleSubmit = (values) => {
-    console.log("submitted!");
+
+  const handleSubmit = ({ new_pass, confirm_pass }) => {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    axios
+      .patch("/api/auth/forgot-pass-change", { email, new_pass, confirm_pass })
+      .then(() => {
+        setLoading(false);
+        setSuccess(true);
+        setTimeout(() => {
+          navigation.navigate("Login");
+        }, 3000);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setSuccess(false);
+        showToast("error", err.response?.data?.error || "Error", err.message);
+      });
   };
 
   useEffect(() => {
-    if (false) {
-      showToast(
-        "success",
-        "Successfully Changed Password",
-        "You will receive an email for the confirmation",
-        () => dispatch(resetSuccess())
-      );
-    }
+    setPrevPage("EmailForm");
   }, []);
+
+  if (success)
+    return (
+      <View
+        style={[styles.body, styles.alignCenter, styles.justifyContentCenter]}
+      >
+        <View>
+          <Image
+            style={styles.logo}
+            source={require("@images/hanasLogoSquared.png")}
+          />
+        </View>
+
+        <Text
+          style={[
+            styles.textCenter,
+            styles.h1,
+            styles.bold,
+            styles.mb5,
+            styles.pb5,
+          ]}
+        >
+          Succesfully Changed Password for {email}
+        </Text>
+        <Text style={[styles.textCenter, styles.h2, styles.mb5, styles.pb5]}>
+          You will be automatically redirected.{"\n"}Just sit back and Relax
+        </Text>
+      </View>
+    );
 
   return (
     <View
@@ -121,7 +175,11 @@ const EditPassword = ({ navigation, route }) => {
                   )}
                 </View>
                 <View style={[styles.mt5, styles.pt5]}>
-                  <Button title="Confirm" onPress={handleSubmit} />
+                  <Button
+                    title="Confirm"
+                    loading={loading}
+                    onPress={handleSubmit}
+                  />
                 </View>
               </ScrollView>
             </>
@@ -133,4 +191,4 @@ const EditPassword = ({ navigation, route }) => {
   );
 };
 
-export default EditPassword;
+export default ChangePassword;

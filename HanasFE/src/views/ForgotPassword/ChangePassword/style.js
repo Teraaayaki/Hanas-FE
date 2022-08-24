@@ -3,7 +3,10 @@ import { colors, margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
   //Unique===================================================================
-
+  logo: {
+    height: 175,
+    width: 200,
+  },
   //Unique===================================================================
   //Reusables================================================================
   temp1: {

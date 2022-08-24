@@ -71,7 +71,7 @@ export default function RegisterOTP({ navigation }) {
           dispatch(resetError())
         )
       );
-  }, [setKey]);
+  }, [key, setKey]);
 
   useEffect(() => {
     pin1Ref.current.focus();
