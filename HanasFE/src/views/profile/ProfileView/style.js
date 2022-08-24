@@ -161,24 +161,24 @@ const styles = StyleSheet.create({
   whiteButton: {
     width: 140,
     height: 53,
-    borderRadius: 15,
+    borderRadius: 10,
     marginTop: margin.m5,
-    elevation: 10,
+    elevation: 2,
     backgroundColor: colors.white,
   },
   pinkButton: {
     width: 140,
     height: 53,
-    borderRadius: 15,
+    borderRadius: 10,
     marginTop: margin.m5,
     backgroundColor: "#FF6186",
-    elevation: 10,
+    elevation: 2,
   },
   buttonText: {
     textAlign: "center",
     marginVertical: 15,
     color: colors.black,
-    fontWeight: fontWeight.bold,
+    fontFamily: "Bold",
   },
   flexedBetween: {
     flexDirection: "row",
@@ -204,6 +204,16 @@ const styles = StyleSheet.create({
   boldText: {
     fontSize: fontSize.h1,
     fontFamily: "Bold",
+  },
+  contact_info: {
+    fontSize: fontSize.h2,
+    marginVertical: margin.m1,
+  },
+  details: {
+    backgroundColor: colors.white,
+    padding: padding.p4,
+    borderRadius: 10,
+    elevation: 2,
   },
 });
 

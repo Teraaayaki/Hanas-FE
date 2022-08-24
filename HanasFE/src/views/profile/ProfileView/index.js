@@ -226,30 +226,44 @@ const ProfileView = ({ navigation, route }) => {
                       </View>
                     </View>
 
-                    <View style={{ marginTop: margin.m5, padding: padding.p3 }}>
-                      <View>
-                        <Text style={styles.boldText}>Location</Text>
-                        <Text
-                          style={{
-                            marginVertical: margin.m3,
-                            textAlign: "justify",
-                          }}
-                        >
-                          {profileData.address}
-                        </Text>
+                    <View
+                      style={{
+                        marginTop: margin.m5,
+                        padding: padding.p3,
+                      }}
+                    >
+                      <View style={styles.details}>
+                        <View>
+                          <Text style={styles.boldText}>Contact Info</Text>
+                          <Divider />
+                          <Text style={styles.contact_info}>
+                            <Icon name="phone" size={22} />{" "}
+                            {`0${profileData.mobile_no}`}
+                          </Text>
+                          <Text style={styles.contact_info}>
+                            <Icon name="mail" size={22} /> {profileData.email}
+                          </Text>
+                          <Text style={styles.contact_info}>
+                            <Icon name="location-pin" size={22} />{" "}
+                            {profileData.address}
+                          </Text>
+                        </View>
+
+                        <View style={styles.mtMargin}>
+                          <Text style={styles.boldText}>Job Description</Text>
+                          <Divider />
+                          <Text
+                            style={{
+                              marginVertical: margin.m3,
+                              fontSize: fontSize.h2,
+                              textAlign: "justify",
+                            }}
+                          >
+                            {profileData.myServicesData[0].description}
+                          </Text>
+                        </View>
                       </View>
-                      <View style={styles.mtMargin}>
-                        <Text style={styles.boldText}>Description</Text>
-                        <Text
-                          style={{
-                            marginVertical: margin.m3,
-                            textAlign: "justify",
-                          }}
-                        >
-                          {profileData.myServicesData[0].description}
-                        </Text>
-                        <Divider />
-                      </View>
+
                       <View style={styles.flexedEvenly}>
                         <TouchableOpacity
                           style={styles.whiteButton}
