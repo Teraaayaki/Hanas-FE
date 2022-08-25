@@ -26,7 +26,6 @@ const ClientScheduleFlatlist = ({
   let date = new Date(1990, 1, 20);
 
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.schedule);
 
   const handleRemove = (id) => {
     const Data = {
@@ -315,39 +314,38 @@ const ClientScheduleFlatlist = ({
     }
   };
 
-  const renderItem = ({ item }) => {
-    const renderPinkSidedCard = ({ item }) => {
-      if (item.workerServiceData[0].serviceNameData[0].service_type) {
-        switch (item.book_status) {
-          case "Finished":
-            return (
-              <PinkSidedCardItem
-                content={renderCard({ item })}
-                disabled
-                success
-              />
-            );
-          case "Cancelled":
-            return (
-              <PinkSidedCardItem content={renderCard({ item })} disabled />
-            );
-          case "Ongoing":
-            return <PinkSidedCardItem content={renderCard({ item })} success />;
-          default:
-            return <PinkSidedCardItem content={renderCard({ item })} />;
-        }
+  const renderPinkSidedCard = ({ item }) => {
+    if (item.workerServiceData[0].serviceNameData[0].service_type) {
+      switch (item.book_status) {
+        case "Finished":
+          return (
+            <PinkSidedCardItem
+              content={renderCard({ item })}
+              disabled
+              success
+            />
+          );
+        case "Cancelled":
+          return <PinkSidedCardItem content={renderCard({ item })} disabled />;
+        case "Ongoing":
+          return <PinkSidedCardItem content={renderCard({ item })} success />;
+        default:
+          return <PinkSidedCardItem content={renderCard({ item })} />;
       }
-      return (
-        <PinkSidedCardItem
-          disabled
-          content={
-            <Text style={[styles.textCenter, styles.h2, styles.textMuted75]}>
-              NONE
-            </Text>
-          }
-        />
-      );
-    };
+    }
+    return (
+      <PinkSidedCardItem
+        disabled
+        content={
+          <Text style={[styles.textCenter, styles.h2, styles.textMuted75]}>
+            NONE
+          </Text>
+        }
+      />
+    );
+  };
+
+  const renderItem = ({ item }) => {
     return (
       <View>
         {renderTitle({ item })}
@@ -367,7 +365,7 @@ const ClientScheduleFlatlist = ({
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         contentContainerStyle={{ paddingBottom: padding.p5 }}
-        ListFooterComponent={renderFooter}
+        ListFooterComponent={renderFooter()}
         onEndReached={handleOnEndReach}
         onEndReachedThreshold={0}
       />

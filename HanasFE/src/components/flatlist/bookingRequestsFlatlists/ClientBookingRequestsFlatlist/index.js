@@ -25,7 +25,7 @@ dayjs.extend(utc);
 const ClientBookingRequestsFlatlist = ({
   navigation,
   DATA,
-  handleOnEndreached,
+  handleOnEndReach,
   renderFooter,
 }) => {
   let date = new Date(1990, 0, 21);
@@ -237,7 +237,7 @@ const ClientBookingRequestsFlatlist = ({
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       contentContainerStyle={{ paddingBottom: padding.p5 }}
-      onEndReached={handleOnEndreached}
+      onEndReached={handleOnEndReach}
       onEndReachedThreshold={0}
       ListFooterComponent={renderFooter()}
     />
