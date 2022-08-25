@@ -13,7 +13,8 @@ import {
   getOngoingService,
   getOverview,
   getUpcomingServices,
-} from "../../../redux/actions/workerDashboardActions";
+} from "@redux/actions/workerDashboardActions";
+import { getServiceType } from "@redux/actions/workerServiceActions";
 import { SocketContext } from "../../../context/socketContext";
 import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
@@ -53,6 +54,7 @@ const WorkerDashboard = ({ navigation }) => {
     dispatch(getUpcomingServices());
     dispatch(getOngoingService());
     dispatch(getNotifications());
+    dispatch(getServiceType());
 
     getPermissions();
     getImagePermissions();
