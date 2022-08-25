@@ -103,7 +103,7 @@ const AddService = ({ navigation }) => {
     setUploadingCertificate(true);
     let result = await pickSampleImage();
 
-    if (!result.cancelled) {
+    if (result.cancelled) {
       setUploadingCertificate(false);
       return;
     }
