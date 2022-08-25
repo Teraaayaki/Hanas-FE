@@ -13,7 +13,7 @@
     "production": {
       "env": {
         "HANAS_ENDPOINT": "https://hanas-be-express-api.herokuapp.com",
-        "MAPS_API_KEY": "AIzaSyARE1u8nAte5SFOElEL9YeaSFDmEbbF-w4"
+        "MAPS_API_KEY": "AIzaSyAg5DHVjMf7DywpYlJeW_x5SR6UCRPuUg4"
       }
     }
   },
