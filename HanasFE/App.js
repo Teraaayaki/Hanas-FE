@@ -10,13 +10,12 @@ import AddressProvider from "./src/context/addressContext";
 import { fetcher } from "@helpers/fetcher";
 import HanasStack from "@routes";
 import Loading from "@components/Loading";
-import { MAPS_API_KEY } from "@env";
 import { Suspense } from "react";
 import { SocketProvider } from "./src/context/socketContext";
 import store from "./src/redux";
 import useFonts from "@hooks/useFonts";
 
-Geocoder.init(MAPS_API_KEY);
+Geocoder.init(process.env.MAPS_API_KEY);
 
 export default function App() {
   const [IsReady, setIsReady] = useState(false);
