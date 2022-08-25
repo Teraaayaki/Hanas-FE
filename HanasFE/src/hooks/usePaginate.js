@@ -3,6 +3,24 @@ import { View, Text, ActivityIndicator } from "react-native";
 
 import { colors } from "@constants";
 
+/**
+ * usePaginate hook
+ *
+ * this hook will paginate the data on the frontend
+ * purely cosmetic no backend calls used.
+ *
+ * @param data array - the list of data to be paginated
+ * @param initialLimit NUMBER - initialLimit of the page,
+ * how many should be seen on first render
+ *
+ * @return values
+ *
+ * @paginatedData array - the paginated data
+ * @handleOnEndReach function - if user reaches end of page it will trigger this function
+ * @renderFooter JSX element - returns a loading indicator if there are still data left,
+ * if no more data is loaded will return empty view
+ */
+
 const usePaginate = (data, initialLimit = 10) => {
   const [paginatedData, setPaginatedData] = useState(data);
   const [limit, setLimit] = useState(0);

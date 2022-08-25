@@ -132,6 +132,12 @@ export default function Login({ navigation }) {
               linkTitle="Register here"
               onPress={() => navigation.navigate("RegisterClientWorker")}
             />
+
+            <TextLink
+              title="Forgot Password?"
+              linkTitle="Click here"
+              onPress={() => navigation.navigate("EmailForm")}
+            />
           </View>
         </View>
       </KeyboardAvoidingView>
