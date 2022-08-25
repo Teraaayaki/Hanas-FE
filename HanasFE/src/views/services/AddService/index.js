@@ -249,7 +249,7 @@ const AddService = ({ navigation }) => {
   useEffect(() => {
     filterServices();
     console.log("Error (Add Service): ", error);
-    console.log("Success (Add Service): ", success);
+    console.log("Service: ", serviceType);
     if (success) {
       setService("Electrical");
       setRatePerHourValue("");
