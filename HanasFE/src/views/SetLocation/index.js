@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
 import MapView, { Marker } from "react-native-maps";
@@ -10,6 +10,8 @@ import Button from "@components/Button";
 import Header from "@components/Header";
 import styles from "./style";
 import { setLocation } from "@redux/actions/registerActions";
+// import Location from "@helpers/location";
+import * as Location from "expo-location";
 
 let regionDefault = {
   longitude: 123.893078,
@@ -25,12 +27,18 @@ const SetLocation = ({ navigation, route }) => {
   const [errMessage, setErrMessage] = useState("");
   const inputElem = useRef();
   const dispatch = useDispatch();
+  const [status] = Location.useForegroundPermissions();
 
   const handleRegionChange = (region) => {
     setRegion({ ...region });
   };
 
   const handleSetLocation = async () => {
+    if (status !== "granted") {
+      alert("Please enable location access");
+      return;
+    }
+
     let input = inputElem.current;
     let { results } = await Geocoder.from(region.latitude, region.longitude);
     if (results[0].formatted_address.includes("Cebu")) {
@@ -55,6 +63,21 @@ const SetLocation = ({ navigation, route }) => {
       dispatch(setLocation(address, navigation, nextPage));
     }
   };
+
+  useEffect(() => {
+    const locationPermission = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        alert("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log(location);
+    };
+
+    locationPermission();
+  }, []);
 
   return (
     <View style={styles.container}>
