@@ -156,7 +156,7 @@ const AchievemntsFlatlist = ({
                     size={22}
                     color={colors.secondary}
                   />
-                  <Text style={[styles.h3, styles.ml2]}>49X-XOXO</Text>
+                  <Text style={[styles.h3, styles.ml2]}>032 253 3310</Text>
                 </View>
                 <View
                   style={[
@@ -171,7 +171,7 @@ const AchievemntsFlatlist = ({
                     size={22}
                     color={colors.secondary}
                   />
-                  <Text style={[styles.h3, styles.ml2]}>09XXOOOXXXX</Text>
+                  <Text style={[styles.h3, styles.ml2]}>0930 783 2060</Text>
                 </View>
               </View>
             }
