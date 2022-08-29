@@ -9,7 +9,7 @@ const CircularProfileImage = ({ imageSource, onPress }) => {
   useEffect(() => {
     if (imageSource === "none") {
       setSource({
-        uri: "https://storage.googleapis.com/hanas/hanas-images/default.png",
+        uri: "https://storage.googleapis.com/hanas-storage/hanas-images/default.png",
       });
     } else {
       setSource({ uri: imageSource });

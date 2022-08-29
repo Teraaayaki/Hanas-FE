@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Input, Icon } from "react-native-elements";
 import MapView, { Marker } from "react-native-maps";
-import Geocoder from "react-native-geocoding";
 import { useDispatch } from "react-redux";
 
 import { colors } from "@constants";
@@ -10,7 +9,6 @@ import Button from "@components/Button";
 import Header from "@components/Header";
 import styles from "./style";
 import { setLocation } from "@redux/actions/registerActions";
-// import Location from "@helpers/location";
 import * as Location from "expo-location";
 
 let regionDefault = {
@@ -27,7 +25,7 @@ const SetLocation = ({ navigation, route }) => {
   const [errMessage, setErrMessage] = useState("");
   const inputElem = useRef();
   const dispatch = useDispatch();
-  const [status] = Location.useForegroundPermissions();
+  const [status, setStatus] = useState("");
 
   const handleRegionChange = (region) => {
     setRegion({ ...region });
@@ -35,19 +33,46 @@ const SetLocation = ({ navigation, route }) => {
 
   const handleSetLocation = async () => {
     if (status !== "granted") {
-      alert("Please enable location access");
+      alert(
+        "Please enable location access. Go to Setting > Apps > Hanas > App Permissions. "
+      );
       return;
     }
 
     let input = inputElem.current;
-    let { results } = await Geocoder.from(region.latitude, region.longitude);
-    if (results[0].formatted_address.includes("Cebu")) {
-      setAddress(results[0].formatted_address);
+
+    // Reverse Geocoding
+    // let { results } = await Geocoder.from(region.latitude, region.longitude);
+    try {
+      let results = await Location.reverseGeocodeAsync({
+        latitude: region.latitude,
+        longitude: region.longitude,
+      });
+
+      // if results is empty
+      if (!results.length) {
+        return;
+      }
+
+      // extract object from array
+      const result = results[0];
+      console.log(result);
+      // If vicinity is within cebu
+
+      if (result.subregion !== "Cebu") {
+        setAddress("Invalid Location");
+        setErrMessage("Location Currently Unsupported");
+        input.shake();
+        return;
+      }
+
+      // Sanitize address
+      console.log(`${result.name}, ${result.city}, ${result.subregion}`);
+      setAddress(`${result.name}, ${result.city}, ${result.subregion}`);
       setErrMessage("");
-    } else {
-      setAddress("Invalid Location");
-      setErrMessage("Location Currently Unsupported");
-      input.shake();
+    } catch (err) {
+      alert("Error getting address: ", err.message);
+      return;
     }
   };
 
@@ -66,14 +91,27 @@ const SetLocation = ({ navigation, route }) => {
 
   useEffect(() => {
     const locationPermission = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        alert("Permission to access location was denied");
+      let { status: locationStatus } =
+        await Location.requestForegroundPermissionsAsync();
+      if (locationStatus !== "granted") {
+        alert("Permission to access location was denied.");
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      console.log(location);
+      setStatus(locationStatus);
+
+      try {
+        let location = await Location.getCurrentPositionAsync({});
+
+        setRegion({
+          ...region,
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      } catch (err) {
+        alert("Error getting address: ", err.message);
+        return;
+      }
     };
 
     locationPermission();
@@ -114,7 +152,7 @@ const SetLocation = ({ navigation, route }) => {
               inputStyle={styles.inputText}
               leftIconContainerStyle={styles.logoContainer}
               placeholder="Cebu City, Cebu"
-              value={address.substring(0, address.lastIndexOf(", "))}
+              value={address}
               leftIcon={<Icon name="explore" size={24} color={colors.dark} />}
               errorMessage={errMessage}
               errorStyle={styles.errMessage}

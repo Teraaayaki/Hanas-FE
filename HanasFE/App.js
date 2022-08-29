@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import Geocoder from "react-native-geocoding";
+// import Geocoder from "react-native-geocoding";
 import { SWRConfig } from "swr";
 import AppLoading from "expo-app-loading";
+import * as Location from "expo-location";
 
 import AddressProvider from "./src/context/addressContext";
 import { fetcher } from "@helpers/fetcher";
@@ -15,7 +16,8 @@ import { SocketProvider } from "./src/context/socketContext";
 import store from "./src/redux";
 import useFonts from "@hooks/useFonts";
 
-Geocoder.init(process.env.MAPS_API_KEY);
+Location.setGoogleApiKey(process.env.MAPS_API_KEY);
+// Geocoder.init(process.env.MAPS_API_KEY);
 
 export default function App() {
   const [IsReady, setIsReady] = useState(false);

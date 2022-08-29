@@ -8,7 +8,14 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "HANAS_ENDPOINT": "https://hanas-be-express-api.herokuapp.com",
+        "MAPS_API_KEY": "AIzaSyAg5DHVjMf7DywpYlJeW_x5SR6UCRPuUg4"
+      }
     },
     "production": {
       "env": {
