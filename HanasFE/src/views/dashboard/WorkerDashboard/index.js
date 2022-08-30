@@ -19,6 +19,7 @@ import { SocketContext } from "../../../context/socketContext";
 import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
 import { getNotifications } from "@redux/actions/notificationActions";
+import { getUserConversations } from "@redux/actions/conversationAction";
 //Achievements----------------------------------------
 const InitialAchievementsData = {
   goal: 99999,
@@ -38,11 +39,11 @@ const WorkerDashboard = ({ navigation }) => {
   const { user } = useSelector((state) => state.userDetails);
   const { transactions } = useSelector((state) => state.transactions);
   const { overview, upcomingServices, ongoingService } = useSelector(
-    (state) => state.workerDashboard
+    (state) => state.workerDashboard,
   );
 
   const [achievementsCardData, setAchievementsCardData] = useState(
-    InitialAchievementsData
+    InitialAchievementsData,
   );
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
@@ -67,14 +68,20 @@ const WorkerDashboard = ({ navigation }) => {
     });
 
     socket.current.on("newNotification", ({ data, push_token }) => {
-      sendNotification(push_token, data.type, data.description);
+      if (data.notifiedUser === user.id) {
+        sendNotification(push_token, data.type, data.description);
+      }
+    });
+
+    socket.current.on("conversationUpdate", () => {
+      dispatch(getUserConversations());
     });
   }, []);
 
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
     const { goal } = filteredAchievementsData.find(
-      (filteredAchievement) => filteredAchievement.claimed === false
+      (filteredAchievement) => filteredAchievement.claimed === false,
     );
     const totalEarned = getTotalEarnings(transactions);
     setAchievementsCardData({ goal, completion: totalEarned });

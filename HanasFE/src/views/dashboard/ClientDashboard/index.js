@@ -7,7 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import useSWR from "swr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { AddressContext } from "../../../context/addressContext";
 import { SocketContext } from "../../../context/socketContext";
@@ -24,6 +24,7 @@ import NoWorkerGraphic from "@components/NoWorkerGraphic";
 import { getPermissions, sendNotification } from "@helpers/notifications";
 import { getImagePermissions } from "@utils/imageUtils";
 import { getNotifications } from "@redux/actions/notificationActions";
+import { getUserConversations } from "@redux/actions/conversationAction";
 
 const ClientDashboard = ({ navigation }) => {
   // SWR
@@ -37,6 +38,7 @@ const ClientDashboard = ({ navigation }) => {
   );
   // LOCATION STATE
   const { socket } = useContext(SocketContext);
+  const { user } = useSelector((state) => state.userDetails);
   const { address, setAddress } = useContext(AddressContext);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -70,7 +72,13 @@ const ClientDashboard = ({ navigation }) => {
     getImagePermissions();
 
     socket.current.on("newNotification", ({ data, push_token }) => {
-      sendNotification(push_token, data.type, data.description);
+      if (data.notifiedUser === user.id) {
+        sendNotification(push_token, data.type, data.description);
+      }
+    });
+
+    socket.current.on("conversationUpdate", () => {
+      dispatch(getUserConversations());
     });
   }, []);
 
