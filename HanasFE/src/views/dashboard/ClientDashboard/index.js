@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, ScrollView, TouchableOpacity, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import useSWR from "swr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { AddressContext } from "../../../context/addressContext";
 import { SocketContext } from "../../../context/socketContext";
@@ -23,12 +29,16 @@ import { getUserConversations } from "@redux/actions/conversationAction";
 const ClientDashboard = ({ navigation }) => {
   // SWR
   const [queryParams, setQueryParams] = useState(null);
-  const { data, error } = useSWR([`api/client/get-top-rated-workers`, queryParams]);
+  const { data, error } = useSWR([
+    `api/client/get-top-rated-workers`,
+    queryParams,
+  ]);
   const { data: servicesData, error: topServicesError } = useSWR(
-    `api/client/get-top-services`,
+    `api/client/get-top-services`
   );
   // LOCATION STATE
   const { socket } = useContext(SocketContext);
+  const { user } = useSelector((state) => state.userDetails);
   const { address, setAddress } = useContext(AddressContext);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -47,12 +57,12 @@ const ClientDashboard = ({ navigation }) => {
 
     //map the fetched data
     let topRatedTemp = servicesData.top_rated_services.map(
-      (serviceData) => serviceData.service_type,
+      (serviceData) => serviceData.service_type
     );
 
     //filter the fetched data's service type with its corresponding image
     let filteredServices = services.filter((service) =>
-      topRatedTemp.includes(service.service_type),
+      topRatedTemp.includes(service.service_type)
     );
 
     //set the new data
@@ -96,7 +106,9 @@ const ClientDashboard = ({ navigation }) => {
               <HorizontalCarousel />
               <View style={styles.textContainer}>
                 <Text style={styles.labelText}>Top Services</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("BrowseServices")}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("BrowseServices")}
+                >
                   <Text style={styles.fadeText}>View more</Text>
                 </TouchableOpacity>
               </View>
@@ -141,7 +153,10 @@ const ClientDashboard = ({ navigation }) => {
               <NoWorkerGraphic text="Sorry, No workers available in the area yet" />
             ) : (
               <>
-                <CardContainerFlatlist navigation={navigation} data={data.user} />
+                <CardContainerFlatlist
+                  navigation={navigation}
+                  data={data.user}
+                />
               </>
             )}
           </View>
