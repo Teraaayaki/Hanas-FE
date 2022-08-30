@@ -4,7 +4,7 @@ import { margin, fontSize } from "@constants";
 export default StyleSheet.create({
   header: {
     alignItems: "center",
-    paddingTop: StatusBar.currentHeight - 15,
+    // paddingTop: StatusBar.currentHeight - 15,
   },
   headerText: {
     marginTop: margin.m3,

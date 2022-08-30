@@ -5,7 +5,7 @@ export default StyleSheet.create({
   header: {
     justifyContent: "space-between",
     flexDirection: "row",
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
   },
   headerText: {
     marginBottom: margin.m2,

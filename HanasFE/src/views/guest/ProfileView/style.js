@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   header: {
     // flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
     paddingBottom: padding.p20,
   },
   headerText: {
