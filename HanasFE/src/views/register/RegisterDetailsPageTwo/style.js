@@ -67,4 +67,12 @@ export default StyleSheet.create({
     color: colors.dark,
     fontSize: fontSize.h3,
   },
+  text: {
+    fontWeight: "bold",
+    fontSize: fontSize.h3,
+    color: colors.secondary,
+  },
+  textContainer: {
+    marginTop: "10%",
+  },
 });

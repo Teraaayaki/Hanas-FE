@@ -79,6 +79,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
           <View style={styles.titleContainer}>
             <Text style={styles.title}>User Details</Text>
           </View>
+
           <ScrollView
             style={styles.formContainer}
             showsVerticalScrollIndicator={false}
@@ -176,6 +177,13 @@ export default function RegisterDetailsPageTwo({ navigation }) {
                 />
               </>
             </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("RegisterDetailsPageOne")}
+            >
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>{"<"} Previous Page </Text>
+              </View>
+            </TouchableOpacity>
           </ScrollView>
         </>
       )}
