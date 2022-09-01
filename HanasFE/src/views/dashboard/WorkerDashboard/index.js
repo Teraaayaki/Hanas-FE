@@ -39,11 +39,11 @@ const WorkerDashboard = ({ navigation }) => {
   const { user } = useSelector((state) => state.userDetails);
   const { transactions } = useSelector((state) => state.transactions);
   const { overview, upcomingServices, ongoingService } = useSelector(
-    (state) => state.workerDashboard,
+    (state) => state.workerDashboard
   );
 
   const [achievementsCardData, setAchievementsCardData] = useState(
-    InitialAchievementsData,
+    InitialAchievementsData
   );
   const { data: fetchedClaimedData } = useSWR(`api/worker/get-achievements`);
 
@@ -69,6 +69,7 @@ const WorkerDashboard = ({ navigation }) => {
 
     socket.current.on("newNotification", ({ data, push_token }) => {
       if (data.notifiedUser === user.id) {
+        console.log("Send Notif!");
         sendNotification(push_token, data.type, data.description);
       }
     });
@@ -81,7 +82,7 @@ const WorkerDashboard = ({ navigation }) => {
   const claimedData = () => {
     const filteredAchievementsData = AchievementsDATA(fetchedClaimedData);
     const { goal } = filteredAchievementsData.find(
-      (filteredAchievement) => filteredAchievement.claimed === false,
+      (filteredAchievement) => filteredAchievement.claimed === false
     );
     const totalEarned = getTotalEarnings(transactions);
     setAchievementsCardData({ goal, completion: totalEarned });
@@ -90,8 +91,6 @@ const WorkerDashboard = ({ navigation }) => {
   useEffect(() => {
     claimedData();
   }, [fetchedClaimedData, transactions]);
-
-  // console.log(convFeeData);
 
   return (
     <View style={[styles.body]}>

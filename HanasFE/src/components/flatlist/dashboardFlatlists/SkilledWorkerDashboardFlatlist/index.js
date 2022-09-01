@@ -69,6 +69,7 @@ const SkilledWorkerDashboardFlatlist = ({
       return (
         <View style={[styles.flex1, styles.w100]}>
           {/* Card Body */}
+
           <View style={[styles.flex1, styles.w100, styles.flexRow]}>
             {/* Body Left */}
             <View
@@ -170,12 +171,25 @@ const SkilledWorkerDashboardFlatlist = ({
         ListHeaderComponent={
           <View>
             <Ongoing OngoingDATA={OngoingDATA} />
-            <PinkSidedCardHeader
-              title="Upcoming Services"
-              hideCardBtn
-              hideCard={hideCard}
-              setHideCard={setHideCard}
-            />
+            {ServicesDATA.length > 0 ? (
+              <PinkSidedCardHeader
+                title="Upcoming Services"
+                hideCardBtn
+                hideCard={hideCard}
+                setHideCard={setHideCard}
+              />
+            ) : (
+              <PinkSidedCard
+                title="Upcoming Service"
+                hideCardBtn
+                content={
+                  <Text style={[styles.flex1, styles.w100, styles.textCenter]}>
+                    No Upcoming Service
+                  </Text>
+                }
+                success
+              />
+            )}
           </View>
         }
         ListFooterComponent={
