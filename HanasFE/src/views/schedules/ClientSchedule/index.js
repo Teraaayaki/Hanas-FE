@@ -174,7 +174,7 @@ const FloatingHeader = memo(({ bookingData, navigation }) => (
       styles.absolute,
       styles.px5,
       styles.py3,
-      { marginTop: "30%" },
+      styles.floatingMargin,
     ]}
   >
     {/* {console.log("Floating header")} */}

@@ -516,11 +516,12 @@ const BookSkilledWorker = ({ navigation, route }) => {
               />
             </View>
             <View style={[styles.px5, styles.mx5]}>
-              {loading && (
+              {/* {loading && (
                 <ActivityIndicator size="large" color={colors.secondary} />
-              )}
+              )} */}
               <Button
                 title="Submit Request"
+                loading={loading}
                 onPress={handleSubmitMultipleDay}
               />
             </View>

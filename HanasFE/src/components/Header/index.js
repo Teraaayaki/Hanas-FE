@@ -8,26 +8,29 @@ import { Icon } from "react-native-elements";
 import style from "./style";
 const Header = ({ title, showButton = false, onPress }) => {
   return (
-    <LinearGradient
-      style={styles.header}
-      colors={[colors.primary, colors.secondary]}
-    >
-      <View style={styles.sideView}>
-        {showButton && (
-          <TouchableOpacity onPress={onPress}>
-            <Icon
-              type="material"
-              containerStyle={styles.backIcon}
-              name="arrow-back"
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-      <View style={styles.headerText}>
-        <Text style={styles.text}>{title}</Text>
-      </View>
-      <View style={styles.sideView}></View>
-    </LinearGradient>
+    <>
+      {/* <View style={styles.statusBar} /> */}
+      <LinearGradient
+        style={styles.header}
+        colors={[colors.primary, colors.secondary]}
+      >
+        <View style={styles.sideView}>
+          {showButton && (
+            <TouchableOpacity onPress={onPress}>
+              <Icon
+                type="material"
+                containerStyle={styles.backIcon}
+                name="arrow-back"
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.headerText}>
+          <Text style={styles.text}>{title}</Text>
+        </View>
+        <View style={styles.sideView}></View>
+      </LinearGradient>
+    </>
   );
 };
 

@@ -5,9 +5,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  statusBar: {
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "white",
+  },
   header: {
     // flex: 1,
-    // paddingTop: StatusBar.currentHeight,
+    paddingTop: 5,
     paddingBottom: padding.p20,
   },
   headerText: {

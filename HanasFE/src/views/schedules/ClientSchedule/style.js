@@ -1,10 +1,13 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import { colors, margin, fontSize, padding } from "@constants";
-
+console.log(StatusBar.currentHeight);
 export default StyleSheet.create({
   //Unique===================================================================
   completion: {
     position: "absolute",
+  },
+  floatingMargin: {
+    marginTop: StatusBar.currentHeight + 90,
   },
   //Unique===================================================================
   //Reusables================================================================

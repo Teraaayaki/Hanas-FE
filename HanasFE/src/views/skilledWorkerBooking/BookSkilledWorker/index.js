@@ -607,11 +607,15 @@ const BookSkilledWorker = ({ navigation, route }) => {
               />
             </View>
             <View style={[styles.px5, styles.mx5]}>
-              {loading && (
+              {/* {loading && (
                 <ActivityIndicator size="large" color={colors.secondary} />
-              )}
+              )} */}
 
-              <Button title="Submit Request" onPress={handleSubmitSingleDay} />
+              <Button
+                title="Submit Request"
+                loading={loading}
+                onPress={handleSubmitSingleDay}
+              />
             </View>
           </View>
         </ScrollView>

@@ -2,10 +2,14 @@ import { StyleSheet, StatusBar } from "react-native";
 import { margin, fontSize, padding } from "@constants";
 
 export default StyleSheet.create({
+  statusBar: {
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "white",
+  },
   header: {
     justifyContent: "space-between",
     flexDirection: "row",
-    // paddingTop: StatusBar.currentHeight,
+    paddingTop: 5,
   },
   headerText: {
     marginBottom: margin.m2,

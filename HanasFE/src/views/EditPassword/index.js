@@ -207,13 +207,17 @@ const EditPassword = ({ navigation, route }) => {
                     <Text style={styles.error}>{errors.confirm_pass}</Text>
                   )}
                 </View>
-                {loading && (
+                {/* {loading && (
                   <View style={styles.spinner}>
                     <ActivityIndicator size="large" color={colors.secondary} />
                   </View>
-                )}
+                )} */}
                 <View style={[styles.mt5, styles.pt5]}>
-                  <Button title="Confirm" onPress={handleSubmit} />
+                  <Button
+                    title="Confirm"
+                    loading={loading}
+                    onPress={handleSubmit}
+                  />
                 </View>
               </ScrollView>
             </>

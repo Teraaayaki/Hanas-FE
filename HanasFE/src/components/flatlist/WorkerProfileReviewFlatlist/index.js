@@ -56,7 +56,7 @@ const WorkerProfileReviewsFlatlist = ({ data, navigation, serviceName }) => {
         flexGrow: 1,
       }}
       onEndReached={handleOnEndReach}
-      onEndReachedThreshold={0}
+      onEndReachedThreshold={0.1}
       ListFooterComponent={renderFooter()}
     />
   );

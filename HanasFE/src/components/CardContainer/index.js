@@ -45,11 +45,9 @@ const CardContainer = ({
         <View style={styles.profileContainer}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.address}>{address}</Text>
-          <TouchableHighlight {...touchPropsServices}>
-            <Text style={styles.profession} onPress={onPressServices}>
-              {profession}
-            </Text>
-          </TouchableHighlight>
+          {/* <TouchableHighlight {...touchPropsServices}> */}
+          <Text style={styles.profession}>{profession}</Text>
+          {/* </TouchableHighlight> */}
           <View style={[styles.gapMargin, styles.detailsContainer]}>
             <Text style={[styles.fadeText, { marginLeft: "2%" }]}>Rating</Text>
             <Text style={[styles.fadeText]}>Jobs Done</Text>

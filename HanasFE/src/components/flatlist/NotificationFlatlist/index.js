@@ -23,19 +23,23 @@ const Item = ({ item, onPress, backgroundColor, textColorW }) => (
           {item.description}
         </Text>
 
-        <Text style={styles.time_elapsed}>{moment(item.createdAt).fromNow()}</Text>
+        <Text style={styles.time_elapsed}>
+          {moment(item.createdAt).fromNow()}
+        </Text>
       </View>
 
       <View style={styles.viewButtonContainerFlex}>
         {/* <TouchableOpacity>
-          <Text style={styles.boldText}>View {item.type}</Text>
+       
         </TouchableOpacity> */}
+        <Text style={styles.boldText}>View {item.type}</Text>
         <TouchableOpacity onPress={onPress}>
           <Text style={!item.isOpened ? styles.new_notif : ""} />
         </TouchableOpacity>
       </View>
       <Text style={styles.dateText}>
-        {moment(item.createdAt).format("LL")} | {moment(item.createdAt).format("LT")}
+        {moment(item.createdAt).format("LL")} |{" "}
+        {moment(item.createdAt).format("LT")}
       </Text>
     </View>
   </TouchableOpacity>
@@ -46,8 +50,11 @@ const NotificationFlatlist = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const { socket } = useContext(SocketContext);
   const { user } = useSelector((state) => state.userDetails);
-  const { notifications, fetching } = useSelector((state) => state.notifications);
-  const [paginatedData, handleOnEndReach, renderFooter] = usePaginate(notifications);
+  const { notifications, fetching } = useSelector(
+    (state) => state.notifications
+  );
+  const [paginatedData, handleOnEndReach, renderFooter] =
+    usePaginate(notifications);
 
   useEffect(() => {
     dispatch(getNotifications());
@@ -60,8 +67,8 @@ const NotificationFlatlist = ({ navigation }) => {
   }, []);
 
   const renderItem = ({ item }) => {
-    const backgroundColor =
-      item._id === selectedId ? colors.borderGrey : colors.background;
+    // const backgroundColor =
+    //   item._id === selectedId ? colors.borderGrey : colors.background;
     const color = item._id === selectedId ? "white" : "black";
 
     return (
@@ -74,7 +81,7 @@ const NotificationFlatlist = ({ navigation }) => {
 
           navigation.navigate(item.route);
         }}
-        backgroundColor={{ backgroundColor }}
+        // backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
     );

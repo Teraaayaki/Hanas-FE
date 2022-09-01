@@ -52,30 +52,37 @@ const ProfileClient = ({ navigation }) => {
       contentContainerStyle={styles.h100}
       parallaxHeaderHeight={180}
       renderForeground={() => (
-        <LinearGradient
-          style={styles.header}
-          colors={[colors.primary, colors.secondary]}
-        >
-          <View style={styles.headerText}>
-            <Text style={styles.text}>Your Profile</Text>
-          </View>
-          <View style={styles.headContainer}>
-            <CircularProfileImage
-              style={styles.image}
-              onPress={() => navigation.navigate("EditAccount")}
-              imageSource={user.profile_pic}
-            />
-            <View style={styles.nameContainer}>
-              <Text
-                style={styles.name}
-              >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
-              <Text style={styles.verified}>
-                <Icon color="yellowgreen" size={fontSize.h3} name="verified" />{" "}
-                Basic User
-              </Text>
+        <>
+          {/* <View style={styles.statusBar} /> */}
+          <LinearGradient
+            style={styles.header}
+            colors={[colors.primary, colors.secondary]}
+          >
+            <View style={styles.headerText}>
+              <Text style={styles.text}>Your Profile</Text>
             </View>
-          </View>
-        </LinearGradient>
+            <View style={styles.headContainer}>
+              <CircularProfileImage
+                style={styles.image}
+                onPress={() => navigation.navigate("EditAccount")}
+                imageSource={user.profile_pic}
+              />
+              <View style={styles.nameContainer}>
+                <Text
+                  style={styles.name}
+                >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
+                <Text style={styles.verified}>
+                  <Icon
+                    color="yellowgreen"
+                    size={fontSize.h3}
+                    name="verified"
+                  />{" "}
+                  Basic User
+                </Text>
+              </View>
+            </View>
+          </LinearGradient>
+        </>
       )}
       stickyHeaderHeight={70}
       renderStickyHeader={() => (

@@ -51,46 +51,49 @@ const Profile = ({ navigation }) => {
       contentContainerStyle={styles.h100}
       parallaxHeaderHeight={180}
       renderForeground={() => (
-        <LinearGradient
-          style={styles.header}
-          colors={[colors.primary, colors.secondary]}
-        >
-          <View style={styles.headerText}>
-            <Text style={styles.text}>Your Profile</Text>
-          </View>
-          <View style={styles.headContainer}>
-            <CircularProfileImage
-              style={styles.image}
-              imageSource={user.profile_pic}
-              onPress={() => navigation.navigate("EditAccount")}
-            />
-            <View style={styles.nameContainer}>
-              <Text
-                style={styles.name}
-              >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
-              {user.is_verified ? (
-                <Text style={styles.verified}>
-                  <Icon color="green" size={fontSize.h3} name="verified" />{" "}
-                  Verified
-                </Text>
-              ) : user.pending_verification ? (
-                <Text style={styles.verified}>
-                  <Icon color="orange" size={fontSize.h3} name="verified" />{" "}
-                  Pending Verification
-                </Text>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("GetVerified")}
-                >
-                  <Text style={styles.verified}>
-                    <Icon color="red" size={fontSize.h3} name="verified" />{" "}
-                    Unverified
-                  </Text>
-                </TouchableOpacity>
-              )}
+        <>
+          {/* <View style={styles.statusBar} /> */}
+          <LinearGradient
+            style={styles.header}
+            colors={[colors.primary, colors.secondary]}
+          >
+            <View style={styles.headerText}>
+              <Text style={styles.text}>Your Profile</Text>
             </View>
-          </View>
-        </LinearGradient>
+            <View style={styles.headContainer}>
+              <CircularProfileImage
+                style={styles.image}
+                imageSource={user.profile_pic}
+                onPress={() => navigation.navigate("EditAccount")}
+              />
+              <View style={styles.nameContainer}>
+                <Text
+                  style={styles.name}
+                >{`${user.first_name} ${user.middle_name} ${user.last_name}`}</Text>
+                {user.is_verified ? (
+                  <Text style={styles.verified}>
+                    <Icon color="green" size={fontSize.h3} name="verified" />{" "}
+                    Verified
+                  </Text>
+                ) : user.pending_verification ? (
+                  <Text style={styles.verified}>
+                    <Icon color="orange" size={fontSize.h3} name="verified" />{" "}
+                    Pending Verification
+                  </Text>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("GetVerified")}
+                  >
+                    <Text style={styles.verified}>
+                      <Icon color="red" size={fontSize.h3} name="verified" />{" "}
+                      Unverified
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          </LinearGradient>
+        </>
       )}
       stickyHeaderHeight={70}
       renderStickyHeader={() => (
