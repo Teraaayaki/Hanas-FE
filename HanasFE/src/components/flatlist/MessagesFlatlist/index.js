@@ -41,11 +41,11 @@ const MessagesFlatlist = ({ navigation }) => {
     });
   }, [fetchData]);
 
-  // useEffect(() => {
-  //   socket.current.on("conversationUpdate", () => {
-  //     setFetchData(true);
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.current.on("conversationUpdate", () => {
+      setFetchData(true);
+    });
+  }, []);
 
   useEffect(() => {
     if (doneFetching) {
@@ -62,7 +62,7 @@ const MessagesFlatlist = ({ navigation }) => {
 
   const renderItem = ({ item }) => {
     const receiver = getReceiverInfo(item.participants);
-    const receiverName = `${receiver.first_name} ${receiver.middle_name} ${receiver.family_name} ${receiver.suffix}`;
+    const receiverName = `${receiver.first_name} ${receiver.family_name} ${receiver.suffix}`;
     const latestMessage = item.messages[0];
     const messages = item.messages;
 
