@@ -30,7 +30,7 @@ const Item = ({
     image={item.profile_pic}
     rate={item.myServicesData[0].hourly_rate}
     onPress={onPress}
-    onPressServices={onPressServices}
+    // onPressServices={onPressServices}
   />
 );
 

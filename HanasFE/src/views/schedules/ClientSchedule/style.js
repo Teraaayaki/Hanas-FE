@@ -6,6 +6,10 @@ export default StyleSheet.create({
   completion: {
     position: "absolute",
   },
+  floatingMargin: {
+    marginTop: 90,
+  },
+
   //Unique===================================================================
   //Reusables================================================================
   temp1: {

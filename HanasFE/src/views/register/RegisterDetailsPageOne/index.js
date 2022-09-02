@@ -25,16 +25,19 @@ const RegisterSchema = yup.object().shape({
   firstName: yup
     .string()
     .required("Please enter your first name")
-    .matches(/^([^0-9]*)$/,"No numeric values allowed"),
+    // .matches(/^([^0-9]*)$/,"No numeric values allowed")
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed"),
   middleName: yup
     .string()
     .required("Required")
-    .matches(/^([^0-9]*)$/,"No numeric values allowed"),
+    // .matches(/^([^0-9]*)$/,"No numeric values allowed")
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed"),
   lastName: yup
     .string()
     .required("Please enter your last name")
-    .matches(/^([^0-9]*)$/,"No numeric values allowed"),
-  suffix: yup.string(),
+    // .matches(/^([^0-9]*)$/,"No numeric values allowed")
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed"),
+  suffix: yup.string().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed"),
   email: yup
     .string()
     .required("Please enter your email")
@@ -51,12 +54,15 @@ const RegisterSchema = yup.object().shape({
 export default function RegisterDetailsPageOne({ navigation }) {
   const dispatch = useDispatch();
   const { number } = useSelector((state) => state.userRegister);
+  const [prevPage, setPrevPage] = useAlertBackHandler(
+    "Hold on!",
+    "You have unsaved changes. You will be redirected to the first page. Are you sure you want to continue?"
+  );
   const handleSubmit = (values) => {
     console.log(values);
     console.log("SetUser Dispatch Called");
     dispatch(setUserDetails(values, navigation));
   };
-  const [prevPage, setPrevPage] = useAlertBackHandler();
 
   useEffect(() => {
     setPrevPage("RegisterNumber");
@@ -182,6 +188,9 @@ export default function RegisterDetailsPageOne({ navigation }) {
                     error={errors.suffix && touched.suffix ? true : null}
                     onChangeText={handleChange("suffix")}
                   />
+                  {errors.suffix && touched.suffix && (
+                    <Text style={styles.error}>{errors.suffix}</Text>
+                  )}
                 </View>
               </View>
               <View style={styles.labelContainer}>
