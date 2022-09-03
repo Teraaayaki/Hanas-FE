@@ -145,28 +145,34 @@ const BookSkilledWorker = ({ navigation, route }) => {
       return;
     }
 
+    if (isNaN(totalMultipleHours)) {
+      errorToast("Please enter a valid number");
+      return;
+    }
+
     if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
       setDateTimeEnd(new Date(newDateEnd));
       setDateTimeEndModal(false);
-    } else {
-      const data = {
-        service_availed: profileData.myServicesData[0]._id,
-        worker: profileData._id,
-        client: user.id,
-        book_type: "Multiple",
-        booked_dateTimeStart: dateTimeStart,
-        booked_dateTimeEnd: dateTimeEnd,
-        total_cost: totalCost,
-        total_hours: totalMultipleHours,
-        book_status: "Pending",
-        conv_fee: convenienceFee,
-        hourly_rate: profileData.myServicesData[0].hourly_rate,
-        address: profileData.address,
-      };
-      dispatch(bookSkilledWorker(data, navigation));
+      return;
     }
+
+    const data = {
+      service_availed: profileData.myServicesData[0]._id,
+      worker: profileData._id,
+      client: user.id,
+      book_type: "Multiple",
+      booked_dateTimeStart: dateTimeStart,
+      booked_dateTimeEnd: dateTimeEnd,
+      total_cost: totalCost,
+      total_hours: totalMultipleHours,
+      book_status: "Pending",
+      conv_fee: convenienceFee,
+      hourly_rate: profileData.myServicesData[0].hourly_rate,
+      address: profileData.address,
+    };
+    dispatch(bookSkilledWorker(data, navigation));
   };
 
   const renderHeader = () => {
