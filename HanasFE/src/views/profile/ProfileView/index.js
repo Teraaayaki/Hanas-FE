@@ -30,7 +30,7 @@ const ProfileView = ({ navigation, route }) => {
   const { addedSuccess, addedError } = useSelector((state) => state.addFavorites);
 
   const [messages, setMessages] = useState([]);
-  const [fetchMessages, setFetchMessages] = useState(false);
+  const [fetchMessages, setFetchMessages] = useState(true);
 
   const errorToast = (mess) => {
     showToast("error", mess, "Please try again", () => dispatch(resetAddedError()));
@@ -82,7 +82,7 @@ const ProfileView = ({ navigation, route }) => {
 
   return (
     <>
-      {loading && fetchMessages ? (
+      {loading || fetchMessages ? (
         <View style={styles.loadingContainer}>
           <Loading title="Fetching Worker Data" />
         </View>
