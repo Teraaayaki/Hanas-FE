@@ -45,6 +45,10 @@ const MessagesFlatlist = ({ navigation }) => {
     socket.current.on("conversationUpdate", () => {
       setFetchData(true);
     });
+
+    return () => {
+      socket.current.off("conversationUpdate");
+    };
   }, []);
 
   useEffect(() => {
@@ -70,7 +74,7 @@ const MessagesFlatlist = ({ navigation }) => {
       <Item
         image={receiver.profile_pic}
         name={receiverName}
-        latestMessage={latestMessage.text}
+        latestMessage={latestMessage?.text}
         onPress={() =>
           navigation.navigate("Chatroom", {
             receiverID: receiver._id,
