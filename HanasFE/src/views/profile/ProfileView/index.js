@@ -73,6 +73,7 @@ const ProfileView = ({ navigation, route }) => {
   }, [worker_id, service_id]);
 
   useEffect(() => {
+    console.log("Fetching Messages");
     if (profileData._id) {
       getMessages(profileData._id).then((data) => {
         setMessages(data);
@@ -85,6 +86,8 @@ const ProfileView = ({ navigation, route }) => {
     socket.current.on("conversationUpdate", () => {
       setFetchMessages(true);
     });
+
+    return () => socket.current.off("conversationUpdate");
   }, []);
 
   return (
