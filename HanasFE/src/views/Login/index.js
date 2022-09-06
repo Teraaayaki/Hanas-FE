@@ -27,13 +27,11 @@ const LoginSchema = yup.object().shape({
     .string()
     .required("Please enter your email")
     .email("Invalid Email"),
-  password: yup
-    .string()
-    .required("Please enter your password")
-    .matches(
-      /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, and one number"
-    ),
+  password: yup.string().required("Please enter your password"),
+  // .matches(
+  //   /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+  //   "Password must contain at least 8 characters, one uppercase, and one number"
+  // ),
 });
 
 export default function Login({ navigation }) {

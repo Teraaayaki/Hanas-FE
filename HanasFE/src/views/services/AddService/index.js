@@ -208,24 +208,41 @@ const AddService = ({ navigation }) => {
       return;
     }
 
-    if (description !== "" && ratePerHourValue !== "") {
-      setHandleBackHandler(false);
-      console.log("Dispatched Action in Addservice");
-      const serviceDetails = {
-        service,
-        description,
-        ratePerHourValue: parseInt(ratePerHourValue),
-        sampleWorkImgUrl,
-        certificateImgUrl,
-        lastUpdated: new Date(),
-      };
-      dispatch(addServiceWorker(serviceDetails, navigation));
-    } else {
+    if (certificateImgUrl.length === 0) {
       setErrMessage(true);
       setTimeout(() => {
         setErrMessage(false);
       }, 3000);
+      return;
     }
+
+    if (isNaN(ratePerHourValue)) {
+      setErrMessage(true);
+      setTimeout(() => {
+        setErrMessage(false);
+      }, 3000);
+      return;
+    }
+
+    if (description === "" && ratePerHourValue === "") {
+      setErrMessage(true);
+      setTimeout(() => {
+        setErrMessage(false);
+      }, 3000);
+      return;
+    }
+
+    setHandleBackHandler(false);
+    console.log("Dispatched Action in Addservice");
+    const serviceDetails = {
+      service,
+      description,
+      ratePerHourValue: parseInt(ratePerHourValue),
+      sampleWorkImgUrl,
+      certificateImgUrl,
+      lastUpdated: new Date(),
+    };
+    dispatch(addServiceWorker(serviceDetails, navigation));
   };
 
   useEffect(() => {
@@ -249,7 +266,7 @@ const AddService = ({ navigation }) => {
   useEffect(() => {
     filterServices();
     console.log("Error (Add Service): ", error);
-    console.log("Service: ", serviceType);
+    // console.log("Service: ", serviceType);
     if (success) {
       setService("Electrical");
       setRatePerHourValue("");
@@ -310,7 +327,13 @@ const AddService = ({ navigation }) => {
         </Text>
         <Text style={[styles.h3, styles.bold, styles.mt5]}>Description</Text>
         <TextInput
-          style={[styles.bgWhite, styles.mt2, styles.px4, styles.py2]}
+          style={[
+            styles.bgWhite,
+            styles.mt2,
+            styles.px4,
+            styles.py2,
+            styles.rounded,
+          ]}
           multiline={true}
           numberOfLines={3}
           placeholder={"Say something..."}
@@ -328,6 +351,7 @@ const AddService = ({ navigation }) => {
               styles.py2,
               styles.w33,
               styles.textRight,
+              styles.rounded,
             ]}
             keyboardType="number-pad"
             placeholder={"2000.00"}
@@ -386,7 +410,13 @@ const AddService = ({ navigation }) => {
             styles.pt5,
           ]}
         >
-          <Text style={[styles.h3, styles.bold]}>Certificates</Text>
+          <Text style={[styles.h3, styles.bold]}>
+            Certificates
+            {certificateImgUrl.length === 0 && (
+              <Text style={[styles.h4, styles.textDanger]}>{"\t"}required</Text>
+            )}
+          </Text>
+
           <TouchableOpacity
             onPressOut={() => setShowVerifyGuide(!showVerifyGuide)}
           >
@@ -444,14 +474,11 @@ const AddService = ({ navigation }) => {
         <View style={[styles.my3, styles.pt5]}>
           {errMessage && (
             <Text style={[styles.textCenter, styles.textDanger, styles.bold]}>
-              Error Incomplete Data
+              Error Incomplete or Incorrect Data
             </Text>
           )}
         </View>
 
-        {loading ? (
-          <ActivityIndicator size="large" color={colors.secondary} />
-        ) : null}
         <View style={[styles.mx5, styles.px5]}>
           {backErrorMsg && (
             <Text
@@ -465,7 +492,7 @@ const AddService = ({ navigation }) => {
               Please submit changes or Remove all images.
             </Text>
           )}
-          <Button title={"Submit"} onPress={handleSubmit} />
+          <Button title={"Submit"} loading={loading} onPress={handleSubmit} />
         </View>
         <View style={[styles.my5]}></View>
       </View>

@@ -141,13 +141,6 @@ const ProfileClient = ({ navigation }) => {
           </View>
           <View style={styles.singleButtonContainer}>
             <ButtonWhite
-              title="Requests"
-              iconName="description"
-              onPress={() => navigation.navigate("ClientBookingRequests")}
-            />
-          </View>
-          <View style={styles.singleButtonContainer}>
-            <ButtonWhite
               title="Transactions"
               iconName="credit-card"
               onPress={() => navigation.navigate("TransactionHistory")}
