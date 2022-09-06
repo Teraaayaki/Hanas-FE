@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     width: 140,
     height: 53,
     borderRadius: 10,
-    marginTop: margin.m5,
+    marginVertical: margin.m5,
     elevation: 2,
     backgroundColor: colors.white,
   },
