@@ -23,24 +23,35 @@ export const getBookingRequests = () => async (dispatch) => {
   }
 };
 
-export const acceptBookingRequest = (bookingID) => async (dispatch) => {
-  let token = await getItem("token");
+export const acceptBookingRequest =
+  (bookingID, timeStart) => async (dispatch) => {
+    let token = await getItem("token");
+    let currentDate = new Date();
+    let bookedDate = new Date(timeStart);
 
-  try {
-    axios({
-      method: "patch",
-      url: `/api/worker/accept-booking/${bookingID}`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    // Guard clause if accept button is present and request is expired
+    if (bookedDate.getTime() < currentDate.getTime()) {
+      return;
+    }
 
-    dispatch({
-      type: WorkerBookingActions.REMOVE_BOOKING_REQUEST,
-      payload: { bookingID, status: "Successfully accepted booking request." },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+    try {
+      axios({
+        method: "patch",
+        url: `/api/worker/accept-booking/${bookingID}`,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      dispatch({
+        type: WorkerBookingActions.REMOVE_BOOKING_REQUEST,
+        payload: {
+          bookingID,
+          status: "Successfully accepted booking request.",
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 export const declineBookingRequest = (bookingID) => async (dispatch) => {
   let token = await getItem("token");

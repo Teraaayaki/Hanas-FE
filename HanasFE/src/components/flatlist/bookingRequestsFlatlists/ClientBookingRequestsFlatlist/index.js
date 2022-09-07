@@ -3,6 +3,7 @@ import { FlatList, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { useDispatch } from "react-redux";
 import {
   removeCancelledBookSchedule,
@@ -21,6 +22,7 @@ import { padding } from "@constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 dayjs.extend(utc);
+dayjs.extend(isSameOrBefore);
 
 const ClientBookingRequestsFlatlist = ({
   navigation,
@@ -161,13 +163,20 @@ const ClientBookingRequestsFlatlist = ({
             </View>
           </View>
           <View style={[styles.mx5, styles.h100, styles.justifyContentCenter]}>
-            {item.book_status == "Pending" ? (
-              <ContainedIcon
-                xMark
-                danger
-                pressable
-                onPress={() => cancelBooking(item._id)}
-              />
+            {item.book_status === "Pending" ? (
+              <>
+                {dayjs(item.booked_dateTimeStart).isSameOrBefore(dayjs()) && (
+                  <Text style={[styles.bold, styles.textDanger, styles.my5]}>
+                    Expired
+                  </Text>
+                )}
+                <ContainedIcon
+                  xMark
+                  danger
+                  pressable
+                  onPress={() => cancelBooking(item._id)}
+                />
+              </>
             ) : (
               <ContainedIcon
                 xMark

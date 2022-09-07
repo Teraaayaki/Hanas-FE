@@ -16,6 +16,12 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
   let date = "_";
 
   const renderCard = ({ item }) => {
+    const expiredAlert = () => {
+      alert(
+        "Warning if you exceed a certain amount of expired bookings your account will be deactivated."
+      );
+    };
+
     return (
       <View
         style={[styles.flex1, styles.flexRow, styles.alignCenter, styles.py3]}
@@ -72,10 +78,16 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
           </View>
         </View>
         <View style={[styles.mx5]}>
-          {item.bookStatus === "Finished" ? (
-            <ContainedIcon check disabled />
+          {/* Expired Text or Success Icon */}
+          {moment(item.booked_dateTimeStart).isBefore(moment()) ? (
+            <Text
+              style={[styles.bold, styles.textDanger]}
+              onPress={expiredAlert}
+            >
+              <Icon name="error" size={12} color={colors.danger} /> EXPIRED
+            </Text>
           ) : (
-            <ContainedIcon check success pressable />
+            <ContainedIcon check success disabled />
           )}
         </View>
       </View>

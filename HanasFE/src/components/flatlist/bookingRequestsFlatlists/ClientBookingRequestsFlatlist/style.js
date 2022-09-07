@@ -166,6 +166,7 @@ export default StyleSheet.create({
   textBlack: { color: "#000" },
   textSecondary: { color: colors.secondary },
   textInfo: { color: colors.info },
+  textDanger: { color: colors.danger },
   textMuted50: { color: colors.muted50 },
   textMuted75: { color: colors.muted75 },
   //Size ----------------------------------------

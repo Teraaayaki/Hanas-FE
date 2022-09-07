@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, View, Text, TouchableOpacity, Button } from "react-native";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Icon } from "react-native-elements";
 
@@ -16,6 +17,7 @@ import { colors } from "@constants";
 import { padding } from "@constants";
 
 dayjs.extend(utc);
+dayjs.extend(isSameOrBefore);
 
 const ClientScheduleFlatlist = ({
   navigation,
@@ -35,6 +37,7 @@ const ClientScheduleFlatlist = ({
     dispatch(removeSchedule(Data));
   };
 
+  // TOP BUTTON
   const renderTopButton = ({ item }) => {
     const renderIcon = ({ item }) => {
       if (item.book_status == "Finished")
@@ -49,6 +52,10 @@ const ClientScheduleFlatlist = ({
 
       if (item.book_status == "Cancelled")
         return <Icon name="x-circle" type="feather" size={20} />;
+
+      // Warning if expired
+      if (dayjs(item.booked_dateTimeStart).isSameOrBefore(dayjs()))
+        return <Icon name="error" color={colors.danger} />;
 
       return <Icon name="calendar-clock" type="material-community" size={20} />;
     };
@@ -67,6 +74,39 @@ const ClientScheduleFlatlist = ({
       }
     };
 
+    // IF ACCEPTED BOOKING HAS EXPIRED RENDER EXPIRED BUTTON
+    if (
+      dayjs(item.booked_dateTimeStart).isSameOrBefore(dayjs()) &&
+      item.book_status === "Accepted"
+    )
+      return (
+        <>
+          <TouchableOpacity
+            onPress={() =>
+              alert(
+                `Booking has expired. It is recommended that you submit a report in Profile > Send Report and Select Misbehaving Worker as a concern. It is our utmost priority to take immediate action on this matter.`
+              )
+            }
+          >
+            <View
+              style={[
+                styles.w100,
+                topBorderStyle({ item }),
+                styles.bgLightGrey,
+                styles.flexRow,
+                styles.justifyContentCenter,
+                styles.alignCenter,
+                styles.py5,
+                styles.rounded5,
+              ]}
+            >
+              {renderIcon({ item })}
+              <Text style={[styles.h3, styles.textDanger]}> Expired</Text>
+            </View>
+          </TouchableOpacity>
+        </>
+      );
+
     return (
       <View
         style={[
@@ -81,6 +121,7 @@ const ClientScheduleFlatlist = ({
         ]}
       >
         {renderIcon({ item })}
+
         <Text style={[styles.h3, styles.textBlack]}>
           {" "}
           {item.book_status === "Finished" ? "Completed" : item.book_status}
@@ -89,6 +130,7 @@ const ClientScheduleFlatlist = ({
     );
   };
 
+  // BOTTOM BUTTON
   const renderBottomButton = ({ item }) => {
     const message = () => {
       if (item.book_status == "Finished" || item.book_status == "Cancelled") {

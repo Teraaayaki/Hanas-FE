@@ -160,9 +160,11 @@ export default StyleSheet.create({
   borderMuted25: { borderColor: colors.muted25 },
   borderMuted20: { borderColor: colors.muted20 },
   //Text Color-----------------------------------
+  textDanger: { color: colors.danger },
   textSecondary: { color: colors.secondary },
   textMuted50: { color: colors.muted50 },
   textMuted75: { color: colors.muted75 },
+  textUnderline: { textDecorationLine: "underline" },
   //Size ----------------------------------------
   h1: {
     fontSize: fontSize.h1,
@@ -353,6 +355,9 @@ export default StyleSheet.create({
   },
   my5: {
     marginVertical: margin.m5,
+  },
+  my50: {
+    marginVertical: "50%",
   },
   //Margin Top ----------------------------------
   mt1: {
