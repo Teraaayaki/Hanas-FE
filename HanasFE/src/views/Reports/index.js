@@ -193,7 +193,8 @@ const Reports = () => {
         <Text style={styles.headerTextStyle}>Found something unpleasant?</Text>
         <Text>
           We highly encourage you to submit a report. It will be reviewed by our
-          team comprehensively. Expect a reply within 2-3 business days.
+          team comprehensively. Expect a reply within 2-3 business days or
+          earlier.
         </Text>
       </View>
       <View style={styles.inputContainer}>

@@ -150,6 +150,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
       return;
     }
 
+    if (totalMultipleHours <= 0) {
+      errorToast("Please enter a valid number");
+      return;
+    }
+
     if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);

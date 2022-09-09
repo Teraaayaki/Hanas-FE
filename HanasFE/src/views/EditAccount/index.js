@@ -124,8 +124,7 @@ const EditAccount = ({ navigation }) => {
 
   const handleSubmit = async () => {
     if (!touchedEmail && !touchedProfile) {
-      // console.log("No changes", touchedEmail, touchedProfile);
-      // showToast("error", "No data changed", "Please try again.");
+      showToast("error", "No data changed");
       return;
     }
 
@@ -137,6 +136,14 @@ const EditAccount = ({ navigation }) => {
 
     setUploadingImage(true);
     console.log("Editing account");
+
+    if (touchedEmail && !touchedProfile) {
+      console.log("Email only change");
+      resetState();
+      dispatch(changeAccountInfo(inputProfilePic, inputEmail));
+      setUploadingImage(false);
+      return;
+    }
 
     // CHECK IF PROFILE PIC IS NOT NONE
 
@@ -244,12 +251,11 @@ const EditAccount = ({ navigation }) => {
           </View>
 
           <View style={[styles.mt5, styles.pt5]}>
-            {uploadingImage && (
-              <View style={styles.my1}>
-                <ActivityIndicator size="large" color={colors.secondary} />
-              </View>
-            )}
-            <Button title="Confirm" onPress={handleSubmit} />
+            <Button
+              title="Confirm"
+              loading={uploadingImage}
+              onPress={handleSubmit}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

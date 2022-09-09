@@ -7,7 +7,7 @@ export default StyleSheet.create({
     // paddingTop: StatusBar.currentHeight - 15,
   },
   headerText: {
-    marginTop: margin.m3,
+    // marginTop: margin.m3,
     marginBottom: margin.m2,
   },
   text: {
