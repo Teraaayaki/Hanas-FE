@@ -30,7 +30,6 @@ export default StyleSheet.create({
     width: "75%",
     color: colors.black,
     fontSize: fontSize.p,
-    textAlign: "justify",
   },
   viewText: {
     color: colors.black,

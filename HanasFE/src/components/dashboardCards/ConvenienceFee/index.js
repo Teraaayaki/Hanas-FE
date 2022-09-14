@@ -26,7 +26,7 @@ const ConvenienceFee = ({ ConvenienceFeeDATA }) => {
             Total Amount Due:{" "}
           </Text>
           <Text style={[styles.mt2, styles.textRight, { fontSize: 22 }]}>
-            PHP {ConvenienceFeeDATA?.total_amount || 0}
+            PHP {ConvenienceFeeDATA?.total_amount?.toFixed(2) || 0}
           </Text>
         </View>
         <View style={[]}>
