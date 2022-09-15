@@ -244,7 +244,10 @@ const ClientScheduleFlatlist = ({
               <Avatar
                 rounded
                 source={{
-                  uri: item.workerData[0].profile_pic,
+                  uri:
+                    item.workerData[0].profile_pic === "none"
+                      ? "https://storage.googleapis.com/hanas-storage/hanas-images/default.png"
+                      : item.workerData[0].profile_pic,
                 }}
                 containerStyle={styles.m1}
               />
