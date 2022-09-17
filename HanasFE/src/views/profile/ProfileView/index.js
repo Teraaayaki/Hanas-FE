@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, TouchableOpacity, FlatList } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { Divider, Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +42,7 @@ const ProfileView = ({ navigation, route }) => {
 
   const [messages, setMessages] = useState([]);
   const [fetchMessages, setFetchMessages] = useState(true);
+  const [messageIconLoad, setMessageIconLoad] = useState(false);
 
   const errorToast = (mess) => {
     showToast("error", mess, "Please try again", () =>
@@ -70,6 +77,14 @@ const ProfileView = ({ navigation, route }) => {
 
   useEffect(() => {
     dispatch(fetchData(worker_id, service_id));
+
+    // message icon timer
+    setMessageIconLoad(true);
+    const timeoutId = setTimeout(() => {
+      setMessageIconLoad(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
   }, [worker_id, service_id]);
 
   useEffect(() => {
@@ -151,24 +166,33 @@ const ProfileView = ({ navigation, route }) => {
                           </View>
 
                           <View>
-                            <TouchableOpacity
-                              onPress={() =>
-                                navigation.navigate("Chatroom", {
-                                  receiverID: profileData._id,
-                                  receiverName: `${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`,
-                                  receiverProfile: "",
-                                  messages,
-                                })
-                              }
-                            >
+                            {messageIconLoad ? (
                               <View style={styles.messageButton}>
-                                <Icon
+                                <ActivityIndicator
+                                  size="large"
                                   color={colors.secondary}
-                                  size={35}
-                                  name="mail-outline"
                                 />
                               </View>
-                            </TouchableOpacity>
+                            ) : (
+                              <TouchableOpacity
+                                onPress={() =>
+                                  navigation.navigate("Chatroom", {
+                                    receiverID: profileData._id,
+                                    receiverName: `${profileData.first_name} ${profileData.middle_name} ${profileData.family_name}`,
+                                    receiverProfile: "",
+                                    messages,
+                                  })
+                                }
+                              >
+                                <View style={styles.messageButton}>
+                                  <Icon
+                                    color={colors.secondary}
+                                    size={35}
+                                    name="mail-outline"
+                                  />
+                                </View>
+                              </TouchableOpacity>
+                            )}
                           </View>
                         </View>
                       </View>

@@ -118,21 +118,6 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     isWorker,
   } = user;
 
-  // Store user in userDetails Object (Local Copy)
-  let userDetails = {
-    first_name: firstName,
-    middle_name: middleName,
-    last_name: lastName,
-    suffix,
-    email,
-    mobile_no: number,
-    address,
-    birthdate: dob,
-    sex,
-    is_verified: false,
-    profile_pic: "none",
-  };
-
   dispatch({
     type: RegisterActions.REGISTER_LOADING,
   });
@@ -157,6 +142,22 @@ export const registerUser = (user, navigation) => async (dispatch) => {
     if (data) {
       setItem("token", data.token);
       setItem("is_worker", JSON.stringify(data.is_worker));
+
+      // Store user in userDetails Object (Local Copy)
+      let userDetails = {
+        id: data.user_id,
+        first_name: firstName,
+        middle_name: middleName,
+        last_name: lastName,
+        suffix,
+        email,
+        mobile_no: number,
+        address,
+        birthdate: dob,
+        sex,
+        is_verified: false,
+        profile_pic: "none",
+      };
 
       // USED IN DETERMINING WHICH SCREENS TO DISPLAY (SEE /routes FOLDER)
       dispatch({
