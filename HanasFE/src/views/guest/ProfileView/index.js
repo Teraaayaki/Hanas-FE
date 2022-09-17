@@ -119,10 +119,11 @@ const GuestProfileView = ({ navigation, route }) => {
                   <Text style={[styles.blackText, { paddingLeft: 30 }]}>
                     <Icon color="#FFD706" size={15} name="star" />
                     {profileData.worker_details[0].myServicesData[0]
-                      .feedbacksData[0] == null
+                      .feedbacksAveragedData === undefined
                       ? `0`
-                      : profileData.worker_details[0].myServicesData[0]
-                          .feedbacksData[0].rate}
+                      : profileData.worker_details[0].myServicesData[0].feedbacksAveragedData.rating.toFixed(
+                          1
+                        )}
                     /5
                   </Text>
                   <Text
@@ -131,7 +132,11 @@ const GuestProfileView = ({ navigation, route }) => {
                       { marginLeft: 30, paddingLeft: 30 },
                     ]}
                   >
-                    {jobs === undefined ? `0` : jobs}
+                    {profileData.worker_details[0].myServicesData[0]
+                      .bookingsAveragedData === undefined
+                      ? 0
+                      : profileData.worker_details[0].myServicesData[0]
+                          .bookingsAveragedData.jobs}
                   </Text>
                   <Text
                     style={[
