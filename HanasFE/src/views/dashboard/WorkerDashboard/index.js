@@ -63,6 +63,7 @@ const WorkerDashboard = ({ navigation }) => {
     socket.current.on("bookingUpdate", (data) => {
       if (user.id === data.worker) {
         dispatch(getUpcomingServices());
+        dispatch(getOverview());
         mutate("api/worker/get-conv-fee");
       }
     });
