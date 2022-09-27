@@ -166,7 +166,7 @@ const GetVerified = ({ navigation }) => {
 
         <View style={styles.inputContainer}>
           <View style={styles.input}>
-            <Text style={styles.label}>Valid ID</Text>
+            <Text style={styles.label}>Valid ID (Front and Back)</Text>
             <View style={styles.fileInputContainer}>
               {/* INPUT VALID ID */}
               {validId.length < 2 && (

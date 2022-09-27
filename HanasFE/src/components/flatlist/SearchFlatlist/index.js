@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View, Text } from "react-native";
 
 import { colors } from "@constants";
 import CardContainer from "@components/CardContainer";
@@ -50,6 +50,10 @@ const SearchFlatlist = ({ navigation, data }) => {
     );
   };
 
+  const renderFooter = () => {
+    return <View style={{ margin: 130 }}></View>;
+  };
+
   return (
     <FlatList
       data={data}
@@ -58,7 +62,9 @@ const SearchFlatlist = ({ navigation, data }) => {
       extraData={selectedId}
       contentContainerStyle={{
         flexGrow: 1,
+        // backgroundColor: "red",
       }}
+      ListFooterComponent={renderFooter()}
     />
   );
 };
