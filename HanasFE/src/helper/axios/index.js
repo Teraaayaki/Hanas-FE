@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.HANAS_ENDPOINT,
+  baseURL: process.env.LOCALHOST,
 });
 
 export default instance;
