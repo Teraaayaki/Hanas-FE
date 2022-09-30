@@ -21,7 +21,6 @@ const SampleWorks = ({ DATA }) => {
         sliderWidth={320}
         itemWidth={310}
         renderItem={renderItems}
-        onSnapToItem={(index) => setIndex({ index })}
         hasParallaxImages={true}
         overScrollMode={"always"}
       />
