@@ -53,6 +53,7 @@ export default StyleSheet.create({
   },
   button: {
     marginHorizontal: margin.m5,
+    marginBottom: margin.m5,
   },
   imageContainer: {
     marginVertical: margin.m4,

@@ -9,7 +9,7 @@ export default StyleSheet.create({
   header: {
     justifyContent: "space-between",
     flexDirection: "row",
-    paddingTop: 5,
+    paddingTop: 45,
   },
   headerText: {
     marginBottom: margin.m2,

@@ -53,7 +53,7 @@ export const userLogin = (navigation, email, password) => async (dispatch) => {
         } else {
           // IF WORKER NOT VERIFIED AND HAS NO PENDING REQUEST
           console.log("User is not Verified");
-          navigation.navigate("GetVerified");
+          navigation.navigate("UserGuide");
         }
       }
     } catch (err) {
@@ -140,7 +140,7 @@ const doUserLogin = async (navigation, email, password, dispatch) => {
       navigation.navigate("Dashboard");
     } else {
       console.log("User is not Verified");
-      navigation.navigate("GetVerified");
+      navigation.navigate("UserGuide");
     }
   } catch (err) {
     const error = err.response?.data.error || err;
