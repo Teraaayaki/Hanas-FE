@@ -9,12 +9,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Checkbox from "expo-checkbox";
 import dayjs from "dayjs";
 
 import Button from "@components/Button";
 import IconField from "@components/form/IconField";
 import Loading from "@components/Loading";
 import styles from "./style";
+import { colors } from "@constants";
 import { registerUser, resetError } from "@redux/actions/registerActions";
 import { showToast, ToastComponent } from "@helpers/toast";
 
@@ -27,6 +29,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   const [errMessage, setErrMessage] = useState("");
   const [dateModal, setDateModal] = useState(false);
   const [userDetails, setUserDetails] = useState(details);
+  const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
   const { address, user, isWorker, number, loading, error } = useSelector(
     (state) => state.userRegister
@@ -43,6 +46,11 @@ export default function RegisterDetailsPageTwo({ navigation }) {
   };
 
   const handleSubmit = () => {
+    if (!checked) {
+      setErrMessage("Please accept the Terms and Conditions");
+      return;
+    }
+
     if (!address) {
       setErrMessage("Please input your address");
     } else if (userDetails.sex === "") {
@@ -164,6 +172,22 @@ export default function RegisterDetailsPageTwo({ navigation }) {
                 />
               </TouchableOpacity>
             </View>
+
+            <View style={styles.checkBoxRow}>
+              <Checkbox
+                style={styles.checkBox}
+                value={checked}
+                onValueChange={setChecked}
+                color={checked ? colors.secondary : undefined}
+              />
+              <Text>I agree to the </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("TermsCondition")}
+              >
+                <Text style={styles.terms}>Terms and Conditions</Text>
+              </TouchableOpacity>
+            </View>
+
             <View style={styles.errorContainer}>
               <Text style={styles.error}>{errMessage}</Text>
             </View>
@@ -177,6 +201,7 @@ export default function RegisterDetailsPageTwo({ navigation }) {
                 />
               </>
             </View>
+
             <TouchableOpacity
               onPress={() => navigation.navigate("RegisterDetailsPageOne")}
             >

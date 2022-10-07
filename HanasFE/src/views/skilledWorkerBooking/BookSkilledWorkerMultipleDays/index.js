@@ -114,7 +114,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       ((e % 1) / 0.6) * profileData.myServicesData[0].hourly_rate;
     let hoursAmount = parseInt(e) * profileData.myServicesData[0].hourly_rate;
     let subTotalValue = hoursAmount + minutesAmount;
-    let convenienceFeeValue = subTotalValue * 0.05;
+    let convenienceFeeValue = subTotalValue * 0.08;
 
     setTotalMultipleHours(e);
     setSubTotal((subTotalValue - convenienceFeeValue).toFixed(2));
@@ -327,7 +327,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             styles.alignCenter,
           ]}
         >
-          <Text style={styles.h4}>Convenience Fee (5%):</Text>
+          <Text style={styles.h4}>Convenience Fee (8%):</Text>
           <Text style={[styles.h4, styles.textRight]}>
             PHP {convenienceFee}
           </Text>

@@ -86,6 +86,18 @@ const ReceiptAndSummary = ({
             <Text style={styles.h3}>{book_type}</Text>
           </View>
         </View>
+
+        <View style={styles.serviceContainer}>
+          <View style={styles.valuesContainer}>
+            <Text style={styles.boldHeadings}>Payment Method</Text>
+            <Text style={[styles.h3]}>Gcash</Text>
+          </View>
+          <View style={styles.valuesContainer}>
+            <Text style={styles.boldHeadings}>Reference Number</Text>
+            <Text style={[styles.h3]}>50674343566</Text>
+          </View>
+        </View>
+
         <View style={styles.serviceContainer}>
           <View style={styles.valuesContainer}>
             <Text style={styles.smallHeadings}>Service Type</Text>

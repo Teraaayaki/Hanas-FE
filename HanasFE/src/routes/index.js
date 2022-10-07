@@ -20,6 +20,7 @@ import EditService from "@screens/services/EditService";
 import EmailForm from "@screens/ForgotPassword/EmailForm";
 import OtpVerification from "@screens/ForgotPassword/OtpVerification";
 import ChangePassword from "@screens/ForgotPassword/ChangePassword";
+import TermsCondition from "@screens/TermsCondition";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import ClientTabs from "@routes/BottomTabNavigator/client";
@@ -65,6 +66,7 @@ export default HanasStack = () => {
           <Stack.Screen name="EmailForm" component={EmailForm} />
           <Stack.Screen name="OtpVerification" component={OtpVerification} />
           <Stack.Screen name="ChangePassword" component={ChangePassword} />
+          <Stack.Screen name="TermsCondition" component={TermsCondition} />
         </Stack.Group>
       ) : isWorker ? (
         <Stack.Group>

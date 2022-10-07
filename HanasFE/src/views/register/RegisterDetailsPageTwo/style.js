@@ -75,4 +75,15 @@ export default StyleSheet.create({
   textContainer: {
     marginTop: "10%",
   },
+  checkBoxRow: {
+    flexDirection: "row",
+    marginVertical: 15,
+  },
+  checkBox: {
+    marginHorizontal: 15,
+  },
+  terms: {
+    textDecorationLine: "underline",
+    color: "blue",
+  },
 });

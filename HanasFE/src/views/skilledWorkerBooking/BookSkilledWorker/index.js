@@ -12,6 +12,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useDispatch, useSelector } from "react-redux";
+import { CheckBox, Input, Avatar } from "react-native-elements";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
@@ -30,6 +31,10 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const { loading } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
+  const [cash, setCash] = useState(false);
+  const [gcash, setGcash] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState("");
+
   //BOOKING DATA STATE ARRAY
   const [bookingSingleDataArray, setBookingSingleDataArray] = useState([]);
   const [bookingMultipleDataArray, setBookingMultipleDataArray] = useState([]);
@@ -41,6 +46,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const [totalSingleHours, setTotalSingleHours] = useState("");
   const [totalMultipleHours, setTotalMultipleHours] = useState("");
   const [subTotal, setSubTotal] = useState(0);
+
   const [convenienceFee, setConvenienceFee] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
 
@@ -83,7 +89,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
       ((e % 1) / 0.6) * profileData.myServicesData[0].hourly_rate;
     let hoursAmount = parseInt(e) * profileData.myServicesData[0].hourly_rate;
     let subTotalValue = hoursAmount + minutesAmount;
-    let convenienceFeeValue = subTotalValue * 0.05;
+    let convenienceFeeValue = subTotalValue * 0.08;
 
     setTotalMultipleHours(e);
     setSubTotal((subTotalValue - convenienceFeeValue).toFixed(2));
@@ -391,7 +397,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
             styles.alignCenter,
           ]}
         >
-          <Text style={styles.h4}>Convenience Fee (5%):</Text>
+          <Text style={styles.h4}>Convenience Fee (8%):</Text>
           <Text style={[styles.h4, styles.textRight]}>
             PHP {convenienceFee}
           </Text>
@@ -594,6 +600,99 @@ const BookSkilledWorker = ({ navigation, route }) => {
               />
             )}
           </View>
+
+          <View
+            style={[
+              styles.bgLightGrey,
+              styles.m3,
+              styles.p3,
+              styles.flex1,
+              styles.rounded,
+              styles.border,
+              styles.borderMuted25,
+            ]}
+          >
+            <Text style={[styles.h3, styles.bold, styles.mb4]}>
+              Payment Method
+            </Text>
+            <CheckBox
+              title="Cash"
+              checked={cash}
+              onPress={() => {
+                if (!gcash) {
+                  setCash(!cash);
+                } else {
+                  setGcash(!gcash);
+                  setCash(!cash);
+                }
+              }}
+            />
+            <CheckBox
+              title="G-Cash"
+              checked={gcash}
+              onPress={() => {
+                if (!cash) {
+                  setGcash(!gcash);
+                } else {
+                  setGcash(!gcash);
+                  setCash(!cash);
+                }
+              }}
+            />
+          </View>
+
+          {gcash && (
+            <View
+              style={[
+                styles.bgLightGrey,
+                styles.m3,
+                styles.p3,
+                styles.flex1,
+                styles.rounded,
+                styles.border,
+                styles.borderMuted25,
+              ]}
+            >
+              <Text style={[styles.h3, styles.bold, styles.mb4]}>
+                Gcash Reference Number
+              </Text>
+
+              <Text style={[styles.h4, styles.mb4]}>
+                1.) Send money to Hanas GCash{" "}
+              </Text>
+
+              <Text style={[styles.h4, styles.mb4]}>
+                <Text style={[styles.h4, styles.bold]}>
+                  GCash Account: 09655867131
+                </Text>
+              </Text>
+              <Text style={[styles.h4, styles.mb4]}>
+                <Text style={[styles.h4, styles.bold]}>
+                  GCash Name: Soy Lebumfacil
+                </Text>
+              </Text>
+              <Text style={[styles.h4, styles.mb4]}>
+                2.) Input the exact amount as stated.
+              </Text>
+              <Text style={[styles.h4, styles.mb4]}>
+                3.) Enter reference number below.
+              </Text>
+
+              <Input
+                leftIcon={
+                  <Avatar
+                    source={{
+                      uri: "https://play-lh.googleusercontent.com/QNP0Aj2hyumAmYiWVAsJtY2LLTQnzHxdW7-DpwFUFNkPJjgRxi-BXg7A4yI6tgYKMeU",
+                    }}
+                  />
+                }
+                placeholder="Enter ref. number here"
+                keyboardType="number-pad"
+                value={referenceNumber}
+                onChangeText={(e) => setReferenceNumber(e)}
+              />
+            </View>
+          )}
 
           <View style={[styles.py3, styles.px5, styles.m5]}>
             <View style={[styles.px5, styles.mx5, styles.my3]}>

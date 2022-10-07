@@ -24,6 +24,7 @@ export const pickImage = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     quality: 0.5,
+    allowsEditing: true,
   });
 
   return result;
@@ -81,7 +82,7 @@ export const createFormdataArrayFromExisting = (
 export const uploadImage = async (formdata) => {
   let token = await getItem("token");
   return await fetch(
-    `${process.env.LOCALHOST}/api/worker/create-verification-request`,
+    `${process.env.HANAS_ENDPOINT}/api/worker/create-verification-request`,
     {
       method: "POST",
       body: formdata,
@@ -95,7 +96,7 @@ export const uploadImage = async (formdata) => {
 
 export const uploadImageWithUrl = async (formdata, url) => {
   let token = await getItem("token");
-  return await fetch(`${process.env.LOCALHOST}/${url}`, {
+  return await fetch(`${process.env.HANAS_ENDPOINT}/${url}`, {
     method: "POST",
     body: formdata,
     headers: {
