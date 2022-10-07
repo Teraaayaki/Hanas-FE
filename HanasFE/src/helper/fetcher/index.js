@@ -6,7 +6,7 @@ export const fetcher = async (url, queryParams = "") => {
   let token = await getItem("token");
 
   let { data } = await axios.get(
-    `${process.env.HANAS_ENDPOINT}/${url}/${queryParams}`,
+    `${process.env.LOCALHOST}/${url}/${queryParams}`,
     {
       headers: {
         authorization: `Bearer ${token}`,

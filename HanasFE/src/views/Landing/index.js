@@ -42,7 +42,7 @@ const Landing = ({ navigation }) => {
               source={require("@images/hanasLogoSquared.png")}
             />
             <Text style={styles.subTitle}>
-              An on-Demand Blue-Collar Service Market Mobile Application for
+              An On-Demand Blue-Collar Service Market Mobile Application for
               Cebuano Skilled Workers
             </Text>
           </View>

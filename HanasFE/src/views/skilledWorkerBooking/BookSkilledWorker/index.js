@@ -31,6 +31,7 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const { loading } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
 
+  // Payment States
   const [cash, setCash] = useState(false);
   const [gcash, setGcash] = useState(false);
   const [referenceNumber, setReferenceNumber] = useState("");
@@ -219,7 +220,22 @@ const BookSkilledWorker = ({ navigation, route }) => {
     if (singleDayStatus === true) {
       if (!totalSingleHours) {
         console.log("error missings data");
-        errorToast("Please input some data");
+        errorToast("Please input some data (Date and Time of Service)");
+        return;
+      }
+
+      if (!cash && !gcash) {
+        errorToast("Please select payment method");
+        return;
+      }
+
+      if (gcash && referenceNumber === "") {
+        errorToast("Please input gcash reference number");
+        return;
+      }
+
+      if (gcash && isNaN(referenceNumber)) {
+        errorToast("Please input valid gcash reference number");
         return;
       }
 
@@ -231,6 +247,13 @@ const BookSkilledWorker = ({ navigation, route }) => {
         let newTimeEnd = new Date(timeStart.getTime() + 1000 * 60 * 60);
         setTimeEnd(newTimeEnd);
       } else {
+        let payment_method = "Cash";
+        let reference_no = 0;
+        if (gcash) {
+          payment_method = "GCash";
+          reference_no = +referenceNumber;
+        }
+
         const data = {
           service_availed: profileData.myServicesData[0]._id,
           worker: profileData._id,
@@ -244,6 +267,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
           conv_fee: convenienceFee,
           hourly_rate: profileData.myServicesData[0].hourly_rate,
           address: profileData.address,
+          payment_method,
+          reference_no,
         };
         dispatch(bookSkilledWorker(data, navigation));
       }

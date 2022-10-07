@@ -51,6 +51,22 @@ const WorkerScheduleFlatlist = ({ navigation, DATA }) => {
               {item.client.address}
             </Text>
           </View>
+          <View style={[styles.flex1, styles.flexRow, styles.my1]}>
+            <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
+              Payment Method
+            </Text>
+            <Text style={[styles.flex1, styles.mx1, styles.p]}>
+              {item.payment_method}
+            </Text>
+          </View>
+          <View style={[styles.flex1, styles.flexRow, styles.my1]}>
+            <Text style={[styles.flex1, styles.mx1, styles.bold, styles.p]}>
+              Amount Payable
+            </Text>
+            <Text style={[styles.flex1, styles.mx1, styles.p]}>
+              Php {item.total_cost}
+            </Text>
+          </View>
           <View
             style={[
               styles.flex1,

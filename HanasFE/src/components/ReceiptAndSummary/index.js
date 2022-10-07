@@ -7,7 +7,7 @@ import { getItem } from "@helpers/asyncStorage";
 const ReceiptAndSummary = ({
   summaryTitle,
   payment_method,
-  date_paid,
+  reference_no,
   rate,
   hours_rendered,
   convenience_fee,
@@ -90,11 +90,13 @@ const ReceiptAndSummary = ({
         <View style={styles.serviceContainer}>
           <View style={styles.valuesContainer}>
             <Text style={styles.boldHeadings}>Payment Method</Text>
-            <Text style={[styles.h3]}>Gcash</Text>
+            <Text style={[styles.h3]}>{payment_method}</Text>
           </View>
           <View style={styles.valuesContainer}>
             <Text style={styles.boldHeadings}>Reference Number</Text>
-            <Text style={[styles.h3]}>50674343566</Text>
+            <Text style={[styles.h3]}>
+              {payment_method === "Cash" ? "N/A" : reference_no}
+            </Text>
           </View>
         </View>
 

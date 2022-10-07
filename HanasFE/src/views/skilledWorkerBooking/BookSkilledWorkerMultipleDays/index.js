@@ -9,6 +9,7 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
+import { CheckBox, Input, Avatar } from "react-native-elements";
 
 import Header from "@components/Header";
 import IconField from "@components/form/IconField";
@@ -26,6 +27,11 @@ const BookSkilledWorker = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.userDetails);
   const { loading } = useSelector((state) => state.clientBooking);
   const dispatch = useDispatch();
+
+  // Payment States
+  const [cash, setCash] = useState(false);
+  const [gcash, setGcash] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState("");
 
   //BOOKING DATA STATE ARRAY
   const [bookingDataArray, setBookingDataArray] = useState([]);
@@ -155,12 +161,34 @@ const BookSkilledWorker = ({ navigation, route }) => {
       return;
     }
 
+    if (!cash && !gcash) {
+      errorToast("Please select payment method");
+      return;
+    }
+
+    if (gcash && referenceNumber === "") {
+      errorToast("Please input gcash reference number");
+      return;
+    }
+
+    if (gcash && isNaN(referenceNumber)) {
+      errorToast("Please input valid gcash reference number");
+      return;
+    }
+
     if (dateTimeStart.getDate() >= dateTimeEnd.getDate()) {
       errorToast("Date end must not be lesser than or equal to date start");
       let newDateEnd = dateTimeEnd.setDate(dateTimeStart.getDate() + 1);
       setDateTimeEnd(new Date(newDateEnd));
       setDateTimeEndModal(false);
       return;
+    }
+
+    let payment_method = "Cash";
+    let reference_no = 0;
+    if (gcash) {
+      payment_method = "GCash";
+      reference_no = +referenceNumber;
     }
 
     const data = {
@@ -176,6 +204,8 @@ const BookSkilledWorker = ({ navigation, route }) => {
       conv_fee: convenienceFee,
       hourly_rate: profileData.myServicesData[0].hourly_rate,
       address: profileData.address,
+      payment_method,
+      reference_no,
     };
     dispatch(bookSkilledWorker(data, navigation));
   };
@@ -516,6 +546,99 @@ const BookSkilledWorker = ({ navigation, route }) => {
               placeholder="Enter a number"
             />
           </View>
+
+          <View
+            style={[
+              styles.bgLightGrey,
+              styles.m3,
+              styles.p3,
+              styles.flex1,
+              styles.rounded,
+              styles.border,
+              styles.borderMuted25,
+            ]}
+          >
+            <Text style={[styles.h3, styles.bold, styles.mb4]}>
+              Payment Method
+            </Text>
+            <CheckBox
+              title="Cash"
+              checked={cash}
+              onPress={() => {
+                if (!gcash) {
+                  setCash(!cash);
+                } else {
+                  setGcash(!gcash);
+                  setCash(!cash);
+                }
+              }}
+            />
+            <CheckBox
+              title="G-Cash"
+              checked={gcash}
+              onPress={() => {
+                if (!cash) {
+                  setGcash(!gcash);
+                } else {
+                  setGcash(!gcash);
+                  setCash(!cash);
+                }
+              }}
+            />
+          </View>
+
+          {gcash && (
+            <View
+              style={[
+                styles.bgLightGrey,
+                styles.m3,
+                styles.p3,
+                styles.flex1,
+                styles.rounded,
+                styles.border,
+                styles.borderMuted25,
+              ]}
+            >
+              <Text style={[styles.h3, styles.bold, styles.mb4]}>
+                Gcash Reference Number
+              </Text>
+
+              <Text style={[styles.h4, styles.mb4]}>
+                1.) Send money to Hanas GCash{" "}
+              </Text>
+
+              <Text style={[styles.h4, styles.mb4]}>
+                <Text style={[styles.h4, styles.bold]}>
+                  GCash Account: 09655867131
+                </Text>
+              </Text>
+              <Text style={[styles.h4, styles.mb4]}>
+                <Text style={[styles.h4, styles.bold]}>
+                  GCash Name: Soy Lebumfacil
+                </Text>
+              </Text>
+              <Text style={[styles.h4, styles.mb4]}>
+                2.) Input the exact amount as stated.
+              </Text>
+              <Text style={[styles.h4, styles.mb4]}>
+                3.) Enter reference number below.
+              </Text>
+
+              <Input
+                leftIcon={
+                  <Avatar
+                    source={{
+                      uri: "https://play-lh.googleusercontent.com/QNP0Aj2hyumAmYiWVAsJtY2LLTQnzHxdW7-DpwFUFNkPJjgRxi-BXg7A4yI6tgYKMeU",
+                    }}
+                  />
+                }
+                placeholder="Enter ref. number here"
+                keyboardType="number-pad"
+                value={referenceNumber}
+                onChangeText={(e) => setReferenceNumber(e)}
+              />
+            </View>
+          )}
 
           <View style={[styles.py3, styles.px5, styles.m5]}>
             <View style={[styles.px5, styles.mx5, styles.my3]}>
