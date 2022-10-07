@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Font } from "expo";
-import { colors } from "@constants";
+import { colors, fontSize } from "@constants";
 
 export default StyleSheet.create({
   container: {
@@ -12,6 +11,14 @@ export default StyleSheet.create({
     marginTop: "-40%",
     color: colors.dark,
     fontWeight: "bold",
+  },
+  subTitle: {
+    color: colors.muted50,
+    paddingHorizontal: "9%",
+    lineHeight: 32,
+    fontWeight: "bold",
+    fontSize: fontSize.h4,
+    textAlign: "center",
   },
   logoContainer: {
     flex: 1,

@@ -21,6 +21,7 @@ import EmailForm from "@screens/ForgotPassword/EmailForm";
 import OtpVerification from "@screens/ForgotPassword/OtpVerification";
 import ChangePassword from "@screens/ForgotPassword/ChangePassword";
 import TermsCondition from "@screens/TermsCondition";
+import UserGuide from "@screens/UserGuide";
 /* END FOR THE IMPORT FOR ALL THE SCREENS*/
 
 import ClientTabs from "@routes/BottomTabNavigator/client";
@@ -72,6 +73,7 @@ export default HanasStack = () => {
         <Stack.Group>
           <Stack.Screen name="Dashboard" component={WorkerTabs} />
           <Stack.Screen name="GetVerified" component={GetVerified} />
+          <Stack.Screen name="UserGuide" component={UserGuide} />
           <Stack.Screen name="EditAccount" component={EditAccount} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
           <Stack.Screen name="Chatroom" component={Chatroom} />

@@ -19,6 +19,7 @@ import styles from "./style";
 import { showToast, ToastComponent } from "@helpers/toast";
 import { getItem } from "@helpers/asyncStorage";
 import useIsWorker from "@hooks/useIsWorker";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const concernData = [
   "Report a bug",
@@ -32,6 +33,9 @@ const Reports = () => {
   const [images, setImages] = useState([]);
   const [imagesUri, setImagesUri] = useState([]);
   const [concern, setConcern] = useState("");
+  const [choices, setChoices] = useState([]);
+  const [selectedChoice, setSelectedChoice] = useState("No report selected");
+  const [showChoices, setShowChoices] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
@@ -73,6 +77,114 @@ const Reports = () => {
     }
   };
 
+  useEffect(() => {
+    const getReportChoice = () => {
+      switch (concern) {
+        case "Report a bug":
+          setShowChoices(true);
+          return setChoices([
+            "Slow/Unstable",
+            "Broken Button",
+            "Typos",
+            "Incorrect Behavior",
+          ]);
+
+        case "Misbehaving Client":
+          setShowChoices(true);
+          return setChoices([
+            "Inappropriate Avatar",
+            "Inappropriate Language",
+            "Absence on Service",
+            "Damaged Property/Theft",
+          ]);
+
+        case "Misbehaving Worker":
+          setShowChoices(true);
+          return setChoices([
+            "Inappropriate Images",
+            "Inappropriate Language",
+            "Absence on Service",
+            "Damaged Property/Theft",
+            "Identity Theft",
+          ]);
+
+        case "Give Feedback":
+          setSelectedChoice("");
+          return setShowChoices(false);
+
+        default:
+          setSelectedChoice("");
+          return setShowChoices(false);
+      }
+    };
+
+    getReportChoice();
+
+    if (selectedChoice !== "No report selected") {
+      setSelectedChoice("No report selected");
+      setMessage("");
+    }
+  }, [concern]);
+
+  useEffect(() => {
+    const getReportMessage = () => {
+      switch (selectedChoice) {
+        case "Slow/Unstable":
+          return setMessage(
+            "Hanas' performance is too slow/unstable in my device because of "
+          );
+
+        case "Broken Button":
+          return setMessage(
+            "Pressing the [button name] button in [page name] doesn't work!"
+          );
+
+        case "Typos":
+          return setMessage("There is a typo in [page name] that says ");
+
+        case "Incorrect Behavior":
+          return setMessage(
+            "After doing [trigger event], Hanas did not [expected behavior]"
+          );
+
+        case "Inappropriate Avatar":
+          return setMessage("The Client has inappropriate profile picture.");
+
+        case "Inappropriate Images":
+          return setMessage("The Worker's profile has inappropriate images.");
+
+        case "Inappropriate Language":
+          return setMessage(
+            `The ${
+              concern === "Misbehaving Client" ? "Client" : "Worker"
+            } used inappropriate/abusive language/behavior.`
+          );
+
+        case "Absence on Service":
+          return setMessage(
+            `The ${
+              concern === "Misbehaving Client" ? "Client" : "Worker"
+            } was late/absent on the day of service.`
+          );
+
+        case "Damaged Property/Theft":
+          return setMessage(
+            `The ${
+              concern === "Misbehaving Client" ? "Client" : "Worker"
+            } stole/damaged my property.`
+          );
+
+        case "Identity Theft":
+          return setMessage("Someone else is using the account of ");
+
+        default:
+          return setMessage("");
+      }
+    };
+
+    getReportMessage();
+  }, [selectedChoice]);
+
   const removeValidIdItem = (itemName) => {
     let filteredUriArray = imagesUri.filter((id) => !id.includes(itemName));
     let filteredArray = images.filter((id) => id !== itemName);
@@ -85,7 +197,11 @@ const Reports = () => {
       return;
     }
 
-    if (concern === "" || message === "") {
+    if (
+      concern === "" ||
+      selectedChoice === "No report selected" ||
+      message === ""
+    ) {
       showToast(
         "error",
         "Form incomplete",
@@ -201,17 +317,37 @@ const Reports = () => {
         <Text style={styles.textStyle}>
           Select a concern<Text style={styles.danger}> *</Text>
         </Text>
-        <SelectDropdown
-          data={concernData}
-          defaultButtonText="No concern selected"
-          buttonTextStyle={styles.buttonTextStyle}
-          buttonStyle={styles.buttonStyle}
-          dropdownStyle={styles.dropdownStyle}
-          onSelect={(selectedItem) => {
-            setConcern(selectedItem);
-            return selectedItem;
-          }}
-        />
+        <TouchableOpacity onPress={() => setConcern("")}>
+          <SelectDropdown
+            data={concernData}
+            defaultButtonText="No concern selected"
+            buttonTextStyle={styles.buttonTextStyle}
+            buttonStyle={styles.buttonStyle}
+            dropdownStyle={styles.dropdownStyle}
+            onSelect={(selectedItem) => {
+              setConcern(selectedItem);
+              return selectedItem;
+            }}
+          />
+        </TouchableOpacity>
+        {showChoices && (
+          <>
+            <Text style={styles.textStyle}>
+              Select a report<Text style={styles.danger}> *</Text>
+            </Text>
+            <SelectDropdown
+              data={choices}
+              defaultButtonText={selectedChoice}
+              buttonTextStyle={styles.buttonTextStyle}
+              buttonStyle={styles.buttonStyle}
+              dropdownStyle={styles.dropdownStyle}
+              onSelect={(selectedItem) => {
+                setSelectedChoice(selectedItem);
+                return selectedItem;
+              }}
+            />
+          </>
+        )}
         <Text style={styles.textStyle}>
           Message<Text style={styles.danger}> *</Text>
         </Text>
@@ -219,6 +355,7 @@ const Reports = () => {
           <TextInput
             style={styles.textArea}
             label="Message"
+            value={message}
             placeholder="Enter additional information relating to your concern..."
             multiline={true}
             numberOfLines={7}

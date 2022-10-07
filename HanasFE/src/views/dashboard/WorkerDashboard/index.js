@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, TouchableOpacity } from "react-native";
 import useSWR, { useSWRConfig } from "swr";
 import { useSelector, useDispatch } from "react-redux";
+import { LogBox } from "react-native";
 
 import AchievementsDATA from "@helpers/achievements";
 import styles from "./style";
@@ -31,6 +32,10 @@ const InitialAchievementsData = {
 //   dueDate: "07/23/22",
 //   address: "Brgy, Lourdes Bogo City, Cebu",
 // };
+
+LogBox.ignoreLogs([
+  "EventEmitter.removeListener('change', ...): Method has been deprecated. Please instead use `remove()` on the subscription returned by `EventEmitter.addListener`.",
+]);
 
 const WorkerDashboard = ({ navigation }) => {
   const dispatch = useDispatch();
