@@ -2,7 +2,7 @@
 
 ### Environment Variables
 ```
-MAPS_API_KEY=AIzaSyARE1u8nAte5SFOElEL9YeaSFDmEbbF-w4
+MAPS_API_KEY=
 HANAS_ENDPOINT=https://hanas-be-express-api.herokuapp.com/
 LOCALHOST=http://192.168.1.4:8000
 ```
